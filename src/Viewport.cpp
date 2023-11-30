@@ -19,6 +19,14 @@ void Viewport::paintEvent(QPaintEvent* event)
     {
         painter.drawLine(line.first, line.second);
     }
+
+    QVector<QPointF> points = {
+        QPointF(10.0, 80.0),
+        QPointF(20.0, 10.0),
+        QPointF(80.0, 30.0),
+    };
+
+    painter.drawPolyline(points.data(), points.size());
 }
 
 void Viewport::mousePressEvent(QMouseEvent* event)
