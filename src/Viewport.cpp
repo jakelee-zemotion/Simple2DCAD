@@ -22,10 +22,15 @@ void Viewport::paintEvent(QPaintEvent* event)
 void Viewport::mousePressEvent(QMouseEvent* event)
 {
     mStartPoint = QWidget::mapFromGlobal(QCursor::pos());
+    mEndPoint = mStartPoint;
     update();
 }
 
 void Viewport::mouseReleaseEvent(QMouseEvent* event)
+{
+}
+
+void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
     mEndPoint = QWidget::mapFromGlobal(QCursor::pos());
     update();
