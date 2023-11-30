@@ -1,25 +1,32 @@
 #include "Viewport.h"
 #include <QPainter>
+#include <QtWidgets/QApplication>
 
 Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
 {
-
+    mStartPoint = { 0, 0 };
+    mEndPoint = { 110, 0 };
 }
 
 void Viewport::paintEvent(QPaintEvent* event)
 {
     QPainter MyPainter(this);
-    MyPainter.setPen(Qt::blue);
-    MyPainter.setFont(QFont("Arial", 80));
-    MyPainter.drawText(rect(), Qt::AlignCenter, "Qt");
-
     QPen LinePen(Qt::green);
     LinePen.setWidth(2);
 
-    QPoint p1(0, 0);
-    QPoint p2(this->size().width(), this->size().height());
-
     MyPainter.setPen(LinePen);
-    MyPainter.drawLine(p1, p2);
+    MyPainter.drawLine(mStartPoint, mEndPoint);
+}
+
+void Viewport::mousePressEvent(QMouseEvent* event)
+{
+    mStartPoint = QWidget::mapFromGlobal(QCursor::pos());
+    update();
+}
+
+void Viewport::mouseReleaseEvent(QMouseEvent* event)
+{
+    mEndPoint = QWidget::mapFromGlobal(QCursor::pos());
+    update();
 }
