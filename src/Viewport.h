@@ -16,7 +16,9 @@ protected:
 	void keyPressEvent(QKeyEvent* event) override;
 
 private:
-	QVector<QPair<QPoint, QPoint>> mLineVector;
-	
+	QVector<QVector<QPoint>> mPolylineVector;
+
+	// Use in mouseReleaseEvent
+	bool isDrawing;
 };
 
