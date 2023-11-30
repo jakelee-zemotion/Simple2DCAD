@@ -7,6 +7,8 @@ Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
 {
     mIsDrawing = false;
+
+//    mClosedThreshold.minX = 
 }
 
 void Viewport::paintEvent(QPaintEvent* event)
@@ -22,7 +24,7 @@ void Viewport::paintEvent(QPaintEvent* event)
 
     for (const auto& polyLine : mPolylineVector)
     {
-        painter.drawPolygon(polyLine.data(), polyLine.size());
+        painter.drawPolyline(polyLine.data(), polyLine.size());
     }
 }
 
@@ -47,20 +49,24 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
         // Therefore, the second point is adjusted in MouseMoveEvent.
         mPolylineVector.push_back({ polylinePoint, polylinePoint });
         mIsDrawing = true;
+
+        // Enable movement tracking when the mouse is not pressed.
+        setMouseTracking(true);
     }
 
-    // Enable movement tracking when the mouse is not pressed.
-    setMouseTracking(true);
 
     update(); 
 }
 
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
-    QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
+    if (mIsDrawing)
+    {
+        QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-    if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
-       mPolylineVector.back().back() = polylinePoint;
+        if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
+            mPolylineVector.back().back() = polylinePoint;
+    }
 
     update();
 }
@@ -74,10 +80,19 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
             mPolylineVector.back().pop_back();
 
+        // Remove adjusting point.
+        if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty() && mPolylineVector.back().size() == 1)
+            mPolylineVector.pop_back();
+
         mIsDrawing = false;
         setMouseTracking(false);
 
         update();
     }
 
+}
+
+bool Viewport::IsObjectClosed(QPoint start, QPoint end)
+{
+    return false;
 }

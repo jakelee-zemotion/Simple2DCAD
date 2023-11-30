@@ -3,6 +3,17 @@
 #include <QVector>
 
 
+struct ClosedThreshold
+{
+	int minX, maxX;
+	int minY, maxY;
+};
+
+struct DrawObject
+{
+	QVector<QPoint> points;
+	bool isClosed;
+};
 
 class Viewport : public QWidget
 {
@@ -18,7 +29,10 @@ protected:
 	void keyPressEvent(QKeyEvent* event) override;
 
 private:
+	bool IsObjectClosed(QPoint start, QPoint end);
+
 	QVector<QVector<QPoint>> mPolylineVector;
+	ClosedThreshold mClosedThreshold;
 
 	// Use in mouseReleaseEvent
 	bool mIsDrawing;
