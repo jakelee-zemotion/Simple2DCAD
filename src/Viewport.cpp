@@ -100,6 +100,10 @@ void Viewport::keyPressEvent(QKeyEvent* event)
             if (IsObjectClosed(startPoint, endPoint))
             {
                 qDebug() << "closed";
+                mDrawObjects.back().isPolygon = true;
+
+                // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
+                mDrawObjects.back().points.pop_back();
             }
         }
 
