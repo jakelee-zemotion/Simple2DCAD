@@ -12,7 +12,7 @@ struct ClosedThreshold
 struct DrawObject
 {
 	QVector<QPoint> points;
-	bool isClosed;
+	bool isPolygon;
 };
 
 class Viewport : public QWidget
@@ -30,8 +30,9 @@ protected:
 
 private:
 	bool IsObjectClosed(QPoint start, QPoint end) const;
+	bool IsDrawObjectsEmpty() const;
 
-	QVector<QVector<QPoint>> mPolylineVector;
+	QVector<DrawObject> mDrawObjects;
 	ClosedThreshold mClosedThreshold;
 
 	// Use in mouseReleaseEvent

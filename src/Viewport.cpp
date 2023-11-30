@@ -25,9 +25,14 @@ void Viewport::paintEvent(QPaintEvent* event)
     QBrush brush(Qt::red);
     painter.setBrush(brush);
 
-    for (const auto& polyLine : mPolylineVector)
+    for (const auto& object : mDrawObjects)
     {
-        painter.drawPolyline(polyLine.data(), polyLine.size());
+        QVector<QPoint> points = object.points;
+
+        if (object.isPolygon)
+            painter.drawPolygon(points.data(), points.size());
+        else
+            painter.drawPolyline(points.data(), points.size());
     }
 }
 
@@ -44,13 +49,14 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
 
     if (mIsDrawing)
     {
-        mPolylineVector.back().push_back(polylinePoint);
+        QVector<QPoint>& points = mDrawObjects.back().points;
+        points.push_back(polylinePoint);
     }
     else
     {
         // Put two points to create a line on the first click.
         // Therefore, the second point is adjusted in MouseMoveEvent.
-        mPolylineVector.push_back({ polylinePoint, polylinePoint });
+        mDrawObjects.push_back({ { polylinePoint, polylinePoint }, false });
         mIsDrawing = true;
 
         // Enable movement tracking when the mouse is not pressed.
@@ -67,8 +73,8 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
     {
         QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-        if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
-            mPolylineVector.back().back() = polylinePoint;
+        if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
+            mDrawObjects.back().points.back() = polylinePoint;
     }
 
     update();
@@ -79,18 +85,18 @@ void Viewport::keyPressEvent(QKeyEvent* event)
     // Key_Enter is the Enter key on the numeric keypad.
     if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Escape)
     {
-        if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
+        if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
         {
             // Remove adjusting point.
-            mPolylineVector.back().pop_back();
+            mDrawObjects.back().points.pop_back();
 
             // Remove if size is 1. (it is unnecessary to store a point)
-            if (mPolylineVector.back().size() == 1)
-                mPolylineVector.pop_back();
+            if (mDrawObjects.back().points.size() == 1)
+                mDrawObjects.pop_back();
 
             // Close testing
-            QPoint startPoint = mPolylineVector.back().front();
-            QPoint endPoint = mPolylineVector.back().back();
+            QPoint startPoint = mDrawObjects.back().points.front();
+            QPoint endPoint = mDrawObjects.back().points.back();
             if (IsObjectClosed(startPoint, endPoint))
             {
                 qDebug() << "closed";
@@ -116,5 +122,10 @@ bool Viewport::IsObjectClosed(QPoint start, QPoint end) const
         return true;
     }
 
+    return false;
+}
+
+bool Viewport::IsDrawObjectsEmpty() const
+{
     return false;
 }
