@@ -5,33 +5,45 @@
 Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
 {
-    mStartPoint = { 0, 0 };
-    mEndPoint = { 110, 0 };
 }
 
 void Viewport::paintEvent(QPaintEvent* event)
 {
-    QPainter MyPainter(this);
-    QPen LinePen(Qt::green);
-    LinePen.setWidth(2);
+    QPainter painter(this);
 
-    MyPainter.setPen(LinePen);
-    MyPainter.drawLine(mStartPoint, mEndPoint);
+    QPen pen(Qt::green);
+    pen.setWidth(2);
+    painter.setPen(pen);
+
+    for (const auto& line : mLineVector)
+    {
+        painter.drawLine(line.first, line.second);
+    }
 }
 
 void Viewport::mousePressEvent(QMouseEvent* event)
 {
-    mStartPoint = QWidget::mapFromGlobal(QCursor::pos());
-    mEndPoint = mStartPoint;
+    // Create a new line
+    QPoint startPoint = QWidget::mapFromGlobal(QCursor::pos());
+    mLineVector.push_back({ startPoint, startPoint });
+
     update();
 }
 
 void Viewport::mouseReleaseEvent(QMouseEvent* event)
 {
+    // Saving drawing objects
 }
 
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
-    mEndPoint = QWidget::mapFromGlobal(QCursor::pos());
+
+    QPoint mEndPoint = QWidget::mapFromGlobal(QCursor::pos());
+
+    if (mLineVector.size())
+    {
+        mLineVector.back().second = mEndPoint;
+    }
+
     update();
 }

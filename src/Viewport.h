@@ -1,5 +1,7 @@
 #pragma once
 #include <QWidget>
+#include <QVector>
+
 
 class Viewport : public QWidget
 {
@@ -13,6 +15,7 @@ protected:
 	void mouseMoveEvent(QMouseEvent* event) override;
 
 private:
-	QPoint mStartPoint, mEndPoint;
+	QVector<QPair<QPoint, QPoint>> mLineVector;
+	
 };
 
