@@ -27,12 +27,15 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     QPoint startPoint = QWidget::mapFromGlobal(QCursor::pos());
     mLineVector.push_back({ startPoint, startPoint });
 
-    update();
+    update(); 
+    
+    // Call for Keyboard Events
+    setFocus();
 }
 
 void Viewport::mouseReleaseEvent(QMouseEvent* event)
 {
-    // Saving drawing objects
+    // Save drawing objects
 }
 
 void Viewport::mouseMoveEvent(QMouseEvent* event)
@@ -46,4 +49,10 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
     }
 
     update();
+}
+
+void Viewport::keyPressEvent(QKeyEvent* event)
+{
+    qDebug() << "hi";
+
 }
