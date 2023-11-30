@@ -6,7 +6,7 @@
 Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
 {
-    isDrawing = false;
+    mIsDrawing = false;
 }
 
 void Viewport::paintEvent(QPaintEvent* event)
@@ -37,7 +37,7 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
     // Store mouse point as polyline point.
     QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-    if (isDrawing)
+    if (mIsDrawing)
     {
         mPolylineVector.back().push_back(polylinePoint);
     }
@@ -46,7 +46,7 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
         // Put two points to create a line on the first click.
         // Therefore, the second point is adjusted in MouseMoveEvent.
         mPolylineVector.push_back({ polylinePoint, polylinePoint });
-        isDrawing = true;
+        mIsDrawing = true;
     }
 
     // Enable movement tracking when the mouse is not pressed.
@@ -74,7 +74,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
             mPolylineVector.back().pop_back();
 
-        isDrawing = false;
+        mIsDrawing = false;
         setMouseTracking(false);
 
         update();

@@ -2,6 +2,8 @@
 #include <QWidget>
 #include <QVector>
 
+
+
 class Viewport : public QWidget
 {
 
@@ -19,6 +21,6 @@ private:
 	QVector<QVector<QPoint>> mPolylineVector;
 
 	// Use in mouseReleaseEvent
-	bool isDrawing;
+	bool mIsDrawing;
 };
 
