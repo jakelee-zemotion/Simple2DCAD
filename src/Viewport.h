@@ -4,6 +4,6 @@
 class Viewport : public QWidget
 {
 public:
-	Viewport();
+	Viewport(QWidget* parent = 0);
 };
 

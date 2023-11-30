@@ -1,5 +1,6 @@
 #include "Viewport.h"
 
-Viewport::Viewport()
+Viewport::Viewport(QWidget* parent)
+	:QWidget(parent)
 {
 }
