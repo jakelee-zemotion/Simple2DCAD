@@ -29,7 +29,7 @@ protected:
 	void keyPressEvent(QKeyEvent* event) override;
 
 private:
-	bool IsObjectClosed(QPoint start, QPoint end);
+	bool IsObjectClosed(QPoint start, QPoint end) const;
 
 	QVector<QVector<QPoint>> mPolylineVector;
 	ClosedThreshold mClosedThreshold;

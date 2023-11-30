@@ -8,7 +8,10 @@ Viewport::Viewport(QWidget* parent)
 {
     mIsDrawing = false;
 
-//    mClosedThreshold.minX = 
+    mClosedThreshold.minX = 20;
+    mClosedThreshold.minY = 20;
+    mClosedThreshold.maxX = 20;
+    mClosedThreshold.maxY = 20;
 }
 
 void Viewport::paintEvent(QPaintEvent* event)
@@ -76,13 +79,23 @@ void Viewport::keyPressEvent(QKeyEvent* event)
     // Key_Enter is the Enter key on the numeric keypad.
     if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Escape)
     {
-        // Remove adjusting point.
         if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
+        {
+            // Remove adjusting point.
             mPolylineVector.back().pop_back();
 
-        // Remove adjusting point.
-        if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty() && mPolylineVector.back().size() == 1)
-            mPolylineVector.pop_back();
+            // Remove if size is 1. (it is unnecessary to store a point)
+            if (mPolylineVector.back().size() == 1)
+                mPolylineVector.pop_back();
+
+            // Close testing
+            QPoint startPoint = mPolylineVector.back().front();
+            QPoint endPoint = mPolylineVector.back().back();
+            if (IsObjectClosed(startPoint, endPoint))
+            {
+                qDebug() << "closed";
+            }
+        }
 
         mIsDrawing = false;
         setMouseTracking(false);
@@ -92,7 +105,16 @@ void Viewport::keyPressEvent(QKeyEvent* event)
 
 }
 
-bool Viewport::IsObjectClosed(QPoint start, QPoint end)
+bool Viewport::IsObjectClosed(QPoint start, QPoint end) const
 {
+    if (start.x() - mClosedThreshold.minX < end.x()
+        && start.x() + mClosedThreshold.maxX > end.x()
+
+        && start.y() - mClosedThreshold.minY < end.y()
+        && start.y() + mClosedThreshold.maxY > end.y())
+    {
+        return true;
+    }
+
     return false;
 }
