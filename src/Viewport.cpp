@@ -15,20 +15,15 @@ void Viewport::paintEvent(QPaintEvent* event)
 
     QPen pen(Qt::green);
     pen.setWidth(2);
-    painter.setPen(pen);
+    painter.setPen(pen); 
+
+    QBrush brush(Qt::red);
+    painter.setBrush(brush);
 
     for (const auto& polyLine : mPolylineVector)
     {
-        painter.drawPolyline(polyLine.data(), polyLine.size());
+        painter.drawPolygon(polyLine.data(), polyLine.size());
     }
-
-    QVector<QPointF> points = {
-        QPointF(10.0, 80.0),
-        QPointF(20.0, 10.0),
-        QPointF(80.0, 30.0),
-    };
-
-    painter.drawPolyline(points.data(), points.size());
 }
 
 void Viewport::mousePressEvent(QMouseEvent* event)
@@ -54,16 +49,17 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
         isDrawing = true;
     }
 
-    update();
-
+    // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
+
+    update(); 
 }
 
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
     QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-    if (!mPolylineVector.isEmpty() || !mPolylineVector.back().isEmpty())
+    if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
        mPolylineVector.back().back() = polylinePoint;
 
     update();
@@ -75,7 +71,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
     if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Escape)
     {
         // Remove adjusting point.
-        if (!mPolylineVector.isEmpty() || !mPolylineVector.back().isEmpty())
+        if (!mPolylineVector.isEmpty() && !mPolylineVector.back().isEmpty())
             mPolylineVector.back().pop_back();
 
         isDrawing = false;
