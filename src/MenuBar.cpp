@@ -1,4 +1,5 @@
 #include "MenuBar.h"
+#include "ObjectListDialog.h"
 
 MenuBar::MenuBar(QWidget* parent)
 	:QMenuBar(parent)
@@ -13,9 +14,15 @@ MenuBar::MenuBar(QWidget* parent)
 	mViewMenu = new QMenu("View");
 	mObjectListAction = new QAction("Object List");
 	mViewMenu->addAction(mObjectListAction);
-
+	connect(mObjectListAction, SIGNAL(triggered()), this, SLOT(OpenObjectListDialog()));
 
 	this->addMenu(mFileMenu);
 	this->addMenu(mEditMenu);
 	this->addMenu(mViewMenu);
+}
+
+void MenuBar::OpenObjectListDialog()
+{
+	ObjectListDialog objectListDialog;
+	objectListDialog.exec();
 }

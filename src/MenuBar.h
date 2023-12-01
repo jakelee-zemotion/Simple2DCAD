@@ -3,6 +3,8 @@
 
 class MenuBar : public QMenuBar
 {
+	Q_OBJECT
+
 public:
 	MenuBar(QWidget* parent = 0);
 
@@ -12,4 +14,7 @@ private:
 	QMenu* mViewMenu;
 
 	QAction* mObjectListAction;
+
+private slots:
+	void OpenObjectListDialog();
 };
