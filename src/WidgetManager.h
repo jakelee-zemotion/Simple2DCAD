@@ -4,6 +4,7 @@
 class Viewport;
 class MenuBar;
 class ObjectSelectionToolBar;
+class Shape;
 class WidgetManager
 {
 public:
@@ -15,6 +16,8 @@ public:
 private:
 	Viewport* mViewport;
 	MenuBar* mMenuBar;
-	ObjectSelectionToolBar* mObjSelectToolBar;
+	ObjectSelectionToolBar* mObjSelectToolBar; 
+	
+	QVector<Shape*> mDrawObjects;
 };
 

@@ -6,8 +6,8 @@
 #include <QtWidgets/QApplication>
 #include <QKeyEvent>
 
-Viewport::Viewport(QWidget* parent)
-	:QWidget(parent)
+Viewport::Viewport(QVector<Shape*>& drawObjects, QWidget* parent)
+	:QWidget(parent), mDrawObjects(drawObjects)
 {
     mIsDrawing = false;
 
@@ -19,10 +19,6 @@ Viewport::Viewport(QWidget* parent)
 
 Viewport::~Viewport()
 {
-    for (const auto& object : mDrawObjects)
-    {
-        delete object;
-    }
 }
 
 void Viewport::paintEvent(QPaintEvent* event)

@@ -7,13 +7,17 @@
 
 WidgetManager::WidgetManager()
 {
-	mViewport = new Viewport();
+	mViewport = new Viewport(mDrawObjects);
 	mMenuBar = new MenuBar();
 	mObjSelectToolBar = new ObjectSelectionToolBar();
 }
 
 WidgetManager::~WidgetManager()
 {
+	for (const auto& object : mDrawObjects)
+	{
+		delete object;
+	}
 }
 
 void WidgetManager::SetWidgets(QMainWindow& mainWindow)

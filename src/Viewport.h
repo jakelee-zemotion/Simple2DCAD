@@ -22,7 +22,7 @@ class Viewport : public QWidget
 {
 
 public:
-	Viewport(QWidget* parent = 0);
+	Viewport(QVector<Shape*>& drawObjects, QWidget* parent = 0);
 	~Viewport();
 
 protected:
@@ -36,8 +36,8 @@ private:
 	bool IsObjectClosed(QPoint start, QPoint end) const;
 	bool IsDrawObjectsEmpty() const;
 
+	QVector<Shape*>& mDrawObjects;
 	QVector<QPoint> mTempPoints;
-	QVector<Shape*> mDrawObjects;
 	ClosedThreshold mClosedThreshold;
 
 	// Use in mouseReleaseEvent
