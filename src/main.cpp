@@ -1,11 +1,6 @@
 #pragma once
-
+#include "WidgetManager.h"
 #include <QtWidgets/QApplication>
-#include <QMainWindow>
-
-#include "Viewport.h"
-#include "MenuBar.h"
-#include "ObjectSelectionToolBar.h"
 
 int main(int argc, char** argv)
 {
@@ -15,14 +10,8 @@ int main(int argc, char** argv)
 	mainWindow.setGeometry(200, 200, 600, 400);
 	mainWindow.show();
 
-	Viewport* viewport = new Viewport();
-	mainWindow.setCentralWidget(viewport);
-
-	MenuBar* menuBar = new MenuBar();
-	mainWindow.setMenuBar(menuBar);
-
-	ObjectSelectionToolBar* objSelectToolBar = new ObjectSelectionToolBar();
-	mainWindow.addToolBar(Qt::LeftToolBarArea, objSelectToolBar);
+	WidgetManager widgetManager;
+	widgetManager.SetWidgets(mainWindow);
 
 	return app.exec();
 }
