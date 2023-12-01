@@ -82,35 +82,40 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
 
 void Viewport::keyPressEvent(QKeyEvent* event)
 {
-    // Key_Enter is the Enter key on the numeric keypad.
-    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Escape)
+    switch (event->key())
     {
-        if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
+        // Key_Enter is the Enter key on the numeric keypad.
+        case Qt::Key_Return:
+        case Qt::Key_Escape:
         {
-            // Remove adjusting point.
-            mDrawObjects.back().points.pop_back();
-
-            // Remove if size is 1. (it is unnecessary to store a point)
-            if (mDrawObjects.back().points.size() == 1)
-                mDrawObjects.pop_back();
-
-            // Close testing
-            QPoint startPoint = mDrawObjects.back().points.front();
-            QPoint endPoint = mDrawObjects.back().points.back();
-            if (IsObjectClosed(startPoint, endPoint))
+            if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
             {
-                qDebug() << "closed";
-                mDrawObjects.back().isPolygon = true;
-
-                // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
+                // Remove adjusting point.
                 mDrawObjects.back().points.pop_back();
+
+                // Remove if size is 1. (it is unnecessary to store a point)
+                if (mDrawObjects.back().points.size() == 1)
+                    mDrawObjects.pop_back();
+
+                // Close testing
+                QPoint startPoint = mDrawObjects.back().points.front();
+                QPoint endPoint = mDrawObjects.back().points.back();
+                if (IsObjectClosed(startPoint, endPoint))
+                {
+                    qDebug() << "closed";
+                    mDrawObjects.back().isPolygon = true;
+
+                    // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
+                    mDrawObjects.back().points.pop_back();
+                }
             }
+
+            mIsDrawing = false;
+            setMouseTracking(false);
+
+            update();
         }
-
-        mIsDrawing = false;
-        setMouseTracking(false);
-
-        update();
+        break;
     }
 
 }
