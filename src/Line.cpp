@@ -11,4 +11,5 @@ Line::~Line()
 
 void Line::Paint(QPainter& painter)
 {
+	painter.drawPolyline(mPoints.data(), mPoints.size());
 }

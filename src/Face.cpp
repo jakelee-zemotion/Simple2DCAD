@@ -11,5 +11,5 @@ Face::~Face()
 
 void Face::Paint(QPainter& painter)
 {
-	//painter.drawPolygon(mPoints.data(), mPoints.size());
+	painter.drawPolygon(mPoints.data(), mPoints.size());
 }

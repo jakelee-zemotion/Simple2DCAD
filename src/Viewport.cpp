@@ -36,19 +36,14 @@ void Viewport::paintEvent(QPaintEvent* event)
     QBrush brush(Qt::red);
     painter.setBrush(brush);
 
-    // Draw temporary points of the undetermined shape.
-    painter.drawPolyline(mTempPoints.data(), mTempPoints.size());
-
     // Draw objects
     for (const auto& object : mDrawObjects)
     {
-        QVector<QPoint> points = object->mPoints;
-
-        //if (object.isPolygon)
-            painter.drawPolygon(points.data(), points.size());
-        //else
-         //   painter.drawPolyline(points.data(), points.size());
+        object->Paint(painter);
     }
+
+    // Draw temporary points of the undetermined shape.
+    painter.drawPolyline(mTempPoints.data(), mTempPoints.size());
 }
 
 void Viewport::mousePressEvent(QMouseEvent* event)
@@ -56,7 +51,6 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     if (event->buttons() == Qt::LeftButton)
     {
         qDebug() << "left";
-        // ... handle left click here
     }
 
     // Call for Keyboard Events.

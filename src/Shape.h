@@ -10,8 +10,8 @@ public:
 	~Shape();
 
 	virtual void Paint(QPainter& painter) = 0;
-	QVector<QPoint> mPoints;
 
 protected:
+	QVector<QPoint> mPoints;
 };
 
