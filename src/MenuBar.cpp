@@ -1,8 +1,8 @@
 #include "MenuBar.h"
 #include "ObjectListDialog.h"
 
-MenuBar::MenuBar(QWidget* parent)
-	:QMenuBar(parent)
+MenuBar::MenuBar(QVector<Shape*>& drawObjects, QWidget* parent)
+	:QMenuBar(parent), mDrawObjects(drawObjects)
 {
 	// 1. File
 	mFileMenu = new QMenu("File");
@@ -23,6 +23,6 @@ MenuBar::MenuBar(QWidget* parent)
 
 void MenuBar::OpenObjectListDialog()
 {
-	ObjectListDialog objectListDialog;
+	ObjectListDialog objectListDialog(mDrawObjects);
 	objectListDialog.exec();
 }

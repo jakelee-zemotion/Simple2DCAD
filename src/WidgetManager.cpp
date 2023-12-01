@@ -8,7 +8,7 @@
 WidgetManager::WidgetManager()
 {
 	mViewport = new Viewport(mDrawObjects);
-	mMenuBar = new MenuBar();
+	mMenuBar = new MenuBar(mDrawObjects);
 	mObjSelectToolBar = new ObjectSelectionToolBar();
 }
 

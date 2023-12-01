@@ -1,9 +1,10 @@
 #pragma once
 #include <QDialog>
 
+class Shape;
 class ObjectListDialog : public QDialog
 {
 public:
-	ObjectListDialog(QWidget* parent = 0);
+	ObjectListDialog(QVector<Shape*>& mDrawObjects, QWidget* parent = 0);
 };
 

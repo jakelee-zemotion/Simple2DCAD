@@ -1,12 +1,13 @@
 #pragma once
 #include <QMenuBar>
 
+class Shape;
 class MenuBar : public QMenuBar
 {
 	Q_OBJECT
 
 public:
-	MenuBar(QWidget* parent = 0);
+	MenuBar(QVector<Shape*>& drawObjects, QWidget* parent = 0);
 
 private:
 	QMenu* mFileMenu;
@@ -14,6 +15,7 @@ private:
 	QMenu* mViewMenu;
 
 	QAction* mObjectListAction;
+	QVector<Shape*>& mDrawObjects;
 
 private slots:
 	void OpenObjectListDialog();
