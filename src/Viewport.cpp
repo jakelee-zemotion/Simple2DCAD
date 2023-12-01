@@ -1,4 +1,7 @@
 #include "Viewport.h"
+#include "Line.h"
+#include "Face.h"
+
 #include <QPainter>
 #include <QtWidgets/QApplication>
 #include <QKeyEvent>
@@ -14,6 +17,14 @@ Viewport::Viewport(QWidget* parent)
     mClosedThreshold.maxY = 20;
 }
 
+Viewport::~Viewport()
+{
+    for (const auto& object : mDrawObjects)
+    {
+        delete object;
+    }
+}
+
 void Viewport::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
@@ -25,14 +36,18 @@ void Viewport::paintEvent(QPaintEvent* event)
     QBrush brush(Qt::red);
     painter.setBrush(brush);
 
+    // Draw temporary points of the undetermined shape.
+    painter.drawPolyline(mTempPoints.data(), mTempPoints.size());
+
+    // Draw objects
     for (const auto& object : mDrawObjects)
     {
-        QVector<QPoint> points = object.points;
+        QVector<QPoint> points = object->mPoints;
 
-        if (object.isPolygon)
+        //if (object.isPolygon)
             painter.drawPolygon(points.data(), points.size());
-        else
-            painter.drawPolyline(points.data(), points.size());
+        //else
+         //   painter.drawPolyline(points.data(), points.size());
     }
 }
 
@@ -56,20 +71,19 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
         // Store mouse point as polyline point.
         QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-        if (mIsDrawing)
-        {
-            QVector<QPoint>& points = mDrawObjects.back().points;
-            points.push_back(polylinePoint);
-        }
-        else
+        if (!mIsDrawing)
         {
             // Put two points to create a line on the first click.
             // Therefore, the second point is adjusted in MouseMoveEvent.
-            mDrawObjects.push_back({ { polylinePoint, polylinePoint }, false });
+            mTempPoints = { polylinePoint, polylinePoint };
             mIsDrawing = true;
 
             // Enable movement tracking when the mouse is not pressed.
             setMouseTracking(true);
+        }
+        else
+        {
+            mTempPoints.push_back(polylinePoint);
         }
 
 
@@ -86,8 +100,8 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
         {
             QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-            if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
-                mDrawObjects.back().points.back() = polylinePoint;
+            if (!mTempPoints.isEmpty())
+                mTempPoints.back() = polylinePoint;
         }
     }
 
@@ -102,26 +116,34 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Return:
         case Qt::Key_Escape:
         {
-            if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
+            if (!mTempPoints.isEmpty())
             {
                 // Remove adjusting point.
-                mDrawObjects.back().points.pop_back();
+                mTempPoints.pop_back();
 
-                // Remove if size is 1. (it is unnecessary to store a point)
-                if (mDrawObjects.back().points.size() == 1)
-                    mDrawObjects.pop_back();
-
-                // Close testing
-                QPoint startPoint = mDrawObjects.back().points.front();
-                QPoint endPoint = mDrawObjects.back().points.back();
-                if (IsObjectClosed(startPoint, endPoint))
+                // Put the shape in DrawObjects if its size is not 1. 
+                // It is unnecessary to store a point.
+                if (mTempPoints.size() > 1)
                 {
-                    qDebug() << "closed";
-                    mDrawObjects.back().isPolygon = true;
+                    // Close testing
+                    QPoint startPoint = mTempPoints.front();
+                    QPoint endPoint = mTempPoints.back();
+                    if (IsObjectClosed(startPoint, endPoint))
+                    {
+                        qDebug() << "closed";
 
-                    // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
-                    mDrawObjects.back().points.pop_back();
+                        // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
+                        mTempPoints.pop_back();
+
+
+                        mDrawObjects.push_back(new Face(mTempPoints));
+                    }
+                    else
+                    {
+                        mDrawObjects.push_back(new Line(mTempPoints));
+                    }
                 }
+                
             }
 
             mIsDrawing = false;

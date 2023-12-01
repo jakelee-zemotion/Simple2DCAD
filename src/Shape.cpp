@@ -1,6 +1,7 @@
 #include "Shape.h"
 
-Shape::Shape()
+Shape::Shape(QVector<QPoint> points)
+	:mPoints(points)
 {
 }
 

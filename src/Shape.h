@@ -6,12 +6,12 @@
 class Shape
 {
 public:
-	Shape();
+	Shape(QVector<QPoint> points);
 	~Shape();
 
 	virtual void Paint(QPainter& painter) = 0;
+	QVector<QPoint> mPoints;
 
 protected:
-	QVector<QPoint> mPoints;
 };
 

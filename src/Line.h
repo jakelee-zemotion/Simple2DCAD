@@ -4,7 +4,7 @@
 class Line :public Shape
 {
 public:
-	Line();
+	Line(QVector<QPoint> points);
 	~Line();
 
 	void Paint(QPainter& painter) override;

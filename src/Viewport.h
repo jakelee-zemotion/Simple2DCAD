@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Shape.h"
+
 #include <QWidget>
 #include <QVector>
 
@@ -20,6 +23,7 @@ class Viewport : public QWidget
 
 public:
 	Viewport(QWidget* parent = 0);
+	~Viewport();
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
@@ -32,7 +36,8 @@ private:
 	bool IsObjectClosed(QPoint start, QPoint end) const;
 	bool IsDrawObjectsEmpty() const;
 
-	QVector<DrawObject> mDrawObjects;
+	QVector<QPoint> mTempPoints;
+	QVector<Shape*> mDrawObjects;
 	ClosedThreshold mClosedThreshold;
 
 	// Use in mouseReleaseEvent

@@ -1,6 +1,7 @@
 #include "Line.h"
 
-Line::Line()
+Line::Line(QVector<QPoint> points)
+	:Shape(points)
 {
 }
 
