@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "Viewport.h"
+#include "MenuBar.h"
 #include "ObjectSelectionToolBar.h"
 
 int main(int argc, char** argv)
@@ -16,6 +17,9 @@ int main(int argc, char** argv)
 
 	Viewport* viewport = new Viewport();
 	mainWindow.setCentralWidget(viewport);
+
+	MenuBar* menuBar = new MenuBar();
+	mainWindow.setMenuBar(menuBar);
 
 	ObjectSelectionToolBar* objSelectToolBar = new ObjectSelectionToolBar();
 	mainWindow.addToolBar(Qt::LeftToolBarArea, objSelectToolBar);

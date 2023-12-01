@@ -8,5 +8,7 @@ public:
 	ObjectSelectionToolBar(QWidget* parent = 0);
 
 private:
+
+
 };
 

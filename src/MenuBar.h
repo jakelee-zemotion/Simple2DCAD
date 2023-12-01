@@ -3,6 +3,13 @@
 
 class MenuBar : public QMenuBar
 {
-public :
+public:
 	MenuBar(QWidget* parent = 0);
+
+private:
+	QMenu* mFileMenu;
+	QMenu* mEditMenu;
+	QMenu* mViewMenu;
+
+	QAction* mObjectListAction;
 };

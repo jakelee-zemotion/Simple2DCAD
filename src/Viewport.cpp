@@ -38,43 +38,57 @@ void Viewport::paintEvent(QPaintEvent* event)
 
 void Viewport::mousePressEvent(QMouseEvent* event)
 {
+    if (event->buttons() == Qt::LeftButton)
+    {
+        qDebug() << "left";
+        // ... handle left click here
+    }
+
     // Call for Keyboard Events.
     setFocus();
 }
 
 void Viewport::mouseReleaseEvent(QMouseEvent* event)
 {
-    // Store mouse point as polyline point.
-    QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
-
-    if (mIsDrawing)
+    qDebug() << event->buttons();
+    //if (event->buttons() == Qt::LeftButton)
     {
-        QVector<QPoint>& points = mDrawObjects.back().points;
-        points.push_back(polylinePoint);
+        // Store mouse point as polyline point.
+        QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
+
+        if (mIsDrawing)
+        {
+            QVector<QPoint>& points = mDrawObjects.back().points;
+            points.push_back(polylinePoint);
+        }
+        else
+        {
+            // Put two points to create a line on the first click.
+            // Therefore, the second point is adjusted in MouseMoveEvent.
+            mDrawObjects.push_back({ { polylinePoint, polylinePoint }, false });
+            mIsDrawing = true;
+
+            // Enable movement tracking when the mouse is not pressed.
+            setMouseTracking(true);
+        }
+
+
     }
-    else
-    {
-        // Put two points to create a line on the first click.
-        // Therefore, the second point is adjusted in MouseMoveEvent.
-        mDrawObjects.push_back({ { polylinePoint, polylinePoint }, false });
-        mIsDrawing = true;
 
-        // Enable movement tracking when the mouse is not pressed.
-        setMouseTracking(true);
-    }
-
-
-    update(); 
+    update();
 }
 
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
-    if (mIsDrawing)
+    //if (event->buttons() == Qt::LeftButton)
     {
-        QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
+        if (mIsDrawing)
+        {
+            QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-        if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
-            mDrawObjects.back().points.back() = polylinePoint;
+            if (!mDrawObjects.isEmpty() && !mDrawObjects.back().points.isEmpty())
+                mDrawObjects.back().points.back() = polylinePoint;
+        }
     }
 
     update();
