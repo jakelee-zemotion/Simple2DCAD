@@ -5,8 +5,10 @@ class Viewport;
 class MenuBar;
 class ObjectSelectionToolBar;
 class Shape;
-class WidgetManager
+class WidgetManager :QObject
 {
+	Q_OBJECT
+
 public:
 	WidgetManager();
 	~WidgetManager();
@@ -19,5 +21,8 @@ private:
 	ObjectSelectionToolBar* mObjSelectToolBar; 
 	
 	QVector<Shape*> mDrawObjects;
+
+private slots:
+	void OpenObjectListDialog();
 };
 

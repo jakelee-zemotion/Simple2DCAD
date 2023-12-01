@@ -3,13 +3,16 @@
 #include "Viewport.h"
 #include "MenuBar.h"
 #include "ObjectSelectionToolBar.h"
+#include "ObjectListDialog.h"
 
 
 WidgetManager::WidgetManager()
 {
 	mViewport = new Viewport(mDrawObjects);
-	mMenuBar = new MenuBar(mDrawObjects);
+	mMenuBar = new MenuBar();
 	mObjSelectToolBar = new ObjectSelectionToolBar();
+
+	connect(mMenuBar, SIGNAL(OpenDialogSignal()), this, SLOT(OpenObjectListDialog()));
 }
 
 WidgetManager::~WidgetManager()
@@ -27,3 +30,8 @@ void WidgetManager::SetWidgets(QMainWindow& mainWindow)
 	mainWindow.addToolBar(Qt::LeftToolBarArea, mObjSelectToolBar);
 }
 
+void WidgetManager::OpenObjectListDialog()
+{
+	ObjectListDialog objectListDialog(mDrawObjects);
+	objectListDialog.exec();
+}
