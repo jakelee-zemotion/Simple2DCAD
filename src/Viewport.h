@@ -25,7 +25,7 @@ public:
 	Viewport(QWidget* parent = 0);
 	~Viewport();
 
-	const QVector<Shape*>& GetDrawObjects() const;
+	QVector<Shape*> mDrawObjects;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
@@ -40,7 +40,6 @@ private:
 	bool IsObjectClosed(QPoint start, QPoint end) const;
 	bool IsDrawObjectsEmpty() const;
 
-	QVector<Shape*> mDrawObjects;
 	QVector<QPoint> mTempPoints;
 	ClosedThreshold mClosedThreshold;
 

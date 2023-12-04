@@ -3,6 +3,7 @@
 Line::Line(QVector<QPoint>& points)
 	:Shape(points)
 {
+	name = "Line" + QString::number(nameCnt++);
 }
 
 Line::~Line()

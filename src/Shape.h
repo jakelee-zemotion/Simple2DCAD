@@ -13,5 +13,8 @@ public:
 
 //protected:
 	QVector<QPoint> mPoints;
+	QString name;
+
+	static int nameCnt;
 };
 

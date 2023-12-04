@@ -3,6 +3,7 @@
 Face::Face(QVector<QPoint>& points)
 	:Shape(points)
 {
+	name = "Face" + QString::number(nameCnt++);
 }
 
 Face::~Face()

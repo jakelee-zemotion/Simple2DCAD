@@ -1,9 +1,11 @@
 #include "ObjectListDialog.h"
+#include "Shape.h"
+
 #include <QTableView>
 #include <QVBoxLayout>
 #include <QStandardItemModel>
 
-ObjectListDialog::ObjectListDialog(const QVector<Shape*>& mDrawObjects, QWidget* parent)
+ObjectListDialog::ObjectListDialog(QVector<Shape*>& drawObjects, QWidget* parent)
 	:QDialog(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout();
@@ -12,7 +14,7 @@ ObjectListDialog::ObjectListDialog(const QVector<Shape*>& mDrawObjects, QWidget*
 	this->setLayout(layout);
 	layout->addWidget(qq);
 
-	QStandardItemModel* qm = new QStandardItemModel(mDrawObjects.size(), 2);
+	QStandardItemModel* qm = new QStandardItemModel(drawObjects.size(), 2);
 	qq->setModel(qm);
 
 	for (int i = 0; i < qm->rowCount(); i++)
@@ -20,7 +22,7 @@ ObjectListDialog::ObjectListDialog(const QVector<Shape*>& mDrawObjects, QWidget*
 		for (int j = 0; j < qm->columnCount(); j++)
 		{
 			QModelIndex index = qm->index(i, j, QModelIndex());
-			qm->setData(index, 0);
+			qm->setData(index, drawObjects[i]->name);
 		}
 	}
 }

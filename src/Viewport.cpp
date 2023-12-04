@@ -31,20 +31,15 @@ Viewport::~Viewport()
     }
 }
 
-const QVector<Shape*>& Viewport::GetDrawObjects() const
-{
-    return mDrawObjects;
-}
-
 void Viewport::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
 
-    QPen pen(Qt::green);
+    QPen pen(Qt:: black);
     pen.setWidth(2);
     painter.setPen(pen); 
 
-    QBrush brush(Qt::red);
+    QBrush brush(Qt::gray);
     painter.setBrush(brush);
 
     // Draw objects
