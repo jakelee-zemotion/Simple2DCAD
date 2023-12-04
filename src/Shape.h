@@ -11,7 +11,7 @@ public:
 
 	virtual void Paint(QPainter& painter) = 0;
 
-protected:
+//protected:
 	QVector<QPoint> mPoints;
 };
 

@@ -44,5 +44,11 @@ private:
 
 	// Use in mouseReleaseEvent
 	bool mIsDrawing;
+
+	bool mIsPressLeftMouse;
+
+	QPoint prevMousePos;
+
+	Qt::MouseButton mLastPressBtn;
 };
 

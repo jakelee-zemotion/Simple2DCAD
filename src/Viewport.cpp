@@ -10,6 +10,9 @@ Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
 {
     mIsDrawing = false;
+    mLastPressBtn = Qt::MouseButton::NoButton;
+    mIsPressLeftMouse = false;
+    prevMousePos = { 0, 0 };
 
     mClosedThreshold.minX = 20;
     mClosedThreshold.minY = 20;
@@ -58,6 +61,15 @@ void Viewport::mousePressEvent(QMouseEvent* event)
         qDebug() << "left";
     }
 
+    mLastPressBtn = event->button();
+
+    // Panning
+    if (event->buttons() == Qt::MiddleButton)
+    {
+        QPoint currentMousePos = QWidget::mapFromGlobal(QCursor::pos());
+        prevMousePos = currentMousePos;
+    }
+
     // Call for Keyboard Events.
     setFocus();
 }
@@ -65,7 +77,7 @@ void Viewport::mousePressEvent(QMouseEvent* event)
 void Viewport::mouseReleaseEvent(QMouseEvent* event)
 {
     qDebug() << event->buttons();
-    //if (event->buttons() == Qt::LeftButton)
+    if (mLastPressBtn == Qt::LeftButton)
     {
         // Store mouse point as polyline point.
         QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
@@ -93,7 +105,8 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
 
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
-    //if (event->buttons() == Qt::LeftButton)
+    qDebug() << event->buttons();
+    if (mLastPressBtn == Qt::LeftButton)
     {
         if (mIsDrawing)
         {
@@ -101,6 +114,24 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
 
             if (!mTempPoints.isEmpty())
                 mTempPoints.back() = polylinePoint;
+        }
+    }
+
+    // Panning
+    if (event->buttons() == Qt::MiddleButton)
+    {
+        QPoint currentMousePos = QWidget::mapFromGlobal(QCursor::pos());
+        QPoint dist = currentMousePos - prevMousePos;
+
+        prevMousePos = currentMousePos;
+
+        qDebug() << dist;
+        for (const auto& object : mDrawObjects)
+        {
+            for (auto& point : object->mPoints)
+            {
+                point += dist;
+            }
         }
     }
 
@@ -141,6 +172,8 @@ void Viewport::keyPressEvent(QKeyEvent* event)
                     {
                         mDrawObjects.push_back(new Line(mTempPoints));
                     }
+
+                    mTempPoints.clear();
                 }
                 
             }
