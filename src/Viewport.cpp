@@ -151,9 +151,9 @@ void Viewport::keyPressEvent(QKeyEvent* event)
 
                 // Put the shape in DrawObjects if its size is not 1. 
                 // It is unnecessary to store a point.
-                if (mTempPoints.size() <= 1)
+                if (mTempPoints.size() > 1)
                 {
-                    mDrawObjects.pop_back();
+                    mDrawObjects.push_back(new Line(mTempPoints));
                 }
                 
             }
