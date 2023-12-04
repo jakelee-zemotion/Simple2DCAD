@@ -93,14 +93,13 @@ void Viewport::mousePressEvent(QMouseEvent* event)
         }
         break;
 
+        // Panning
         case Qt::MiddleButton:
         {
             mCamera->SetPrevMousePos(currMousePos);
         }
         break;
     }
-
-    // Panning
 
     // Call for Keyboard Events.
     setFocus();
