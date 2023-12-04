@@ -173,13 +173,38 @@ void Viewport::keyPressEvent(QKeyEvent* event)
             update();
         }
         break;
+
+        case Qt::Key_Control: 
+        {
+            qDebug() << "cntrl";
+        }
+        break;
     }
 
 }
 
+void Viewport::keyReleaseEvent(QKeyEvent* event)
+{
+    switch (event->key())
+    {
+        case Qt::Key_Control:
+        {
+            qDebug() << "cntrlout";
+        }
+        break;
+    }
+}
+
 void Viewport::wheelEvent(QWheelEvent* event)
 {
-    qDebug() << "hi";
+    if (event->angleDelta().y() > 0)
+    {
+        qDebug() << "up";
+    }
+    else
+    {
+        qDebug() << "down";
+    }
 }
 
 bool Viewport::IsObjectClosed(QPoint start, QPoint end) const
