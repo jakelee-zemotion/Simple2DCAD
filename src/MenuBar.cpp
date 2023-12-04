@@ -14,14 +14,13 @@ MenuBar::MenuBar(QWidget* parent)
 	mViewMenu = new QMenu("View");
 	mObjectListAction = new QAction("Object List");
 	mViewMenu->addAction(mObjectListAction);
-	connect(mObjectListAction, SIGNAL(triggered()), this, SLOT(OpenDialogSlot()));
-
+	
 	this->addMenu(mFileMenu);
 	this->addMenu(mEditMenu);
 	this->addMenu(mViewMenu);
 }
 
-void MenuBar::OpenDialogSlot()
+const QAction* const MenuBar::GetObjectListAction() const
 {
-	emit OpenDialogSignal();
+	return mObjectListAction;
 }

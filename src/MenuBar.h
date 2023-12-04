@@ -8,10 +8,7 @@ class MenuBar : public QMenuBar
 public:
 	MenuBar(QWidget* parent = 0);
 
-	QAction* GetObjectListAction();
-
-signals:
-	void OpenDialogSignal();
+	const QAction* const GetObjectListAction() const;
 
 private:
 	QMenu* mFileMenu;
@@ -19,7 +16,4 @@ private:
 	QMenu* mViewMenu;
 
 	QAction* mObjectListAction;
-
-private slots:
-	void OpenDialogSlot();
 };

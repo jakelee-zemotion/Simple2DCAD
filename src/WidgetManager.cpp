@@ -8,12 +8,11 @@
 
 WidgetManager::WidgetManager()
 {
-	// Init
 	mViewport = new Viewport();
 	mMenuBar = new MenuBar();
 	mObjSelectToolBar = new ObjectSelectionToolBar();
 
-	connect(mMenuBar, SIGNAL(OpenDialogSignal()), this, SLOT(OpenObjectListDialog()));
+	connect(mMenuBar->GetObjectListAction(), SIGNAL(triggered()), this, SLOT(OpenObjectListDialog()));
 }
 
 WidgetManager::~WidgetManager()

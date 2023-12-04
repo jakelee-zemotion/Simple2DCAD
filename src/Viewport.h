@@ -25,7 +25,7 @@ public:
 	Viewport(QWidget* parent = 0);
 	~Viewport();
 
-	const QVector<Shape*>& GetDrawObjects();
+	const QVector<Shape*>& GetDrawObjects() const;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
