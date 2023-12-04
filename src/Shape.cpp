@@ -2,7 +2,7 @@
 
 int Shape::nameCnt = 1;
 
-Shape::Shape(QVector<QPoint>& points)
+Shape::Shape(QVector<QPoint> points)
 	:mPoints(points)
 {
 }

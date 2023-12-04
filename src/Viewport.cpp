@@ -62,16 +62,34 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     {
         case Qt::LeftButton:
         {
-
             if (!mIsDrawing)
             {
-                // Store mouse point as polyline point.
-                // Create a line on the first click.
-                mTempPoints = { currMousePos };
+                // Put two points to create a line on the first click.
+                // Therefore, the second point is adjusted in MouseMoveEvent.
+                mTempPoints = { currMousePos, currMousePos };
                 mIsDrawing = true;
             }
+            else
+            {
+                mTempPoints.push_back(currMousePos);
 
-            mTempPoints.push_back(currMousePos);
+                // Close testing
+                QPoint startPoint = mTempPoints.front();
+                QPoint endPoint = currMousePos;
+                if (IsObjectClosed(startPoint, endPoint))
+                {
+                    qDebug() << "closed";
+
+                    // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
+                    mTempPoints.pop_back();
+                    mTempPoints.pop_back();
+                    mDrawObjects.push_back(new Face(mTempPoints));
+
+                    mIsDrawing = false;
+                    mTempPoints.clear();
+                }
+            }
+
         }
         break;
 
@@ -133,32 +151,15 @@ void Viewport::keyPressEvent(QKeyEvent* event)
 
                 // Put the shape in DrawObjects if its size is not 1. 
                 // It is unnecessary to store a point.
-                if (mTempPoints.size() > 1)
+                if (mTempPoints.size() <= 1)
                 {
-                    // Close testing
-                    QPoint startPoint = mTempPoints.front();
-                    QPoint endPoint = mTempPoints.back();
-                    if (IsObjectClosed(startPoint, endPoint))
-                    {
-                        qDebug() << "closed";
-
-                        // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
-                        mTempPoints.pop_back();
-
-
-                        mDrawObjects.push_back(new Face(mTempPoints));
-                    }
-                    else
-                    {
-                        mDrawObjects.push_back(new Line(mTempPoints));
-                    }
-
-                    mTempPoints.clear();
+                    mDrawObjects.pop_back();
                 }
                 
             }
 
             mIsDrawing = false;
+            mTempPoints.clear();
 
             update();
         }

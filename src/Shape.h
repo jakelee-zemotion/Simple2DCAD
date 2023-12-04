@@ -6,7 +6,7 @@
 class Shape
 {
 public:
-	Shape(QVector<QPoint>& points);
+	Shape(QVector<QPoint> points);
 	~Shape();
 
 	virtual void Paint(QPainter& painter) = 0;
