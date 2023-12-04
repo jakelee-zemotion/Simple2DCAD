@@ -19,7 +19,7 @@ Viewport::Viewport(QWidget* parent)
     mClosedThreshold.maxX = 20;
     mClosedThreshold.maxY = 20;
 
-    mCamera = new Camera(mDrawObjects, mTempPoints, { this->width(), this->height() });
+    mCamera.reset(new Camera(mDrawObjects, mTempPoints, { this->width(), this->height() }));
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);

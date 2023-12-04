@@ -17,8 +17,8 @@ public:
 
 private:
 	QScopedPointer<Viewport> mViewport;
-	MenuBar* mMenuBar;
-	ObjectSelectionToolBar* mObjSelectToolBar;
+	QScopedPointer<MenuBar> mMenuBar;
+	QScopedPointer<ObjectSelectionToolBar> mObjSelectToolBar;
 
 private slots:
 	void OpenObjectListDialog();

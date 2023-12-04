@@ -43,7 +43,7 @@ private:
 	QVector<QPoint> mTempPoints;
 	ClosedThreshold mClosedThreshold;
 
-	Camera* mCamera;
+	QScopedPointer<Camera> mCamera;
 
 	bool mIsDrawing; // Use in mouseReleaseEvent
 	bool mIsCtrlPressed;

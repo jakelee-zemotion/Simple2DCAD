@@ -9,10 +9,10 @@
 WidgetManager::WidgetManager()
 {
 	mViewport.reset(new Viewport());
-	mMenuBar = new MenuBar();
-	mObjSelectToolBar = new ObjectSelectionToolBar();
+	mMenuBar.reset(new MenuBar());
+	mObjSelectToolBar.reset(new ObjectSelectionToolBar());
 
-	connect(mMenuBar->GetObjectListAction(), SIGNAL(triggered()), this, SLOT(OpenObjectListDialog()));
+	connect(mMenuBar->GetObjectListAction().get(), SIGNAL(triggered()), this, SLOT(OpenObjectListDialog()));
 }
 
 WidgetManager::~WidgetManager()
@@ -21,9 +21,9 @@ WidgetManager::~WidgetManager()
 
 void WidgetManager::SetWidgets(QMainWindow& mainWindow)
 {
-	mainWindow.setCentralWidget(mViewport.data());
-	mainWindow.setMenuBar(mMenuBar);
-	mainWindow.addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar);
+	mainWindow.setCentralWidget(mViewport.get());
+	mainWindow.setMenuBar(mMenuBar.get());
+	mainWindow.addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar.get());
 }
 
 void WidgetManager::OpenObjectListDialog()
