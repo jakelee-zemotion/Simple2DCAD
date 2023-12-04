@@ -9,9 +9,10 @@ public:
 	Camera();
 	~Camera();
 
-	void Pan(QVector<Shape*> drawObjects, QPoint currentMousePos);
+	void Pan(QVector<Shape*>& drawObjects, QVector<QPoint>& tempPoints,  QPoint currentMousePos);
+	void SetPrevMousePos(QPoint prevMousePos);
 
 private:
-
+	QPoint mPrevMousePos;
 };
 

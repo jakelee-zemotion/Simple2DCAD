@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Shape.h"
-
 #include <QWidget>
 #include <QVector>
 
@@ -18,6 +16,8 @@ struct DrawObject
 	bool isPolygon;
 };
 
+class Shape;
+class Camera;
 class Viewport : public QWidget
 {
 
@@ -34,6 +34,8 @@ protected:
 	void mouseMoveEvent(QMouseEvent* event) override;
 	void keyPressEvent(QKeyEvent* event) override;
 
+	void wheelEvent(QWheelEvent* event) override;
+
 private:
 	bool IsObjectClosed(QPoint start, QPoint end) const;
 	bool IsDrawObjectsEmpty() const;
@@ -42,12 +44,9 @@ private:
 	QVector<QPoint> mTempPoints;
 	ClosedThreshold mClosedThreshold;
 
-	// Use in mouseReleaseEvent
-	bool mIsDrawing;
+	Camera* mCamera;
 
-
-	QPoint prevMousePos;
-
+	bool mIsDrawing; // Use in mouseReleaseEvent
 	Qt::MouseButton mLastPressBtn;
 };
 

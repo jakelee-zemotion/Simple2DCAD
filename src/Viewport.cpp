@@ -1,6 +1,8 @@
 #include "Viewport.h"
 #include "Line.h"
 #include "Face.h"
+#include "Shape.h"
+#include "Camera.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
@@ -11,12 +13,13 @@ Viewport::Viewport(QWidget* parent)
 {
     mIsDrawing = false;
     mLastPressBtn = Qt::MouseButton::NoButton;
-    prevMousePos = { 0, 0 };
 
     mClosedThreshold.minX = 20;
     mClosedThreshold.minY = 20;
     mClosedThreshold.maxX = 20;
     mClosedThreshold.maxY = 20;
+
+    mCamera = new Camera();
 }
 
 Viewport::~Viewport()
@@ -67,8 +70,8 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     // Panning
     if (event->buttons() == Qt::MiddleButton)
     {
-        QPoint currentMousePos = QWidget::mapFromGlobal(QCursor::pos());
-        prevMousePos = currentMousePos;
+        QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+        mCamera->SetPrevMousePos(currMousePos);
     }
 
     // Call for Keyboard Events.
@@ -105,38 +108,20 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
     qDebug() << event->buttons();
-    //if (mLastPressBtn == Qt::LeftButton)
+    
+    if (mIsDrawing)
     {
-        if (mIsDrawing)
-        {
-            QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
+        QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
 
-            if (!mTempPoints.isEmpty())
-                mTempPoints.back() = polylinePoint;
-        }
+        if (!mTempPoints.isEmpty())
+            mTempPoints.back() = polylinePoint;
     }
-
+    
     // Panning
     if (event->buttons() == Qt::MiddleButton)
     {
-        QPoint currentMousePos = QWidget::mapFromGlobal(QCursor::pos());
-        QPoint dist = currentMousePos - prevMousePos;
-
-        prevMousePos = currentMousePos;
-
-        qDebug() << dist;
-        for (const auto& object : mDrawObjects)
-        {
-            for (auto& point : object->mPoints)
-            {
-                point += dist;
-            }
-        }
-
-        for (auto& point : mTempPoints)
-        {
-            point += dist;
-        }
+        QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+        mCamera->Pan(mDrawObjects, mTempPoints, currMousePos);
     }
 
     update();
@@ -190,6 +175,11 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         break;
     }
 
+}
+
+void Viewport::wheelEvent(QWheelEvent* event)
+{
+    qDebug() << "hi";
 }
 
 bool Viewport::IsObjectClosed(QPoint start, QPoint end) const
