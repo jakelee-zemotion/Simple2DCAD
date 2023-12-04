@@ -13,13 +13,14 @@ Viewport::Viewport(QWidget* parent)
 {
     mIsDrawing = false;
     mLastPressBtn = Qt::MouseButton::NoButton;
+    mIsCtrlPressed = false;
 
     mClosedThreshold.minX = 20;
     mClosedThreshold.minY = 20;
     mClosedThreshold.maxX = 20;
     mClosedThreshold.maxY = 20;
 
-    mCamera = new Camera();
+    mCamera = new Camera(mDrawObjects, mTempPoints, { this->width(), this->height() });
 }
 
 Viewport::~Viewport()
@@ -68,11 +69,9 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     mLastPressBtn = event->button();
 
     // Panning
-    if (event->buttons() == Qt::MiddleButton)
-    {
+    
         QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
-        mCamera->SetPrevMousePos(currMousePos);
-    }
+        mCamera->SetPrevMousePos(event, currMousePos);
 
     // Call for Keyboard Events.
     setFocus();
@@ -108,21 +107,16 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
     qDebug() << event->buttons();
+    QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
     if (mIsDrawing)
     {
-        QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
-
         if (!mTempPoints.isEmpty())
-            mTempPoints.back() = polylinePoint;
+            mTempPoints.back() = currMousePos;
     }
     
     // Panning
-    if (event->buttons() == Qt::MiddleButton)
-    {
-        QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
-        mCamera->Pan(mDrawObjects, mTempPoints, currMousePos);
-    }
+    mCamera->Pan(event, currMousePos);
 
     update();
 }
@@ -177,6 +171,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Control: 
         {
             qDebug() << "cntrl";
+            mIsCtrlPressed = true;
         }
         break;
     }
@@ -190,6 +185,7 @@ void Viewport::keyReleaseEvent(QKeyEvent* event)
         case Qt::Key_Control:
         {
             qDebug() << "cntrlout";
+            mIsCtrlPressed = false;
         }
         break;
     }
@@ -197,14 +193,10 @@ void Viewport::keyReleaseEvent(QKeyEvent* event)
 
 void Viewport::wheelEvent(QWheelEvent* event)
 {
-    if (event->angleDelta().y() > 0)
-    {
-        qDebug() << "up";
-    }
-    else
-    {
-        qDebug() << "down";
-    }
+    QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+    mCamera->Zoom(event, mIsCtrlPressed, currMousePos);
+
+    update();
 }
 
 bool Viewport::IsObjectClosed(QPoint start, QPoint end) const
