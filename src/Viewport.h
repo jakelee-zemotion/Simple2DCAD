@@ -45,7 +45,6 @@ private:
 	// Use in mouseReleaseEvent
 	bool mIsDrawing;
 
-	bool mIsPressLeftMouse;
 
 	QPoint prevMousePos;
 

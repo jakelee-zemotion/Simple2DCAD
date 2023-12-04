@@ -11,7 +11,6 @@ Viewport::Viewport(QWidget* parent)
 {
     mIsDrawing = false;
     mLastPressBtn = Qt::MouseButton::NoButton;
-    mIsPressLeftMouse = false;
     prevMousePos = { 0, 0 };
 
     mClosedThreshold.minX = 20;
@@ -61,6 +60,8 @@ void Viewport::mousePressEvent(QMouseEvent* event)
         qDebug() << "left";
     }
 
+    // Store which button was pressed when released.
+    // Release's event->buttons() always returns nobutton.
     mLastPressBtn = event->button();
 
     // Panning
@@ -96,8 +97,6 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
         {
             mTempPoints.push_back(polylinePoint);
         }
-
-
     }
 
     update();
@@ -106,7 +105,7 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
     qDebug() << event->buttons();
-    if (mLastPressBtn == Qt::LeftButton)
+    //if (mLastPressBtn == Qt::LeftButton)
     {
         if (mIsDrawing)
         {
@@ -132,6 +131,11 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
             {
                 point += dist;
             }
+        }
+
+        for (auto& point : mTempPoints)
+        {
+            point += dist;
         }
     }
 
