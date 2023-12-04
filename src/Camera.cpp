@@ -32,19 +32,17 @@ void Camera::Pan(QPoint currentMousePos)
     }
 }
 
-void Camera::Zoom(QWheelEvent* event, bool isCtrlPressed, QPoint currentMousePos)
+void Camera::Zoom(bool isCtrlPressed, QPoint currentMousePos, int mouseDir)
 {
     if (!isCtrlPressed)
         return;
-
-    int dir = event->angleDelta().y();
 
     for (const auto& object : mDrawObjects)
     {
         for (auto& point : object->mPoints)
         {
             point -= currentMousePos;
-            if (dir > 0)
+            if (mouseDir > 0)
             {
                 point *= zoomValue;
             }
@@ -59,7 +57,7 @@ void Camera::Zoom(QWheelEvent* event, bool isCtrlPressed, QPoint currentMousePos
     for (auto& point : mTempPoints)
     {
         point -= currentMousePos;
-        if (dir > 0)
+        if (mouseDir > 0)
         {
             point *= zoomValue;
         }
@@ -77,6 +75,8 @@ void Camera::SetPrevMousePos(QPoint prevMousePos)
     mPrevMousePos = prevMousePos;
 }
 
+
+// The ones below are not used.
 QPoint Camera::ScreenToWorld(QPoint point)
 {
     return { point.x() / mViewportSize.x() * 2 - 1, point.y() / mViewportSize.y() * 2 - 1 };

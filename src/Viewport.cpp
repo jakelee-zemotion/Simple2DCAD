@@ -62,10 +62,10 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     {
         case Qt::LeftButton:
         {
-            // Store mouse point as polyline point.
 
             if (!mIsDrawing)
             {
+                // Store mouse point as polyline point.
                 // Create a line on the first click.
                 mTempPoints = { currMousePos };
                 mIsDrawing = true;
@@ -99,19 +99,17 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
-    if (mIsDrawing)
+    // The last point tracks the mouse in drawing mode
+    if (mIsDrawing && !mTempPoints.isEmpty())
     {
-        if (!mTempPoints.isEmpty())
-        {
-            mTempPoints.back() = currMousePos;
-        }
+        mTempPoints.back() = currMousePos;
     }
 
+    // Panning
     switch (event->buttons())
     {
         case Qt::MiddleButton:
         {
-            // Panning
             mCamera->Pan(currMousePos);
         }
         break;
@@ -168,7 +166,6 @@ void Viewport::keyPressEvent(QKeyEvent* event)
 
         case Qt::Key_Control: 
         {
-            qDebug() << "cntrl";
             mIsCtrlPressed = true;
         }
         break;
@@ -182,7 +179,6 @@ void Viewport::keyReleaseEvent(QKeyEvent* event)
     {
         case Qt::Key_Control:
         {
-            qDebug() << "cntrlout";
             mIsCtrlPressed = false;
         }
         break;
@@ -191,8 +187,11 @@ void Viewport::keyReleaseEvent(QKeyEvent* event)
 
 void Viewport::wheelEvent(QWheelEvent* event)
 {
+    // Zooming
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
-    mCamera->Zoom(event, mIsCtrlPressed, currMousePos);
+    int mouseDir = event->angleDelta().y();
+
+    mCamera->Zoom(mIsCtrlPressed, currMousePos, mouseDir);
 
     update();
 }

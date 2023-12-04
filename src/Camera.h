@@ -12,7 +12,7 @@ public:
 	~Camera();
 
 	void Pan(QPoint currentMousePos);
-	void Zoom(QWheelEvent* event, bool isCtrlPressed, QPoint currentMousePos);
+	void Zoom(bool isCtrlPressed, QPoint currentMousePos, int mouseDir);
 	void SetPrevMousePos(QPoint prevMousePos);
 
 	QPoint ScreenToWorld(QPoint point);
