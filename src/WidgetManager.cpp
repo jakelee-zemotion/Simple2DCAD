@@ -8,7 +8,8 @@
 
 WidgetManager::WidgetManager()
 {
-	mViewport = new Viewport(mDrawObjects);
+	// Init
+	mViewport = new Viewport();
 	mMenuBar = new MenuBar();
 	mObjSelectToolBar = new ObjectSelectionToolBar();
 
@@ -17,10 +18,6 @@ WidgetManager::WidgetManager()
 
 WidgetManager::~WidgetManager()
 {
-	for (const auto& object : mDrawObjects)
-	{
-		delete object;
-	}
 }
 
 void WidgetManager::SetWidgets(QMainWindow& mainWindow)
@@ -32,6 +29,6 @@ void WidgetManager::SetWidgets(QMainWindow& mainWindow)
 
 void WidgetManager::OpenObjectListDialog()
 {
-	ObjectListDialog objectListDialog(mDrawObjects);
+	ObjectListDialog objectListDialog(mViewport->GetDrawObjects());
 	objectListDialog.exec();
 }

@@ -18,9 +18,7 @@ public:
 private:
 	Viewport* mViewport;
 	MenuBar* mMenuBar;
-	ObjectSelectionToolBar* mObjSelectToolBar; 
-	
-	QVector<Shape*> mDrawObjects;
+	ObjectSelectionToolBar* mObjSelectToolBar;
 
 private slots:
 	void OpenObjectListDialog();

@@ -1,7 +1,6 @@
 #pragma once
 #include <QMenuBar>
 
-class Shape;
 class MenuBar : public QMenuBar
 {
 	Q_OBJECT
