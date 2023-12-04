@@ -80,7 +80,7 @@ void Viewport::mousePressEvent(QMouseEvent* event)
                 {
                     qDebug() << "closed";
 
-                    // Remove endPoint because drawPolygon() automatically connects the startPoint and endPoint.
+                    // Remove two endPoints because drawPolygon() automatically connects the startPoint and endPoint.
                     mTempPoints.pop_back();
                     mTempPoints.pop_back();
                     mDrawObjects.push_back(new Face(mTempPoints));
