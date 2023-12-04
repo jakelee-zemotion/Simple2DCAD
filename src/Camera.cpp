@@ -32,11 +32,8 @@ void Camera::Pan(QPoint currentMousePos)
     }
 }
 
-void Camera::Zoom(bool isCtrlPressed, QPoint currentMousePos, int mouseDir)
+void Camera::Zoom(QPoint currentMousePos, int mouseDir)
 {
-    if (!isCtrlPressed)
-        return;
-
     for (const auto& object : mDrawObjects)
     {
         for (auto& point : object->mPoints)

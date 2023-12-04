@@ -188,11 +188,12 @@ void Viewport::keyReleaseEvent(QKeyEvent* event)
 
 void Viewport::wheelEvent(QWheelEvent* event)
 {
-    // Zooming
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     int mouseDir = event->angleDelta().y();
 
-    mCamera->Zoom(mIsCtrlPressed, currMousePos, mouseDir);
+    // Zooming
+    if (mIsCtrlPressed)
+        mCamera->Zoom(currMousePos, mouseDir);
 
     update();
 }
