@@ -16,7 +16,7 @@ public:
 	void SetWidgets(QMainWindow& mainWindow);
 
 private:
-	Viewport* mViewport;
+	QScopedPointer<Viewport> mViewport;
 	MenuBar* mMenuBar;
 	ObjectSelectionToolBar* mObjSelectToolBar;
 

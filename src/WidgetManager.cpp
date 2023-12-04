@@ -8,7 +8,7 @@
 
 WidgetManager::WidgetManager()
 {
-	mViewport = new Viewport();
+	mViewport.reset(new Viewport());
 	mMenuBar = new MenuBar();
 	mObjSelectToolBar = new ObjectSelectionToolBar();
 
@@ -21,7 +21,7 @@ WidgetManager::~WidgetManager()
 
 void WidgetManager::SetWidgets(QMainWindow& mainWindow)
 {
-	mainWindow.setCentralWidget(mViewport);
+	mainWindow.setCentralWidget(mViewport.data());
 	mainWindow.setMenuBar(mMenuBar);
 	mainWindow.addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar);
 }
