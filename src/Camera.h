@@ -11,9 +11,9 @@ public:
 	Camera(QVector<Shape*>& drawObjects, QVector<QPoint>& tempPoints, QPoint viewportSize);
 	~Camera();
 
-	void Pan(QMouseEvent* event, QPoint currentMousePos);
+	void Pan(QPoint currentMousePos);
 	void Zoom(QWheelEvent* event, bool isCtrlPressed, QPoint currentMousePos);
-	void SetPrevMousePos(QMouseEvent* event, QPoint prevMousePos);
+	void SetPrevMousePos(QPoint prevMousePos);
 
 	QPoint ScreenToWorld(QPoint point);
 	QPoint WorldToScreen(QPoint point);

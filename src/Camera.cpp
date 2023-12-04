@@ -13,11 +13,8 @@ Camera::~Camera()
 {
 }
 
-void Camera::Pan(QMouseEvent* event, QPoint currentMousePos)
+void Camera::Pan(QPoint currentMousePos)
 {
-    if (event->buttons() != Qt::MiddleButton)
-        return;
-    
     QPoint dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 
@@ -75,11 +72,8 @@ void Camera::Zoom(QWheelEvent* event, bool isCtrlPressed, QPoint currentMousePos
     
 }
 
-void Camera::SetPrevMousePos(QMouseEvent* event, QPoint prevMousePos)
+void Camera::SetPrevMousePos(QPoint prevMousePos)
 {
-    if (event->buttons() != Qt::MiddleButton)
-        return;
-    
     mPrevMousePos = prevMousePos;
 }
 

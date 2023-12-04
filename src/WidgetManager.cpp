@@ -23,7 +23,7 @@ void WidgetManager::SetWidgets(QMainWindow& mainWindow)
 {
 	mainWindow.setCentralWidget(mViewport);
 	mainWindow.setMenuBar(mMenuBar);
-	mainWindow.addToolBar(Qt::LeftToolBarArea, mObjSelectToolBar);
+	mainWindow.addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar);
 }
 
 void WidgetManager::OpenObjectListDialog()

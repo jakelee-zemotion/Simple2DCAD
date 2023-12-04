@@ -46,7 +46,6 @@ private:
 	Camera* mCamera;
 
 	bool mIsDrawing; // Use in mouseReleaseEvent
-	Qt::MouseButton mLastPressBtn;
 	bool mIsCtrlPressed;
 };
 

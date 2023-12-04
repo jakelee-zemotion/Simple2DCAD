@@ -12,7 +12,6 @@ Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
 {
     mIsDrawing = false;
-    mLastPressBtn = Qt::MouseButton::NoButton;
     mIsCtrlPressed = false;
 
     mClosedThreshold.minX = 20;
@@ -21,6 +20,9 @@ Viewport::Viewport(QWidget* parent)
     mClosedThreshold.maxY = 20;
 
     mCamera = new Camera(mDrawObjects, mTempPoints, { this->width(), this->height() });
+
+    // Enable movement tracking when the mouse is not pressed.
+    setMouseTracking(true);
 }
 
 Viewport::~Viewport()
@@ -54,19 +56,33 @@ void Viewport::paintEvent(QPaintEvent* event)
 
 void Viewport::mousePressEvent(QMouseEvent* event)
 {
-    if (event->buttons() == Qt::LeftButton)
+    QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+
+    switch (event->buttons())
     {
-        qDebug() << "left";
+        case Qt::LeftButton:
+        {
+            // Store mouse point as polyline point.
+
+            if (!mIsDrawing)
+            {
+                // Create a line on the first click.
+                mTempPoints = { currMousePos };
+                mIsDrawing = true;
+            }
+
+            mTempPoints.push_back(currMousePos);
+        }
+        break;
+
+        case Qt::MiddleButton:
+        {
+            mCamera->SetPrevMousePos(currMousePos);
+        }
+        break;
     }
 
-    // Store which button was pressed when released.
-    // Release's event->buttons() always returns nobutton.
-    mLastPressBtn = event->button();
-
     // Panning
-    
-        QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
-        mCamera->SetPrevMousePos(event, currMousePos);
 
     // Call for Keyboard Events.
     setFocus();
@@ -75,43 +91,31 @@ void Viewport::mousePressEvent(QMouseEvent* event)
 void Viewport::mouseReleaseEvent(QMouseEvent* event)
 {
     qDebug() << event->buttons();
-    if (mLastPressBtn == Qt::LeftButton)
-    {
-        // Store mouse point as polyline point.
-        QPoint polylinePoint = QWidget::mapFromGlobal(QCursor::pos());
-
-        if (!mIsDrawing)
-        {
-            // Put two points to create a line on the first click.
-            // Therefore, the second point is adjusted in MouseMoveEvent.
-            mTempPoints = { polylinePoint, polylinePoint };
-            mIsDrawing = true;
-
-            // Enable movement tracking when the mouse is not pressed.
-            setMouseTracking(true);
-        }
-        else
-        {
-            mTempPoints.push_back(polylinePoint);
-        }
-    }
 
     update();
 }
 
 void Viewport::mouseMoveEvent(QMouseEvent* event)
 {
-    qDebug() << event->buttons();
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
     if (mIsDrawing)
     {
         if (!mTempPoints.isEmpty())
+        {
             mTempPoints.back() = currMousePos;
+        }
     }
-    
-    // Panning
-    mCamera->Pan(event, currMousePos);
+
+    switch (event->buttons())
+    {
+        case Qt::MiddleButton:
+        {
+            // Panning
+            mCamera->Pan(currMousePos);
+        }
+        break;
+    }
 
     update();
 }
@@ -157,7 +161,6 @@ void Viewport::keyPressEvent(QKeyEvent* event)
             }
 
             mIsDrawing = false;
-            setMouseTracking(false);
 
             update();
         }
