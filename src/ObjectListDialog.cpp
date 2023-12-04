@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <QStandardItemModel>
 
-ObjectListDialog::ObjectListDialog(QVector<Shape*>& mDrawObjects, QWidget* parent)
+ObjectListDialog::ObjectListDialog(const QVector<Shape*>& mDrawObjects, QWidget* parent)
 	:QDialog(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout();

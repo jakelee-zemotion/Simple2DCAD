@@ -25,7 +25,7 @@ Viewport::~Viewport()
     }
 }
 
-QVector<Shape*>& Viewport::GetDrawObjects()
+const QVector<Shape*>& Viewport::GetDrawObjects()
 {
     return mDrawObjects;
 }

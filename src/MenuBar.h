@@ -8,6 +8,8 @@ class MenuBar : public QMenuBar
 public:
 	MenuBar(QWidget* parent = 0);
 
+	QAction* GetObjectListAction();
+
 signals:
 	void OpenDialogSignal();
 
