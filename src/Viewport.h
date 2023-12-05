@@ -5,6 +5,7 @@
 
 
 class Camera;
+class State;
 class Viewport : public QWidget
 {
 
@@ -25,8 +26,8 @@ protected:
 
 private:
 	QScopedPointer<Camera> mCamera;
+	QScopedPointer<State> mState;
 
-	bool mIsDrawing; // Use in mouseReleaseEvent
 	bool mIsCtrlPressed;
 };
 

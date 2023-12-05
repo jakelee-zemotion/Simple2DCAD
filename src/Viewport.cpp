@@ -1,5 +1,7 @@
 #include "Viewport.h"
 #include "Camera.h"
+#include "State.h"
+#include "DrawLineState.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
@@ -10,10 +12,10 @@ using namespace std;
 Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
 {
-    mIsDrawing = false;
     mIsCtrlPressed = false;
 
     mCamera.reset(new Camera(mShapeObjects, { this->width(), this->height() }));
+    mState.reset(new DrawLineState(mShapeObjects));
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
@@ -46,22 +48,7 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     {
         case Qt::LeftButton:
         {
-            if (!mIsDrawing)
-            {
-                // Put two points to create a line on the first click.
-                // Therefore, the second point is adjusted in MouseMoveEvent.
-                mShapeObjects.CreateNewLine({ currMousePos, currMousePos });
-                mIsDrawing = true;
-            }
-            else
-            {
-                mShapeObjects.AddPointInLastShape(currMousePos);
-
-                // Close testing
-                // If CloseTest is true (i.e. if polygon can be created), Drawing mode is stopped.
-                mIsDrawing = !mShapeObjects.CloseTest(currMousePos);
-            }
-
+            mState->MousePressEvent(currMousePos);
         }
         break;
 
@@ -89,10 +76,7 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
     // The last point tracks the mouse in drawing mode
-    if (mIsDrawing)
-    {
-        mShapeObjects.SetLastPoint(currMousePos);
-    }
+    mState->MouseMoveEvent(currMousePos);
 
     // Panning
     switch (event->buttons())
@@ -115,9 +99,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Return:
         case Qt::Key_Escape:
         {
-            mShapeObjects.CheckLastShape();
-            mIsDrawing = false;
-
+            mState->KeyPressEvent();
             update();
         }
         break;

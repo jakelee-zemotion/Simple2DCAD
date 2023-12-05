@@ -5,7 +5,7 @@ class Face : public Shape
 {
 public:
 	Face(QVector<QPoint>& points);
-	~Face();
+	virtual ~Face();
 
 	void Paint(QPainter& painter) override;
 };
