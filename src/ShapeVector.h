@@ -31,7 +31,7 @@ public:
 		}
 	}
 
-	void CreateNewLine(QVector<QPoint> points)
+	void CreateNewLine(std::vector<QPoint> points)
 	{
 		mShapes.emplace_back(new Line(points));
 	}
@@ -59,7 +59,7 @@ public:
 			this->LastShapePointVec().pop_back();
 			this->LastShapePointVec().pop_back();
 
-			QVector<QPoint> tempPoints = this->LastShapePointVec();
+			std::vector<QPoint> tempPoints = this->LastShapePointVec();
 
 			// Remove the last shape(Line)
 			mShapes.pop_back();
@@ -116,7 +116,7 @@ private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 
 
-	QVector<QPoint>& LastShapePointVec()
+	std::vector<QPoint>& LastShapePointVec()
 	{
 		return mShapes.back()->mPoints;
 	}

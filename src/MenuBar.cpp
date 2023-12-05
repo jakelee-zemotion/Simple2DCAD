@@ -1,6 +1,8 @@
 #include "MenuBar.h"
 #include "ObjectListDialog.h"
 
+using namespace std;
+
 MenuBar::MenuBar(QWidget* parent)
 	:QMenuBar(parent)
 {
@@ -20,7 +22,7 @@ MenuBar::MenuBar(QWidget* parent)
 	this->addMenu(mViewMenu.get());
 }
 
-const QScopedPointer<QAction>& MenuBar::GetObjectListAction() const
+const unique_ptr<QAction>& MenuBar::GetObjectListAction() const
 {
 	return mObjectListAction;
 }

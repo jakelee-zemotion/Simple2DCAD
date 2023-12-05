@@ -16,9 +16,9 @@ public:
 	void SetWidgets(QMainWindow& mainWindow);
 
 private:
-	QScopedPointer<Viewport> mViewport;
-	QScopedPointer<MenuBar> mMenuBar;
-	QScopedPointer<ObjectSelectionToolBar> mObjSelectToolBar;
+	std::unique_ptr<Viewport> mViewport;
+	std::unique_ptr<MenuBar> mMenuBar;
+	std::unique_ptr<ObjectSelectionToolBar> mObjSelectToolBar;
 
 private slots:
 	void OpenObjectListDialog();

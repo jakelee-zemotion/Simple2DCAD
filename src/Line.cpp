@@ -1,6 +1,8 @@
 #include "Line.h"
 
-Line::Line(QVector<QPoint>& points)
+using namespace std;
+
+Line::Line(vector<QPoint>& points)
 	:Shape(points)
 {
 	name = "Line" + QString::number(nameCnt++);

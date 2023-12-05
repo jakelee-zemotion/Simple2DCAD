@@ -25,8 +25,8 @@ protected:
 	void wheelEvent(QWheelEvent* event) override;
 
 private:
-	QScopedPointer<Camera> mCamera;
-	QScopedPointer<State> mState;
+	std::unique_ptr<Camera> mCamera;
+	std::unique_ptr<State> mState;
 
 	bool mIsCtrlPressed;
 };

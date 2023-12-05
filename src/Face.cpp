@@ -1,6 +1,8 @@
 #include "Face.h"
 
-Face::Face(QVector<QPoint>& points)
+using namespace std;
+
+Face::Face(vector<QPoint>& points)
 	:Shape(points)
 {
 	name = "Face" + QString::number(nameCnt++);

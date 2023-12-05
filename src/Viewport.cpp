@@ -1,6 +1,5 @@
 #include "Viewport.h"
 #include "Camera.h"
-#include "State.h"
 #include "DrawLineState.h"
 
 #include <QPainter>

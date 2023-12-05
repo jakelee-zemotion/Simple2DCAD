@@ -8,12 +8,12 @@ class MenuBar : public QMenuBar
 public:
 	MenuBar(QWidget* parent = 0);
 
-	const QScopedPointer<QAction>& GetObjectListAction() const;
+	const std::unique_ptr<QAction>& GetObjectListAction() const;
 
 private:
-	QScopedPointer<QMenu> mFileMenu;
-	QScopedPointer<QMenu> mEditMenu;
-	QScopedPointer<QMenu> mViewMenu;
+	std::unique_ptr<QMenu> mFileMenu;
+	std::unique_ptr<QMenu> mEditMenu;
+	std::unique_ptr<QMenu> mViewMenu;
 
-	QScopedPointer<QAction> mObjectListAction;
+	std::unique_ptr<QAction> mObjectListAction;
 };
