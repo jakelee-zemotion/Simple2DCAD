@@ -4,13 +4,6 @@
 #include <QWidget>
 
 
-struct ClosedThreshold
-{
-	int minX, maxX;
-	int minY, maxY;
-};
-
-
 class Camera;
 class Viewport : public QWidget
 {
@@ -31,13 +24,6 @@ protected:
 	void wheelEvent(QWheelEvent* event) override;
 
 private:
-	bool IsObjectClosed(QPoint start, QPoint end) const;
-	bool IsDrawObjectsEmpty() const;
-
-	QVector<QPoint> mShapePoints;
-	QVector<QPoint> mTempPoints;
-	ClosedThreshold mClosedThreshold;
-
 	QScopedPointer<Camera> mCamera;
 
 	bool mIsDrawing; // Use in mouseReleaseEvent

@@ -1,6 +1,4 @@
 #include "Viewport.h"
-#include "Line.h"
-#include "Face.h"
 #include "Camera.h"
 
 #include <QPainter>
@@ -15,12 +13,7 @@ Viewport::Viewport(QWidget* parent)
     mIsDrawing = false;
     mIsCtrlPressed = false;
 
-    mClosedThreshold.minX = 20;
-    mClosedThreshold.minY = 20;
-    mClosedThreshold.maxX = 20;
-    mClosedThreshold.maxY = 20;
-
-    mCamera.reset(new Camera(mShapeObjects, mTempPoints, { this->width(), this->height() }));
+   // mCamera.reset(new Camera(mShapeObjects, { this->width(), this->height() }));
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
@@ -42,13 +35,7 @@ void Viewport::paintEvent(QPaintEvent* event)
     painter.setBrush(brush);
     
     // Draw objects
-    for (int i = 0; i < mShapeObjects.size(); i++)
-    {
-        mShapeObjects[i]->Paint(painter);
-    }
-
-    // Draw temporary points of the undetermined shape.
-    painter.drawPolyline(mTempPoints.data(), mTempPoints.size());
+    mShapeObjects.DrawShape(painter);
 }
 
 void Viewport::mousePressEvent(QMouseEvent* event)
@@ -63,28 +50,16 @@ void Viewport::mousePressEvent(QMouseEvent* event)
             {
                 // Put two points to create a line on the first click.
                 // Therefore, the second point is adjusted in MouseMoveEvent.
-                mTempPoints = { currMousePos, currMousePos };
+                mShapeObjects.CreateNewLine({ currMousePos, currMousePos });
                 mIsDrawing = true;
             }
             else
             {
-                mTempPoints.push_back(currMousePos);
+                mShapeObjects.AddPointInLastShape(currMousePos);
 
                 // Close testing
-                QPoint startPoint = mTempPoints.front();
-                QPoint endPoint = currMousePos;
-                if (IsObjectClosed(startPoint, endPoint))
-                {
-                    qDebug() << "closed";
-
-                    // Remove two endPoints because drawPolygon() automatically connects the startPoint and endPoint.
-                    mTempPoints.pop_back();
-                    mTempPoints.pop_back();
-                    mShapeObjects.emplace_back(new Face(mTempPoints));
-
-                    mIsDrawing = false;
-                    mTempPoints.clear();
-                }
+                // If CloseTest is true (i.e. if polygon can be created), Drawing mode is stopped.
+                mIsDrawing = !mShapeObjects.CloseTest(currMousePos);
             }
 
         }
@@ -114,9 +89,9 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
     // The last point tracks the mouse in drawing mode
-    if (mIsDrawing && !mTempPoints.isEmpty())
+    if (mIsDrawing)
     {
-        mTempPoints.back() = currMousePos;
+        mShapeObjects.SetLastPoint(currMousePos);
     }
 
     // Panning
@@ -140,22 +115,8 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Return:
         case Qt::Key_Escape:
         {
-            if (!mTempPoints.isEmpty())
-            {
-                // Remove adjusting point.
-                mTempPoints.pop_back();
-
-                // Put the shape in DrawObjects if its size is not 1. 
-                // It is unnecessary to store a point.
-                if (mTempPoints.size() > 1)
-                {
-                    mShapeObjects.emplace_back(new Line(mTempPoints));
-                }
-                
-            }
-
+            mShapeObjects.CheckLastShape();
             mIsDrawing = false;
-            mTempPoints.clear();
 
             update();
         }
@@ -194,21 +155,4 @@ void Viewport::wheelEvent(QWheelEvent* event)
     update();
 }
 
-bool Viewport::IsObjectClosed(QPoint start, QPoint end) const
-{
-    if (start.x() - mClosedThreshold.minX < end.x()
-        && start.x() + mClosedThreshold.maxX > end.x()
 
-        && start.y() - mClosedThreshold.minY < end.y()
-        && start.y() + mClosedThreshold.maxY > end.y())
-    {
-        return true;
-    }
-
-    return false;
-}
-
-bool Viewport::IsDrawObjectsEmpty() const
-{
-    return false;
-}
