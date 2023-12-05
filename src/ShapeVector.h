@@ -5,8 +5,6 @@
 #include "Line.h"
 #include "Face.h"
 
-//using ShapeVector = std::vector<std::unique_ptr<Shape>>;
-
 
 struct ClosedThreshold
 {
@@ -14,8 +12,6 @@ struct ClosedThreshold
 	int minY, maxY;
 };
 
-// The reason for creating ShapeVector.
-// 1. 
 class ShapeVector
 {
 public:
@@ -103,7 +99,7 @@ public:
 		// It is unnecessary to store a point.
 		if (this->LastShapePointVec().size() <= 1)
 		{
-			this->LastShapePointVec().pop_back();
+			mShapes.pop_back();
 		}
 	}
 
@@ -115,8 +111,8 @@ public:
 		this->LastShapePointVec().back() = point;
 	}
 
-private:
 	std::vector<std::unique_ptr<Shape>> mShapes;
+private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 
 

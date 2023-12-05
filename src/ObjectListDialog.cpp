@@ -22,7 +22,7 @@ ObjectListDialog::ObjectListDialog(ShapeVector& shapeObjects, QWidget* parent)
 		for (int j = 0; j < qm->columnCount(); j++)
 		{
 			QModelIndex index = qm->index(i, j, QModelIndex());
-			//qm->setData(index, shapeObjects[i]->name);
+			qm->setData(index, shapeObjects.mShapes[i]->name);
 		}
 	}
 }

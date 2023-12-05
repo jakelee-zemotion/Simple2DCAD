@@ -13,7 +13,7 @@ Viewport::Viewport(QWidget* parent)
     mIsDrawing = false;
     mIsCtrlPressed = false;
 
-   // mCamera.reset(new Camera(mShapeObjects, { this->width(), this->height() }));
+    mCamera.reset(new Camera(mShapeObjects, { this->width(), this->height() }));
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
