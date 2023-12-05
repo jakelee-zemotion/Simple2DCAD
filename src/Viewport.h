@@ -1,5 +1,6 @@
 #pragma once
 #include "ShapeVector.h"
+#include "StateMachine.h"
 
 #include <QWidget>
 

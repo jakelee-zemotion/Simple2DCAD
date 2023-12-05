@@ -18,7 +18,7 @@ public:
 	ShapeVector() {};
 	~ShapeVector() {};
 
-	size_t size()
+	size_t size() const
 	{
 		return mShapes.size();
 	}

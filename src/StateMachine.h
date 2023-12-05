@@ -1,7 +1,8 @@
 #pragma once
 #include "State.h"
-
-#include <QScopedPointer>
+#include <map>
+#include <memory>
+#include <string>
 
 class StateMachine
 {
@@ -13,8 +14,8 @@ public:
 	State& GetCurrentState();
 
 private:
-	// QMap<QString, QScopedPointer<State>>
-	QScopedPointer<State> mState;
+	std::map<std::string, std::shared_ptr<State>> mStateMap;
+	std::shared_ptr<State> mCurrState;
 
 };
 
