@@ -1,12 +1,13 @@
 #include "Viewport.h"
 #include "Line.h"
 #include "Face.h"
-#include "Shape.h"
 #include "Camera.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
 #include <QKeyEvent>
+
+using namespace std;
 
 Viewport::Viewport(QWidget* parent)
 	:QWidget(parent)
@@ -27,10 +28,6 @@ Viewport::Viewport(QWidget* parent)
 
 Viewport::~Viewport()
 {
-    for (const auto& object : mDrawObjects)
-    {
-        delete object;
-    }
 }
 
 void Viewport::paintEvent(QPaintEvent* event)
@@ -39,15 +36,15 @@ void Viewport::paintEvent(QPaintEvent* event)
 
     QPen pen(Qt:: black);
     pen.setWidth(2);
-    painter.setPen(pen); 
+    painter.setPen(pen);
 
     QBrush brush(Qt::gray);
     painter.setBrush(brush);
-
+    
     // Draw objects
-    for (const auto& object : mDrawObjects)
+    for (int i = 0; i < mDrawObjects.size(); i++)
     {
-        object->Paint(painter);
+        mDrawObjects[i]->Paint(painter);
     }
 
     // Draw temporary points of the undetermined shape.
@@ -83,7 +80,7 @@ void Viewport::mousePressEvent(QMouseEvent* event)
                     // Remove two endPoints because drawPolygon() automatically connects the startPoint and endPoint.
                     mTempPoints.pop_back();
                     mTempPoints.pop_back();
-                    mDrawObjects.push_back(new Face(mTempPoints));
+                    mDrawObjects.emplace_back(new Face(mTempPoints));
 
                     mIsDrawing = false;
                     mTempPoints.clear();
@@ -152,7 +149,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
                 // It is unnecessary to store a point.
                 if (mTempPoints.size() > 1)
                 {
-                    mDrawObjects.push_back(new Line(mTempPoints));
+                    mDrawObjects.emplace_back(new Line(mTempPoints));
                 }
                 
             }

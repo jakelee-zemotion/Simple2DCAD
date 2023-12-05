@@ -1,7 +1,7 @@
 #pragma once
+#include "ShapeVector.h"
 
 #include <QWidget>
-#include <QVector>
 
 
 struct ClosedThreshold
@@ -10,13 +10,7 @@ struct ClosedThreshold
 	int minY, maxY;
 };
 
-struct DrawObject
-{
-	QVector<QPoint> points;
-	bool isPolygon;
-};
 
-class Shape;
 class Camera;
 class Viewport : public QWidget
 {
@@ -25,7 +19,7 @@ public:
 	Viewport(QWidget* parent = 0);
 	~Viewport();
 
-	QVector<Shape*> mDrawObjects;
+	ShapeVector mDrawObjects;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;

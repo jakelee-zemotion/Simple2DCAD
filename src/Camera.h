@@ -1,14 +1,15 @@
 #pragma once
+#include "ShapeVector.h"
+
 #include <QVector>
 #include <QPoint>
 
-class Shape;
 class QMouseEvent;
 class QWheelEvent;
 class Camera
 {
 public:
-	Camera(QVector<Shape*>& drawObjects, QVector<QPoint>& tempPoints, QPoint viewportSize);
+	Camera(ShapeVector& drawObjects, QVector<QPoint>& tempPoints, QPoint viewportSize);
 	~Camera();
 
 	void Pan(QPoint currentMousePos);
@@ -23,7 +24,7 @@ private:
 
 	QPoint mPrevMousePos;
 
-	QVector<Shape*>& mDrawObjects;
+	ShapeVector& mDrawObjects;
 	QVector<QPoint>& mTempPoints;
 	const QPoint mViewportSize;
 };
