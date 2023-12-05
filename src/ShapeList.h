@@ -12,11 +12,11 @@ struct ClosedThreshold
 	int minY, maxY;
 };
 
-class ShapeVector
+class ShapeList
 {
 public:
-	ShapeVector() {};
-	~ShapeVector() {};
+	ShapeList() {};
+	~ShapeList() {};
 
 	size_t size() const
 	{

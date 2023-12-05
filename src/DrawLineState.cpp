@@ -1,9 +1,9 @@
 #include "DrawLineState.h"
-#include "ShapeVector.h"
+#include "ShapeList.h"
 
 #include <QPoint>
 
-DrawLineState::DrawLineState(ShapeVector& shapeObjects)
+DrawLineState::DrawLineState(ShapeList& shapeObjects)
     :State(shapeObjects)
 {
     mIsDrawing = false;

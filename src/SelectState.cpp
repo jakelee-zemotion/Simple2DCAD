@@ -1,6 +1,6 @@
 #include "SelectState.h"
 
-SelectState::SelectState(ShapeVector& shapeObjects)
+SelectState::SelectState(ShapeList& shapeObjects)
 	:State(shapeObjects)
 {
 }

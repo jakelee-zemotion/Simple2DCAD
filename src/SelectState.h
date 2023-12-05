@@ -4,7 +4,7 @@
 class SelectState : public State
 {
 public:
-	SelectState(ShapeVector& shapeObjects);
+	SelectState(ShapeList& shapeObjects);
 	~SelectState();
 
 	void MousePressEvent(QPoint& currMousePos) override;

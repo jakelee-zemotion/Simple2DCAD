@@ -4,7 +4,7 @@
 class DrawLineState : public State
 {
 public:
-	DrawLineState(ShapeVector& shapeObjects);
+	DrawLineState(ShapeList& shapeObjects);
 	~DrawLineState();
 
 	void MousePressEvent(QPoint& currMousePos) override;

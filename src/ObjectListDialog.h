@@ -1,5 +1,5 @@
 #pragma once
-#include "ShapeVector.h"
+#include "ShapeList.h"
 
 #include <QDialog>
 
@@ -7,6 +7,6 @@ class Shape;
 class ObjectListDialog : public QDialog
 {
 public:
-	ObjectListDialog(ShapeVector& shapeObjects, QWidget* parent = 0);
+	ObjectListDialog(ShapeList& shapeObjects, QWidget* parent = 0);
 };
 

@@ -1,11 +1,11 @@
 #pragma once
 
-class ShapeVector;
+class ShapeList;
 class QPoint;
 class State
 {
 public:
-	State(ShapeVector& shapeObjects);
+	State(ShapeList& shapeObjects);
 	virtual ~State();
 
 	virtual void MousePressEvent(QPoint& currMousePos) = 0;
@@ -13,6 +13,6 @@ public:
 	virtual void KeyPressEvent() = 0;
 
 protected:
-	ShapeVector& mShapeObjects;
+	ShapeList& mShapeObjects;
 };
 

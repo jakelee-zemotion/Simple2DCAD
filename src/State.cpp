@@ -1,6 +1,6 @@
 #include "State.h"
 
-State::State(ShapeVector& shapeObjects)
+State::State(ShapeList& shapeObjects)
 	:mShapeObjects(shapeObjects)
 {
 

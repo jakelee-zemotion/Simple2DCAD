@@ -3,7 +3,7 @@
 
 #include <QMouseEvent>
 
-Camera::Camera(ShapeVector& shapeObjects, QPoint viewportSize)
+Camera::Camera(ShapeList& shapeObjects, QPoint viewportSize)
     :mShapeObjects(shapeObjects), mViewportSize(viewportSize)
 {
     mPrevMousePos = { 0, 0 };

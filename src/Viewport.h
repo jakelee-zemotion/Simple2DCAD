@@ -1,5 +1,5 @@
 #pragma once
-#include "ShapeVector.h"
+#include "ShapeList.h"
 #include "StateMachine.h"
 
 #include <QWidget>
@@ -14,7 +14,7 @@ public:
 	Viewport(QWidget* parent = 0);
 	~Viewport();
 
-	ShapeVector mShapeObjects;
+	ShapeList mShapeObjects;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
