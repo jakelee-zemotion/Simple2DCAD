@@ -20,7 +20,7 @@ Viewport::Viewport(QWidget* parent)
     mClosedThreshold.maxX = 20;
     mClosedThreshold.maxY = 20;
 
-    mCamera.reset(new Camera(mDrawObjects, mTempPoints, { this->width(), this->height() }));
+    mCamera.reset(new Camera(mShapeObjects, mTempPoints, { this->width(), this->height() }));
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
@@ -42,9 +42,9 @@ void Viewport::paintEvent(QPaintEvent* event)
     painter.setBrush(brush);
     
     // Draw objects
-    for (int i = 0; i < mDrawObjects.size(); i++)
+    for (int i = 0; i < mShapeObjects.size(); i++)
     {
-        mDrawObjects[i]->Paint(painter);
+        mShapeObjects[i]->Paint(painter);
     }
 
     // Draw temporary points of the undetermined shape.
@@ -80,7 +80,7 @@ void Viewport::mousePressEvent(QMouseEvent* event)
                     // Remove two endPoints because drawPolygon() automatically connects the startPoint and endPoint.
                     mTempPoints.pop_back();
                     mTempPoints.pop_back();
-                    mDrawObjects.emplace_back(new Face(mTempPoints));
+                    mShapeObjects.emplace_back(new Face(mTempPoints));
 
                     mIsDrawing = false;
                     mTempPoints.clear();
@@ -149,7 +149,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
                 // It is unnecessary to store a point.
                 if (mTempPoints.size() > 1)
                 {
-                    mDrawObjects.emplace_back(new Line(mTempPoints));
+                    mShapeObjects.emplace_back(new Line(mTempPoints));
                 }
                 
             }

@@ -3,8 +3,8 @@
 
 #include <QMouseEvent>
 
-Camera::Camera(ShapeVector& drawObjects, QVector<QPoint>& tempPoints, QPoint viewportSize)
-    :mDrawObjects(drawObjects), mTempPoints(tempPoints), mViewportSize(viewportSize)
+Camera::Camera(ShapeVector& shapeObjects, QVector<QPoint>& tempPoints, QPoint viewportSize)
+    :mShapeObjects(shapeObjects), mTempPoints(tempPoints), mViewportSize(viewportSize)
 {
     mPrevMousePos = { 0, 0 };
 }
@@ -18,7 +18,7 @@ void Camera::Pan(QPoint currentMousePos)
     QPoint dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 
-    for (const auto& object : mDrawObjects)
+    for (const auto& object : mShapeObjects)
     {
         for (auto& point : object->mPoints)
         {
@@ -34,7 +34,7 @@ void Camera::Pan(QPoint currentMousePos)
 
 void Camera::Zoom(QPoint currentMousePos, int mouseDir)
 {
-    for (const auto& object : mDrawObjects)
+    for (const auto& object : mShapeObjects)
     {
         for (auto& point : object->mPoints)
         {

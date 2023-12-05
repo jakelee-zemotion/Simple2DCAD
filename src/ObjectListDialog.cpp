@@ -5,7 +5,7 @@
 #include <QVBoxLayout>
 #include <QStandardItemModel>
 
-ObjectListDialog::ObjectListDialog(ShapeVector& drawObjects, QWidget* parent)
+ObjectListDialog::ObjectListDialog(ShapeVector& shapeObjects, QWidget* parent)
 	:QDialog(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout();
@@ -14,7 +14,7 @@ ObjectListDialog::ObjectListDialog(ShapeVector& drawObjects, QWidget* parent)
 	this->setLayout(layout);
 	layout->addWidget(qq);
 
-	QStandardItemModel* qm = new QStandardItemModel(drawObjects.size(), 2);
+	QStandardItemModel* qm = new QStandardItemModel(shapeObjects.size(), 2);
 	qq->setModel(qm);
 
 	for (int i = 0; i < qm->rowCount(); i++)
@@ -22,7 +22,7 @@ ObjectListDialog::ObjectListDialog(ShapeVector& drawObjects, QWidget* parent)
 		for (int j = 0; j < qm->columnCount(); j++)
 		{
 			QModelIndex index = qm->index(i, j, QModelIndex());
-			qm->setData(index, drawObjects[i]->name);
+			qm->setData(index, shapeObjects[i]->name);
 		}
 	}
 }

@@ -28,6 +28,6 @@ void WidgetManager::SetWidgets(QMainWindow& mainWindow)
 
 void WidgetManager::OpenObjectListDialog()
 {
-	ObjectListDialog objectListDialog(mViewport->mDrawObjects);
+	ObjectListDialog objectListDialog(mViewport->mShapeObjects);
 	objectListDialog.exec();
 }

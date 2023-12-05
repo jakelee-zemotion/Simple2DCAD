@@ -9,7 +9,7 @@ class QWheelEvent;
 class Camera
 {
 public:
-	Camera(ShapeVector& drawObjects, QVector<QPoint>& tempPoints, QPoint viewportSize);
+	Camera(ShapeVector& shapeObjects, QVector<QPoint>& tempPoints, QPoint viewportSize);
 	~Camera();
 
 	void Pan(QPoint currentMousePos);
@@ -24,7 +24,7 @@ private:
 
 	QPoint mPrevMousePos;
 
-	ShapeVector& mDrawObjects;
+	ShapeVector& mShapeObjects;
 	QVector<QPoint>& mTempPoints;
 	const QPoint mViewportSize;
 };
