@@ -15,7 +15,7 @@ WidgetManager::WidgetManager()
 	mMenuBar = make_unique<MenuBar>();
 	mObjSelectToolBar = make_unique<ObjectSelectionToolBar>();
 
-	connect(mMenuBar->GetObjectListAction().get(), SIGNAL(triggered()), this, SLOT(OpenObjectListDialog()));
+	mMenuBar->ConnectAction(this);
 	connect(mObjSelectToolBar->GetDrawButton().get(), SIGNAL(clicked()), this, SLOT(PressDrawMode()));
 	connect(mObjSelectToolBar->GetSelectButton().get(), SIGNAL(clicked()), this, SLOT(PressSelectMode()));
 }

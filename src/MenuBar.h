@@ -8,7 +8,7 @@ class MenuBar : public QMenuBar
 public:
 	MenuBar(QWidget* parent = 0);
 
-	const std::unique_ptr<QAction>& GetObjectListAction() const;
+	void ConnectAction(const QObject* widgetManager);
 
 private:
 	std::unique_ptr<QMenu> mFileMenu;

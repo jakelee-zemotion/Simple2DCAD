@@ -22,7 +22,7 @@ MenuBar::MenuBar(QWidget* parent)
 	this->addMenu(mViewMenu.get());
 }
 
-const unique_ptr<QAction>& MenuBar::GetObjectListAction() const
+void MenuBar::ConnectAction(const QObject* widgetManager)
 {
-	return mObjectListAction;
+	connect(mObjectListAction.get(), SIGNAL(triggered()), widgetManager, SLOT(OpenObjectListDialog()));
 }

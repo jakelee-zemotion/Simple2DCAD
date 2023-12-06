@@ -5,7 +5,7 @@ class Viewport;
 class MenuBar;
 class ObjectSelectionToolBar;
 class Shape;
-class WidgetManager :QObject
+class WidgetManager : public QObject
 {
 	Q_OBJECT
 
