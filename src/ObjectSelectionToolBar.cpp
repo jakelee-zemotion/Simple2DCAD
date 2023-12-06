@@ -9,24 +9,35 @@ using namespace std;
 ObjectSelectionToolBar::ObjectSelectionToolBar(QWidget* parent)
 	:QToolBar(parent)
 {
-	mDrawButton = make_unique<QToolButton>();
+	mToolButtonMap["Draw"] = make_unique<QToolButton>();
+	mToolButtonMap["Draw"]->setText("Draw");
+	mToolButtonMap["Draw"]->setCheckable(true);
+	addWidget(mToolButtonMap["Draw"].get());
 
-	mDrawButton->setText("Draw");
-	addWidget(mDrawButton.get());
-	/*mDrawButton->setCheckable(true);
-	mDrawButton->setChecked(true);*/
+	mToolButtonMap["Select"] = make_unique<QToolButton>();
+	mToolButtonMap["Select"]->setText("Select");
+	mToolButtonMap["Select"]->setCheckable(true);
+	addWidget(mToolButtonMap["Select"].get());
 
-	mSelectButton = make_unique<QToolButton>();
-	mSelectButton->setText("Select");
-	addWidget(mSelectButton.get());
+
 }
 
-const unique_ptr<QToolButton>& ObjectSelectionToolBar::GetDrawButton() const
+ObjectSelectionToolBar::~ObjectSelectionToolBar()
 {
-	return mDrawButton;
 }
 
-const unique_ptr<QToolButton>& ObjectSelectionToolBar::GetSelectButton() const
+void ObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)
 {
-	return mSelectButton;
+	connect(mToolButtonMap["Draw"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressDrawMode()));
+	connect(mToolButtonMap["Select"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressSelectMode()));
+}
+
+void ObjectSelectionToolBar::SetButtonPressed(string name)
+{
+	for (const auto& button : mToolButtonMap)
+	{
+		button.second->setChecked(false);
+	}
+
+	mToolButtonMap[name]->setChecked(true);
 }

@@ -3,7 +3,6 @@
 
 #include <QDialog>
 
-class Shape;
 class ObjectListDialog : public QDialog
 {
 public:

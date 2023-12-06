@@ -16,8 +16,7 @@ WidgetManager::WidgetManager()
 	mObjSelectToolBar = make_unique<ObjectSelectionToolBar>();
 
 	mMenuBar->ConnectAction(this);
-	connect(mObjSelectToolBar->GetDrawButton().get(), SIGNAL(clicked()), this, SLOT(PressDrawMode()));
-	connect(mObjSelectToolBar->GetSelectButton().get(), SIGNAL(clicked()), this, SLOT(PressSelectMode()));
+	mObjSelectToolBar->ConnectToolButton(this);
 }
 
 WidgetManager::~WidgetManager()
@@ -42,6 +41,8 @@ void WidgetManager::PressDrawMode()
 	qDebug() << "draw";
 
 	mViewport->setState("Draw");
+
+	mObjSelectToolBar->SetButtonPressed("Draw");
 }
 
 void WidgetManager::PressSelectMode()
@@ -49,4 +50,6 @@ void WidgetManager::PressSelectMode()
 	qDebug() << "select";
 
 	mViewport->setState("Select");
+
+	mObjSelectToolBar->SetButtonPressed("Select");
 }

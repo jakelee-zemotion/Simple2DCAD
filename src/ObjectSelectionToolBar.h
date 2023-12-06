@@ -7,12 +7,15 @@ class ObjectSelectionToolBar : public QToolBar
 {
 public:
 	ObjectSelectionToolBar(QWidget* parent = 0);
+	~ObjectSelectionToolBar();
 
-	const std::unique_ptr<QToolButton>& GetDrawButton() const;
-	const std::unique_ptr<QToolButton>& GetSelectButton() const;
+	void ConnectToolButton(QObject* widgetManager);
+	void SetButtonPressed(std::string name);
 
 private:
-	std::unique_ptr<QToolButton> mDrawButton;
-	std::unique_ptr<QToolButton> mSelectButton;
+	//std::unique_ptr<QToolButton> mDrawButton;
+	//std::unique_ptr<QToolButton> mSelectButton;
+
+	std::map<std::string, std::unique_ptr<QToolButton>> mToolButtonMap;
 };
 
