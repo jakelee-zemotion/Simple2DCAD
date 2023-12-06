@@ -33,7 +33,7 @@ public:
 
 	void CreateNewLine(std::vector<QPoint> points)
 	{
-		mShapes.emplace_back(new Line(points));
+		mShapes.push_back(std::make_unique<Line>(points));
 	}
 
 	void AddPointInLastShape(QPoint& point)
@@ -64,8 +64,8 @@ public:
 			// Remove the last shape(Line)
 			mShapes.pop_back();
 
-			// Create a new shpae(Face)
-			mShapes.emplace_back(new Face(tempPoints));
+			// Create a new shape(Face)
+			mShapes.push_back(std::make_unique<Face>(tempPoints));
 
 			return true;
 		}
