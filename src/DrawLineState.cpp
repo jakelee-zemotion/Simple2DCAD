@@ -43,6 +43,9 @@ void DrawLineState::MouseMoveEvent(QPoint& currMousePos)
 
 void DrawLineState::KeyPressEvent()
 {
-    mShapeObjects.CheckLastShape();
-    mIsDrawing = false;
+    if (mIsDrawing)
+    {
+        mShapeObjects.CheckLastShape();
+        mIsDrawing = false;
+    }
 }
