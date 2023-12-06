@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <list>
 #include <QDebug>
 #include "Shape.h"
 #include "Line.h"
@@ -111,7 +111,7 @@ public:
 		this->LastShapePointVec().back() = point;
 	}
 
-	std::vector<std::unique_ptr<Shape>> mShapes;
+	std::list<std::unique_ptr<Shape>> mShapes;
 private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 
