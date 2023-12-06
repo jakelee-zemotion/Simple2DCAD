@@ -4,10 +4,19 @@
 #include <QVBoxLayout>
 #include <QToolButton>
 
+using namespace std;
+
 ObjectSelectionToolBar::ObjectSelectionToolBar(QWidget* parent)
 	:QToolBar(parent)
 {
-	QToolButton* mToolButton = new QToolButton();
-	mToolButton->setText("hi");
-	addWidget(mToolButton);
+	mDrawButton = make_unique<QToolButton>();
+
+	mDrawButton->setText("Draw");
+	addWidget(mDrawButton.get());
+	/*mDrawButton->setCheckable(true);
+	mDrawButton->setChecked(true);*/
+
+	mSelectButton = make_unique<QToolButton>();
+	mSelectButton->setText("Select");
+	addWidget(mSelectButton.get());
 }

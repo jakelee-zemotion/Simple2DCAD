@@ -5,12 +5,13 @@
 #include "ObjectSelectionToolBar.h"
 #include "ObjectListDialog.h"
 
+using namespace std;
 
 WidgetManager::WidgetManager()
 {
-	mViewport.reset(new Viewport());
-	mMenuBar.reset(new MenuBar());
-	mObjSelectToolBar.reset(new ObjectSelectionToolBar());
+	mViewport = make_unique<Viewport>();
+	mMenuBar = make_unique<MenuBar>();
+	mObjSelectToolBar = make_unique<ObjectSelectionToolBar>();
 
 	connect(mMenuBar->GetObjectListAction().get(), SIGNAL(triggered()), this, SLOT(OpenObjectListDialog()));
 }

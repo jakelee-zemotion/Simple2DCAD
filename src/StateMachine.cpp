@@ -6,8 +6,8 @@ using namespace std;
 
 StateMachine::StateMachine()
 {
-	mCurrState = make_shared<IdleState>();
-	mStateMap["Idle"] = mCurrState;
+	AddState("Idle", make_shared <IdleState>());
+	mCurrState = mStateMap["Idle"];
 }
 
 StateMachine::~StateMachine()

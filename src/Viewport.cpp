@@ -13,8 +13,9 @@ Viewport::Viewport(QWidget* parent)
 {
     mIsCtrlPressed = false;
 
-    mCamera.reset(new Camera(mShapeObjects, { this->width(), this->height() }));
-    mState.reset(new DrawLineState(mShapeObjects));
+    mCamera = make_unique<Camera>(mShapeObjects, QPoint(this->width(), this->height()));
+
+    //mStateMachine.AddState("")
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
@@ -47,7 +48,7 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     {
         case Qt::LeftButton:
         {
-            mState->MousePressEvent(currMousePos);
+            mStateMachine.GetCurrentState()->MousePressEvent(currMousePos);
         }
         break;
 
@@ -75,7 +76,7 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
     // The last point tracks the mouse in drawing mode
-    mState->MouseMoveEvent(currMousePos);
+    mStateMachine.GetCurrentState()->MouseMoveEvent(currMousePos);
 
     // Panning
     switch (event->buttons())
@@ -98,7 +99,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Return:
         case Qt::Key_Escape:
         {
-            mState->KeyPressEvent();
+            mStateMachine.GetCurrentState()->KeyPressEvent();
             update();
         }
         break;
