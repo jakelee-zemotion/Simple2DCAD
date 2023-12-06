@@ -5,6 +5,8 @@
 #include "ObjectSelectionToolBar.h"
 #include "ObjectListDialog.h"
 
+#include <QToolButton>
+
 using namespace std;
 
 WidgetManager::WidgetManager()
@@ -14,6 +16,8 @@ WidgetManager::WidgetManager()
 	mObjSelectToolBar = make_unique<ObjectSelectionToolBar>();
 
 	connect(mMenuBar->GetObjectListAction().get(), SIGNAL(triggered()), this, SLOT(OpenObjectListDialog()));
+	connect(mObjSelectToolBar->GetDrawButton().get(), SIGNAL(clicked()), this, SLOT(PressDrawMode()));
+	connect(mObjSelectToolBar->GetSelectButton().get(), SIGNAL(clicked()), this, SLOT(PressSelectMode()));
 }
 
 WidgetManager::~WidgetManager()
@@ -31,4 +35,14 @@ void WidgetManager::OpenObjectListDialog()
 {
 	ObjectListDialog objectListDialog(mViewport->mShapeObjects);
 	objectListDialog.exec();
+}
+
+void WidgetManager::PressDrawMode()
+{
+	qDebug() << "draw";
+}
+
+void WidgetManager::PressSelectMode()
+{
+	qDebug() << "select";
 }

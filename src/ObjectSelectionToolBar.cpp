@@ -20,3 +20,13 @@ ObjectSelectionToolBar::ObjectSelectionToolBar(QWidget* parent)
 	mSelectButton->setText("Select");
 	addWidget(mSelectButton.get());
 }
+
+const unique_ptr<QToolButton>& ObjectSelectionToolBar::GetDrawButton() const
+{
+	return mDrawButton;
+}
+
+const unique_ptr<QToolButton>& ObjectSelectionToolBar::GetSelectButton() const
+{
+	return mSelectButton;
+}
