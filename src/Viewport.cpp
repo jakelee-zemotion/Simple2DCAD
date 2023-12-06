@@ -76,6 +76,8 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
 {
     qDebug() << event->buttons();
 
+    mStateMachine.GetCurrentState()->MouseReleaseEvent();
+
     update();
 }
 

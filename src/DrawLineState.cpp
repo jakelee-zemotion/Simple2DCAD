@@ -41,6 +41,10 @@ void DrawLineState::MouseMoveEvent(QPoint& currMousePos)
 
 }
 
+void DrawLineState::MouseReleaseEvent()
+{
+}
+
 void DrawLineState::KeyPressEvent()
 {
     if (mIsDrawing)

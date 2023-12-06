@@ -16,6 +16,10 @@ void IdleState::MouseMoveEvent(QPoint& currMousePos)
 {
 }
 
+void IdleState::MouseReleaseEvent()
+{
+}
+
 void IdleState::KeyPressEvent()
 {
 }

@@ -9,10 +9,12 @@ public:
 
 	void MousePressEvent(QPoint& currMousePos) override;
 	void MouseMoveEvent(QPoint& currMousePos) override;
+	void MouseReleaseEvent() override;
 	void KeyPressEvent() override;
 
 private:
 	ShapeVector& mShapeObjects;
 
+	bool mIsPressed;
 };
 
