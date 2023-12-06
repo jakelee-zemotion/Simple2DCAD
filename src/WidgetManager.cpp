@@ -40,9 +40,13 @@ void WidgetManager::OpenObjectListDialog()
 void WidgetManager::PressDrawMode()
 {
 	qDebug() << "draw";
+
+	mViewport->setState("Draw");
 }
 
 void WidgetManager::PressSelectMode()
 {
 	qDebug() << "select";
+
+	mViewport->setState("Select");
 }

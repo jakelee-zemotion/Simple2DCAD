@@ -1,10 +1,12 @@
 #include "Viewport.h"
 #include "Camera.h"
 #include "DrawLineState.h"
+#include "SelectState.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
 #include <QKeyEvent>
+#include <memory>
 
 using namespace std;
 
@@ -15,7 +17,8 @@ Viewport::Viewport(QWidget* parent)
 
     mCamera = make_unique<Camera>(mShapeObjects, QPoint(this->width(), this->height()));
 
-    //mStateMachine.AddState("")
+    mStateMachine.AddState("Draw", make_shared<DrawLineState>(mShapeObjects));
+    mStateMachine.AddState("Select", make_shared<SelectState>(mShapeObjects));
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
@@ -23,6 +26,11 @@ Viewport::Viewport(QWidget* parent)
 
 Viewport::~Viewport()
 {
+}
+
+void Viewport::setState(std::string name)
+{
+    mStateMachine.Transition(name);
 }
 
 void Viewport::paintEvent(QPaintEvent* event)
