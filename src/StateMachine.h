@@ -10,8 +10,9 @@ public:
 	StateMachine();
 	~StateMachine();
 
-	//void AddState(State)
-	State& GetCurrentState();
+	void AddState(std::string name, std::shared_ptr<State> state);
+	void Transition(std::string name);
+	std::shared_ptr<State> GetCurrentState() const;
 
 private:
 	std::map<std::string, std::shared_ptr<State>> mStateMap;

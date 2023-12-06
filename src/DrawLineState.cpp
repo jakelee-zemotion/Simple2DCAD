@@ -4,7 +4,7 @@
 #include <QPoint>
 
 DrawLineState::DrawLineState(ShapeVector& shapeObjects)
-    :State(shapeObjects)
+    :mShapeObjects(shapeObjects)
 {
     mIsDrawing = false;
 }

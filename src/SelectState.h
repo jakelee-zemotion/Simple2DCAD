@@ -12,6 +12,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
+	ShapeVector& mShapeObjects;
 
 };
 

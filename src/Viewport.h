@@ -28,6 +28,8 @@ protected:
 private:
 	std::unique_ptr<Camera> mCamera;
 	std::unique_ptr<State> mState;
+	
+	StateMachine mStateMachine;
 
 	bool mIsCtrlPressed;
 };

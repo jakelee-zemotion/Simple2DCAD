@@ -1,7 +1,7 @@
 #include "SelectState.h"
 
 SelectState::SelectState(ShapeVector& shapeObjects)
-	:State(shapeObjects)
+	:mShapeObjects(shapeObjects)
 {
 }
 
