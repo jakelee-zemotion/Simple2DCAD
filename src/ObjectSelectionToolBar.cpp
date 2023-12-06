@@ -18,8 +18,6 @@ ObjectSelectionToolBar::ObjectSelectionToolBar(QWidget* parent)
 	mToolButtonMap["Select"]->setText("Select");
 	mToolButtonMap["Select"]->setCheckable(true);
 	addWidget(mToolButtonMap["Select"].get());
-
-
 }
 
 ObjectSelectionToolBar::~ObjectSelectionToolBar()
@@ -32,12 +30,22 @@ void ObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)
 	connect(mToolButtonMap["Select"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressSelectMode()));
 }
 
-void ObjectSelectionToolBar::SetButtonPressed(string name)
+bool ObjectSelectionToolBar::SetButtonPressed(string name)
 {
+	// If name button is pressed, return false.
+	if (!mToolButtonMap[name]->isChecked())
+	{
+		mToolButtonMap[name]->setChecked(true);
+		return false;
+	}
+
+
 	for (const auto& button : mToolButtonMap)
 	{
 		button.second->setChecked(false);
 	}
 
 	mToolButtonMap[name]->setChecked(true);
+
+	return true;
 }

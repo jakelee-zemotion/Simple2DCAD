@@ -38,18 +38,20 @@ void WidgetManager::OpenObjectListDialog()
 
 void WidgetManager::PressDrawMode()
 {
-	qDebug() << "draw";
+	if (mObjSelectToolBar->SetButtonPressed("Draw"))
+	{
+		qDebug() << "draw";
 
-	mViewport->setState("Draw");
-
-	mObjSelectToolBar->SetButtonPressed("Draw");
+		mViewport->TransitState("Draw");
+	}
 }
 
 void WidgetManager::PressSelectMode()
 {
-	qDebug() << "select";
+	if (mObjSelectToolBar->SetButtonPressed("Select"))
+	{
+		qDebug() << "select";
+		mViewport->TransitState("Select");
+	}
 
-	mViewport->setState("Select");
-
-	mObjSelectToolBar->SetButtonPressed("Select");
 }

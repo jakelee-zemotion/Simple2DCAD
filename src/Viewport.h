@@ -14,7 +14,7 @@ public:
 	Viewport(QWidget* parent = 0);
 	~Viewport();
 
-	void setState(std::string name);
+	void TransitState(std::string name);
 
 	ShapeVector mShapeObjects;
 

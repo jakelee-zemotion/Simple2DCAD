@@ -28,7 +28,7 @@ Viewport::~Viewport()
 {
 }
 
-void Viewport::setState(std::string name)
+void Viewport::TransitState(std::string name)
 {
     mStateMachine.Transition(name);
 }
