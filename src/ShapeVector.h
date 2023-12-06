@@ -111,7 +111,7 @@ public:
 		this->LastShapePointVec().back() = point;
 	}
 
-	std::vector<std::unique_ptr<Shape>> mShapes;
+	std::vector<std::shared_ptr<Shape>> mShapes;
 private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+#include <memory>
 
 class SelectState : public State
 {
@@ -14,6 +15,7 @@ public:
 
 private:
 	ShapeVector& mShapeObjects;
+	QPoint* mSelectedPoint = nullptr;
 
 	bool mIsPressed;
 };
