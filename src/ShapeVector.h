@@ -44,7 +44,7 @@ public:
 		this->LastShapePointVec().push_back(point);
 	}
 
-	bool CloseTest(QPoint currMousePos)
+	bool CloseTest(QPoint& currMousePos)
 	{
 		if (mShapes.empty() || this->LastShapePointVec().empty())
 			return false;
