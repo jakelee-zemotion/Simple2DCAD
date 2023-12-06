@@ -10,8 +10,8 @@ public:
 	StateMachine();
 	~StateMachine();
 
-	void AddState(std::string name, std::shared_ptr<State> state);
-	void Transition(std::string name);
+	void AddState(const std::string name, std::shared_ptr<State> state);
+	void Transition(const std::string name);
 	std::shared_ptr<State> GetCurrentState() const;
 
 private:

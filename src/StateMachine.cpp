@@ -14,12 +14,12 @@ StateMachine::~StateMachine()
 {
 }
 
-void StateMachine::AddState(string name, shared_ptr<State> state)
+void StateMachine::AddState(const string name, shared_ptr<State> state)
 {
 	mStateMap[name] = state;
 }
 
-void StateMachine::Transition(string name)
+void StateMachine::Transition(const string name)
 {
 	mCurrState = mStateMap[name];
 }

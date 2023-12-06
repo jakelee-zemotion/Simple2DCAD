@@ -30,7 +30,7 @@ void ObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)
 	connect(mToolButtonMap["Select"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressSelectMode()));
 }
 
-bool ObjectSelectionToolBar::SetButtonPressed(string name)
+bool ObjectSelectionToolBar::SetButtonPressed(const string name)
 {
 	// If name button is pressed, return false.
 	if (!mToolButtonMap[name]->isChecked())

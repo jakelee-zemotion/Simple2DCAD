@@ -10,7 +10,7 @@ public:
 	~ObjectSelectionToolBar();
 
 	void ConnectToolButton(QObject* widgetManager);
-	bool SetButtonPressed(std::string name);
+	bool SetButtonPressed(const std::string name);
 
 private:
 	std::map<std::string, std::unique_ptr<QToolButton>> mToolButtonMap;
