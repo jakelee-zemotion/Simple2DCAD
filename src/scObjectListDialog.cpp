@@ -14,15 +14,15 @@ scObjectListDialog::scObjectListDialog(scShapeList& shapeObjects, QWidget* paren
 	this->setLayout(layout);
 	layout->addWidget(qq);
 
-	QStandardItemModel* qm = new QStandardItemModel(shapeObjects.size(), 2);
-	qq->setModel(qm);
+	//QStandardItemModel* qm = new QStandardItemModel(shapeObjects.mPolygonObjects.size(), 2);
+	//qq->setModel(qm);
 
-	for (int i = 0; i < qm->rowCount(); i++)
-	{
-		for (int j = 0; j < qm->columnCount(); j++)
-		{
-			QModelIndex index = qm->index(i, j, QModelIndex());
-			//qm->setData(index, shapeObjects.mShapes[i]->name);
-		}
-	}
+	//for (int i = 0; i < qm->rowCount(); i++)
+	//{
+	//	for (int j = 0; j < qm->columnCount(); j++)
+	//	{
+	//		QModelIndex index = qm->index(i, j, QModelIndex());
+	//		//qm->setData(index, shapeObjects.mShapes[i]->name);
+	//	}
+	//}
 }

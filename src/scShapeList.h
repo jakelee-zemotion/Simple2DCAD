@@ -2,6 +2,7 @@
 #include <list>
 #include <QDebug>
 #include "scShapeInterface.h"
+#include "scPoint.h"
 #include "scLine.h"
 #include "scPolygon.h"
 
@@ -112,7 +113,9 @@ public:
 	}
 
 	std::list<std::shared_ptr<scShapeInterface>> mShapeObjects;
-	std::list<std::shared_ptr<scPolygon>> mPolygonObjects;
+	std::list<std::shared_ptr<scPolygon>> mPolygonList;
+	std::list<std::shared_ptr<scLine>> mLineList;
+	std::list<std::shared_ptr<scPoint>> mPointList;
 
 
 private:
