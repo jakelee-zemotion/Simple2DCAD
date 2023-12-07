@@ -1,11 +1,11 @@
 #pragma once
 
 class QPoint;
-class scPoint
+class scVertex
 {
 public:
-	scPoint(QPoint& qpoint);
-	~scPoint();
+	scVertex(QPoint& qpoint);
+	~scVertex();
 
 private:
 	int x;

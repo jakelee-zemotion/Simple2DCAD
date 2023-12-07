@@ -2,7 +2,7 @@
 #include <list>
 #include <QDebug>
 #include "scShapeInterface.h"
-#include "scPoint.h"
+#include "scVertex.h"
 #include "scLine.h"
 #include "scPolygon.h"
 #include "scPolyline.h"
@@ -37,11 +37,11 @@ public:
 	{
 		mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
 
-		std::shared_ptr<scPoint> sharedStart = std::make_shared<scPoint>(start);
-		std::shared_ptr<scPoint> sharedEnd = std::make_shared<scPoint>(end);
+		std::shared_ptr<scVertex> sharedStart = std::make_shared<scVertex>(start);
+		std::shared_ptr<scVertex> sharedEnd = std::make_shared<scVertex>(end);
 
-		mPointList.push_back(sharedStart);
-		mPointList.push_back(sharedEnd);
+		mVertexList.push_back(sharedStart);
+		mVertexList.push_back(sharedEnd);
 
 		//mLineList.push_back(std::make_shared<scLine>(sharedStart, sharedEnd));
 	}
@@ -125,7 +125,7 @@ public:
 	std::list<std::shared_ptr<scPolyline>> mPolylineList;
 	std::list<std::shared_ptr<scPolygon>> mPolygonList;
 	std::list<std::shared_ptr<scLine>> mLineList;
-	std::list<std::shared_ptr<scPoint>> mPointList;
+	std::list<std::shared_ptr<scVertex>> mVertexList;
 
 
 private:
