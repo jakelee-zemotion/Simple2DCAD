@@ -1,7 +1,6 @@
 #pragma once
-#include <QLine>
 
-class scLine : public QLine
+class scLine
 {
 public:
 	scLine();

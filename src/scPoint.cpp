@@ -1,8 +1,11 @@
 #include "scPoint.h"
 
-scPoint::scPoint(int x, int y)
-	:QPoint(x, y)
+#include <QPoint>
+
+scPoint::scPoint(QPoint& qpoint)
 {
+	x = qpoint.x();
+	y = qpoint.y();
 }
 
 scPoint::~scPoint()

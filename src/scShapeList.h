@@ -33,9 +33,17 @@ public:
 		}
 	}
 
-	void CreateNewLine(QPoint start, QPoint end)
+	void CreateNewLine(QPoint& start, QPoint& end)
 	{
-		mShapeObjects.push_back(std::make_unique<scPolyline>(std::vector<QPoint>({ start, end })));
+		mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
+
+		std::shared_ptr<scPoint> sharedStart = std::make_shared<scPoint>(start);
+		std::shared_ptr<scPoint> sharedEnd = std::make_shared<scPoint>(end);
+
+		mPointList.push_back(sharedStart);
+		mPointList.push_back(sharedEnd);
+
+		//mLineList.push_back(std::make_shared<scLine>(sharedStart, sharedEnd));
 	}
 
 	void AddPointInLastShape(QPoint& point)

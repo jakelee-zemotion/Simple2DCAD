@@ -1,11 +1,14 @@
 #pragma once
-#include <QPoint>
 
-class scPoint : public QPoint
+class QPoint;
+class scPoint
 {
 public:
-	scPoint(int x, int y);
+	scPoint(QPoint& qpoint);
 	~scPoint();
 
+private:
+	int x;
+	int y;
 };
 
