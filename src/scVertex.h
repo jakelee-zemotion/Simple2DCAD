@@ -1,14 +1,16 @@
 #pragma once
 
 class QPoint;
+class QPointF;
 class scVertex
 {
 public:
 	scVertex(QPoint& qpoint);
+	scVertex(QPointF& qpointF);
 	~scVertex();
 
 private:
-	int x;
-	int y;
+	double mX;
+	double mY;
 };
 

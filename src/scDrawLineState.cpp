@@ -28,7 +28,7 @@ void scDrawLineState::MousePressEvent(QPoint& currMousePos)
 
         // Close testing
         // If CloseTest is true (i.e. if polygon can be created), Drawing mode is stopped.
-        mIsDrawing = !mShapeObjects.CloseTest(currMousePos);
+        //mIsDrawing = !mShapeObjects.CloseTest(currMousePos);
     }
 }
 
@@ -36,7 +36,7 @@ void scDrawLineState::MouseMoveEvent(QPoint& currMousePos)
 {
     if (mIsDrawing)
     {
-        mShapeObjects.SetLastPoint(currMousePos);
+       // mShapeObjects.SetLastPoint(currMousePos);
     }
 
 }

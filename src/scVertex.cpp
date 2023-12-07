@@ -1,11 +1,17 @@
 #include "scVertex.h"
 
-#include <QPoint>
+#include <QPointF>
 
 scVertex::scVertex(QPoint& qpoint)
 {
-	x = qpoint.x();
-	y = qpoint.y();
+	mX = static_cast<double>(qpoint.x());
+	mY = static_cast<double>(qpoint.y());
+}
+
+scVertex::scVertex(QPointF& qpointF)
+{
+	mX = qpointF.x();
+	mY = qpointF.y();
 }
 
 scVertex::~scVertex()

@@ -35,52 +35,64 @@ public:
 
 	void CreateNewLine(QPoint& start, QPoint& end)
 	{
-		mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
+		//mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
 
-		std::shared_ptr<scVertex> sharedStart = std::make_shared<scVertex>(start);
-		std::shared_ptr<scVertex> sharedEnd = std::make_shared<scVertex>(end);
+		std::shared_ptr<scVertex> startVertex = std::make_shared<scVertex>(start);
+		std::shared_ptr<scVertex> endVertex = std::make_shared<scVertex>(end);
+		std::shared_ptr<scLine> newLine = std::make_shared<scLine>(startVertex, endVertex);
+		//std::shared_ptr<scPolyline> newPolyline = std::make_shared<scLine>(newLine);
 
-		mVertexList.push_back(sharedStart);
-		mVertexList.push_back(sharedEnd);
 
-		//mLineList.push_back(std::make_shared<scLine>(sharedStart, sharedEnd));
+		mVertexList.push_back(startVertex);
+		mVertexList.push_back(endVertex);
+
+		mLineList.push_back(std::make_shared<scLine>(startVertex, endVertex));
+		//mPolylineList.push_back(std::make_shared<scLine>())
 	}
 
 	void AddPointInLastShape(QPoint& point)
 	{
-		if (mShapeObjects.empty())
+		/*if (mShapeObjects.empty())
 			return;
 
-		this->LastShapePointVec().push_back(point);
+		this->LastShapePointVec().push_back(point);*/
+
+
+		std::shared_ptr<scVertex>& startVertex = mVertexList.back();
+		std::shared_ptr<scVertex> endVertex = std::make_shared<scVertex>(point);
+		mVertexList.push_back(endVertex);
+
+		mLineList.push_back(std::make_shared<scLine>(startVertex, endVertex));
+
 	}
 
 	bool CloseTest(QPoint& currMousePos)
 	{
-		if (mShapeObjects.empty() || this->LastShapePointVec().empty())
-			return false;
+		//if (mShapeObjects.empty() || this->LastShapePointVec().empty())
+		//	return false;
 
-		QPoint startPoint = this->LastShapePointVec().front();
-		QPoint endPoint = currMousePos;
-		if (IsObjectClosed(startPoint, endPoint))
-		{
-			qDebug() << "closed";
+		//QPoint startPoint = this->LastShapePointVec().front();
+		//QPoint endPoint = currMousePos;
+		//if (IsObjectClosed(startPoint, endPoint))
+		//{
+		//	qDebug() << "closed";
 
-			// Remove two endPoints because drawPolygon() automatically connects the startPoint and endPoint.
-			this->LastShapePointVec().pop_back();
-			this->LastShapePointVec().pop_back();
+		//	// Remove two endPoints because drawPolygon() automatically connects the startPoint and endPoint.
+		//	this->LastShapePointVec().pop_back();
+		//	this->LastShapePointVec().pop_back();
 
-			std::vector<QPoint> tempPoints = this->LastShapePointVec();
+		//	std::vector<QPoint> tempPoints = this->LastShapePointVec();
 
-			// Remove the last shape(Line)
-			mShapeObjects.pop_back();
+		//	// Remove the last shape(Line)
+		//	mShapeObjects.pop_back();
 
-			// Create a new shape(Face)
-			mShapeObjects.push_back(std::make_unique<scPolygon>(tempPoints));
+		//	// Create a new shape(Face)
+		//	mShapeObjects.push_back(std::make_unique<scPolygon>(tempPoints));
 
-			return true;
-		}
+		//	return true;
+		//}
 
-		return false;
+		//return false;
 	}
 
 	bool IsObjectClosed(QPoint& start, QPoint& end) const
@@ -111,6 +123,8 @@ public:
 		{
 			mShapeObjects.pop_back();
 		}
+
+
 	}
 
 	void SetLastPoint(QPoint& point)

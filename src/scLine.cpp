@@ -1,8 +1,10 @@
 #include "scLine.h"
+#include "scVertex.h"
 
 using namespace std;
 
-scLine::scLine()
+scLine::scLine(shared_ptr<scVertex>& startVertex, shared_ptr<scVertex>& endVertex)
+	:mStartVertex(startVertex), mEndVertex(endVertex)
 {
 }
 

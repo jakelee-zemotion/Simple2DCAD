@@ -1,6 +1,7 @@
 #pragma once
 #include "scShapeInterface.h"
 
+class scLine;
 class scPolyline : public scShapeInterface
 {
 public:
@@ -8,7 +9,9 @@ public:
 	~scPolyline();
 
 	void Paint(QPainter& painter) override;
+
 private:
+	std::list<std::shared_ptr<scLine>> mLineList;
 
 };
 
