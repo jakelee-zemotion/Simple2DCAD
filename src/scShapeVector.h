@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include <QDebug>
-#include "Shape.h"
-#include "Line.h"
-#include "Face.h"
+#include "scShape.h"
+#include "scLine.h"
+#include "scFace.h"
 
 
 struct ClosedThreshold
@@ -12,11 +12,11 @@ struct ClosedThreshold
 	int minY, maxY;
 };
 
-class ShapeVector
+class scShapeVector
 {
 public:
-	ShapeVector() {};
-	~ShapeVector() {};
+	scShapeVector() {};
+	~scShapeVector() {};
 
 	size_t size() const
 	{
@@ -33,7 +33,7 @@ public:
 
 	void CreateNewLine(std::vector<QPoint> points)
 	{
-		mShapes.push_back(std::make_unique<Line>(points));
+		mShapes.push_back(std::make_unique<scLine>(points));
 	}
 
 	void AddPointInLastShape(QPoint& point)
@@ -65,7 +65,7 @@ public:
 			mShapes.pop_back();
 
 			// Create a new shape(Face)
-			mShapes.push_back(std::make_unique<Face>(tempPoints));
+			mShapes.push_back(std::make_unique<scFace>(tempPoints));
 
 			return true;
 		}
@@ -111,7 +111,7 @@ public:
 		this->LastShapePointVec().back() = point;
 	}
 
-	std::vector<std::shared_ptr<Shape>> mShapes;
+	std::vector<std::shared_ptr<scShape>> mShapes;
 private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 

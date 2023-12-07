@@ -1,9 +1,8 @@
-#include "MenuBar.h"
-#include "ObjectListDialog.h"
+#include "scMenuBar.h"
 
 using namespace std;
 
-MenuBar::MenuBar(QWidget* parent)
+scMenuBar::scMenuBar(QWidget* parent)
 	:QMenuBar(parent)
 {
 	// 1. File
@@ -22,7 +21,7 @@ MenuBar::MenuBar(QWidget* parent)
 	this->addMenu(mViewMenu.get());
 }
 
-void MenuBar::ConnectAction(const QObject* widgetManager)
+void scMenuBar::ConnectAction(const QObject* widgetManager)
 {
 	connect(mObjectListAction.get(), SIGNAL(triggered()), widgetManager, SLOT(OpenObjectListDialog()));
 }

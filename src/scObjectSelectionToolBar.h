@@ -3,11 +3,11 @@
 
 class QVBoxLayout;
 class QToolButton;
-class ObjectSelectionToolBar : public QToolBar
+class scObjectSelectionToolBar : public QToolBar
 {
 public:
-	ObjectSelectionToolBar(QWidget* parent = 0);
-	~ObjectSelectionToolBar();
+	scObjectSelectionToolBar(QWidget* parent = 0);
+	~scObjectSelectionToolBar();
 
 	void ConnectToolButton(QObject* widgetManager);
 	bool SetButtonPressed(const std::string name);

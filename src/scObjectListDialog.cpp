@@ -1,11 +1,11 @@
-#include "ObjectListDialog.h"
-#include "Shape.h"
+#include "scObjectListDialog.h"
+#include "scShape.h"
 
 #include <QTableView>
 #include <QVBoxLayout>
 #include <QStandardItemModel>
 
-ObjectListDialog::ObjectListDialog(ShapeVector& shapeObjects, QWidget* parent)
+scObjectListDialog::scObjectListDialog(scShapeVector& shapeObjects, QWidget* parent)
 	:QDialog(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout();

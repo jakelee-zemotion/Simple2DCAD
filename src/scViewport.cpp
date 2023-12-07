@@ -1,7 +1,7 @@
-#include "Viewport.h"
-#include "Camera.h"
-#include "DrawLineState.h"
-#include "SelectState.h"
+#include "scViewport.h"
+#include "scCamera.h"
+#include "scDrawLineState.h"
+#include "scSelectState.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
@@ -10,30 +10,30 @@
 
 using namespace std;
 
-Viewport::Viewport(QWidget* parent)
+scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
     mIsCtrlPressed = false;
 
-    mCamera = make_unique<Camera>(mShapeObjects, QPoint(this->width(), this->height()));
+    mCamera = make_unique<scCamera>(mShapeObjects, QPoint(this->width(), this->height()));
 
-    mStateMachine.AddState("Draw", make_shared<DrawLineState>(mShapeObjects));
-    mStateMachine.AddState("Select", make_shared<SelectState>(mShapeObjects));
+    mStateMachine.AddState("Draw", make_shared<scDrawLineState>(mShapeObjects));
+    mStateMachine.AddState("Select", make_shared<scSelectState>(mShapeObjects));
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
 }
 
-Viewport::~Viewport()
+scViewport::~scViewport()
 {
 }
 
-void Viewport::TransitState(std::string name)
+void scViewport::TransitState(std::string name)
 {
     mStateMachine.Transition(name);
 }
 
-void Viewport::paintEvent(QPaintEvent* event)
+void scViewport::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
 
@@ -48,7 +48,7 @@ void Viewport::paintEvent(QPaintEvent* event)
     mShapeObjects.DrawShape(painter);
 }
 
-void Viewport::mousePressEvent(QMouseEvent* event)
+void scViewport::mousePressEvent(QMouseEvent* event)
 {
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
 
@@ -72,7 +72,7 @@ void Viewport::mousePressEvent(QMouseEvent* event)
     setFocus();
 }
 
-void Viewport::mouseReleaseEvent(QMouseEvent* event)
+void scViewport::mouseReleaseEvent(QMouseEvent* event)
 {
     //qDebug() << event->buttons();
 
@@ -81,7 +81,7 @@ void Viewport::mouseReleaseEvent(QMouseEvent* event)
     update();
 }
 
-void Viewport::mouseMoveEvent(QMouseEvent* event)
+void scViewport::mouseMoveEvent(QMouseEvent* event)
 {
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
@@ -101,7 +101,7 @@ void Viewport::mouseMoveEvent(QMouseEvent* event)
     update();
 }
 
-void Viewport::keyPressEvent(QKeyEvent* event)
+void scViewport::keyPressEvent(QKeyEvent* event)
 {
     switch (event->key())
     {
@@ -123,7 +123,7 @@ void Viewport::keyPressEvent(QKeyEvent* event)
 
 }
 
-void Viewport::keyReleaseEvent(QKeyEvent* event)
+void scViewport::keyReleaseEvent(QKeyEvent* event)
 {
     switch (event->key())
     {
@@ -135,7 +135,7 @@ void Viewport::keyReleaseEvent(QKeyEvent* event)
     }
 }
 
-void Viewport::wheelEvent(QWheelEvent* event)
+void scViewport::wheelEvent(QWheelEvent* event)
 {
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     int mouseDir = event->angleDelta().y();

@@ -1,12 +1,11 @@
 #pragma once
 
-class ShapeVector;
 class QPoint;
-class State
+class scState
 {
 public:
-	State();
-	virtual ~State();
+	scState();
+	virtual ~scState();
 
 	virtual void MousePressEvent(QPoint& currMousePos) = 0;
 	virtual void MouseMoveEvent(QPoint& currMousePos) = 0;

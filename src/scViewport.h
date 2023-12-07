@@ -1,22 +1,21 @@
 #pragma once
-#include "ShapeVector.h"
-#include "StateMachine.h"
+#include "scShapeVector.h"
+#include "scStateMachine.h"
 
 #include <QWidget>
 
 
-class Camera;
-class State;
-class Viewport : public QWidget
+class scCamera;
+class scViewport : public QWidget
 {
 
 public:
-	Viewport(QWidget* parent = 0);
-	~Viewport();
+	scViewport(QWidget* parent = 0);
+	~scViewport();
 
 	void TransitState(std::string name);
 
-	ShapeVector mShapeObjects;
+	scShapeVector mShapeObjects;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
@@ -28,9 +27,9 @@ protected:
 	void wheelEvent(QWheelEvent* event) override;
 
 private:
-	std::unique_ptr<Camera> mCamera;
+	std::unique_ptr<scCamera> mCamera;
 	
-	StateMachine mStateMachine;
+	scStateMachine mStateMachine;
 
 	bool mIsCtrlPressed;
 };

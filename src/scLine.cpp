@@ -1,18 +1,18 @@
-#include "Line.h"
+#include "scLine.h"
 
 using namespace std;
 
-Line::Line(vector<QPoint>& points)
-	:Shape(points)
+scLine::scLine(vector<QPoint>& points)
+	:scShape(points)
 {
 	name = "Line" + QString::number(nameCnt++);
 }
 
-Line::~Line()
+scLine::~scLine()
 {
 }
 
-void Line::Paint(QPainter& painter)
+void scLine::Paint(QPainter& painter)
 {
 	painter.drawPolyline(mPoints.data(), mPoints.size());
 }

@@ -1,19 +1,19 @@
-#include "Camera.h"
-#include "Shape.h"
+#include "scCamera.h"
+#include "scShape.h"
 
 #include <QMouseEvent>
 
-Camera::Camera(ShapeVector& shapeObjects, QPoint viewportSize)
+scCamera::scCamera(scShapeVector& shapeObjects, QPoint viewportSize)
     :mShapeObjects(shapeObjects), mViewportSize(viewportSize)
 {
     mPrevMousePos = { 0, 0 };
 }
 
-Camera::~Camera()
+scCamera::~scCamera()
 {
 }
 
-void Camera::Pan(QPoint currentMousePos)
+void scCamera::Pan(QPoint currentMousePos)
 {
     QPoint dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
@@ -27,7 +27,7 @@ void Camera::Pan(QPoint currentMousePos)
     }
 }
 
-void Camera::Zoom(QPoint currentMousePos, int mouseDir)
+void scCamera::Zoom(QPoint currentMousePos, int mouseDir)
 {
     for (const auto& object : mShapeObjects.mShapes)
     {
@@ -48,19 +48,19 @@ void Camera::Zoom(QPoint currentMousePos, int mouseDir)
     
 }
 
-void Camera::SetPrevMousePos(QPoint prevMousePos)
+void scCamera::SetPrevMousePos(QPoint prevMousePos)
 {
     mPrevMousePos = prevMousePos;
 }
 
 
 // The ones below are not used.
-QPoint Camera::ScreenToWorld(QPoint point)
+QPoint scCamera::ScreenToWorld(QPoint point)
 {
     return { point.x() / mViewportSize.x() * 2 - 1, point.y() / mViewportSize.y() * 2 - 1 };
 }
 
-QPoint Camera::WorldToScreen(QPoint point)
+QPoint scCamera::WorldToScreen(QPoint point)
 {
     return { (point.x() + 1) / 2 * mViewportSize.x(), (point.y() + 1) / 2 * mViewportSize.y() };
 }

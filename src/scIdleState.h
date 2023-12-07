@@ -1,11 +1,11 @@
 #pragma once
-#include "State.h"
+#include "scState.h"
 
-class IdleState : public State
+class scIdleState : public scState
 {
 public:
-	IdleState();
-	~IdleState();
+	scIdleState();
+	~scIdleState();
 
 	void MousePressEvent(QPoint& currMousePos) override;
 	void MouseMoveEvent(QPoint& currMousePos) override;

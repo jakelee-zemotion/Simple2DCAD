@@ -1,12 +1,13 @@
 #pragma once
-#include "State.h"
+#include "scState.h"
 #include <memory>
 
-class SelectState : public State
+class scShapeVector;
+class scSelectState : public scState
 {
 public:
-	SelectState(ShapeVector& shapeObjects);
-	~SelectState();
+	scSelectState(scShapeVector& shapeObjects);
+	~scSelectState();
 
 	void MousePressEvent(QPoint& currMousePos) override;
 	void MouseMoveEvent(QPoint& currMousePos) override;
@@ -14,7 +15,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	ShapeVector& mShapeObjects;
+	scShapeVector& mShapeObjects;
 	QPoint* mSelectedPoint = nullptr;
 
 	bool mIsPressed;

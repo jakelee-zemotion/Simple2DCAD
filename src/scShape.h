@@ -3,11 +3,11 @@
 #include <QPoint>
 #include <QPainter>
 
-class Shape
+class scShape
 {
 public:
-	Shape(std::vector<QPoint>& points);
-	~Shape();
+	scShape(std::vector<QPoint>& points);
+	~scShape();
 
 	virtual void Paint(QPainter& painter) = 0;
 

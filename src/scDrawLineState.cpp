@@ -1,19 +1,19 @@
-#include "DrawLineState.h"
-#include "ShapeVector.h"
+#include "scDrawLineState.h"
+#include "scShapeVector.h"
 
 #include <QPoint>
 
-DrawLineState::DrawLineState(ShapeVector& shapeObjects)
+scDrawLineState::scDrawLineState(scShapeVector& shapeObjects)
     :mShapeObjects(shapeObjects)
 {
     mIsDrawing = false;
 }
 
-DrawLineState::~DrawLineState()
+scDrawLineState::~scDrawLineState()
 {
 }
 
-void DrawLineState::MousePressEvent(QPoint& currMousePos)
+void scDrawLineState::MousePressEvent(QPoint& currMousePos)
 {
     if (!mIsDrawing)
     {
@@ -32,7 +32,7 @@ void DrawLineState::MousePressEvent(QPoint& currMousePos)
     }
 }
 
-void DrawLineState::MouseMoveEvent(QPoint& currMousePos)
+void scDrawLineState::MouseMoveEvent(QPoint& currMousePos)
 {
     if (mIsDrawing)
     {
@@ -41,11 +41,11 @@ void DrawLineState::MouseMoveEvent(QPoint& currMousePos)
 
 }
 
-void DrawLineState::MouseReleaseEvent()
+void scDrawLineState::MouseReleaseEvent()
 {
 }
 
-void DrawLineState::KeyPressEvent()
+void scDrawLineState::KeyPressEvent()
 {
     if (mIsDrawing)
     {

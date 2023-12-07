@@ -1,4 +1,4 @@
-#include "ObjectSelectionToolBar.h"
+#include "scObjectSelectionToolBar.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -6,7 +6,7 @@
 
 using namespace std;
 
-ObjectSelectionToolBar::ObjectSelectionToolBar(QWidget* parent)
+scObjectSelectionToolBar::scObjectSelectionToolBar(QWidget* parent)
 	:QToolBar(parent)
 {
 	mToolButtonMap["Draw"] = make_unique<QToolButton>();
@@ -20,17 +20,17 @@ ObjectSelectionToolBar::ObjectSelectionToolBar(QWidget* parent)
 	addWidget(mToolButtonMap["Select"].get());
 }
 
-ObjectSelectionToolBar::~ObjectSelectionToolBar()
+scObjectSelectionToolBar::~scObjectSelectionToolBar()
 {
 }
 
-void ObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)
+void scObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)
 {
 	connect(mToolButtonMap["Draw"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressDrawMode()));
 	connect(mToolButtonMap["Select"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressSelectMode()));
 }
 
-bool ObjectSelectionToolBar::SetButtonPressed(const string name)
+bool scObjectSelectionToolBar::SetButtonPressed(const string name)
 {
 	// If name button is pressed, return false.
 	if (!mToolButtonMap[name]->isChecked())
