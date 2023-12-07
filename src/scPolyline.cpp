@@ -1,4 +1,5 @@
 #include "scPolyLine.h"
+#include "scLine.h"
 
 using namespace std;
 
@@ -13,15 +14,21 @@ scPolyline::~scPolyline()
 
 void scPolyline::Paint(QPainter& painter)
 {
-	list<QPointF> vertices;
+	QList<QPointF> vertices;
 	
-	//vertices.push_back(mSharedLineList.front());
+	vertices.push_back(mSharedLineList.front()->GetStartVertex());
 	for (const auto& vertex : mSharedLineList)
 	{
-
+		vertices.push_back(vertex->GetEndVertex());
 	}
 
+	QPolygonF a(vertices);
 
-	//painter.drawPolyline()
+	painter.drawPolyline(a);
 	//painter.drawPolyline(mPoints.data(), mPoints.size());
+}
+
+void scPolyline::AddSharedLine(std::shared_ptr<scLine>& line)
+{
+	mSharedLineList.push_back(line);
 }

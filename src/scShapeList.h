@@ -64,10 +64,13 @@ public:
 
 		std::shared_ptr<scVertex>& startVertex = mVertexList.back();
 		std::shared_ptr<scVertex> endVertex = std::make_shared<scVertex>(point);
+
+		std::shared_ptr<scLine> newLine = std::make_shared<scLine>(startVertex, endVertex);
+		std::shared_ptr<scPolyline>& lastPolyline = mPolylineList.back();
+
 		mVertexList.push_back(endVertex);
-
-		mLineList.push_back(std::make_shared<scLine>(startVertex, endVertex));
-
+		mLineList.push_back(newLine);
+		lastPolyline->AddSharedLine(newLine);
 	}
 
 	bool CloseTest(QPoint& currMousePos)

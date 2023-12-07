@@ -10,6 +10,7 @@ public:
 	virtual ~scPolyline() override;
 
 	void Paint(QPainter& painter) override;
+	void AddSharedLine(std::shared_ptr<scLine>& line);
 
 private:
 	std::list<std::shared_ptr<scLine>> mSharedLineList;

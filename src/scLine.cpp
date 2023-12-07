@@ -12,13 +12,12 @@ scLine::~scLine()
 {
 }
 
-scVertex scLine::GetStartVertex() const
+QPointF scLine::GetStartVertex() const
 {
-	//*mStartVertex.get() = scVertex(a);
-	return *mStartVertex.get();
+	return { (*mStartVertex.get()).GetX(), (*mStartVertex.get()).GetY() };
 }
 
-scVertex scLine::GetEndVertex() const
+QPointF scLine::GetEndVertex() const
 {
-	return *mEndVertex.get();
+	return { (*mEndVertex.get()).GetX(), (*mEndVertex.get()).GetY() };
 }
