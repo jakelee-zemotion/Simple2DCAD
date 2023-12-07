@@ -1,6 +1,7 @@
 #include "scPoint.h"
 
-scPoint::scPoint()
+scPoint::scPoint(int x, int y)
+	:QPoint(x, y)
 {
 }
 

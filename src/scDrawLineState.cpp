@@ -19,7 +19,7 @@ void scDrawLineState::MousePressEvent(QPoint& currMousePos)
     {
         // Put two points to create a line on the first click.
         // Therefore, the second point is adjusted in MouseMoveEvent.
-        mShapeObjects.CreateNewLine({ currMousePos, currMousePos });
+        mShapeObjects.CreateNewLine(currMousePos, currMousePos);
         mIsDrawing = true;
     }
     else

@@ -1,12 +1,10 @@
 #pragma once
-#include "scShapeInterface.h"
+#include <QLine>
 
-class scLine : public scShapeInterface
+class scLine : public QLine
 {
 public:
-	scLine(std::vector<QPoint>& points);
+	scLine();
 	~scLine();
-
-	void Paint(QPainter& painter) override;
 };
 

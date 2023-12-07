@@ -4,7 +4,7 @@
 class scPoint : public QPoint
 {
 public:
-	scPoint();
+	scPoint(int x, int y);
 	~scPoint();
 
 };

@@ -5,6 +5,7 @@
 #include "scPoint.h"
 #include "scLine.h"
 #include "scPolygon.h"
+#include "scPolyline.h"
 
 
 struct ClosedThreshold
@@ -32,9 +33,9 @@ public:
 		}
 	}
 
-	void CreateNewLine(std::vector<QPoint> points)
+	void CreateNewLine(QPoint start, QPoint end)
 	{
-		mShapeObjects.push_back(std::make_unique<scLine>(points));
+		mShapeObjects.push_back(std::make_unique<scPolyline>(std::vector<QPoint>({ start, end })));
 	}
 
 	void AddPointInLastShape(QPoint& point)
@@ -113,6 +114,7 @@ public:
 	}
 
 	std::list<std::shared_ptr<scShapeInterface>> mShapeObjects;
+	std::list<std::shared_ptr<scPolyline>> mPolylineList;
 	std::list<std::shared_ptr<scPolygon>> mPolygonList;
 	std::list<std::shared_ptr<scLine>> mLineList;
 	std::list<std::shared_ptr<scPoint>> mPointList;
