@@ -1,9 +1,9 @@
 #pragma once
-#include "scState.h"
+#include "scStateInterface.h"
 #include <memory>
 
 class scShapeVector;
-class scSelectState : public scState
+class scSelectState : public scStateInterface
 {
 public:
 	scSelectState(scShapeVector& shapeObjects);

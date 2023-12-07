@@ -7,7 +7,7 @@ class scShape
 {
 public:
 	scShape(std::vector<QPoint>& points);
-	~scShape();
+	virtual ~scShape();
 
 	virtual void Paint(QPainter& painter) = 0;
 

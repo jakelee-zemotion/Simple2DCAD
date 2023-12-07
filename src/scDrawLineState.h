@@ -1,8 +1,8 @@
 #pragma once
-#include "scState.h"
+#include "scStateInterface.h"
 
 class scShapeVector;
-class scDrawLineState : public scState
+class scDrawLineState : public scStateInterface
 {
 public:
 	scDrawLineState(scShapeVector& shapeObjects);

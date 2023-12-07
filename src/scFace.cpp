@@ -18,7 +18,6 @@ void scFace::Paint(QPainter& painter)
 {
 	painter.drawPolygon(mPoints.data(), mPoints.size());
 
-
 	//QPolygon qqqq({ {100, 100}, {100, 200}, {400, 400}, {200, 100} });
 	////qDebug() << qqqq.containsPoint({ 89, 90 }, Qt::OddEvenFill);
 

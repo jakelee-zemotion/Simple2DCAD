@@ -1,7 +1,7 @@
 #pragma once
-#include "scState.h"
+#include "scStateInterface.h"
 
-class scIdleState : public scState
+class scIdleState : public scStateInterface
 {
 public:
 	scIdleState();
