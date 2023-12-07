@@ -4,8 +4,10 @@
 
 using namespace std;
 
+int scPolygon::nameCnt = 0;
+
 scPolygon::scPolygon(vector<QPoint>& points)
-	:scShape(points)
+	:scShapeInterface(points)
 {
 	name = "Face" + QString::number(nameCnt++);
 }

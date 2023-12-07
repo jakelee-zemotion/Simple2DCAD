@@ -1,5 +1,4 @@
 #include "scCamera.h"
-#include "scShape.h"
 
 #include <QMouseEvent>
 

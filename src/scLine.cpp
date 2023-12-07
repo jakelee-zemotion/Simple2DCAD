@@ -3,9 +3,8 @@
 using namespace std;
 
 scLine::scLine(vector<QPoint>& points)
-	:scShape(points)
+	:scShapeInterface(points)
 {
-	name = "Line" + QString::number(nameCnt++);
 }
 
 scLine::~scLine()

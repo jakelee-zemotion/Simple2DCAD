@@ -1,5 +1,4 @@
 #include "scObjectListDialog.h"
-#include "scShape.h"
 
 #include <QTableView>
 #include <QVBoxLayout>

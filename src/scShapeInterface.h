@@ -3,18 +3,16 @@
 #include <QPoint>
 #include <QPainter>
 
-class scShape
+class scShapeInterface
 {
 public:
-	scShape(std::vector<QPoint>& points);
-	virtual ~scShape();
+	scShapeInterface(std::vector<QPoint>& points) : mPoints(points) {};
+	virtual ~scShapeInterface() = 0 {};
 
 	virtual void Paint(QPainter& painter) = 0;
 
 //protected:
 	std::vector<QPoint> mPoints;
-	QString name;
 
-	static int nameCnt;
 };
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <QDebug>
-#include "scShape.h"
+#include "scShapeInterface.h"
 #include "scLine.h"
 #include "scPolygon.h"
 
@@ -111,7 +111,7 @@ public:
 		this->LastShapePointVec().back() = point;
 	}
 
-	std::vector<std::shared_ptr<scShape>> mShapes;
+	std::vector<std::shared_ptr<scShapeInterface>> mShapes;
 private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 

@@ -1,7 +1,7 @@
 #pragma once
-#include "scShape.h"
+#include "scShapeInterface.h"
 
-class scLine : public scShape
+class scLine : public scShapeInterface
 {
 public:
 	scLine(std::vector<QPoint>& points);
