@@ -4,8 +4,8 @@
 class scPolygon : public scShapeInterface
 {
 public:
-	scPolygon(std::vector<QPoint>& points);
-	virtual ~scPolygon();
+	scPolygon();
+	virtual ~scPolygon() override;
 
 	void Paint(QPainter& painter) override;
 

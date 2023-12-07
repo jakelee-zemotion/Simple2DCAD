@@ -1,8 +1,10 @@
 #include "scPolyLine.h"
 
-scPolyline::scPolyline(std::vector<QPoint> points)
-	:scShapeInterface(points)
+using namespace std;
+
+scPolyline::scPolyline(shared_ptr<scLine>& firstLine)
 {
+	mSharedLineList = { firstLine };
 }
 
 scPolyline::~scPolyline()
@@ -11,5 +13,15 @@ scPolyline::~scPolyline()
 
 void scPolyline::Paint(QPainter& painter)
 {
-	painter.drawPolyline(mPoints.data(), mPoints.size());
+	list<QPointF> vertices;
+	
+	//vertices.push_back(mSharedLineList.front());
+	for (const auto& vertex : mSharedLineList)
+	{
+
+	}
+
+
+	//painter.drawPolyline()
+	//painter.drawPolyline(mPoints.data(), mPoints.size());
 }

@@ -6,8 +6,7 @@ using namespace std;
 
 int scPolygon::nameCnt = 0;
 
-scPolygon::scPolygon(vector<QPoint>& points)
-	:scShapeInterface(points)
+scPolygon::scPolygon()
 {
 	name = "Face" + QString::number(nameCnt++);
 }
@@ -18,7 +17,7 @@ scPolygon::~scPolygon()
 
 void scPolygon::Paint(QPainter& painter)
 {
-	painter.drawPolygon(mPoints.data(), mPoints.size());
+	//painter.drawPolygon(mPoints.data(), mPoints.size());
 
 	//QPolygon qqqq({ {100, 100}, {100, 200}, {400, 400}, {200, 100} });
 	////qDebug() << qqqq.containsPoint({ 89, 90 }, Qt::OddEvenFill);

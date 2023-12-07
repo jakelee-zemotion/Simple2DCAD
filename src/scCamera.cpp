@@ -17,18 +17,18 @@ void scCamera::Pan(QPoint currentMousePos)
     QPoint dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 
-    for (const auto& object : mShapeObjects.mShapeObjects)
+   /* for (const auto& object : mShapeObjects.mShapeObjects)
     {
         for (auto& point : object->mPoints)
         {
             point += dist;
         }
-    }
+    }*/
 }
 
 void scCamera::Zoom(QPoint currentMousePos, int mouseDir)
 {
-    for (const auto& object : mShapeObjects.mShapeObjects)
+    /*for (const auto& object : mShapeObjects.mShapeObjects)
     {
         for (auto& point : object->mPoints)
         {
@@ -43,7 +43,7 @@ void scCamera::Zoom(QPoint currentMousePos, int mouseDir)
             }
             point += currentMousePos;
         }
-    }
+    }*/
     
 }
 

@@ -22,35 +22,39 @@ public:
 
 	size_t size() const
 	{
-		return mShapeObjects.size();
+		return mPolygonList.size();
 	}
 
 	void DrawShape(QPainter& painter)
 	{
-		for (const auto& shape : mShapeObjects)
+		for (const auto& shape : mPolylineList)
 		{
 			shape->Paint(painter);
 		}
 	}
 
-	void CreateNewLine(QPoint& start, QPoint& end)
+	void AddLine(QPoint& start, QPoint& end)
 	{
 		//mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
 
+		// Copy the vertices.
 		std::shared_ptr<scVertex> startVertex = std::make_shared<scVertex>(start);
 		std::shared_ptr<scVertex> endVertex = std::make_shared<scVertex>(end);
+
+		// Ref the vertices.
 		std::shared_ptr<scLine> newLine = std::make_shared<scLine>(startVertex, endVertex);
-		//std::shared_ptr<scPolyline> newPolyline = std::make_shared<scLine>(newLine);
+		std::shared_ptr<scPolyline> newPolyline = std::make_shared<scPolyline>(newLine);
 
-
+		// Add Vertices.
 		mVertexList.push_back(startVertex);
 		mVertexList.push_back(endVertex);
 
-		mLineList.push_back(std::make_shared<scLine>(startVertex, endVertex));
-		//mPolylineList.push_back(std::make_shared<scLine>())
+		// Add a new line and ployline.
+		mLineList.push_back(newLine);
+		mPolylineList.push_back(newPolyline);
 	}
 
-	void AddPointInLastShape(QPoint& point)
+	void AddVertex(QPoint& point)
 	{
 		/*if (mShapeObjects.empty())
 			return;
@@ -111,31 +115,30 @@ public:
 
 	void CheckLastShape()
 	{
-		if (mShapeObjects.empty() || this->LastShapePointVec().empty())
-			return;
+		//if (mShapeObjects.empty() || this->LastShapePointVec().empty())
+		//	return;
 
-		// Remove adjusting point.
-		this->LastShapePointVec().pop_back();
+		//// Remove adjusting point.
+		//this->LastShapePointVec().pop_back();
 
-		// Put the shape in DrawObjects if its size is not 1. 
-		// It is unnecessary to store a point.
-		if (this->LastShapePointVec().size() <= 1)
-		{
-			mShapeObjects.pop_back();
-		}
+		//// Put the shape in DrawObjects if its size is not 1. 
+		//// It is unnecessary to store a point.
+		//if (this->LastShapePointVec().size() <= 1)
+		//{
+		//	mShapeObjects.pop_back();
+		//}
 
 
 	}
 
 	void SetLastPoint(QPoint& point)
 	{
-		if (mShapeObjects.empty() || this->LastShapePointVec().empty())
+		/*if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 			return;
 
-		this->LastShapePointVec().back() = point;
+		this->LastShapePointVec().back() = point;*/
 	}
 
-	std::list<std::shared_ptr<scShapeInterface>> mShapeObjects;
 	std::list<std::shared_ptr<scPolyline>> mPolylineList;
 	std::list<std::shared_ptr<scPolygon>> mPolygonList;
 	std::list<std::shared_ptr<scLine>> mLineList;
@@ -146,8 +149,5 @@ private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 
 
-	std::vector<QPoint>& LastShapePointVec()
-	{
-		return mShapeObjects.back()->mPoints;
-	}
+	
 };

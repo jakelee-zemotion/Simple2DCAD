@@ -9,6 +9,9 @@ public:
 	scVertex(QPointF& qpointF);
 	~scVertex();
 
+	double GetX() const;
+	double GetY() const;
+
 private:
 	double mX;
 	double mY;

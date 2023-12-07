@@ -17,3 +17,13 @@ scVertex::scVertex(QPointF& qpointF)
 scVertex::~scVertex()
 {
 }
+
+double scVertex::GetX() const
+{
+	return mX;
+}
+
+double scVertex::GetY() const
+{
+	return mY;
+}

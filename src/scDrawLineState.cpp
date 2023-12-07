@@ -19,12 +19,12 @@ void scDrawLineState::MousePressEvent(QPoint& currMousePos)
     {
         // Put two points to create a line on the first click.
         // Therefore, the second point is adjusted in MouseMoveEvent.
-        mShapeObjects.CreateNewLine(currMousePos, currMousePos);
+        mShapeObjects.AddLine(currMousePos, currMousePos);
         mIsDrawing = true;
     }
     else
     {
-        mShapeObjects.AddPointInLastShape(currMousePos);
+        mShapeObjects.AddVertex(currMousePos);
 
         // Close testing
         // If CloseTest is true (i.e. if polygon can be created), Drawing mode is stopped.

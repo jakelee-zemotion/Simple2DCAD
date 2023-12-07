@@ -17,18 +17,18 @@ void scSelectState::MousePressEvent(QPoint& currMousePos)
 {
 	mIsPressed = true;
 
-	for (const auto& object : mShapeObjects.mShapeObjects)
-	{
-		for (auto& point : object->mPoints)
-		{
-			if (mShapeObjects.IsObjectClosed(point, currMousePos))
-			{
-				qDebug() << "hit";
-				mSelectedPoint = &point;//std::make_shared<QPoint>(point);
-			}
+	//for (const auto& object : mShapeObjects.mShapeObjects)
+	//{
+	//	for (auto& point : object->mPoints)
+	//	{
+	//		if (mShapeObjects.IsObjectClosed(point, currMousePos))
+	//		{
+	//			qDebug() << "hit";
+	//			mSelectedPoint = &point;//std::make_shared<QPoint>(point);
+	//		}
 
-		}
-	}
+	//	}
+	//}
 }
 
 void scSelectState::MouseMoveEvent(QPoint& currMousePos)
