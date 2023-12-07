@@ -1,11 +1,11 @@
 #pragma once
-#include "scShapeVector.h"
 
 #include <QDialog>
 
+class scShapeList;
 class scObjectListDialog : public QDialog
 {
 public:
-	scObjectListDialog(scShapeVector& shapeObjects, QWidget* parent = 0);
+	scObjectListDialog(scShapeList& shapeObjects, QWidget* parent = 0);
 };
 

@@ -2,11 +2,11 @@
 #include "scStateInterface.h"
 #include <memory>
 
-class scShapeVector;
+class scShapeList;
 class scSelectState : public scStateInterface
 {
 public:
-	scSelectState(scShapeVector& shapeObjects);
+	scSelectState(scShapeList& shapeObjects);
 	~scSelectState();
 
 	void MousePressEvent(QPoint& currMousePos) override;
@@ -15,7 +15,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	scShapeVector& mShapeObjects;
+	scShapeList& mShapeObjects;
 	QPoint* mSelectedPoint = nullptr;
 
 	bool mIsPressed;

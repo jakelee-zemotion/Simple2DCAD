@@ -1,9 +1,9 @@
 #include "scDrawLineState.h"
-#include "scShapeVector.h"
+#include "scShapeList.h"
 
 #include <QPoint>
 
-scDrawLineState::scDrawLineState(scShapeVector& shapeObjects)
+scDrawLineState::scDrawLineState(scShapeList& shapeObjects)
     :mShapeObjects(shapeObjects)
 {
     mIsDrawing = false;

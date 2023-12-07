@@ -1,9 +1,9 @@
 #include "scSelectState.h"
-#include "scShapeVector.h"
+#include "scShapeList.h"
 
 #include <qDebug>
 
-scSelectState::scSelectState(scShapeVector& shapeObjects)
+scSelectState::scSelectState(scShapeList& shapeObjects)
 	:mShapeObjects(shapeObjects)
 {
 	mIsPressed = false;
@@ -17,7 +17,7 @@ void scSelectState::MousePressEvent(QPoint& currMousePos)
 {
 	mIsPressed = true;
 
-	for (const auto& object : mShapeObjects.mShapes)
+	for (const auto& object : mShapeObjects.mShapeObjects)
 	{
 		for (auto& point : object->mPoints)
 		{

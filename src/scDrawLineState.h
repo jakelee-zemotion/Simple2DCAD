@@ -1,11 +1,11 @@
 #pragma once
 #include "scStateInterface.h"
 
-class scShapeVector;
+class scShapeList;
 class scDrawLineState : public scStateInterface
 {
 public:
-	scDrawLineState(scShapeVector& shapeObjects);
+	scDrawLineState(scShapeList& shapeObjects);
 	~scDrawLineState();
 
 	void MousePressEvent(QPoint& currMousePos) override;
@@ -14,7 +14,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	scShapeVector& mShapeObjects;
+	scShapeList& mShapeObjects;
 	bool mIsDrawing; // Use in mouseReleaseEvent
 };
 

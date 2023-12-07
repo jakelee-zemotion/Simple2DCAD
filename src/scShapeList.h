@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <list>
 #include <QDebug>
 #include "scShapeInterface.h"
 #include "scLine.h"
@@ -12,20 +12,20 @@ struct ClosedThreshold
 	int minY, maxY;
 };
 
-class scShapeVector
+class scShapeList
 {
 public:
-	scShapeVector() {};
-	~scShapeVector() {};
+	scShapeList() {};
+	~scShapeList() {};
 
 	size_t size() const
 	{
-		return mShapes.size();
+		return mShapeObjects.size();
 	}
 
 	void DrawShape(QPainter& painter)
 	{
-		for (const auto& shape : mShapes)
+		for (const auto& shape : mShapeObjects)
 		{
 			shape->Paint(painter);
 		}
@@ -33,12 +33,12 @@ public:
 
 	void CreateNewLine(std::vector<QPoint> points)
 	{
-		mShapes.push_back(std::make_unique<scLine>(points));
+		mShapeObjects.push_back(std::make_unique<scLine>(points));
 	}
 
 	void AddPointInLastShape(QPoint& point)
 	{
-		if (mShapes.empty())
+		if (mShapeObjects.empty())
 			return;
 
 		this->LastShapePointVec().push_back(point);
@@ -46,7 +46,7 @@ public:
 
 	bool CloseTest(QPoint& currMousePos)
 	{
-		if (mShapes.empty() || this->LastShapePointVec().empty())
+		if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 			return false;
 
 		QPoint startPoint = this->LastShapePointVec().front();
@@ -62,10 +62,10 @@ public:
 			std::vector<QPoint> tempPoints = this->LastShapePointVec();
 
 			// Remove the last shape(Line)
-			mShapes.pop_back();
+			mShapeObjects.pop_back();
 
 			// Create a new shape(Face)
-			mShapes.push_back(std::make_unique<scPolygon>(tempPoints));
+			mShapeObjects.push_back(std::make_unique<scPolygon>(tempPoints));
 
 			return true;
 		}
@@ -89,7 +89,7 @@ public:
 
 	void CheckLastShape()
 	{
-		if (mShapes.empty() || this->LastShapePointVec().empty())
+		if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 			return;
 
 		// Remove adjusting point.
@@ -99,25 +99,28 @@ public:
 		// It is unnecessary to store a point.
 		if (this->LastShapePointVec().size() <= 1)
 		{
-			mShapes.pop_back();
+			mShapeObjects.pop_back();
 		}
 	}
 
 	void SetLastPoint(QPoint& point)
 	{
-		if (mShapes.empty() || this->LastShapePointVec().empty())
+		if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 			return;
 
 		this->LastShapePointVec().back() = point;
 	}
 
-	std::vector<std::shared_ptr<scShapeInterface>> mShapes;
+	std::list<std::shared_ptr<scShapeInterface>> mShapeObjects;
+	std::list<std::shared_ptr<scPolygon>> mPolygonObjects;
+
+
 private:
 	ClosedThreshold mClosedThreshold = { 20, 20, 20, 20 };
 
 
 	std::vector<QPoint>& LastShapePointVec()
 	{
-		return mShapes.back()->mPoints;
+		return mShapeObjects.back()->mPoints;
 	}
 };
