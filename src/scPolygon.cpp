@@ -1,20 +1,20 @@
-#include "scFace.h"
+#include "scPolygon.h"
 #include <qDebug>
 #include <QLineF>
 
 using namespace std;
 
-scFace::scFace(vector<QPoint>& points)
+scPolygon::scPolygon(vector<QPoint>& points)
 	:scShape(points)
 {
 	name = "Face" + QString::number(nameCnt++);
 }
 
-scFace::~scFace()
+scPolygon::~scPolygon()
 {
 }
 
-void scFace::Paint(QPainter& painter)
+void scPolygon::Paint(QPainter& painter)
 {
 	painter.drawPolygon(mPoints.data(), mPoints.size());
 

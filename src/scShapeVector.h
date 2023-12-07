@@ -3,7 +3,7 @@
 #include <QDebug>
 #include "scShape.h"
 #include "scLine.h"
-#include "scFace.h"
+#include "scPolygon.h"
 
 
 struct ClosedThreshold
@@ -65,7 +65,7 @@ public:
 			mShapes.pop_back();
 
 			// Create a new shape(Face)
-			mShapes.push_back(std::make_unique<scFace>(tempPoints));
+			mShapes.push_back(std::make_unique<scPolygon>(tempPoints));
 
 			return true;
 		}
