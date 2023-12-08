@@ -3,18 +3,18 @@
 #include <memory>
 
 class scQtVertex;
-class scLine;
+class scQtLine;
 class scPolyline : public scShapeInterface
 {
 public:
-	scPolyline(std::shared_ptr<scLine>& firstLine);
+	scPolyline(std::shared_ptr<scQtLine>& firstLine);
 	virtual ~scPolyline() override;
 
 	void Paint(QPainter& painter) override;
-	void AddSharedLine(std::shared_ptr<scLine>& line);
+	void AddSharedLine(std::shared_ptr<scQtLine>& line);
 
 private:
-	std::list<std::shared_ptr<scLine>> mSharedLineList;
+	std::list<std::shared_ptr<scQtLine>> mSharedLineList;
 	QList<QPointF> mVertexList;
 };
 

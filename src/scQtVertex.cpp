@@ -3,29 +3,41 @@
 
 scQtVertex::scQtVertex(QPoint& qpoint)
 {
-	mX = static_cast<double>(qpoint.x());
-	mY = static_cast<double>(qpoint.y());
+	double x = static_cast<double>(qpoint.x());
+	double y = static_cast<double>(qpoint.y());
 
-	this->setX(mX);
-	this->setY(mY);
+	this->SetX(x);
+	this->SetY(y);
 }
 
 scQtVertex::scQtVertex(QPointF& qpointF)
 {
-	mX = qpointF.x();
-	mY = qpointF.y();
+	this->SetX(qpointF.x());
+	this->SetY(qpointF.y());
 }
 
 scQtVertex::~scQtVertex()
 {
 }
 
+void scQtVertex::SetX(double x)
+{
+	vertexData.SetX(x);
+	this->setX(x);
+}
+
+void scQtVertex::SetY(double y)
+{
+	vertexData.SetY(y);
+	this->setY(y);
+}
+
 double scQtVertex::GetX() const
 {
-	return mX;
+	return vertexData.GetX();
 }
 
 double scQtVertex::GetY() const
 {
-	return mY;
+	return vertexData.GetY();
 }
