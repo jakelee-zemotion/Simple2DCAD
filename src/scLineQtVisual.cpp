@@ -1,14 +1,14 @@
-#include "scQtLine.h"
+#include "scLineQtVisual.h"
 
 using namespace std;
 
-scQtLine::scQtLine(shared_ptr<scQtVertex>& startVertex, shared_ptr<scQtVertex>& endVertex)
+scLineQtVisual::scLineQtVisual(shared_ptr<scVertexQtVisual>& startVertex, shared_ptr<scVertexQtVisual>& endVertex)
 {
 	mLineData.SetStartVertex(startVertex);
 	mLineData.SetEndVertex(endVertex);
 }
 
-scQtLine::~scQtLine()
+scLineQtVisual::~scLineQtVisual()
 {
 }
 
@@ -22,7 +22,7 @@ scQtLine::~scQtLine()
 //	return QPointF(mLineData.GetEndX(), mLineData.GetEndY());
 //}
 
-QLineF scQtLine::MakeQLineF()
+QLineF scLineQtVisual::MakeQLineF()
 {
 	return 
 		QLineF(
@@ -30,7 +30,7 @@ QLineF scQtLine::MakeQLineF()
 			{ mLineData.GetEndX(), mLineData.GetEndY() });
 }
 
-void scQtLine::Paint(QPainter& painter)
+void scLineQtVisual::Paint(QPainter& painter)
 {
 	QPen pen(Qt::blue);
 	pen.setWidth(3);
@@ -39,6 +39,6 @@ void scQtLine::Paint(QPainter& painter)
 	painter.drawLine(this->MakeQLineF());
 }
 
-void scQtLine::HitTest(QPointF& currMousePos)
+void scLineQtVisual::HitTest(QPointF& currMousePos)
 {
 }

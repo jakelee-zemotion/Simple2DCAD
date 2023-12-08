@@ -1,9 +1,8 @@
 #pragma once
 #include <list>
 #include <QDebug>
-#include "scQtShapeInterface.h"
-#include "scQtVertex.h"
-#include "scQtLine.h"
+#include "scVertexQtVisual.h"
+#include "scLineQtVisual.h"
 
 
 struct ClosedThreshold
@@ -41,11 +40,11 @@ public:
 		//mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
 
 		// Copy the vertices.
-		std::shared_ptr<scQtVertex> startVertex = std::make_shared<scQtVertex>(start);
-		std::shared_ptr<scQtVertex> endVertex = std::make_shared<scQtVertex>(end);
+		std::shared_ptr<scVertexQtVisual> startVertex = std::make_shared<scVertexQtVisual>(start);
+		std::shared_ptr<scVertexQtVisual> endVertex = std::make_shared<scVertexQtVisual>(end);
 
 		// Ref the vertices.
-		std::shared_ptr<scQtLine> newLine = std::make_shared<scQtLine>(startVertex, endVertex);
+		std::shared_ptr<scLineQtVisual> newLine = std::make_shared<scLineQtVisual>(startVertex, endVertex);
 		//std::shared_ptr<scPolyline> newPolyline = std::make_shared<scPolyline>(newLine);
 
 		// Add Vertices.
@@ -65,10 +64,10 @@ public:
 		this->LastShapePointVec().push_back(point);*/
 
 		// Ref and Copy vertex.
-		std::shared_ptr<scQtVertex>& startVertex = mVertexList.back();
-		std::shared_ptr<scQtVertex> endVertex = std::make_shared<scQtVertex>(point);
+		std::shared_ptr<scVertexQtVisual>& startVertex = mVertexList.back();
+		std::shared_ptr<scVertexQtVisual> endVertex = std::make_shared<scVertexQtVisual>(point);
 
-		std::shared_ptr<scQtLine> newLine = std::make_shared<scQtLine>(startVertex, endVertex);
+		std::shared_ptr<scLineQtVisual> newLine = std::make_shared<scLineQtVisual>(startVertex, endVertex);
 		//std::shared_ptr<scPolyline>& lastPolyline = mPolylineList.back();
 
 		mVertexList.push_back(endVertex);
@@ -147,8 +146,8 @@ public:
 
 	//std::list<std::shared_ptr<scPolyline>> mPolylineList;
 	//std::list<std::shared_ptr<scPolygon>> mPolygonList;
-	std::list<std::shared_ptr<scQtLine>> mLineList;
-	std::list<std::shared_ptr<scQtVertex>> mVertexList;
+	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
+	std::list<std::shared_ptr<scVertexQtVisual>> mVertexList;
 
 
 

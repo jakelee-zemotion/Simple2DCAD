@@ -1,16 +1,16 @@
 #pragma once
 #include "scVertexData.h"
-#include "scVertexInterface.h"
-#include "scQtShapeInterface.h"
+#include "scVertexVisualInterface.h"
+#include "scShapeQtVisualInterface.h"
 
 #include <QPointF>
 
 class QPainter;
-class scQtVertex : public scVertexInterface, public scQtShapeInterface
+class scVertexQtVisual : public scVertexVisualInterface, public scShapeQtVisualInterface
 {
 public:
-	scQtVertex(QPointF& qpointF);
-	~scQtVertex();
+	scVertexQtVisual(QPointF& qpointF);
+	~scVertexQtVisual();
 
 	QPointF MakeQPointF();
 

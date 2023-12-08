@@ -1,14 +1,14 @@
 #pragma once
 #include "scLineData.h"
-#include "scQtVertex.h"
+#include "scVertexQtVisual.h"
 
 #include <QLineF>
 
-class scQtLine : public scQtShapeInterface
+class scLineQtVisual : public scShapeQtVisualInterface
 {
 public:
-	scQtLine(std::shared_ptr<scQtVertex>& startVertex, std::shared_ptr<scQtVertex>& endVertex);
-	~scQtLine();
+	scLineQtVisual(std::shared_ptr<scVertexQtVisual>& startVertex, std::shared_ptr<scVertexQtVisual>& endVertex);
+	~scLineQtVisual();
 
 	/*QPointF GetStartVertex();
 	QPointF GetEndVertex();*/
