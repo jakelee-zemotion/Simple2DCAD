@@ -118,8 +118,14 @@ public:
 		return false;
 	}
 
-	void CheckLastShape()
+	void EndDrawing()
 	{
+		if (mVertexList.empty() || mLineList.empty())
+			return;
+
+		mVertexList.pop_back();
+		mLineList.pop_back();
+
 		//if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 		//	return;
 
@@ -138,12 +144,10 @@ public:
 
 	void MoveDrawingPoint(QPointF& point)
 	{
-		/*if (mShapeObjects.empty() || this->LastShapePointVec().empty())
+		if (mVertexList.empty())
 			return;
 
-		this->LastShapePointVec().back() = point;*/
-
-		std::shared_ptr<scVertexQtVisual> lastVertex = this->mVertexList.back();
+		std::shared_ptr<scVertexQtVisual> lastVertex = mVertexList.back();
 
 		lastVertex->SetX(point.x());
 		lastVertex->SetY(point.y());

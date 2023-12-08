@@ -49,7 +49,7 @@ void scDrawLineState::KeyPressEvent()
 {
     if (mIsDrawing)
     {
-        mShapeObjects.CheckLastShape();
+        mShapeObjects.EndDrawing();
         mIsDrawing = false;
     }
 }
