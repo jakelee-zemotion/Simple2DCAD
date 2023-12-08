@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
 #include <QDebug>
-#include "scShapeInterface.h"
+#include "scQtShapeInterface.h"
 #include "scQtVertex.h"
 #include "scQtLine.h"
 #include "scPolygon.h"
@@ -22,12 +22,12 @@ public:
 
 	size_t size() const
 	{
-		return mPolygonList.size();
+		return 1;//mPolygonList.size();
 	}
 
 	void DrawShape(QPainter& painter)
 	{
-		for (const auto& shape : mPolylineList)
+		for (const auto& shape : mLineList)
 		{
 			shape->Paint(painter);
 		}
@@ -56,7 +56,7 @@ public:
 
 		// Add a new line and ployline.
 		mLineList.push_back(newLine);
-		mPolylineList.push_back(newPolyline);
+		//mPolylineList.push_back(newPolyline);
 	}
 
 	void AddVertex(QPoint& point)
@@ -71,11 +71,11 @@ public:
 		std::shared_ptr<scQtVertex> endVertex = std::make_shared<scQtVertex>(point);
 
 		std::shared_ptr<scQtLine> newLine = std::make_shared<scQtLine>(startVertex, endVertex);
-		std::shared_ptr<scPolyline>& lastPolyline = mPolylineList.back();
+		//std::shared_ptr<scPolyline>& lastPolyline = mPolylineList.back();
 
 		mVertexList.push_back(endVertex);
 		mLineList.push_back(newLine);
-		lastPolyline->AddSharedLine(newLine);
+		//lastPolyline->AddSharedLine(newLine);
 	}
 
 	bool CloseTest(QPoint& currMousePos)
@@ -147,8 +147,8 @@ public:
 		this->LastShapePointVec().back() = point;*/
 	}
 
-	std::list<std::shared_ptr<scPolyline>> mPolylineList;
-	std::list<std::shared_ptr<scPolygon>> mPolygonList;
+	//std::list<std::shared_ptr<scPolyline>> mPolylineList;
+	//std::list<std::shared_ptr<scPolygon>> mPolygonList;
 	std::list<std::shared_ptr<scQtLine>> mLineList;
 	std::list<std::shared_ptr<scQtVertex>> mVertexList;
 

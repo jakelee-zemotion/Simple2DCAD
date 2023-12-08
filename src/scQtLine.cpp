@@ -12,12 +12,29 @@ scQtLine::~scQtLine()
 {
 }
 
-QPointF scQtLine::GetStartVertex()
+//QPointF scQtLine::GetStartVertex()
+//{
+//	return QPointF(mLineData.GetStartX(), mLineData.GetStartY());
+//}
+//
+//QPointF scQtLine::GetEndVertex()
+//{
+//	return QPointF(mLineData.GetEndX(), mLineData.GetEndY());
+//}
+
+QLineF scQtLine::MakeQLineF()
 {
-	return QPointF(mLineData.GetStartX(), mLineData.GetStartY());
+	return 
+		QLineF(
+			{ mLineData.GetStartX(), mLineData.GetStartY() },
+			{ mLineData.GetEndX(), mLineData.GetEndY() });
 }
 
-QPointF scQtLine::GetEndVertex()
+void scQtLine::Paint(QPainter& painter)
 {
-	return QPointF(mLineData.GetEndX(), mLineData.GetEndY());
+	QPen pen(Qt::blue);
+	pen.setWidth(3);
+	painter.setPen(pen);
+
+	painter.drawLine(this->MakeQLineF());
 }

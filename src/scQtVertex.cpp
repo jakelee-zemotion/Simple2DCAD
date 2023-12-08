@@ -21,16 +21,19 @@ scQtVertex::~scQtVertex()
 {
 }
 
+QPointF scQtVertex::MakeQPointF()
+{
+	return { vertexData.GetX(), vertexData.GetY() };
+}
+
 void scQtVertex::SetX(double x)
 {
 	vertexData.SetX(x);
-	this->setX(x);
 }
 
 void scQtVertex::SetY(double y)
 {
 	vertexData.SetY(y);
-	this->setY(y);
 }
 
 double scQtVertex::GetX() const
@@ -43,11 +46,12 @@ double scQtVertex::GetY() const
 	return vertexData.GetY();
 }
 
+
 void scQtVertex::Paint(QPainter& painter)
 {
 	QPen pen(Qt::red);
 	pen.setWidth(6);
 	painter.setPen(pen);
 
-	painter.drawPoint(*this);
+	painter.drawPoint(this->MakeQPointF());
 }

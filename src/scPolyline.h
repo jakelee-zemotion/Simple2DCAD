@@ -1,10 +1,10 @@
 #pragma once
-#include "scShapeInterface.h"
+#include "scQtShapeInterface.h"
 #include <memory>
 
 class scQtVertex;
 class scQtLine;
-class scPolyline : public scShapeInterface
+class scPolyline : public scQtShapeInterface
 {
 public:
 	scPolyline(std::shared_ptr<scQtLine>& firstLine);
