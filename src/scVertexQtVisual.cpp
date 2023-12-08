@@ -28,12 +28,6 @@ void scVertexQtVisual::SetY(double y)
 	vertexData.SetY(y);
 }
 
-void scVertexQtVisual::SetVertex(QPointF& point)
-{
-	this->SetX(point.x());
-	this->SetY(point.y());
-}
-
 double scVertexQtVisual::GetX() const
 {
 	return vertexData.GetX();
@@ -54,17 +48,25 @@ void scVertexQtVisual::Paint(QPainter& painter)
 	painter.drawPoint(this->MakeQPointF());
 }
 
-void scVertexQtVisual::HitTest(QPointF& currMousePos)
+bool scVertexQtVisual::HitTest(QPointF& currMousePos)
 {
-	QRectF rect(
+	/*QRectF rect(
 		currMousePos.x() - 10.0, currMousePos.x() + 10.0, 
 		currMousePos.y() - 10.0, currMousePos.y() + 10.0);
 
-	if (rect.contains(this->MakeQPointF()))
-	{
-		//this->SetX(currMousePos.x());
-		//this->SetY(currMousePos.y());
+	qDebug() << "mouse : " << currMousePos;
+	qDebug() << "vertex : " << this->MakeQPointF();
+	qDebug() << rect.contains(this->MakeQPointF());
+	qDebug() << '\n';*/
 
-		qDebug() << "jih";
+	if (currMousePos.x() - 10.0 < this->GetX()
+		&& currMousePos.x() + 10.0 > this->GetX()
+
+		&& currMousePos.y() - 10.0 < this->GetY()
+		&& currMousePos.y() + 10.0 > this->GetY())
+	{
+		return true;
 	}
+
+	return false;
 }

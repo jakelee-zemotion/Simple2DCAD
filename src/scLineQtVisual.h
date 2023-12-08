@@ -16,7 +16,7 @@ public:
 	QLineF MakeQLineF();
 
 	void Paint(QPainter& painter) override;
-	void HitTest(QPointF& currMousePos) override;
+	bool HitTest(QPointF& currMousePos) override;
 
 private:
 	scLineData mLineData;

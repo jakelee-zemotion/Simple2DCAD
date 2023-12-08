@@ -143,7 +143,10 @@ public:
 
 		this->LastShapePointVec().back() = point;*/
 
-		this->mVertexList.back()->SetVertex(point);
+		std::shared_ptr<scVertexQtVisual> lastVertex = this->mVertexList.back();
+
+		lastVertex->SetX(point.x());
+		lastVertex->SetY(point.y());
 	}
 
 	//std::list<std::shared_ptr<scPolyline>> mPolylineList;

@@ -28,24 +28,25 @@ void scSelectState::MousePressEvent(QPointF& currMousePos)
 			//}
 		//}
 
-		/*if (point->HitTest(currMousePos))
+		if (point->HitTest(currMousePos))
 		{
 			mSelectedPoint = point;
-		}*/
+		}
 	}
 }
 
 void scSelectState::MouseMoveEvent(QPointF& currMousePos)
 {
-	//if (mIsPressed)
-	//{
-	//	//qDebug() << mSelectedPoint.use_count();
+	if (mIsPressed)
+	{
+		//qDebug() << mSelectedPoint.use_count();
 
-	//	if (mSelectedPoint != nullptr)
-	//	{
-	//		*mSelectedPoint = currMousePos;
-	//	}
-	//}
+		if (mSelectedPoint.use_count())
+		{
+			mSelectedPoint->SetX(currMousePos.x());
+			mSelectedPoint->SetY(currMousePos.y());
+		}
+	}
 }
 
 void scSelectState::MouseReleaseEvent()

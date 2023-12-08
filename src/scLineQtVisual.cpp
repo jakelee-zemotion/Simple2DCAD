@@ -39,7 +39,7 @@ void scLineQtVisual::Paint(QPainter& painter)
 	painter.drawLine(this->MakeQLineF());
 }
 
-void scLineQtVisual::HitTest(QPointF& currMousePos)
+bool scLineQtVisual::HitTest(QPointF& currMousePos)
 {
-
+	return false;
 }

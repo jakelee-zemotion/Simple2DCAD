@@ -14,16 +14,14 @@ public:
 
 	QPointF MakeQPointF();
 
-	void SetX(double x);
-	void SetY(double y);
-
-	void SetVertex(QPointF& point);
+	void SetX(double x) override;
+	void SetY(double y) override;
 
 	double GetX() const override;
 	double GetY() const override;
 
 	void Paint(QPainter& painter) override;
-	void HitTest(QPointF& currMousePos) override;
+	bool HitTest(QPointF& currMousePos) override;
 
 private:
 	scVertexData vertexData;
