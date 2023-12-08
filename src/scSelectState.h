@@ -9,14 +9,14 @@ public:
 	scSelectState(scShapeList& shapeObjects);
 	~scSelectState();
 
-	void MousePressEvent(QPoint& currMousePos) override;
-	void MouseMoveEvent(QPoint& currMousePos) override;
+	void MousePressEvent(QPointF& currMousePos) override;
+	void MouseMoveEvent(QPointF& currMousePos) override;
 	void MouseReleaseEvent() override;
 	void KeyPressEvent() override;
 
 private:
 	scShapeList& mShapeObjects;
-	QPoint* mSelectedPoint = nullptr;
+	QPointF* mSelectedPoint = nullptr;
 
 	bool mIsPressed;
 };

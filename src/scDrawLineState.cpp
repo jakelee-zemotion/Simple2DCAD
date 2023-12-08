@@ -1,7 +1,7 @@
 #include "scDrawLineState.h"
 #include "scShapeList.h"
 
-#include <QPoint>
+#include <QPointF>
 
 scDrawLineState::scDrawLineState(scShapeList& shapeObjects)
     :mShapeObjects(shapeObjects)
@@ -13,7 +13,7 @@ scDrawLineState::~scDrawLineState()
 {
 }
 
-void scDrawLineState::MousePressEvent(QPoint& currMousePos)
+void scDrawLineState::MousePressEvent(QPointF& currMousePos)
 {
     if (!mIsDrawing)
     {
@@ -32,7 +32,7 @@ void scDrawLineState::MousePressEvent(QPoint& currMousePos)
     }
 }
 
-void scDrawLineState::MouseMoveEvent(QPoint& currMousePos)
+void scDrawLineState::MouseMoveEvent(QPointF& currMousePos)
 {
     if (mIsDrawing)
     {

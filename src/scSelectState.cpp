@@ -13,7 +13,7 @@ scSelectState::~scSelectState()
 {
 }
 
-void scSelectState::MousePressEvent(QPoint& currMousePos)
+void scSelectState::MousePressEvent(QPointF& currMousePos)
 {
 	mIsPressed = true;
 
@@ -26,22 +26,23 @@ void scSelectState::MousePressEvent(QPoint& currMousePos)
 			//	qDebug() << "hit";
 			//	mSelectedPoint = &point;//std::make_shared<QPoint>(point);
 			//}
-
 		//}
+
+		point->HitTest(currMousePos);
 	}
 }
 
-void scSelectState::MouseMoveEvent(QPoint& currMousePos)
+void scSelectState::MouseMoveEvent(QPointF& currMousePos)
 {
-	if (mIsPressed)
-	{
-		//qDebug() << mSelectedPoint.use_count();
+	//if (mIsPressed)
+	//{
+	//	//qDebug() << mSelectedPoint.use_count();
 
-		if (mSelectedPoint != nullptr)
-		{
-			*mSelectedPoint = currMousePos;
-		}
-	}
+	//	if (mSelectedPoint != nullptr)
+	//	{
+	//		*mSelectedPoint = currMousePos;
+	//	}
+	//}
 }
 
 void scSelectState::MouseReleaseEvent()

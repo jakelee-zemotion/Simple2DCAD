@@ -43,7 +43,7 @@ void scViewport::paintEvent(QPaintEvent* event)
 
 void scViewport::mousePressEvent(QMouseEvent* event)
 {
-    QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+    QPointF currMousePos = QWidget::mapFromGlobal(QCursor::pos());
 
     switch (event->buttons())
     {
@@ -56,7 +56,7 @@ void scViewport::mousePressEvent(QMouseEvent* event)
         // Panning
         case Qt::MiddleButton:
         {
-            mCamera->SetPrevMousePos(currMousePos);
+            //mCamera->SetPrevMousePos(currMousePos);
         }
         break;
     }
@@ -76,7 +76,7 @@ void scViewport::mouseReleaseEvent(QMouseEvent* event)
 
 void scViewport::mouseMoveEvent(QMouseEvent* event)
 {
-    QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+    QPointF currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     
     // The last point tracks the mouse in drawing mode
     mStateMachine.GetCurrentState()->MouseMoveEvent(currMousePos);
@@ -86,7 +86,7 @@ void scViewport::mouseMoveEvent(QMouseEvent* event)
     {
         case Qt::MiddleButton:
         {
-            mCamera->Pan(currMousePos);
+            //mCamera->Pan(currMousePos);
         }
         break;
     }

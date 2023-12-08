@@ -4,8 +4,6 @@
 #include "scQtShapeInterface.h"
 #include "scQtVertex.h"
 #include "scQtLine.h"
-#include "scPolygon.h"
-#include "scPolyline.h"
 
 
 struct ClosedThreshold
@@ -38,7 +36,7 @@ public:
 		}
 	}
 
-	void AddLine(QPoint& start, QPoint& end)
+	void AddLine(QPointF& start, QPointF& end)
 	{
 		//mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
 
@@ -48,7 +46,7 @@ public:
 
 		// Ref the vertices.
 		std::shared_ptr<scQtLine> newLine = std::make_shared<scQtLine>(startVertex, endVertex);
-		std::shared_ptr<scPolyline> newPolyline = std::make_shared<scPolyline>(newLine);
+		//std::shared_ptr<scPolyline> newPolyline = std::make_shared<scPolyline>(newLine);
 
 		// Add Vertices.
 		mVertexList.push_back(startVertex);
@@ -59,7 +57,7 @@ public:
 		//mPolylineList.push_back(newPolyline);
 	}
 
-	void AddVertex(QPoint& point)
+	void AddVertex(QPointF& point)
 	{
 		/*if (mShapeObjects.empty())
 			return;
@@ -78,7 +76,7 @@ public:
 		//lastPolyline->AddSharedLine(newLine);
 	}
 
-	bool CloseTest(QPoint& currMousePos)
+	bool CloseTest(QPointF& currMousePos)
 	{
 		//if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 		//	return false;
@@ -107,7 +105,7 @@ public:
 		//return false;
 	}
 
-	bool IsObjectClosed(QPoint& start, QPoint& end) const
+	bool IsObjectClosed(QPointF& start, QPointF& end) const
 	{
 		if (start.x() - mClosedThreshold.minX < end.x()
 			&& start.x() + mClosedThreshold.maxX > end.x()
@@ -139,7 +137,7 @@ public:
 
 	}
 
-	void SetLastPoint(QPoint& point)
+	void SetLastPoint(QPointF& point)
 	{
 		/*if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 			return;
@@ -151,6 +149,7 @@ public:
 	//std::list<std::shared_ptr<scPolygon>> mPolygonList;
 	std::list<std::shared_ptr<scQtLine>> mLineList;
 	std::list<std::shared_ptr<scQtVertex>> mVertexList;
+
 
 
 private:

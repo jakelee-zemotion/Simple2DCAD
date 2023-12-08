@@ -38,3 +38,7 @@ void scQtLine::Paint(QPainter& painter)
 
 	painter.drawLine(this->MakeQLineF());
 }
+
+void scQtLine::HitTest(QPointF& currMousePos)
+{
+}

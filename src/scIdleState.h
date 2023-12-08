@@ -7,8 +7,8 @@ public:
 	scIdleState();
 	~scIdleState();
 
-	void MousePressEvent(QPoint& currMousePos) override;
-	void MouseMoveEvent(QPoint& currMousePos) override;
+	void MousePressEvent(QPointF& currMousePos) override;
+	void MouseMoveEvent(QPointF& currMousePos) override;
 	void MouseReleaseEvent() override;
 	void KeyPressEvent() override;
 };

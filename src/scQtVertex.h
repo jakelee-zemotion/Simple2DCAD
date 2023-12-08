@@ -9,7 +9,6 @@ class QPainter;
 class scQtVertex : public scVertexInterface, public scQtShapeInterface
 {
 public:
-	scQtVertex(QPoint& qpoint);
 	scQtVertex(QPointF& qpointF);
 	~scQtVertex();
 
@@ -22,6 +21,7 @@ public:
 	double GetY() const override;
 
 	void Paint(QPainter& painter) override;
+	void HitTest(QPointF& currMousePos) override;
 
 private:
 	scVertexData vertexData;

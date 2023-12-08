@@ -8,11 +8,11 @@ scIdleState::~scIdleState()
 {
 }
 
-void scIdleState::MousePressEvent(QPoint& currMousePos)
+void scIdleState::MousePressEvent(QPointF& currMousePos)
 {
 }
 
-void scIdleState::MouseMoveEvent(QPoint& currMousePos)
+void scIdleState::MouseMoveEvent(QPointF& currMousePos)
 {
 }
 

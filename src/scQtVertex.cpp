@@ -2,15 +2,6 @@
 
 #include <QPainter>
 
-scQtVertex::scQtVertex(QPoint& qpoint)
-{
-	double x = static_cast<double>(qpoint.x());
-	double y = static_cast<double>(qpoint.y());
-
-	this->SetX(x);
-	this->SetY(y);
-}
-
 scQtVertex::scQtVertex(QPointF& qpointF)
 {
 	this->SetX(qpointF.x());
@@ -54,4 +45,8 @@ void scQtVertex::Paint(QPainter& painter)
 	painter.setPen(pen);
 
 	painter.drawPoint(this->MakeQPointF());
+}
+
+void scQtVertex::HitTest(QPointF& currMousePos)
+{
 }
