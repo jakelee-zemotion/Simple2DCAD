@@ -17,6 +17,14 @@ scPolyline::~scPolyline()
 
 void scPolyline::Paint(QPainter& painter)
 {
+
+	QPen pen(Qt::black);
+	pen.setWidth(2);
+	painter.setPen(pen);
+
+	QBrush brush(Qt::gray);
+	painter.setBrush(brush);
+
 	painter.drawPolyline(mVertexList);
 }
 

@@ -4,6 +4,7 @@
 #include <QPointF>
 
 class QPoint;
+class QPainter;
 class scQtVertex : public QPointF, public scVertexInterface
 {
 public:
@@ -16,6 +17,8 @@ public:
 
 	double GetX() const;
 	double GetY() const;
+
+	void Paint(QPainter& painter);
 
 private:
 	scVertexData vertexData;

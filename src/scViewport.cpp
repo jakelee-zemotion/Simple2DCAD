@@ -36,13 +36,6 @@ void scViewport::TransitState(std::string name)
 void scViewport::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
-
-    QPen pen(Qt:: black);
-    pen.setWidth(2);
-    painter.setPen(pen);
-
-    QBrush brush(Qt::gray);
-    painter.setBrush(brush);
     
     // Draw objects
     mShapeObjects.DrawShape(painter);

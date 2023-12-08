@@ -1,5 +1,6 @@
 #include "scQtVertex.h"
 
+#include <QPainter>
 
 scQtVertex::scQtVertex(QPoint& qpoint)
 {
@@ -40,4 +41,13 @@ double scQtVertex::GetX() const
 double scQtVertex::GetY() const
 {
 	return vertexData.GetY();
+}
+
+void scQtVertex::Paint(QPainter& painter)
+{
+	QPen pen(Qt::red);
+	pen.setWidth(6);
+	painter.setPen(pen);
+
+	painter.drawPoint(*this);
 }

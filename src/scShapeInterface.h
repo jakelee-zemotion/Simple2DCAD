@@ -8,6 +8,5 @@ class scShapeInterface
 public:
 	virtual void Paint(QPainter& painter) = 0;
 	virtual ~scShapeInterface() = 0 {};
-
 };
 

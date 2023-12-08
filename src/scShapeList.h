@@ -31,6 +31,11 @@ public:
 		{
 			shape->Paint(painter);
 		}
+
+		for (const auto& shape : mVertexList)
+		{
+			shape->Paint(painter);
+		}
 	}
 
 	void AddLine(QPoint& start, QPoint& end)
