@@ -36,7 +36,7 @@ void scDrawLineState::MouseMoveEvent(QPointF& currMousePos)
 {
     if (mIsDrawing)
     {
-       // mShapeObjects.SetLastPoint(currMousePos);
+       mShapeObjects.MoveDrawingPoint(currMousePos);
     }
 
 }

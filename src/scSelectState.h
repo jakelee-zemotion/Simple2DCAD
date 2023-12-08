@@ -1,5 +1,6 @@
 #pragma once
 #include "scStateInterface.h"
+#include "scVertexVisualInterface.h"
 #include <memory>
 
 class scShapeList;
@@ -16,7 +17,7 @@ public:
 
 private:
 	scShapeList& mShapeObjects;
-	QPointF* mSelectedPoint = nullptr;
+	std::shared_ptr<scVertexVisualInterface> mSelectedPoint;
 
 	bool mIsPressed;
 };

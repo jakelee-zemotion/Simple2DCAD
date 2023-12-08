@@ -41,4 +41,5 @@ void scLineQtVisual::Paint(QPainter& painter)
 
 void scLineQtVisual::HitTest(QPointF& currMousePos)
 {
+
 }

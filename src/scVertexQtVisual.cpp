@@ -1,6 +1,7 @@
 #include "scVertexQtVisual.h"
 
 #include <QPainter>
+#include <QDebug>
 
 scVertexQtVisual::scVertexQtVisual(QPointF& qpointF)
 {
@@ -27,6 +28,12 @@ void scVertexQtVisual::SetY(double y)
 	vertexData.SetY(y);
 }
 
+void scVertexQtVisual::SetVertex(QPointF& point)
+{
+	this->SetX(point.x());
+	this->SetY(point.y());
+}
+
 double scVertexQtVisual::GetX() const
 {
 	return vertexData.GetX();
@@ -49,4 +56,15 @@ void scVertexQtVisual::Paint(QPainter& painter)
 
 void scVertexQtVisual::HitTest(QPointF& currMousePos)
 {
+	QRectF rect(
+		currMousePos.x() - 10.0, currMousePos.x() + 10.0, 
+		currMousePos.y() - 10.0, currMousePos.y() + 10.0);
+
+	if (rect.contains(this->MakeQPointF()))
+	{
+		//this->SetX(currMousePos.x());
+		//this->SetY(currMousePos.y());
+
+		qDebug() << "jih";
+	}
 }

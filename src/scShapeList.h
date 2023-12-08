@@ -136,12 +136,14 @@ public:
 
 	}
 
-	void SetLastPoint(QPointF& point)
+	void MoveDrawingPoint(QPointF& point)
 	{
 		/*if (mShapeObjects.empty() || this->LastShapePointVec().empty())
 			return;
 
 		this->LastShapePointVec().back() = point;*/
+
+		this->mVertexList.back()->SetVertex(point);
 	}
 
 	//std::list<std::shared_ptr<scPolyline>> mPolylineList;

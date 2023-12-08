@@ -17,6 +17,8 @@ public:
 	void SetX(double x);
 	void SetY(double y);
 
+	void SetVertex(QPointF& point);
+
 	double GetX() const override;
 	double GetY() const override;
 

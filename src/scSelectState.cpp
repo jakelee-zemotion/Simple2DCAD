@@ -28,7 +28,10 @@ void scSelectState::MousePressEvent(QPointF& currMousePos)
 			//}
 		//}
 
-		point->HitTest(currMousePos);
+		/*if (point->HitTest(currMousePos))
+		{
+			mSelectedPoint = point;
+		}*/
 	}
 }
 
@@ -49,7 +52,7 @@ void scSelectState::MouseReleaseEvent()
 {
 	mIsPressed = false;
 
-	mSelectedPoint = nullptr;
+	mSelectedPoint.reset();
 }
 
 void scSelectState::KeyPressEvent()
