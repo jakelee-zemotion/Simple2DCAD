@@ -1,9 +1,9 @@
 #include "scLine.h"
-#include "scVertex.h"
+#include "scQtVertex.h"
 
 using namespace std;
 
-scLine::scLine(shared_ptr<scVertex>& startVertex, shared_ptr<scVertex>& endVertex)
+scLine::scLine(shared_ptr<scQtVertex>& startVertex, shared_ptr<scQtVertex>& endVertex)
 	:mStartVertex(startVertex), mEndVertex(endVertex)
 {
 }
@@ -12,12 +12,12 @@ scLine::~scLine()
 {
 }
 
-QPointF scLine::GetStartVertex() const
+scQtVertex scLine::GetStartVertex() const
 {
-	return { (*mStartVertex.get()).GetX(), (*mStartVertex.get()).GetY() };
+	return *mStartVertex.get();
 }
 
-QPointF scLine::GetEndVertex() const
+scQtVertex scLine::GetEndVertex() const
 {
-	return { (*mEndVertex.get()).GetX(), (*mEndVertex.get()).GetY() };
+	return *mEndVertex.get();
 }

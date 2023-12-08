@@ -2,7 +2,7 @@
 #include <list>
 #include <QDebug>
 #include "scShapeInterface.h"
-#include "scVertex.h"
+#include "scQtVertex.h"
 #include "scLine.h"
 #include "scPolygon.h"
 #include "scPolyline.h"
@@ -38,8 +38,8 @@ public:
 		//mShapeObjects.push_back(std::make_shared<scPolyline>(std::vector<QPoint>({ start, end })));
 
 		// Copy the vertices.
-		std::shared_ptr<scVertex> startVertex = std::make_shared<scVertex>(start);
-		std::shared_ptr<scVertex> endVertex = std::make_shared<scVertex>(end);
+		std::shared_ptr<scQtVertex> startVertex = std::make_shared<scQtVertex>(start);
+		std::shared_ptr<scQtVertex> endVertex = std::make_shared<scQtVertex>(end);
 
 		// Ref the vertices.
 		std::shared_ptr<scLine> newLine = std::make_shared<scLine>(startVertex, endVertex);
@@ -61,9 +61,9 @@ public:
 
 		this->LastShapePointVec().push_back(point);*/
 
-
-		std::shared_ptr<scVertex>& startVertex = mVertexList.back();
-		std::shared_ptr<scVertex> endVertex = std::make_shared<scVertex>(point);
+		// Ref and Copy vertex.
+		std::shared_ptr<scQtVertex>& startVertex = mVertexList.back();
+		std::shared_ptr<scQtVertex> endVertex = std::make_shared<scQtVertex>(point);
 
 		std::shared_ptr<scLine> newLine = std::make_shared<scLine>(startVertex, endVertex);
 		std::shared_ptr<scPolyline>& lastPolyline = mPolylineList.back();
@@ -145,7 +145,7 @@ public:
 	std::list<std::shared_ptr<scPolyline>> mPolylineList;
 	std::list<std::shared_ptr<scPolygon>> mPolygonList;
 	std::list<std::shared_ptr<scLine>> mLineList;
-	std::list<std::shared_ptr<scVertex>> mVertexList;
+	std::list<std::shared_ptr<scQtVertex>> mVertexList;
 
 
 private:

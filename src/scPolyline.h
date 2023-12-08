@@ -2,6 +2,7 @@
 #include "scShapeInterface.h"
 #include <memory>
 
+class scQtVertex;
 class scLine;
 class scPolyline : public scShapeInterface
 {
@@ -14,6 +15,6 @@ public:
 
 private:
 	std::list<std::shared_ptr<scLine>> mSharedLineList;
-
+	QList<QPointF> mVertexList;
 };
 
