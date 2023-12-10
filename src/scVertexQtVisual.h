@@ -24,6 +24,7 @@ public:
 	bool HitTest(QPointF& currMousePos) override;
 
 private:
-	scVertexData vertexData;
+	scVertexData mVertexData;
+	Qt::GlobalColor mPenColor;
 };
 

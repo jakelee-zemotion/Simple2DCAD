@@ -7,6 +7,8 @@ scVertexQtVisual::scVertexQtVisual(QPointF& qpointF)
 {
 	this->SetX(qpointF.x());
 	this->SetY(qpointF.y());
+
+	mPenColor = Qt::red;
 }
 
 scVertexQtVisual::~scVertexQtVisual()
@@ -15,33 +17,33 @@ scVertexQtVisual::~scVertexQtVisual()
 
 QPointF scVertexQtVisual::MakeQPointF()
 {
-	return { vertexData.GetX(), vertexData.GetY() };
+	return { mVertexData.GetX(), mVertexData.GetY() };
 }
 
 void scVertexQtVisual::SetX(double x)
 {
-	vertexData.SetX(x);
+	mVertexData.SetX(x);
 }
 
 void scVertexQtVisual::SetY(double y)
 {
-	vertexData.SetY(y);
+	mVertexData.SetY(y);
 }
 
 double scVertexQtVisual::GetX() const
 {
-	return vertexData.GetX();
+	return mVertexData.GetX();
 }
 
 double scVertexQtVisual::GetY() const
 {
-	return vertexData.GetY();
+	return mVertexData.GetY();
 }
 
 
 void scVertexQtVisual::Paint(QPainter& painter)
 {
-	QPen pen(Qt::red);
+	QPen pen(mPenColor);
 	pen.setWidth(6);
 	painter.setPen(pen);
 
