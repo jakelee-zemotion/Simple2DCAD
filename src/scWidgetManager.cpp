@@ -36,22 +36,12 @@ void scWidgetManager::OpenObjectListDialog()
 	objectListDialog.exec();
 }
 
-void scWidgetManager::PressDrawMode()
+void scWidgetManager::PressDrawMode(std::string s)
 {
-	if (mObjSelectToolBar->SetButtonPressed("Draw"))
+	if (mObjSelectToolBar->SetButtonPressed(s))
 	{
-		qDebug() << "draw";
+		qDebug() << s;
 
-		mViewport->TransitState("Draw");
+		mViewport->TransitState(s);
 	}
-}
-
-void scWidgetManager::PressSelectMode()
-{
-	if (mObjSelectToolBar->SetButtonPressed("Select"))
-	{
-		qDebug() << "select";
-		mViewport->TransitState("Select");
-	}
-
 }

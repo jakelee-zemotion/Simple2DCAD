@@ -18,6 +18,10 @@ scObjectSelectionToolBar::scObjectSelectionToolBar(QWidget* parent)
 	mToolButtonMap["Select"]->setText("Select");
 	mToolButtonMap["Select"]->setCheckable(true);
 	addWidget(mToolButtonMap["Select"].get());
+
+	mToolButtonMap["Draw"]->setChecked(true);
+	mToolButtonMap["Draw"]->setObjectName("Draw");
+	mToolButtonMap["Select"]->setObjectName("Select");
 }
 
 scObjectSelectionToolBar::~scObjectSelectionToolBar()
@@ -26,8 +30,17 @@ scObjectSelectionToolBar::~scObjectSelectionToolBar()
 
 void scObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)
 {
-	connect(mToolButtonMap["Draw"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressDrawMode()));
-	connect(mToolButtonMap["Select"].get(), SIGNAL(clicked()), widgetManager, SLOT(PressSelectMode()));
+	connect(mToolButtonMap["Draw"].get(), SIGNAL(clicked()), this, SLOT(ClickToolButton()));
+	connect(mToolButtonMap["Select"].get(), SIGNAL(clicked()), this, SLOT(ClickToolButton()));
+
+	connect(this, SIGNAL(PressToolButton(std::string)), widgetManager, SLOT(PressDrawMode(std::string)));
+}
+
+void scObjectSelectionToolBar::ClickToolButton()
+{
+	QObject* obj = sender();
+	string a = obj->objectName().toStdString();
+	emit PressToolButton(obj->objectName().toStdString());
 }
 
 bool scObjectSelectionToolBar::SetButtonPressed(const string name)

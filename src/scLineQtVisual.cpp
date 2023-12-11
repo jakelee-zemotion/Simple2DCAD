@@ -54,12 +54,14 @@ void scLineQtVisual::Paint(QPainter& painter)
 	normal.setLength(10.0);
 	normal2.setLength(10.0);
 
-	qDebug() << normal;
+	QLineF centralNormal(normal.p2(), normal2.p2());
+
+
+	//qDebug() << normal;
 	QPen pen2(Qt::red);
 	pen2.setWidth(3);
 	painter.setPen(pen2);
-	painter.drawLine(normal);
-	painter.drawLine(normal2);
+	painter.drawLine(centralNormal);
 
 }
 

@@ -19,6 +19,7 @@ scViewport::scViewport(QWidget* parent)
 
     mStateMachine.AddState("Draw", make_shared<scDrawLineState>(mShapeObjects));
     mStateMachine.AddState("Select", make_shared<scSelectState>(mShapeObjects));
+    mStateMachine.Transition("Draw");
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
