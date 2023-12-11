@@ -9,23 +9,24 @@ using namespace std;
 scObjectSelectionToolBar::scObjectSelectionToolBar(QWidget* parent)
 	:QToolBar(parent)
 {
-	mToolButtonMap["Draw"] = make_unique<QToolButton>();
-	mToolButtonMap["Draw"]->setText("Draw");
-	mToolButtonMap["Draw"]->setCheckable(true);
-	addWidget(mToolButtonMap["Draw"].get());
-
-	mToolButtonMap["Select"] = make_unique<QToolButton>();
-	mToolButtonMap["Select"]->setText("Select");
-	mToolButtonMap["Select"]->setCheckable(true);
-	addWidget(mToolButtonMap["Select"].get());
-
-	mToolButtonMap["Draw"]->setChecked(true);
-	mToolButtonMap["Draw"]->setObjectName("Draw");
-	mToolButtonMap["Select"]->setObjectName("Select");
 }
 
 scObjectSelectionToolBar::~scObjectSelectionToolBar()
 {
+}
+
+void scObjectSelectionToolBar::AddToolButton(std::string name)
+{
+	mToolButtonMap[name] = make_unique<QToolButton>();
+	mToolButtonMap[name]->setText(QString::fromStdString(name));
+	mToolButtonMap[name]->setCheckable(true);
+	mToolButtonMap[name]->setObjectName(name);
+	addWidget(mToolButtonMap[name].get());
+}
+
+void scObjectSelectionToolBar::SetCurrentToolButton(std::string name)
+{
+	mToolButtonMap[name]->setChecked(true);
 }
 
 void scObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)

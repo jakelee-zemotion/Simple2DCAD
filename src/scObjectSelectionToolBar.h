@@ -12,6 +12,9 @@ public:
 	scObjectSelectionToolBar(QWidget* parent = 0);
 	~scObjectSelectionToolBar();
 
+	void AddToolButton(std::string name);
+	void SetCurrentToolButton(std::string name);
+
 	void ConnectToolButton(QObject* widgetManager);
 	bool SetButtonPressed(const std::string name);
 

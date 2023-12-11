@@ -15,8 +15,16 @@ scMainWindow::scMainWindow()
 	mMenuBar = make_unique<scMenuBar>();
 	mObjSelectToolBar = make_unique<scObjectSelectionToolBar>();
 
+
+	mObjSelectToolBar->AddToolButton("Draw");
+	mObjSelectToolBar->AddToolButton("Select");
+
+	mObjSelectToolBar->SetCurrentToolButton("Draw");
+
+
 	mMenuBar->ConnectAction(this);
 	mObjSelectToolBar->ConnectToolButton(this);
+
 }
 
 scMainWindow::~scMainWindow()
