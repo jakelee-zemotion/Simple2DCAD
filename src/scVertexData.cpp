@@ -15,6 +15,15 @@ void scVertexData::SetX(double x)
 	mX = x;
 }
 
+class Contants
+{
+public:
+	static std::string ADFAF_-ASFA__FASFDAS
+};
+
+static inline const char* asfasf__FDASDFASF = "";
+#defien asdfa "fasfdas"
+
 void scVertexData::SetY(double y)
 {
 	mY = y;
