@@ -1,5 +1,6 @@
 #include "scViewport.h"
 #include "scCamera.h"
+
 #include "scDrawLineState.h"
 #include "scSelectState.h"
 
@@ -26,7 +27,7 @@ scViewport::~scViewport()
 {
 }
 
-void scViewport::AddState(std::string name)
+void scViewport::AddState(string name)
 {
     shared_ptr<scStateInterface> state;
 
@@ -35,10 +36,11 @@ void scViewport::AddState(std::string name)
     else if (name == "Select")
         state = make_shared<scSelectState>(mShapeObjects);
 
+
     mStateMachine.AddState(name, state);
 }
 
-void scViewport::TransitState(std::string name)
+void scViewport::TransitState(string name)
 {
     mStateMachine.Transition(name);
 }

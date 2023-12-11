@@ -27,7 +27,6 @@ scMainWindow::scMainWindow()
 	mViewport->TransitState(firstState);
 	mObjSelectToolBar->SetCurrentToolButton(firstState);
 
-
 	mMenuBar->ConnectAction(this);
 	mObjSelectToolBar->ConnectToolButton(this);
 
@@ -50,12 +49,12 @@ void scMainWindow::OpenObjectListDialog()
 	objectListDialog.exec();
 }
 
-void scMainWindow::PressDrawMode(std::string s)
+void scMainWindow::PressDrawMode(std::string name)
 {
-	if (mObjSelectToolBar->SetButtonPressed(s))
+	if (mObjSelectToolBar->SetButtonPressed(name))
 	{
-		qDebug() << s;
+		qDebug() << name;
 
-		mViewport->TransitState(s);
+		mViewport->TransitState(name);
 	}
 }
