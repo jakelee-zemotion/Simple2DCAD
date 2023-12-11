@@ -41,24 +41,31 @@ void scLineQtVisual::Paint(QPainter& painter)
 
 
 	QLineF normal = this->MakeQLineF().normalVector();
+	QLineF normal2 = this->MakeQLineF().normalVector();
 	QPointF aaa(100.0, 100.0);
 	painter.drawPoint(aaa);
 
 	normal.setP2(normal.p2() - normal.p1() + aaa);
 	normal.setP1(aaa);
 
-	normal.setLength(20.0);
+	normal2.setP2(normal2.p1() - normal2.p2() + aaa);
+	normal2.setP1(aaa);
+
+	normal.setLength(10.0);
+	normal2.setLength(10.0);
 
 	qDebug() << normal;
 	QPen pen2(Qt::red);
 	pen2.setWidth(3);
 	painter.setPen(pen2);
 	painter.drawLine(normal);
+	painter.drawLine(normal2);
 
 }
 
 bool scLineQtVisual::HitTest(QPointF& currMousePos)
 {
+
 
 	return false;
 }
