@@ -10,8 +10,7 @@ public:
 	scLineQtVisual(std::shared_ptr<scVertexQtVisual>& startVertex, std::shared_ptr<scVertexQtVisual>& endVertex);
 	~scLineQtVisual() override;
 
-	/*QPointF GetStartVertex();
-	QPointF GetEndVertex();*/
+	void MoveLine(double dx, double dy);
 
 	QLineF MakeQLineF();
 

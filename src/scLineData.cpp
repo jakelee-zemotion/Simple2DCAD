@@ -21,6 +21,18 @@ void scLineData::SetEndVertex(shared_ptr<scVertexVisualInterface> endVertex)
 	mEndVertex = endVertex;
 }
 
+void scLineData::SetStartVertex(double x, double y)
+{
+	mStartVertex->SetX(x);
+	mStartVertex->SetY(y);
+}
+
+void scLineData::SetEndVertex(double x, double y)
+{
+	mEndVertex->SetX(x);
+	mEndVertex->SetY(y);
+}
+
 double scLineData::GetStartX() const
 {
 	return mStartVertex->GetX();

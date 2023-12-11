@@ -23,6 +23,7 @@ void scSelectLineState::MousePressEvent(QPointF& currMousePos)
 		if (line->HitTest(currMousePos))
 		{
 			qDebug() << "hit";
+			mSelectedLine = line;
 		}
 	}
 }
@@ -31,12 +32,14 @@ void scSelectLineState::MouseMoveEvent(QPointF& currMousePos)
 {
 	if (mIsPressed)
 	{
+		mSelectedLine->MoveLine(1.0, 1.0);
 	}
 }
 
 void scSelectLineState::MouseReleaseEvent()
 {
 	mIsPressed = false;
+	mSelectedLine.reset();
 }
 
 void scSelectLineState::KeyPressEvent()

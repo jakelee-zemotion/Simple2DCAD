@@ -12,6 +12,9 @@ public:
 	void SetStartVertex(std::shared_ptr<scVertexVisualInterface> startVertex);
 	void SetEndVertex(std::shared_ptr<scVertexVisualInterface> endVertex);
 
+	void SetStartVertex(double x, double y);
+	void SetEndVertex(double x, double y);
+
 	double GetStartX() const;
 	double GetStartY() const;
 	double GetEndX() const;

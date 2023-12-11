@@ -13,15 +13,17 @@ scLineQtVisual::~scLineQtVisual()
 {
 }
 
-//QPointF scQtLine::GetStartVertex()
-//{
-//	return QPointF(mLineData.GetStartX(), mLineData.GetStartY());
-//}
-//
-//QPointF scQtLine::GetEndVertex()
-//{
-//	return QPointF(mLineData.GetEndX(), mLineData.GetEndY());
-//}
+void scLineQtVisual::MoveLine(double dx, double dy)
+{
+	double nextStartX = mLineData.GetStartX() + dx;
+	double nextStartY = mLineData.GetStartY() + dy;
+	
+	double nextEndX = mLineData.GetEndX() + dx;
+	double nextEndY = mLineData.GetEndY() + dy;
+
+	mLineData.SetStartVertex(nextStartX, nextStartY);
+	mLineData.SetEndVertex(nextEndX, nextEndY);
+}
 
 QLineF scLineQtVisual::MakeQLineF()
 {
@@ -38,10 +40,6 @@ void scLineQtVisual::Paint(QPainter& painter)
 	painter.setPen(pen);
 
 	painter.drawLine(this->MakeQLineF());
-
-
-	
-
 }
 
 bool scLineQtVisual::HitTest(QPointF& currMousePos)
