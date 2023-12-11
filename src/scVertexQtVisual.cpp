@@ -52,20 +52,20 @@ void scVertexQtVisual::Paint(QPainter& painter)
 
 bool scVertexQtVisual::HitTest(QPointF& currMousePos)
 {
-	/*QRectF rect(
-		currMousePos.x() - 10.0, currMousePos.x() + 10.0, 
-		currMousePos.y() - 10.0, currMousePos.y() + 10.0);
+	QRectF rect(
+		currMousePos.x() - 10.0, currMousePos.y() - 10.0,
+		20.0, 20.0);
 
-	qDebug() << "mouse : " << currMousePos;
-	qDebug() << "vertex : " << this->MakeQPointF();
-	qDebug() << rect.contains(this->MakeQPointF());
-	qDebug() << '\n';*/
-
-	if (currMousePos.x() - 10.0 < this->GetX()
+	/*if (currMousePos.x() - 10.0 < this->GetX()
 		&& currMousePos.x() + 10.0 > this->GetX()
 
 		&& currMousePos.y() - 10.0 < this->GetY()
 		&& currMousePos.y() + 10.0 > this->GetY())
+	{
+		return true;
+	}*/
+
+	if (rect.contains(this->MakeQPointF()))
 	{
 		return true;
 	}
