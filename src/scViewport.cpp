@@ -17,7 +17,7 @@ scViewport::scViewport(QWidget* parent)
 {
     mIsCtrlPressed = false;
 
-    mCamera = make_unique<scCamera>(mShapeObjects, QPoint(this->width(), this->height()));
+    mCamera = make_unique<scCamera>(mScene, QPoint(this->width(), this->height()));
 
 
     // Enable movement tracking when the mouse is not pressed.
@@ -33,11 +33,11 @@ void scViewport::AddState(string name)
     shared_ptr<scState> state;
 
     if (name == "Draw")
-        state = make_shared<scDrawLineState>(mShapeObjects);
+        state = make_shared<scDrawLineState>(mScene);
     else if (name == "SelectVertex")
-        state = make_shared<scSelectVertexState>(mShapeObjects);
+        state = make_shared<scSelectVertexState>(mScene);
     else if (name == "SelectLine")
-        state = make_shared<scSelectLineState>(mShapeObjects);
+        state = make_shared<scSelectLineState>(mScene);
 
 
     mStateMachine.AddState(name, state);
@@ -53,7 +53,7 @@ void scViewport::paintEvent(QPaintEvent* event)
     QPainter painter(this);
     
     // Draw objects
-    mShapeObjects.DrawShape(painter);
+    mScene.DrawShape(painter);
 }
 
 void scViewport::mousePressEvent(QMouseEvent* event)

@@ -1,5 +1,5 @@
 #pragma once
-#include "scShapeList.h"
+#include "scScene.h"
 #include "scStateMachine.h"
 
 #include <QWidget>
@@ -16,7 +16,7 @@ public:
 	void AddState(std::string name);
 	void TransitState(std::string name);
 
-	scShapeList mShapeObjects;
+	scScene mScene;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;

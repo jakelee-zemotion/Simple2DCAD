@@ -1,5 +1,5 @@
 #include "scObjectListDialog.h"
-#include "scShapeList.h"
+#include "scScene.h"
 
 #include <QTableView>
 #include <QVBoxLayout>
@@ -14,7 +14,7 @@ scObjectListDialog::scObjectListDialog(scShapeList& shapeObjects, QWidget* paren
 	this->setLayout(layout);
 	layout->addWidget(qq);
 
-	QStandardItemModel* qm = new QStandardItemModel(shapeObjects.size(), 2);
+	QStandardItemModel* qm = new QStandardItemModel(1, 2);
 	qq->setModel(qm);
 
 	for (int i = 0; i < qm->rowCount(); i++)

@@ -5,11 +5,11 @@
 #include "scLineQtVisual.h"
 
 
-class scShapeList
+class scScene
 {
 public:
-	scShapeList() {};
-	~scShapeList() {};
+	scScene() {};
+	~scScene() {};
 
 	size_t size() const
 	{
@@ -37,7 +37,6 @@ public:
 
 		// Ref the vertices.
 		std::shared_ptr<scLineQtVisual> newLine = std::make_shared<scLineQtVisual>(startVertex, endVertex);
-		//std::shared_ptr<scPolyline> newPolyline = std::make_shared<scPolyline>(newLine);
 
 		// Add Vertices.
 		mVertexList.push_back(startVertex);
@@ -45,7 +44,6 @@ public:
 
 		// Add a new line and ployline.
 		mLineList.push_back(newLine);
-		//mPolylineList.push_back(newPolyline);
 	}
 
 	void AddVertex(QPointF& point)
@@ -60,11 +58,9 @@ public:
 		std::shared_ptr<scVertexQtVisual> endVertex = std::make_shared<scVertexQtVisual>(point);
 
 		std::shared_ptr<scLineQtVisual> newLine = std::make_shared<scLineQtVisual>(startVertex, endVertex);
-		//std::shared_ptr<scPolyline>& lastPolyline = mPolylineList.back();
 
 		mVertexList.push_back(endVertex);
 		mLineList.push_back(newLine);
-		//lastPolyline->AddSharedLine(newLine);
 	}
 	
 

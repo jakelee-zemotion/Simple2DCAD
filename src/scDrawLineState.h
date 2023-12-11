@@ -1,11 +1,11 @@
 #pragma once
 #include "scState.h"
 
-class scShapeList;
+class scScene;
 class scDrawLineState : public scState
 {
 public:
-	scDrawLineState(scShapeList& shapeObjects);
+	scDrawLineState(scScene& scene);
 	~scDrawLineState() override;
 
 	void MousePressEvent(QPointF& currMousePos) override;

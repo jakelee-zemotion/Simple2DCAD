@@ -5,7 +5,7 @@
 class scSelectLineState : public scState
 {
 public:
-	scSelectLineState(scShapeList& shapeObjects);
+	scSelectLineState(scScene& scene);
 	~scSelectLineState() override;
 
 	void MousePressEvent(QPointF& currMousePos) override;

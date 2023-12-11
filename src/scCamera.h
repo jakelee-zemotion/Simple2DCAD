@@ -1,5 +1,5 @@
 #pragma once
-#include "scShapeList.h"
+#include "scScene.h"
 
 #include <QPoint>
 
@@ -8,7 +8,7 @@ class QWheelEvent;
 class scCamera
 {
 public:
-	scCamera(scShapeList& shapeObjects, QPoint viewportSize);
+	scCamera(scScene& scene, QPoint viewportSize);
 	~scCamera();
 
 	void Pan(QPoint currentMousePos);
@@ -23,7 +23,7 @@ private:
 
 	QPoint mPrevMousePos;
 
-	scShapeList& mShapeObjects;
+	scScene& mScene;
 	const QPoint mViewportSize;
 };
 

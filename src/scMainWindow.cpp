@@ -49,8 +49,8 @@ void scMainWindow::SetWidgets()
 
 void scMainWindow::OpenObjectListDialog()
 {
-	scObjectListDialog objectListDialog(mViewport->mShapeObjects);
-	objectListDialog.exec();
+	//scObjectListDialog objectListDialog(mViewport->mScene);
+	//objectListDialog.exec();
 }
 
 void scMainWindow::TransitState(std::string name)

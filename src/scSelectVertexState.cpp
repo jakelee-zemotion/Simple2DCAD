@@ -1,10 +1,10 @@
 #include "scSelectVertexState.h"
-#include "scShapeList.h"
+#include "scScene.h"
 
 #include <qDebug>
 
-scSelectVertexState::scSelectVertexState(scShapeList& shapeObjects)
-	:scState(shapeObjects)
+scSelectVertexState::scSelectVertexState(scScene& scene)
+	:scState(scene)
 {
 	mIsPressed = false;
 }
@@ -17,7 +17,7 @@ void scSelectVertexState::MousePressEvent(QPointF& currMousePos)
 {
 	mIsPressed = true;
 
-	for (const auto& point : mShapeObjects.mVertexList)
+	for (const auto& point : mScene.mVertexList)
 	{
 
 		if (point->HitTest(currMousePos))

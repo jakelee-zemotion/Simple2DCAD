@@ -1,10 +1,10 @@
 #include "scDrawLineState.h"
-#include "scShapeList.h"
+#include "scScene.h"
 
 #include <QPointF>
 
-scDrawLineState::scDrawLineState(scShapeList& shapeObjects)
-    :scState(shapeObjects)
+scDrawLineState::scDrawLineState(scScene& scene)
+    :scState(scene)
 {
     mIsDrawing = false;
 }
@@ -19,16 +19,16 @@ void scDrawLineState::MousePressEvent(QPointF& currMousePos)
     {
         // Put two points to create a line on the first click.
         // Therefore, the second point is adjusted in MouseMoveEvent.
-        mShapeObjects.AddLine(currMousePos, currMousePos);
+        mScene.AddLine(currMousePos, currMousePos);
         mIsDrawing = true;
     }
     else
     {
-        mShapeObjects.AddVertex(currMousePos);
+        mScene.AddVertex(currMousePos);
 
         // Close testing
         // If CloseTest is true (i.e. if polygon can be created), Drawing mode is stopped.
-        //mIsDrawing = !mShapeObjects.CloseTest(currMousePos);
+        //mIsDrawing = !mScene.CloseTest(currMousePos);
     }
 }
 
@@ -36,7 +36,7 @@ void scDrawLineState::MouseMoveEvent(QPointF& currMousePos)
 {
     if (mIsDrawing)
     {
-       mShapeObjects.MoveDrawingPoint(currMousePos);
+       mScene.MoveDrawingPoint(currMousePos);
     }
 
 }
@@ -49,7 +49,7 @@ void scDrawLineState::KeyPressEvent()
 {
     if (mIsDrawing)
     {
-        mShapeObjects.EndDrawing();
+        mScene.EndDrawing();
         mIsDrawing = false;
     }
 }

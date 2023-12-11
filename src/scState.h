@@ -1,11 +1,11 @@
 #pragma once
 
 class QPointF;
-class scShapeList;
+class scScene;
 class scState
 {
 public:
-	scState(scShapeList& shapeObjects);
+	scState(scScene& scene);
 	virtual ~scState();
 
 	virtual void MousePressEvent(QPointF& currMousePos) = 0;
@@ -14,6 +14,6 @@ public:
 	virtual void KeyPressEvent() = 0;
 
 protected:
-	scShapeList& mShapeObjects;
+	scScene& mScene;
 };
 

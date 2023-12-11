@@ -1,8 +1,8 @@
 #include "scState.h"
-#include "scShapeList.h"
+#include "scScene.h"
 
-scState::scState(scShapeList& shapeObjects)
-	:mShapeObjects(shapeObjects)
+scState::scState(scScene& scene)
+	:mScene(scene)
 {
 }
 
