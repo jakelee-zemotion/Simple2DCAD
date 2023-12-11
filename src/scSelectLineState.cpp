@@ -7,6 +7,7 @@ scSelectLineState::scSelectLineState(scShapeList& shapeObjects)
 	:scState(shapeObjects)
 {
 	mIsPressed = false;
+	mPrevMousePos = { 0.0, 0.0 };
 }
 
 scSelectLineState::~scSelectLineState()
@@ -26,13 +27,21 @@ void scSelectLineState::MousePressEvent(QPointF& currMousePos)
 			mSelectedLine = line;
 		}
 	}
+
+	mPrevMousePos = currMousePos;
 }
 
 void scSelectLineState::MouseMoveEvent(QPointF& currMousePos)
 {
 	if (mIsPressed)
 	{
-		mSelectedLine->MoveLine(1.0, 1.0);
+		if (mSelectedLine.use_count())
+		{
+			QPointF dist = currMousePos - mPrevMousePos;
+			mPrevMousePos = currMousePos;
+
+			mSelectedLine->MoveLine(dist.x(), dist.y());
+		}
 	}
 }
 

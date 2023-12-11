@@ -15,6 +15,7 @@ public:
 
 private:
 	std::shared_ptr<scLineQtVisual> mSelectedLine;
+	QPointF mPrevMousePos;
 
 	bool mIsPressed;
 };
