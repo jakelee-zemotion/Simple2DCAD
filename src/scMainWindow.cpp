@@ -15,14 +15,17 @@ scMainWindow::scMainWindow()
 	mMenuBar = make_unique<scMenuBar>();
 	mObjSelectToolBar = make_unique<scObjectSelectionToolBar>();
 
+	vector<string> stateName = { "Draw", "Select" };
 
-	mViewport->AddState("Draw");
-	mObjSelectToolBar->AddToolButton("Draw");
-	mViewport->AddState("Select");
-	mObjSelectToolBar->AddToolButton("Select");
+	for (const auto& name : stateName)
+	{
+		mViewport->AddState(name);
+		mObjSelectToolBar->AddToolButton(name);
+	}
 
-	mViewport->TransitState("Draw");
-	mObjSelectToolBar->SetCurrentToolButton("Draw");
+	string firstState = stateName[0];
+	mViewport->TransitState(firstState);
+	mObjSelectToolBar->SetCurrentToolButton(firstState);
 
 
 	mMenuBar->ConnectAction(this);
