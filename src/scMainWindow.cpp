@@ -14,23 +14,25 @@ scMainWindow::scMainWindow()
 	mViewport = make_unique<scViewport>();
 	mMenuBar = make_unique<scMenuBar>();
 	mObjSelectToolBar = make_unique<scObjectSelectionToolBar>();
+	
+	// Connect signals/slots
+	mMenuBar->ConnectAction(this);
+	mObjSelectToolBar->ConnectTransitSignal(this);
 
-	// Add states and toolbuttons.
-	vector<string> stateName = { "Draw", "Select" };
+	// Add states and toolButtons.
+	vector<string> stateName = { "Draw", "SelectVertex", "SelectLine" };
 
 	for (const auto& name : stateName)
 	{
 		mViewport->AddState(name);
 		mObjSelectToolBar->AddToolButton(name);
+		mObjSelectToolBar->ConnectToolButton(name);
 	}
 
 	string firstState = stateName[0];
 	mViewport->TransitState(firstState);
 	mObjSelectToolBar->SetCurrentToolButton(firstState);
 
-	// Connect signals/slots.
-	mMenuBar->ConnectAction(this);
-	mObjSelectToolBar->ConnectToolButton(this);
 
 }
 
@@ -51,7 +53,7 @@ void scMainWindow::OpenObjectListDialog()
 	objectListDialog.exec();
 }
 
-void scMainWindow::PressDrawMode(std::string name)
+void scMainWindow::TransitState(std::string name)
 {
 	if (mObjSelectToolBar->SetButtonPressed(name))
 	{

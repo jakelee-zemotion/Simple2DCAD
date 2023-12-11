@@ -29,12 +29,14 @@ void scObjectSelectionToolBar::SetCurrentToolButton(std::string name)
 	mToolButtonMap[name]->setChecked(true);
 }
 
-void scObjectSelectionToolBar::ConnectToolButton(QObject* widgetManager)
+void scObjectSelectionToolBar::ConnectToolButton(std::string name)
 {
-	connect(mToolButtonMap["Draw"].get(), SIGNAL(clicked()), this, SLOT(ClickToolButton()));
-	connect(mToolButtonMap["Select"].get(), SIGNAL(clicked()), this, SLOT(ClickToolButton()));
+	connect(mToolButtonMap[name].get(), SIGNAL(clicked()), this, SLOT(ClickToolButton()));
+}
 
-	connect(this, SIGNAL(PressToolButton(std::string)), widgetManager, SLOT(PressDrawMode(std::string)));
+void scObjectSelectionToolBar::ConnectTransitSignal(QObject* widgetManager)
+{
+	connect(this, SIGNAL(PressToolButton(std::string)), widgetManager, SLOT(TransitState(std::string)));
 }
 
 void scObjectSelectionToolBar::ClickToolButton()

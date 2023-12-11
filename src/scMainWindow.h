@@ -21,6 +21,6 @@ private:
 
 private slots:
 	void OpenObjectListDialog();
-	void PressDrawMode(std::string name);
+	void TransitState(std::string name);
 };
 

@@ -14,7 +14,8 @@ public:
 	void AddToolButton(std::string name);
 	void SetCurrentToolButton(std::string name);
 
-	void ConnectToolButton(QObject* widgetManager);
+	void ConnectToolButton(std::string name);
+	void ConnectTransitSignal(QObject* widgetManager);
 	bool SetButtonPressed(const std::string name);
 
 signals:
