@@ -40,10 +40,15 @@ void scLineQtVisual::Paint(QPainter& painter)
 	painter.drawLine(this->MakeQLineF());
 
 
+	
+
+}
+
+bool scLineQtVisual::HitTest(QPointF& currMousePos)
+{
 	QLineF normal = this->MakeQLineF().normalVector();
 	QLineF normal2 = this->MakeQLineF().normalVector();
-	QPointF aaa(100.0, 100.0);
-	painter.drawPoint(aaa);
+	QPointF aaa(currMousePos);
 
 	normal.setP2(normal.p2() - normal.p1() + aaa);
 	normal.setP1(aaa);
@@ -56,18 +61,10 @@ void scLineQtVisual::Paint(QPainter& painter)
 
 	QLineF centralNormal(normal.p2(), normal2.p2());
 
-
-	//qDebug() << normal;
-	QPen pen2(Qt::red);
-	pen2.setWidth(3);
-	painter.setPen(pen2);
-	painter.drawLine(centralNormal);
-
-}
-
-bool scLineQtVisual::HitTest(QPointF& currMousePos)
-{
-
+	if (centralNormal.intersects(this->MakeQLineF()) == QLineF::BoundedIntersection)
+	{
+		return true;
+	}
 
 	return false;
 }

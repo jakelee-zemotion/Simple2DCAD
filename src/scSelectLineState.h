@@ -11,5 +11,8 @@ public:
 	void MouseMoveEvent(QPointF& currMousePos) override;
 	void MouseReleaseEvent() override;
 	void KeyPressEvent() override;
+
+private:
+	bool mIsPressed;
 };
 

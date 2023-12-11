@@ -19,14 +19,6 @@ void scSelectVertexState::MousePressEvent(QPointF& currMousePos)
 
 	for (const auto& point : mShapeObjects.mVertexList)
 	{
-		//for (auto& point : object->mPoints)
-		//{
-			//if (mShapeObjects.IsObjectClosed(*point.get(), currMousePos))
-			//{
-			//	qDebug() << "hit";
-			//	mSelectedPoint = &point;//std::make_shared<QPoint>(point);
-			//}
-		//}
 
 		if (point->HitTest(currMousePos))
 		{
