@@ -8,7 +8,7 @@ class scLineQtVisual : public scShapeQtVisualInterface
 {
 public:
 	scLineQtVisual(std::shared_ptr<scVertexQtVisual>& startVertex, std::shared_ptr<scVertexQtVisual>& endVertex);
-	~scLineQtVisual();
+	~scLineQtVisual() override;
 
 	/*QPointF GetStartVertex();
 	QPointF GetEndVertex();*/

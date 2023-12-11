@@ -1,14 +1,14 @@
 #pragma once
-#include "scStateInterface.h"
+#include "scState.h"
 #include "scVertexVisualInterface.h"
 #include <memory>
 
 class scShapeList;
-class scSelectVertexState : public scStateInterface
+class scSelectVertexState : public scState
 {
 public:
 	scSelectVertexState(scShapeList& shapeObjects);
-	~scSelectVertexState();
+	~scSelectVertexState() override;
 
 	void MousePressEvent(QPointF& currMousePos) override;
 	void MouseMoveEvent(QPointF& currMousePos) override;
@@ -16,7 +16,6 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	scShapeList& mShapeObjects;
 	std::shared_ptr<scVertexVisualInterface> mSelectedPoint;
 
 	bool mIsPressed;

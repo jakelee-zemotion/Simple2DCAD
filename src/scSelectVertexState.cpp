@@ -4,7 +4,7 @@
 #include <qDebug>
 
 scSelectVertexState::scSelectVertexState(scShapeList& shapeObjects)
-	:mShapeObjects(shapeObjects)
+	:scState(shapeObjects)
 {
 	mIsPressed = false;
 }

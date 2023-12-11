@@ -1,6 +1,5 @@
 #pragma once
 #include <QToolBar>
-#include "scStateName.h"
 
 class QVBoxLayout;
 class QToolButton;

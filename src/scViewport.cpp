@@ -29,7 +29,7 @@ scViewport::~scViewport()
 
 void scViewport::AddState(string name)
 {
-    shared_ptr<scStateInterface> state;
+    shared_ptr<scState> state;
 
     if (name == "Draw")
         state = make_shared<scDrawLineState>(mShapeObjects);

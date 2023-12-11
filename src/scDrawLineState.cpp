@@ -4,7 +4,7 @@
 #include <QPointF>
 
 scDrawLineState::scDrawLineState(scShapeList& shapeObjects)
-    :mShapeObjects(shapeObjects)
+    :scState(shapeObjects)
 {
     mIsDrawing = false;
 }

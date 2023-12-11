@@ -10,7 +10,7 @@ class scVertexQtVisual : public scVertexVisualInterface, public scShapeQtVisualI
 {
 public:
 	scVertexQtVisual(QPointF& qpointF);
-	~scVertexQtVisual();
+	~scVertexQtVisual() override;
 
 	QPointF MakeQPointF();
 
