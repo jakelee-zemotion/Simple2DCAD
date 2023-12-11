@@ -3,8 +3,11 @@
 #include <QPainter>
 #include <QDebug>
 
+using namespace std;
+
 scVertexQtVisual::scVertexQtVisual(QPointF& qpointF)
 {
+	mVertexData = make_shared<scVertexData>();
 	this->SetX(qpointF.x());
 	this->SetY(qpointF.y());
 
@@ -17,27 +20,27 @@ scVertexQtVisual::~scVertexQtVisual()
 
 QPointF scVertexQtVisual::MakeQPointF()
 {
-	return { mVertexData.GetX(), mVertexData.GetY() };
+	return { mVertexData->GetX(), mVertexData->GetY() };
 }
 
 void scVertexQtVisual::SetX(double x)
 {
-	mVertexData.SetX(x);
+	mVertexData->SetX(x);
 }
 
 void scVertexQtVisual::SetY(double y)
 {
-	mVertexData.SetY(y);
+	mVertexData->SetY(y);
 }
 
 double scVertexQtVisual::GetX() const
 {
-	return mVertexData.GetX();
+	return mVertexData->GetX();
 }
 
 double scVertexQtVisual::GetY() const
 {
-	return mVertexData.GetY();
+	return mVertexData->GetY();
 }
 
 
@@ -71,4 +74,9 @@ bool scVertexQtVisual::HitTest(QPointF& currMousePos)
 	}
 
 	return false;
+}
+
+shared_ptr<scVertexData> scVertexQtVisual::GetVertexData() const
+{
+	return mVertexData;
 }

@@ -5,8 +5,9 @@ using namespace std;
 
 scLineQtVisual::scLineQtVisual(shared_ptr<scVertexQtVisual>& startVertex, shared_ptr<scVertexQtVisual>& endVertex)
 {
-	mLineData.SetStartVertex(startVertex);
-	mLineData.SetEndVertex(endVertex);
+	mLineData = make_shared<scLineData>();
+	mLineData->SetStartVertex(startVertex->GetVertexData());
+	mLineData->SetEndVertex(endVertex->GetVertexData());
 }
 
 scLineQtVisual::~scLineQtVisual()
@@ -15,22 +16,22 @@ scLineQtVisual::~scLineQtVisual()
 
 void scLineQtVisual::MoveLine(double dx, double dy)
 {
-	double nextStartX = mLineData.GetStartX() + dx;
-	double nextStartY = mLineData.GetStartY() + dy;
+	double nextStartX = mLineData->GetStartX() + dx;
+	double nextStartY = mLineData->GetStartY() + dy;
 	
-	double nextEndX = mLineData.GetEndX() + dx;
-	double nextEndY = mLineData.GetEndY() + dy;
+	double nextEndX = mLineData->GetEndX() + dx;
+	double nextEndY = mLineData->GetEndY() + dy;
 
-	mLineData.SetStartVertex(nextStartX, nextStartY);
-	mLineData.SetEndVertex(nextEndX, nextEndY);
+	mLineData->SetStartVertex(nextStartX, nextStartY);
+	mLineData->SetEndVertex(nextEndX, nextEndY);
 }
 
 QLineF scLineQtVisual::MakeQLineF()
 {
 	return 
 		QLineF(
-			{ mLineData.GetStartX(), mLineData.GetStartY() },
-			{ mLineData.GetEndX(), mLineData.GetEndY() });
+			{ mLineData->GetStartX(), mLineData->GetStartY() },
+			{ mLineData->GetEndX(), mLineData->GetEndY() });
 }
 
 void scLineQtVisual::Paint(QPainter& painter)

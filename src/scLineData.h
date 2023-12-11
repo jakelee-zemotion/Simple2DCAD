@@ -1,5 +1,5 @@
 #pragma once
-#include "scVertexVisualInterface.h"
+#include "scVertexData.h"
 
 #include <memory>
 
@@ -9,8 +9,8 @@ public:
 	scLineData();
 	~scLineData();
 
-	void SetStartVertex(std::shared_ptr<scVertexVisualInterface> startVertex);
-	void SetEndVertex(std::shared_ptr<scVertexVisualInterface> endVertex);
+	void SetStartVertex(std::shared_ptr<scVertexData> startVertex);
+	void SetEndVertex(std::shared_ptr<scVertexData> endVertex);
 
 	void SetStartVertex(double x, double y);
 	void SetEndVertex(double x, double y);
@@ -21,7 +21,7 @@ public:
 	double GetEndY() const;
 
 private:
-	std::shared_ptr<scVertexVisualInterface> mStartVertex;
-	std::shared_ptr<scVertexVisualInterface> mEndVertex;
+	std::shared_ptr<scVertexData> mStartVertex;
+	std::shared_ptr<scVertexData> mEndVertex;
 };
 

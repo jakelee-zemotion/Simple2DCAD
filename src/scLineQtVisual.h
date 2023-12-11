@@ -18,6 +18,6 @@ public:
 	bool HitTest(QPointF& currMousePos) override;
 
 private:
-	scLineData mLineData;
+	std::shared_ptr<scLineData> mLineData;
 };
 

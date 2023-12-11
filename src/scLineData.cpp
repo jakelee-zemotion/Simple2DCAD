@@ -11,12 +11,12 @@ scLineData::~scLineData()
 
 }
 
-void scLineData::SetStartVertex(shared_ptr<scVertexVisualInterface> startVertex)
+void scLineData::SetStartVertex(shared_ptr<scVertexData> startVertex)
 {
 	mStartVertex = startVertex;
 }
 
-void scLineData::SetEndVertex(shared_ptr<scVertexVisualInterface> endVertex)
+void scLineData::SetEndVertex(shared_ptr<scVertexData> endVertex)
 {
 	mEndVertex = endVertex;
 }
