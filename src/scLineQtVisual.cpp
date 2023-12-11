@@ -1,4 +1,5 @@
 #include "scLineQtVisual.h"
+#include <qDebug>
 
 using namespace std;
 
@@ -37,9 +38,27 @@ void scLineQtVisual::Paint(QPainter& painter)
 	painter.setPen(pen);
 
 	painter.drawLine(this->MakeQLineF());
+
+
+	QLineF normal = this->MakeQLineF().normalVector();
+	QPointF aaa(100.0, 100.0);
+	painter.drawPoint(aaa);
+
+	normal.setP2(normal.p2() - normal.p1() + aaa);
+	normal.setP1(aaa);
+
+	normal.setLength(20.0);
+
+	qDebug() << normal;
+	QPen pen2(Qt::red);
+	pen2.setWidth(3);
+	painter.setPen(pen2);
+	painter.drawLine(normal);
+
 }
 
 bool scLineQtVisual::HitTest(QPointF& currMousePos)
 {
+
 	return false;
 }
