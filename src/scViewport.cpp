@@ -2,7 +2,7 @@
 #include "scCamera.h"
 
 #include "scDrawLineState.h"
-#include "scSelectState.h"
+#include "scSelectVertexState.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
@@ -34,7 +34,7 @@ void scViewport::AddState(string name)
     if (name == "Draw")
         state = make_shared<scDrawLineState>(mShapeObjects);
     else if (name == "Select")
-        state = make_shared<scSelectState>(mShapeObjects);
+        state = make_shared<scSelectVertexState>(mShapeObjects);
 
 
     mStateMachine.AddState(name, state);

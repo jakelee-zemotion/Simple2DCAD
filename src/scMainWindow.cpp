@@ -15,6 +15,7 @@ scMainWindow::scMainWindow()
 	mMenuBar = make_unique<scMenuBar>();
 	mObjSelectToolBar = make_unique<scObjectSelectionToolBar>();
 
+	// Add states and toolbuttons.
 	vector<string> stateName = { "Draw", "Select" };
 
 	for (const auto& name : stateName)
@@ -27,6 +28,7 @@ scMainWindow::scMainWindow()
 	mViewport->TransitState(firstState);
 	mObjSelectToolBar->SetCurrentToolButton(firstState);
 
+	// Connect signals/slots.
 	mMenuBar->ConnectAction(this);
 	mObjSelectToolBar->ConnectToolButton(this);
 

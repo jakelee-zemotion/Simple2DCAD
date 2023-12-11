@@ -1,19 +1,19 @@
-#include "scSelectState.h"
+#include "scSelectVertexState.h"
 #include "scShapeList.h"
 
 #include <qDebug>
 
-scSelectState::scSelectState(scShapeList& shapeObjects)
+scSelectVertexState::scSelectVertexState(scShapeList& shapeObjects)
 	:mShapeObjects(shapeObjects)
 {
 	mIsPressed = false;
 }
 
-scSelectState::~scSelectState()
+scSelectVertexState::~scSelectVertexState()
 {
 }
 
-void scSelectState::MousePressEvent(QPointF& currMousePos)
+void scSelectVertexState::MousePressEvent(QPointF& currMousePos)
 {
 	mIsPressed = true;
 
@@ -35,7 +35,7 @@ void scSelectState::MousePressEvent(QPointF& currMousePos)
 	}
 }
 
-void scSelectState::MouseMoveEvent(QPointF& currMousePos)
+void scSelectVertexState::MouseMoveEvent(QPointF& currMousePos)
 {
 	if (mIsPressed)
 	{
@@ -49,13 +49,13 @@ void scSelectState::MouseMoveEvent(QPointF& currMousePos)
 	}
 }
 
-void scSelectState::MouseReleaseEvent()
+void scSelectVertexState::MouseReleaseEvent()
 {
 	mIsPressed = false;
 
 	mSelectedPoint.reset();
 }
 
-void scSelectState::KeyPressEvent()
+void scSelectVertexState::KeyPressEvent()
 {
 }

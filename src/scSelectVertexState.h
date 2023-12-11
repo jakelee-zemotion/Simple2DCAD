@@ -4,11 +4,11 @@
 #include <memory>
 
 class scShapeList;
-class scSelectState : public scStateInterface
+class scSelectVertexState : public scStateInterface
 {
 public:
-	scSelectState(scShapeList& shapeObjects);
-	~scSelectState();
+	scSelectVertexState(scShapeList& shapeObjects);
+	~scSelectVertexState();
 
 	void MousePressEvent(QPointF& currMousePos) override;
 	void MouseMoveEvent(QPointF& currMousePos) override;
