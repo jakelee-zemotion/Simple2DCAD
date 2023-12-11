@@ -4,15 +4,15 @@
 class scViewport;
 class scMenuBar;
 class scObjectSelectionToolBar;
-class scWidgetManager : public QObject
+class scMainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	scWidgetManager();
-	~scWidgetManager();
+	scMainWindow();
+	~scMainWindow();
 
-	void SetWidgets(QMainWindow& mainWindow);
+	void SetWidgets();
 
 private:
 	std::unique_ptr<scViewport> mViewport;

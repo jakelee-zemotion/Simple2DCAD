@@ -1,17 +1,15 @@
 #pragma once
-#include "scWidgetManager.h"
+#include "scMainWindow.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char** argv)
 {
 	QApplication app(argc, argv);
 
-	QMainWindow mainWindow;
+	scMainWindow mainWindow;
 	mainWindow.setGeometry(200, 200, 600, 400);
+	mainWindow.SetWidgets();
 	mainWindow.show();
-
-	scWidgetManager widgetManager;
-	widgetManager.SetWidgets(mainWindow);
 
 	return app.exec();
 }

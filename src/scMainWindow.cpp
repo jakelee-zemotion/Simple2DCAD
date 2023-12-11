@@ -1,4 +1,4 @@
-#include "scWidgetManager.h"
+#include "scMainWindow.h"
 
 #include "scViewport.h"
 #include "scMenuBar.h"
@@ -9,7 +9,7 @@
 
 using namespace std;
 
-scWidgetManager::scWidgetManager()
+scMainWindow::scMainWindow()
 {
 	mViewport = make_unique<scViewport>();
 	mMenuBar = make_unique<scMenuBar>();
@@ -19,24 +19,24 @@ scWidgetManager::scWidgetManager()
 	mObjSelectToolBar->ConnectToolButton(this);
 }
 
-scWidgetManager::~scWidgetManager()
+scMainWindow::~scMainWindow()
 {
 }
 
-void scWidgetManager::SetWidgets(QMainWindow& mainWindow)
+void scMainWindow::SetWidgets()
 {
-	mainWindow.setCentralWidget(mViewport.get());
-	mainWindow.setMenuBar(mMenuBar.get());
-	mainWindow.addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar.get());
+	this->setCentralWidget(mViewport.get());
+	this->setMenuBar(mMenuBar.get());
+	this->addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar.get());
 }
 
-void scWidgetManager::OpenObjectListDialog()
+void scMainWindow::OpenObjectListDialog()
 {
 	scObjectListDialog objectListDialog(mViewport->mShapeObjects);
 	objectListDialog.exec();
 }
 
-void scWidgetManager::PressDrawMode(std::string s)
+void scMainWindow::PressDrawMode(std::string s)
 {
 	if (mObjSelectToolBar->SetButtonPressed(s))
 	{
