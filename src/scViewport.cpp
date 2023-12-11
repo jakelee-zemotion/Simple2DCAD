@@ -17,9 +17,6 @@ scViewport::scViewport(QWidget* parent)
 
     mCamera = make_unique<scCamera>(mShapeObjects, QPoint(this->width(), this->height()));
 
-    mStateMachine.AddState("Draw", make_shared<scDrawLineState>(mShapeObjects));
-    mStateMachine.AddState("Select", make_shared<scSelectState>(mShapeObjects));
-    mStateMachine.Transition("Draw");
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
@@ -27,6 +24,18 @@ scViewport::scViewport(QWidget* parent)
 
 scViewport::~scViewport()
 {
+}
+
+void scViewport::AddState(std::string name)
+{
+    shared_ptr<scStateInterface> state;
+
+    if (name == "Draw")
+        state = make_shared<scDrawLineState>(mShapeObjects);
+    else if (name == "Select")
+        state = make_shared<scSelectState>(mShapeObjects);
+
+    mStateMachine.AddState(name, state);
 }
 
 void scViewport::TransitState(std::string name)

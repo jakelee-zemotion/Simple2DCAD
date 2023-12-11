@@ -16,9 +16,12 @@ scMainWindow::scMainWindow()
 	mObjSelectToolBar = make_unique<scObjectSelectionToolBar>();
 
 
+	mViewport->AddState("Draw");
 	mObjSelectToolBar->AddToolButton("Draw");
+	mViewport->AddState("Select");
 	mObjSelectToolBar->AddToolButton("Select");
 
+	mViewport->TransitState("Draw");
 	mObjSelectToolBar->SetCurrentToolButton("Draw");
 
 
