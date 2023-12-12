@@ -15,21 +15,8 @@ scDrawLineState::~scDrawLineState()
 
 void scDrawLineState::MousePressEvent(QPointF& currMousePos)
 {
-    if (!mIsDrawing)
-    {
-        // Put two points to create a line on the first click.
-        // Therefore, the second point is adjusted in MouseMoveEvent.
-        mScene.AddLine(currMousePos, currMousePos);
-        mIsDrawing = true;
-    }
-    else
-    {
-        mScene.AddVertex(currMousePos);
-
-        // Close testing
-        // If CloseTest is true (i.e. if polygon can be created), Drawing mode is stopped.
-        //mIsDrawing = !mScene.CloseTest(currMousePos);
-    }
+    mScene.AddVertex(currMousePos, mIsDrawing);
+    mIsDrawing = true;
 }
 
 void scDrawLineState::MouseMoveEvent(QPointF& currMousePos)

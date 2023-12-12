@@ -12,15 +12,12 @@ public:
 	~scScene() {};
 
 	void Render(QPainter& painter);
-	void AddLine(QPointF& start, QPointF& end);
-	void AddVertex(QPointF& point);
+	void AddVertex(QPointF& point, bool isDrawing);
 	void EndDrawing();
 	void MoveDrawingPoint(QPointF& point);
 
 	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
 	std::list<std::shared_ptr<scVertexQtVisual>> mVertexList;
-
-
 
 private:
 	
