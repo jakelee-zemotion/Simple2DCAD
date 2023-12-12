@@ -34,24 +34,25 @@ shared_ptr<scShapeQtVisual> scScene::AddVertex(const QPointF& point, bool isDraw
 		// Put two points to create a line on the first click.
 		// Therefore, the second point is adjusted in MouseMoveEvent.
 		startVertex 
-			= std::make_shared<scVertexQtVisual>(point, mViewportSize);
+			= make_shared<scVertexQtVisual>(point, mViewportSize);
 		mVertexList.push_back(startVertex);
 	}
 	else
 	{
-		startVertex = mVertexList.back();
+		// mVertexList element is scShapeQtVisual and must be downcast.
+		startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
 	}
 
 	// Copy the vertices.
-	shared_ptr<scVertexQtVisual> endVertex = std::make_shared<scVertexQtVisual>(point, mViewportSize);
+	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(point, mViewportSize);
 
 	// Ref the vertices.
-	shared_ptr<scLineQtVisual> newLine = std::make_shared<scLineQtVisual>(startVertex, endVertex, mViewportSize);
+	shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mViewportSize);
 
 	// Add Vertices.
 	mVertexList.push_back(endVertex);
 
-	// Add a new line and ployline.
+	// Add a new line.
 	mLineList.push_back(newLine);
 
 
@@ -73,7 +74,7 @@ shared_ptr<scShapeQtVisual> scScene::GetSelectedVertex(const QPointF& currMouseP
 
 	switch (shapeType)
 	{
-		//case 0: shapeList = &mVertexList;  break;
+		case 0: shapeList = &mVertexList;  break;
 	}
 
 	for (const auto& point : mVertexList)

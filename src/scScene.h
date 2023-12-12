@@ -18,8 +18,8 @@ public:
 	std::shared_ptr<scShapeQtVisual> GetSelectedLine(const QPointF& currMousePos);
 
 private:
-	std::list<std::shared_ptr<scVertexQtVisual>> mVertexList;
-	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
+	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
+	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;
 
 	const QRect& mViewportSize;
 };
