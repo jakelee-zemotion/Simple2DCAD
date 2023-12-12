@@ -13,12 +13,12 @@ public:
 		const QRect& viewportSize);
 	~scLineQtVisual() override;
 
-	void MoveShape(double dx, double dy) override;;
-
 	QLineF MakeQLineF();
 
+	void MoveShape(double dx, double dy) override;;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
+	void SetShapeColor(const Qt::GlobalColor& color);
 
 private:
 	std::shared_ptr<scLineData> mLineData;

@@ -18,6 +18,20 @@ scLineQtVisual::~scLineQtVisual()
 {
 }
 
+QLineF scLineQtVisual::MakeQLineF()
+{
+	pair<double, double> screenStart =
+		WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
+
+	pair<double, double> screenEnd =
+		WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
+
+	return
+		QLineF(
+			{ screenStart.first, screenStart.second },
+			{ screenEnd.first, screenEnd.second });
+}
+
 void scLineQtVisual::MoveShape(double dx, double dy)
 {
 	pair<double, double> screenStartCoord = 
@@ -42,23 +56,9 @@ void scLineQtVisual::MoveShape(double dx, double dy)
 	mLineData->SetEndVertex(worldEndCoord.first, worldEndCoord.second);
 }
 
-QLineF scLineQtVisual::MakeQLineF()
-{
-	pair<double, double> screenStart =
-		WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
-
-	pair<double, double> screenEnd =
-		WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
-
-	return 
-		QLineF(
-			{ screenStart.first, screenStart.second },
-			{ screenEnd.first, screenEnd.second });
-}
-
 void scLineQtVisual::Paint(QPainter& painter)
 {
-	QPen pen(Qt::blue);
+	QPen pen(mPenColor);
 	pen.setWidth(3);
 	painter.setPen(pen);
 
@@ -88,4 +88,8 @@ bool scLineQtVisual::HitTest(const QPointF& currMousePos)
 	}
 
 	return false;
+}
+
+void scLineQtVisual::SetShapeColor(const Qt::GlobalColor& color)
+{
 }

@@ -15,7 +15,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	bool mIsPressed;
+	bool mIsMousePressed;
 	SELECT mSelectShapeType;
 };
 

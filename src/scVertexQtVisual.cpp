@@ -13,8 +13,6 @@ scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const QRect& viewport
 	pair<double, double> worldCoord = ScreenToWorld(qpointF.x(), qpointF.y());
 	mVertexData->SetX(worldCoord.first);
 	mVertexData->SetY(worldCoord.second);
-
-	mPenColor = Qt::red;
 }
 
 scVertexQtVisual::~scVertexQtVisual()
@@ -27,14 +25,6 @@ QPointF scVertexQtVisual::MakeQPointF()
 		= WorldToScreen(mVertexData->GetX(), mVertexData->GetY());
 
 	return { screenCoord.first, screenCoord.second };
-}
-
-void scVertexQtVisual::SetXY(double x, double y)
-{
-	pair<double, double> worldCoord = ScreenToWorld(x, y);
-
-	mVertexData->SetX(worldCoord.first);
-	mVertexData->SetY(worldCoord.second);
 }
 
 void scVertexQtVisual::MoveShape(double dx, double dy)
@@ -82,6 +72,10 @@ bool scVertexQtVisual::HitTest(const QPointF& currMousePos)
 	}
 
 	return false;
+}
+
+void scVertexQtVisual::SetShapeColor(const Qt::GlobalColor& color)
+{
 }
 
 shared_ptr<scVertexData> scVertexQtVisual::GetVertexData() const

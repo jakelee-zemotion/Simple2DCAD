@@ -7,6 +7,7 @@ using namespace std;
 scShapeQtVisual::scShapeQtVisual(const QRect& viewportSize)
     :mViewportSize(viewportSize)
 {
+    mPenColor = Qt::black;
 }
 
 scShapeQtVisual::~scShapeQtVisual()
@@ -40,4 +41,18 @@ pair<double, double> scShapeQtVisual::WorldToScreen(double x, double y)
         expr(x, static_cast<double>(mViewportSize.width())),
         expr(-1.0 * y, static_cast<double>(mViewportSize.height()))
     };
+}
+
+
+
+std::pair<double, double> scShapeQtVisual::ScreenToTransfrom(double x, double y)
+{
+    // 1. Scale
+
+    // 2. Rotate
+
+    // 3. Translate
+
+
+    return std::pair<double, double>();
 }

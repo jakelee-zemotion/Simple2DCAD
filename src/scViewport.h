@@ -24,7 +24,6 @@ protected:
 	void keyPressEvent(QKeyEvent* event) override;
 	void keyReleaseEvent(QKeyEvent* event) override;
 	void wheelEvent(QWheelEvent* event) override;
-	void resizeEvent(QResizeEvent* event) override;
 
 private:
 	scCamera mCamera;

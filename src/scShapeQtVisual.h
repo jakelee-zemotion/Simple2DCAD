@@ -12,11 +12,15 @@ public:
 	virtual void MoveShape(double dx, double dy) = 0;
 	virtual void Paint(QPainter& painter) = 0;
 	virtual bool HitTest(const QPointF& currMousePos) = 0;
+	virtual void SetShapeColor(const Qt::GlobalColor& color) = 0;
 
 protected:
 	const QRect& mViewportSize;
+	Qt::GlobalColor mPenColor;
 
 	std::pair<double, double> WorldToScreen(double x, double y);
 	std::pair<double, double> ScreenToWorld(double x, double y);
+
+	std::pair<double, double> ScreenToTransfrom(double x, double y);
 };
 

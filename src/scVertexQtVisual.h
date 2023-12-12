@@ -13,16 +13,14 @@ public:
 
 	QPointF MakeQPointF();
 
-	void SetXY(double x, double y);
-
 	void MoveShape(double dx, double dy) override;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
+	void SetShapeColor(const Qt::GlobalColor& color) override;
 
 	std::shared_ptr<scVertexData> GetVertexData() const;
 
 private:
 	std::shared_ptr<scVertexData> mVertexData;
-	Qt::GlobalColor mPenColor;
 };
 
