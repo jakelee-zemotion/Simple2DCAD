@@ -20,24 +20,24 @@ void scSelectVertexState::MousePressEvent(const QPointF& currMousePos)
 
 	for (const auto& point : mScene->mVertexList)
 	{
-
 		if (point->HitTest(currMousePos))
 		{
 			mSelectedPoint = point;
 		}
 	}
+
+	mPrevMousePos = currMousePos;
 }
 
 void scSelectVertexState::MouseMoveEvent(const QPointF& currMousePos)
 {
-	if (mIsPressed)
+				   // mSelectedPoint != nullptr
+	if (mIsPressed && mSelectedPoint.use_count())
 	{
-		//qDebug() << mSelectedPoint.use_count();
+		QPointF dist = currMousePos - mPrevMousePos;
+		mPrevMousePos = currMousePos;
 
-		if (mSelectedPoint.use_count())
-		{
-			mSelectedPoint->SetXY(currMousePos.x(), currMousePos.y());
-		}
+		mSelectedPoint->SetXY(currMousePos.x(), currMousePos.y());
 	}
 }
 

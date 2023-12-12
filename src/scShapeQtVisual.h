@@ -17,9 +17,5 @@ protected:
 
 	std::pair<double, double> WorldToScreen(double x, double y);
 	std::pair<double, double> ScreenToWorld(double x, double y);
-
-private:
-	double WorldToScreenExpression(double value, double size);
-	double ScreenToWorldExpression(double value, double size);
 };
 

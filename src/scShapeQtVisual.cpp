@@ -16,19 +16,29 @@ scShapeQtVisual::~scShapeQtVisual()
 // Use -1.0 * to get visibility. Do not change it to -.
 pair<double, double> scShapeQtVisual::ScreenToWorld(double x, double y)
 {
+    auto expr = [](double value, double size) -> double
+        {
+            return value / size * 2.0 - 1.0;
+        };
+
     return 
     {
-        ScreenToWorldExpression(x, static_cast<double>(mViewportSize.width())),
-        -1.0 * ScreenToWorldExpression(y, static_cast<double>(mViewportSize.height()))
+        expr(x, static_cast<double>(mViewportSize.width())),
+        -1.0 * expr(y, static_cast<double>(mViewportSize.height()))
     };
 }
 
 pair<double, double> scShapeQtVisual::WorldToScreen(double x, double y)
 {
+    auto expr = [](double value, double size) -> double
+        {
+            return (value + 1.0) / 2.0 * size;
+        };
+
     return
     {
-        WorldToScreenExpression(x, static_cast<double>(mViewportSize.width())),
-        WorldToScreenExpression(-1.0 * y, static_cast<double>(mViewportSize.height()))
+        expr(x, static_cast<double>(mViewportSize.width())),
+        expr(-1.0 * y, static_cast<double>(mViewportSize.height()))
     };
 }
 

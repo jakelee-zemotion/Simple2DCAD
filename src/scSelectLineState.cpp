@@ -21,10 +21,8 @@ void scSelectLineState::MousePressEvent(const QPointF& currMousePos)
 
 	for (const auto& line : mScene->mLineList)
 	{
-
 		if (line->HitTest(currMousePos))
 		{
-			qDebug() << "hit";
 			mSelectedLine = line;
 		}
 	}

@@ -12,7 +12,6 @@ scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const QRect& viewport
 	this->SetXY(qpointF.x(), qpointF.y());
 
 	mPenColor = Qt::red;
-	qDebug() << mViewportSize.width();
 }
 
 scVertexQtVisual::~scVertexQtVisual()

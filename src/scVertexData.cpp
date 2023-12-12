@@ -2,8 +2,8 @@
 
 scVertexData::scVertexData()
 {
-	mX = 0.0f;
-	mY = 0.0f;
+	mX = 0.0;
+	mY = 0.0;
 }
 
 scVertexData::~scVertexData()

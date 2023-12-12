@@ -62,7 +62,6 @@ void scScene::EndDrawing()
 
 	mVertexList.pop_back();
 	mLineList.pop_back();
-
 }
 
 void scScene::MoveDrawingPoint(const QPointF& point)

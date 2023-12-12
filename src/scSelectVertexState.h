@@ -17,6 +17,7 @@ public:
 
 private:
 	std::shared_ptr<scVertexQtVisual> mSelectedPoint;
+	QPointF mPrevMousePos;
 
 	bool mIsPressed;
 };
