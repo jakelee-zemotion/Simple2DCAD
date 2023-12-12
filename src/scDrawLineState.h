@@ -14,6 +14,8 @@ public:
 	void KeyPressEvent() override;
 
 private:
+	QPointF mPrevMousePos;
+
 	bool mIsDrawing; // Use in mouseReleaseEvent
 };
 

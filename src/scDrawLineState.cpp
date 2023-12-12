@@ -18,13 +18,19 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 {
     mScene->AddVertex(currMousePos, mIsDrawing);
     mIsDrawing = true;
+
+    mPrevMousePos = currMousePos;
 }
 
 void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
     if (mIsDrawing)
     {
-       mScene->MoveDrawingPoint(currMousePos);
+        QPointF dist = currMousePos - mPrevMousePos;
+        mPrevMousePos = currMousePos;
+
+        //mSelectedPoint->MoveShape(dist.x(), dist.y());
+        mScene->MoveVertex(currMousePos);
     }
 
 }

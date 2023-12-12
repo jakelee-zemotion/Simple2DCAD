@@ -64,7 +64,7 @@ void scScene::EndDrawing()
 	mLineList.pop_back();
 }
 
-void scScene::MoveDrawingPoint(const QPointF& point)
+void scScene::MoveVertex(const QPointF& point)
 {
 	if (mVertexList.empty())
 		return;

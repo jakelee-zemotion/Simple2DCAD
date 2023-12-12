@@ -41,14 +41,3 @@ pair<double, double> scShapeQtVisual::WorldToScreen(double x, double y)
         expr(-1.0 * y, static_cast<double>(mViewportSize.height()))
     };
 }
-
-double scShapeQtVisual::ScreenToWorldExpression(double value, double size)
-{
-    return value / size * 2.0 - 1.0;
-}
-
-double scShapeQtVisual::WorldToScreenExpression(double value, double size)
-{
-    return (value + 1.0) / 2.0 * size;
-}
-

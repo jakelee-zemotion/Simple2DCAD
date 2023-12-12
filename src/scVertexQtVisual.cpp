@@ -9,7 +9,10 @@ scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const QRect& viewport
 	:scShapeQtVisual(viewportSize)
 {
 	mVertexData = make_shared<scVertexData>();
-	this->SetXY(qpointF.x(), qpointF.y());
+
+	pair<double, double> worldCoord = ScreenToWorld(qpointF.x(), qpointF.y());
+	mVertexData->SetX(worldCoord.first);
+	mVertexData->SetY(worldCoord.second);
 
 	mPenColor = Qt::red;
 }
@@ -29,6 +32,21 @@ QPointF scVertexQtVisual::MakeQPointF()
 void scVertexQtVisual::SetXY(double x, double y)
 {
 	pair<double, double> worldCoord = ScreenToWorld(x, y);
+
+	mVertexData->SetX(worldCoord.first);
+	mVertexData->SetY(worldCoord.second);
+}
+
+void scVertexQtVisual::MoveShape(double dx, double dy)
+{
+	pair<double, double> screenCoord =
+		WorldToScreen(mVertexData->GetX(), mVertexData->GetY());
+
+	screenCoord.first += dx;
+	screenCoord.second += dy;
+
+	pair<double, double> worldCoord =
+		ScreenToWorld(screenCoord.first, screenCoord.second);
 
 	mVertexData->SetX(worldCoord.first);
 	mVertexData->SetY(worldCoord.second);

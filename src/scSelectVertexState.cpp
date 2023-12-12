@@ -37,7 +37,7 @@ void scSelectVertexState::MouseMoveEvent(const QPointF& currMousePos)
 		QPointF dist = currMousePos - mPrevMousePos;
 		mPrevMousePos = currMousePos;
 
-		mSelectedPoint->SetXY(currMousePos.x(), currMousePos.y());
+		mSelectedPoint->MoveShape(dist.x(), dist.y());
 	}
 }
 
