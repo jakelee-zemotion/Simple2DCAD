@@ -1,8 +1,7 @@
 #include "scViewport.h"
 
 #include "scDrawLineState.h"
-#include "scSelectVertexState.h"
-#include "scSelectLineState.h"
+#include "scSelectState.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
@@ -33,9 +32,9 @@ void scViewport::AddState(const string& name)
     if (name == "Draw")
         state = make_shared<scDrawLineState>(mScene);
     else if (name == "SelectVertex")
-        state = make_shared<scSelectVertexState>(mScene);
+        state = make_shared<scSelectState>(mScene, SELECT::VERTEX);
     else if (name == "SelectLine")
-        state = make_shared<scSelectLineState>(mScene);
+        state = make_shared<scSelectState>(mScene, SELECT::LINE);
 
 
     mStateMachine.AddState(name, state);

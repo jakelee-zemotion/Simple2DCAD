@@ -1,12 +1,13 @@
 #pragma once
 #include "scState.h"
 #include "scShapeQtVisual.h"
+#include <memory>
 
-class scSelectLineState : public scState
+class scSelectState : public scState
 {
 public:
-	scSelectLineState(std::shared_ptr<scScene> scene);
-	~scSelectLineState() override;
+	scSelectState(std::shared_ptr<scScene>& scene, SELECT selectShapeType);
+	~scSelectState() override;
 
 	void MousePressEvent(const QPointF& currMousePos) override;
 	void MouseMoveEvent(const QPointF& currMousePos) override;
@@ -15,5 +16,6 @@ public:
 
 private:
 	bool mIsPressed;
+	SELECT mSelectShapeType;
 };
 

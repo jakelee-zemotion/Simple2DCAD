@@ -1,5 +1,4 @@
 #include "scStateMachine.h"
-#include "scDrawLineState.h"
 
 using namespace std;
 
