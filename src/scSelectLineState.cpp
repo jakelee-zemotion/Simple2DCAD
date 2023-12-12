@@ -18,29 +18,19 @@ scSelectLineState::~scSelectLineState()
 void scSelectLineState::MousePressEvent(const QPointF& currMousePos)
 {
 	mIsPressed = true;
-
-	for (const auto& line : mScene->mLineList)
-	{
-		if (line->HitTest(currMousePos))
-		{
-			mSelectedLine = line;
-		}
-	}
-
 	mPrevMousePos = currMousePos;
+
+	mSelectedLine = mScene->GetSelectedLine(currMousePos);
 }
 
 void scSelectLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
-	if (mIsPressed)
+	if (mIsPressed && mSelectedLine.use_count())
 	{
-		if (mSelectedLine.use_count())
-		{
-			QPointF dist = currMousePos - mPrevMousePos;
-			mPrevMousePos = currMousePos;
+		QPointF dist = currMousePos - mPrevMousePos;
+		mPrevMousePos = currMousePos;
 
-			mSelectedLine->MoveLine(dist.x(), dist.y());
-		}
+		mSelectedLine->MoveShape(dist.x(), dist.y());
 	}
 }
 

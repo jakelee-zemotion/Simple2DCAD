@@ -14,8 +14,9 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	QPointF mPrevMousePos;
+	std::shared_ptr<scShapeQtVisual> mSelectedPoint;
 
+	QPointF mPrevMousePos;
 	bool mIsDrawing; // Use in mouseReleaseEvent
 };
 

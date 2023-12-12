@@ -15,7 +15,7 @@ public:
 
 	void SetXY(double x, double y);
 
-	void MoveShape(double dx, double dy);
+	void MoveShape(double dx, double dy) override;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 

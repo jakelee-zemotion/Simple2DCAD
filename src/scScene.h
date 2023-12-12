@@ -12,13 +12,14 @@ public:
 	~scScene();
 
 	void Render(QPainter& painter);
-	void AddVertex(const QPointF& point, bool isDrawing);
+	std::shared_ptr<scShapeQtVisual> AddVertex(const QPointF& point, bool isDrawing);
 	void EndDrawing();
-	void MoveVertex(const QPointF& point);
-
-	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
-	std::list<std::shared_ptr<scVertexQtVisual>> mVertexList;
+	std::shared_ptr<scShapeQtVisual> GetSelectedVertex(const QPointF& currMousePos, int shapeType);
+	std::shared_ptr<scShapeQtVisual> GetSelectedLine(const QPointF& currMousePos);
 
 private:
+	std::list<std::shared_ptr<scVertexQtVisual>> mVertexList;
+	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
+
 	const QRect& mViewportSize;
 };

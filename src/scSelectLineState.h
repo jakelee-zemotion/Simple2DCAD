@@ -1,6 +1,6 @@
 #pragma once
 #include "scState.h"
-#include "scLineQtVisual.h"
+#include "scShapeQtVisual.h"
 
 class scSelectLineState : public scState
 {
@@ -14,7 +14,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	std::shared_ptr<scLineQtVisual> mSelectedLine;
+	std::shared_ptr<scShapeQtVisual> mSelectedLine;
 	QPointF mPrevMousePos;
 
 	bool mIsPressed;

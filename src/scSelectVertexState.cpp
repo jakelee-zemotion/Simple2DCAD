@@ -17,16 +17,9 @@ scSelectVertexState::~scSelectVertexState()
 void scSelectVertexState::MousePressEvent(const QPointF& currMousePos)
 {
 	mIsPressed = true;
-
-	for (const auto& point : mScene->mVertexList)
-	{
-		if (point->HitTest(currMousePos))
-		{
-			mSelectedPoint = point;
-		}
-	}
-
 	mPrevMousePos = currMousePos;
+
+	mSelectedPoint = mScene->GetSelectedVertex(currMousePos, 0);
 }
 
 void scSelectVertexState::MouseMoveEvent(const QPointF& currMousePos)
@@ -44,7 +37,6 @@ void scSelectVertexState::MouseMoveEvent(const QPointF& currMousePos)
 void scSelectVertexState::MouseReleaseEvent()
 {
 	mIsPressed = false;
-
 	mSelectedPoint.reset();
 }
 

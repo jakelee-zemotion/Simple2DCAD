@@ -1,6 +1,6 @@
 #pragma once
 #include "scState.h"
-#include "scVertexQtVisual.h"
+#include "scShapeQtVisual.h"
 #include <memory>
 
 class scShapeList;
@@ -16,7 +16,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	std::shared_ptr<scVertexQtVisual> mSelectedPoint;
+	std::shared_ptr<scShapeQtVisual> mSelectedPoint;
 	QPointF mPrevMousePos;
 
 	bool mIsPressed;

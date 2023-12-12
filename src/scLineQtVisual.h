@@ -13,7 +13,7 @@ public:
 		const QRect& viewportSize);
 	~scLineQtVisual() override;
 
-	void MoveLine(double dx, double dy);
+	void MoveShape(double dx, double dy) override;;
 
 	QLineF MakeQLineF();
 

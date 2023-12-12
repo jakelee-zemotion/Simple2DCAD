@@ -18,7 +18,7 @@ scLineQtVisual::~scLineQtVisual()
 {
 }
 
-void scLineQtVisual::MoveLine(double dx, double dy)
+void scLineQtVisual::MoveShape(double dx, double dy)
 {
 	pair<double, double> screenStartCoord = 
 		WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());

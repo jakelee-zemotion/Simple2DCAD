@@ -25,7 +25,7 @@ void scScene::Render(QPainter& painter)
 	}
 }
 
-void scScene::AddVertex(const QPointF& point, bool isDrawing)
+shared_ptr<scShapeQtVisual> scScene::AddVertex(const QPointF& point, bool isDrawing)
 {
 	shared_ptr<scVertexQtVisual> startVertex;
 
@@ -53,6 +53,9 @@ void scScene::AddVertex(const QPointF& point, bool isDrawing)
 
 	// Add a new line and ployline.
 	mLineList.push_back(newLine);
+
+
+	return endVertex;
 }
 
 void scScene::EndDrawing()
@@ -64,12 +67,35 @@ void scScene::EndDrawing()
 	mLineList.pop_back();
 }
 
-void scScene::MoveVertex(const QPointF& point)
+shared_ptr<scShapeQtVisual> scScene::GetSelectedVertex(const QPointF& currMousePos, int shapeType)
 {
-	if (mVertexList.empty())
-		return;
+	list<shared_ptr<scShapeQtVisual>>* shapeList;
 
-	shared_ptr<scVertexQtVisual> lastVertex = mVertexList.back();
+	switch (shapeType)
+	{
+		//case 0: shapeList = &mVertexList;  break;
+	}
 
-	lastVertex->SetXY(point.x(), point.y());
+	for (const auto& point : mVertexList)
+	{
+		if (point->HitTest(currMousePos))
+		{
+			return point;
+		}
+	}
+
+	return nullptr;
+}
+
+shared_ptr<scShapeQtVisual> scScene::GetSelectedLine(const QPointF& currMousePos)
+{
+	for (const auto& line : mLineList)
+	{
+		if (line->HitTest(currMousePos))
+		{
+			return line;
+		}
+	}
+
+	return nullptr;
 }
