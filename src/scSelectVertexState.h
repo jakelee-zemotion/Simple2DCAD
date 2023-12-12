@@ -7,7 +7,7 @@ class scShapeList;
 class scSelectVertexState : public scState
 {
 public:
-	scSelectVertexState(std::shared_ptr<scScene> scene);
+	scSelectVertexState(std::shared_ptr<scScene>& scene);
 	~scSelectVertexState() override;
 
 	void MousePressEvent(const QPointF& currMousePos) override;

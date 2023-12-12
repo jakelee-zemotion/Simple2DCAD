@@ -4,7 +4,7 @@
 
 using namespace std;
 
-scSelectVertexState::scSelectVertexState(shared_ptr<scScene> scene)
+scSelectVertexState::scSelectVertexState(shared_ptr<scScene>& scene)
 	:scState(scene)
 {
 	mIsPressed = false;
