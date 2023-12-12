@@ -20,7 +20,7 @@ void scSelectLineState::MousePressEvent(const QPointF& currMousePos)
 	mIsPressed = true;
 	mPrevMousePos = currMousePos;
 
-	mSelectedShape = mScene->HitTest(currMousePos, 1);
+	mSelectedShape = mScene->HitTest(currMousePos, SELECT::LINE);
 }
 
 void scSelectLineState::MouseMoveEvent(const QPointF& currMousePos)

@@ -1,4 +1,6 @@
 #include "scScene.h"
+#include "scVertexQtVisual.h"
+#include "scLineQtVisual.h"
 
 using namespace std;
 
@@ -68,14 +70,22 @@ void scScene::EndDrawing()
 	mLineList.pop_back();
 }
 
-shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, int shapeType)
+shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SELECT shapeType)
 {
 	list<shared_ptr<scShapeQtVisual>>* shapeList;
 
 	switch (shapeType)
 	{
-		case 0: shapeList = &mVertexList;  break;
-		case 1: shapeList = &mLineList; break;
+		case SELECT::VERTEX : 
+			shapeList = &mVertexList;  break;
+
+		case SELECT::LINE : 
+			shapeList = &mLineList; break;
+
+		case SELECT::FACE :
+		default:
+			shapeList = &mLineList;
+			break;
 	}
 
 	for (const auto& point : *shapeList)

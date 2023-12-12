@@ -25,6 +25,7 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 
 void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
+                   // mSelectedShape != nullptr
     if (mIsDrawing && mSelectedShape.use_count())
     {
         QPointF dist = currMousePos - mPrevMousePos;
