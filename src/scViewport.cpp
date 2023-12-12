@@ -152,12 +152,4 @@ void scViewport::wheelEvent(QWheelEvent* event)
     update();
 }
 
-void scViewport::resizeEvent(QResizeEvent* event)
-{
-    /*qDebug() << this->width() << this->height();
-    qDebug() << this->rect();
-    qDebug() << this->geometry();
-    qDebug();*/
-}
-
 
