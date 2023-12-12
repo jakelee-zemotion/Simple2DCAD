@@ -26,6 +26,11 @@ QPointF scVertexQtVisual::MakeQPointF()
 
 void scVertexQtVisual::SetXY(double x, double y)
 {
+	qDebug() << x << y;
+	qDebug() << ScreenToWorldX(x) << ScreenToWorldY(y);
+	qDebug() << WorldToScreenX(ScreenToWorldX(x)) << WorldToScreenY(ScreenToWorldY(y));
+	qDebug() << ' ';
+
 	mVertexData->SetX(x);
 	mVertexData->SetY(y);
 }

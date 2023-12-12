@@ -15,7 +15,14 @@ public:
 protected:
 	const QRect& mViewportSize;
 
-	QPointF WorldToScreen(QPointF point);
-	QPointF ScreenToWorld(QPointF point);
+	double WorldToScreenX(double x);
+	double WorldToScreenY(double y);
+
+	double ScreenToWorldX(double x);
+	double ScreenToWorldY(double y);
+
+private:
+	double WorldToScreen(double value, double size);
+	double ScreenToWorld(double value, double size);
 };
 
