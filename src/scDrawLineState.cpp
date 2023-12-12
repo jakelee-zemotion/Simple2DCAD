@@ -1,9 +1,10 @@
 #include "scDrawLineState.h"
-#include "scScene.h"
 
 #include <QPointF>
 
-scDrawLineState::scDrawLineState(scScene& scene)
+using namespace std;
+
+scDrawLineState::scDrawLineState(shared_ptr<scScene> scene)
     :scState(scene)
 {
     mIsDrawing = false;
@@ -15,7 +16,7 @@ scDrawLineState::~scDrawLineState()
 
 void scDrawLineState::MousePressEvent(QPointF& currMousePos)
 {
-    mScene.AddVertex(currMousePos, mIsDrawing);
+    mScene->AddVertex(currMousePos, mIsDrawing);
     mIsDrawing = true;
 }
 
@@ -23,7 +24,7 @@ void scDrawLineState::MouseMoveEvent(QPointF& currMousePos)
 {
     if (mIsDrawing)
     {
-       mScene.MoveDrawingPoint(currMousePos);
+       mScene->MoveDrawingPoint(currMousePos);
     }
 
 }
@@ -36,7 +37,7 @@ void scDrawLineState::KeyPressEvent()
 {
     if (mIsDrawing)
     {
-        mScene.EndDrawing();
+        mScene->EndDrawing();
         mIsDrawing = false;
     }
 }

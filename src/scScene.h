@@ -8,8 +8,8 @@
 class scScene
 {
 public:
-	scScene() {};
-	~scScene() {};
+	scScene(const QRect& viewportSize);
+	~scScene();
 
 	void Render(QPainter& painter);
 	void AddVertex(QPointF& point, bool isDrawing);
@@ -20,5 +20,5 @@ public:
 	std::list<std::shared_ptr<scVertexQtVisual>> mVertexList;
 
 private:
-	
+	const QRect& mViewportSize;
 };

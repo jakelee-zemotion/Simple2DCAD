@@ -28,7 +28,7 @@ protected:
 
 private:
 	scCamera mCamera;
-	scScene mScene;
+	std::shared_ptr<scScene> mScene;
 	
 	scStateMachine mStateMachine;
 

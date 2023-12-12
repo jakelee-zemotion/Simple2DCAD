@@ -14,6 +14,8 @@ using namespace std;
 scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
+    mScene = make_shared<scScene>(this->geometry());
+
     mIsCtrlPressed = false;
 
     // Enable movement tracking when the mouse is not pressed.
@@ -49,7 +51,7 @@ void scViewport::paintEvent(QPaintEvent* event)
     QPainter painter(this);
     
     // Draw objects
-    mScene.Render(painter);
+    mScene->Render(painter);
 }
 
 void scViewport::mousePressEvent(QMouseEvent* event)

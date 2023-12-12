@@ -1,9 +1,10 @@
 #include "scSelectLineState.h"
-#include "scScene.h"
 
 #include <qDebug>
 
-scSelectLineState::scSelectLineState(scScene& scene)
+using namespace std;
+
+scSelectLineState::scSelectLineState(shared_ptr<scScene> scene)
 	:scState(scene)
 {
 	mIsPressed = false;
@@ -18,7 +19,7 @@ void scSelectLineState::MousePressEvent(QPointF& currMousePos)
 {
 	mIsPressed = true;
 
-	for (const auto& line : mScene.mLineList)
+	for (const auto& line : mScene->mLineList)
 	{
 
 		if (line->HitTest(currMousePos))

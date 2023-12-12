@@ -2,6 +2,16 @@
 
 using namespace std;
 
+scScene::scScene(const QRect& viewportSize)
+	:mViewportSize(viewportSize)
+{
+
+}
+
+scScene::~scScene()
+{
+}
+
 void scScene::Render(QPainter& painter)
 {
 	for (const auto& shape : mLineList)
@@ -23,7 +33,8 @@ void scScene::AddVertex(QPointF& point, bool isDrawing)
 	{
 		// Put two points to create a line on the first click.
 		// Therefore, the second point is adjusted in MouseMoveEvent.
-		startVertex = std::make_shared<scVertexQtVisual>(point);
+		startVertex 
+			= std::make_shared<scVertexQtVisual>(point, mViewportSize);
 		mVertexList.push_back(startVertex);
 	}
 	else
@@ -32,10 +43,10 @@ void scScene::AddVertex(QPointF& point, bool isDrawing)
 	}
 
 	// Copy the vertices.
-	shared_ptr<scVertexQtVisual> endVertex = std::make_shared<scVertexQtVisual>(point);
+	shared_ptr<scVertexQtVisual> endVertex = std::make_shared<scVertexQtVisual>(point, mViewportSize);
 
 	// Ref the vertices.
-	shared_ptr<scLineQtVisual> newLine = std::make_shared<scLineQtVisual>(startVertex, endVertex);
+	shared_ptr<scLineQtVisual> newLine = std::make_shared<scLineQtVisual>(startVertex, endVertex, mViewportSize);
 
 	// Add Vertices.
 	mVertexList.push_back(endVertex);

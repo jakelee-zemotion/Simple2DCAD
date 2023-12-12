@@ -1,11 +1,11 @@
 #pragma once
+#include "scScene.h"
 
 class QPointF;
-class scScene;
 class scState
 {
 public:
-	scState(scScene& scene);
+	scState(std::shared_ptr<scScene>& scene);
 	virtual ~scState();
 
 	virtual void MousePressEvent(QPointF& currMousePos) = 0;
@@ -14,6 +14,6 @@ public:
 	virtual void KeyPressEvent() = 0;
 
 protected:
-	scScene& mScene;
+	std::shared_ptr<scScene> mScene;
 };
 

@@ -7,7 +7,10 @@
 class scLineQtVisual : public scShapeQtVisual
 {
 public:
-	scLineQtVisual(std::shared_ptr<scVertexQtVisual>& startVertex, std::shared_ptr<scVertexQtVisual>& endVertex);
+	scLineQtVisual(
+		std::shared_ptr<scVertexQtVisual>& startVertex, 
+		std::shared_ptr<scVertexQtVisual>& endVertex,
+		const QRect& viewportSize);
 	~scLineQtVisual() override;
 
 	void MoveLine(double dx, double dy);

@@ -1,7 +1,8 @@
 #include "scState.h"
-#include "scScene.h"
 
-scState::scState(scScene& scene)
+using namespace std;
+
+scState::scState(shared_ptr<scScene>& scene)
 	:mScene(scene)
 {
 }

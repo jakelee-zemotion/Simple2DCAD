@@ -8,7 +8,7 @@ class QPainter;
 class scVertexQtVisual : public scShapeQtVisual
 {
 public:
-	scVertexQtVisual(QPointF& qpointF);
+	scVertexQtVisual(QPointF& qpointF, const QRect& viewportSize);
 	~scVertexQtVisual() override;
 
 	QPointF MakeQPointF();

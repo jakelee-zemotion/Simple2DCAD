@@ -6,16 +6,16 @@ class scCamera;
 class scShapeQtVisual
 {
 public:
-	scShapeQtVisual();
+	scShapeQtVisual(const QRect& viewportSize);
 	virtual ~scShapeQtVisual();
 
 	virtual void Paint(QPainter& painter) = 0;
 	virtual bool HitTest(QPointF& currMousePos) = 0;
 
 protected:
-	//QRectF& mViewportSize;
+	const QRect& mViewportSize;
 
-	//QPointF WorldToScreen(QPointF point);
-	//QPointF ScreenToWorld(QPointF point);
+	QPointF WorldToScreen(QPointF point);
+	QPointF ScreenToWorld(QPointF point);
 };
 

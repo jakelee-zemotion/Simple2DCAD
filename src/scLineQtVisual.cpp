@@ -3,7 +3,11 @@
 
 using namespace std;
 
-scLineQtVisual::scLineQtVisual(shared_ptr<scVertexQtVisual>& startVertex, shared_ptr<scVertexQtVisual>& endVertex)
+scLineQtVisual::scLineQtVisual(
+	shared_ptr<scVertexQtVisual>& startVertex, 
+	shared_ptr<scVertexQtVisual>& endVertex,
+	const QRect& viewportSize)
+	: scShapeQtVisual(viewportSize)
 {
 	mLineData = make_shared<scLineData>();
 	mLineData->SetStartVertex(startVertex->GetVertexData());

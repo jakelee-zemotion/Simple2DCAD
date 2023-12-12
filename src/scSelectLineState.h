@@ -5,7 +5,7 @@
 class scSelectLineState : public scState
 {
 public:
-	scSelectLineState(scScene& scene);
+	scSelectLineState(std::shared_ptr<scScene> scene);
 	~scSelectLineState() override;
 
 	void MousePressEvent(QPointF& currMousePos) override;

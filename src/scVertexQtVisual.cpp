@@ -5,12 +5,14 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(QPointF& qpointF)
+scVertexQtVisual::scVertexQtVisual(QPointF& qpointF, const QRect& viewportSize)
+	:scShapeQtVisual(viewportSize)
 {
 	mVertexData = make_shared<scVertexData>();
 	this->SetXY(qpointF.x(), qpointF.y());
 
 	mPenColor = Qt::red;
+	qDebug() << mViewportSize.width();
 }
 
 scVertexQtVisual::~scVertexQtVisual()
