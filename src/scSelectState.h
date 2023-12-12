@@ -17,5 +17,9 @@ public:
 private:
 	bool mIsMousePressed;
 	SELECT mSelectShapeType;
+
+
+	std::shared_ptr<scShapeQtVisual> mPrevShape;
+	std::shared_ptr<scShapeQtVisual> mCurrShape;
 };
 

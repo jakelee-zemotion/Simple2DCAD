@@ -12,7 +12,8 @@ public:
 	virtual void MoveShape(double dx, double dy) = 0;
 	virtual void Paint(QPainter& painter) = 0;
 	virtual bool HitTest(const QPointF& currMousePos) = 0;
-	virtual void SetShapeColor(const Qt::GlobalColor& color) = 0;
+
+	void SetShapeColor(const Qt::GlobalColor& color);
 
 protected:
 	const QRect& mViewportSize;

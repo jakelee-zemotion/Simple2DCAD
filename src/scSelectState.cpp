@@ -23,13 +23,16 @@ void scSelectState::MousePressEvent(const QPointF& currMousePos)
 
 void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 {
-	mSelectedShape = mScene->HitTest(currMousePos, mSelectShapeType);
+	mCurrShape = mScene->HitTest(currMousePos, mSelectShapeType);
+
+	//if (mCurrShape->getID() != mPrevShape->getID())
+	{
+		
+	}
 
 	// mSelectedShape != nullptr
 	if (mSelectedShape.use_count())
 	{
-
-
 		if (mIsMousePressed)
 		{
 			QPointF dist = currMousePos - mPrevMousePos;
@@ -37,13 +40,15 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 
 			mSelectedShape->MoveShape(dist.x(), dist.y());
 		}
+
+		return;
 	}
+
 }
 
 void scSelectState::MouseReleaseEvent()
 {
 	mIsMousePressed = false;
-	mSelectedShape.reset();
 }
 
 void scSelectState::KeyPressEvent()

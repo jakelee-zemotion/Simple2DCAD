@@ -89,7 +89,3 @@ bool scLineQtVisual::HitTest(const QPointF& currMousePos)
 
 	return false;
 }
-
-void scLineQtVisual::SetShapeColor(const Qt::GlobalColor& color)
-{
-}

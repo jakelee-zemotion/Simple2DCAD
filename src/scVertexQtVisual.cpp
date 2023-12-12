@@ -74,10 +74,6 @@ bool scVertexQtVisual::HitTest(const QPointF& currMousePos)
 	return false;
 }
 
-void scVertexQtVisual::SetShapeColor(const Qt::GlobalColor& color)
-{
-}
-
 shared_ptr<scVertexData> scVertexQtVisual::GetVertexData() const
 {
 	return mVertexData;

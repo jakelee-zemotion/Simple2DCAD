@@ -14,6 +14,11 @@ scShapeQtVisual::~scShapeQtVisual()
 {
 }
 
+void scShapeQtVisual::SetShapeColor(const Qt::GlobalColor& color)
+{
+    mPenColor = color;
+}
+
 // Use -1.0 * to get visibility. Do not change it to -.
 pair<double, double> scShapeQtVisual::ScreenToWorld(double x, double y)
 {
