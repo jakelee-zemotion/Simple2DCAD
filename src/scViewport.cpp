@@ -1,5 +1,4 @@
 #include "scViewport.h"
-#include "scCamera.h"
 
 #include "scDrawLineState.h"
 #include "scSelectVertexState.h"
@@ -16,9 +15,6 @@ scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
     mIsCtrlPressed = false;
-
-    mCamera = make_unique<scCamera>(mScene, QPoint(this->width(), this->height()));
-
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
@@ -53,7 +49,7 @@ void scViewport::paintEvent(QPaintEvent* event)
     QPainter painter(this);
     
     // Draw objects
-    mScene.DrawShape(painter);
+    mScene.Render(painter);
 }
 
 void scViewport::mousePressEvent(QMouseEvent* event)
@@ -150,9 +146,17 @@ void scViewport::wheelEvent(QWheelEvent* event)
 
     // Zooming
     if (mIsCtrlPressed)
-        mCamera->Zoom(currMousePos, mouseDir);
+        mCamera.Zoom(currMousePos, mouseDir);
 
     update();
+}
+
+void scViewport::resizeEvent(QResizeEvent* event)
+{
+    /*qDebug() << this->width() << this->height();
+    qDebug() << this->rect();
+    qDebug() << this->geometry();
+    qDebug();*/
 }
 
 

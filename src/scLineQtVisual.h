@@ -4,7 +4,7 @@
 
 #include <QLineF>
 
-class scLineQtVisual : public scShapeQtVisualInterface
+class scLineQtVisual : public scShapeQtVisual
 {
 public:
 	scLineQtVisual(std::shared_ptr<scVertexQtVisual>& startVertex, std::shared_ptr<scVertexQtVisual>& endVertex);

@@ -1,11 +1,11 @@
 #pragma once
 #include "scVertexData.h"
-#include "scShapeQtVisualInterface.h"
+#include "scShapeQtVisual.h"
 
 #include <QPointF>
 
 class QPainter;
-class scVertexQtVisual : public scShapeQtVisualInterface
+class scVertexQtVisual : public scShapeQtVisual
 {
 public:
 	scVertexQtVisual(QPointF& qpointF);
@@ -13,11 +13,7 @@ public:
 
 	QPointF MakeQPointF();
 
-	void SetX(double x);
-	void SetY(double y);
-
-	double GetX() const;
-	double GetY() const;
+	void SetXY(double x, double y);
 
 	void Paint(QPainter& painter) override;
 	bool HitTest(QPointF& currMousePos) override;

@@ -11,7 +11,7 @@ public:
 	scScene() {};
 	~scScene() {};
 
-	void DrawShape(QPainter& painter);
+	void Render(QPainter& painter);
 	void AddLine(QPointF& start, QPointF& end);
 	void AddVertex(QPointF& point);
 	void EndDrawing();

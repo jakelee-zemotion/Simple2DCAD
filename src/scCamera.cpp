@@ -2,8 +2,7 @@
 
 #include <QMouseEvent>
 
-scCamera::scCamera(scScene& scene, QPoint viewportSize)
-    :mScene(scene), mViewportSize(viewportSize)
+scCamera::scCamera()
 {
     mPrevMousePos = { 0, 0 };
 }
@@ -50,16 +49,4 @@ void scCamera::Zoom(QPoint currentMousePos, int mouseDir)
 void scCamera::SetPrevMousePos(QPoint prevMousePos)
 {
     mPrevMousePos = prevMousePos;
-}
-
-
-// The ones below are not used.
-QPoint scCamera::ScreenToWorld(QPoint point)
-{
-    return { point.x() / mViewportSize.x() * 2 - 1, point.y() / mViewportSize.y() * 2 - 1 };
-}
-
-QPoint scCamera::WorldToScreen(QPoint point)
-{
-    return { (point.x() + 1) / 2 * mViewportSize.x(), (point.y() + 1) / 2 * mViewportSize.y() };
 }

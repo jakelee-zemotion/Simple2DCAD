@@ -8,8 +8,7 @@ using namespace std;
 scVertexQtVisual::scVertexQtVisual(QPointF& qpointF)
 {
 	mVertexData = make_shared<scVertexData>();
-	this->SetX(qpointF.x());
-	this->SetY(qpointF.y());
+	this->SetXY(qpointF.x(), qpointF.y());
 
 	mPenColor = Qt::red;
 }
@@ -23,26 +22,11 @@ QPointF scVertexQtVisual::MakeQPointF()
 	return { mVertexData->GetX(), mVertexData->GetY() };
 }
 
-void scVertexQtVisual::SetX(double x)
+void scVertexQtVisual::SetXY(double x, double y)
 {
 	mVertexData->SetX(x);
-}
-
-void scVertexQtVisual::SetY(double y)
-{
 	mVertexData->SetY(y);
 }
-
-double scVertexQtVisual::GetX() const
-{
-	return mVertexData->GetX();
-}
-
-double scVertexQtVisual::GetY() const
-{
-	return mVertexData->GetY();
-}
-
 
 void scVertexQtVisual::Paint(QPainter& painter)
 {

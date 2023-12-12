@@ -1,11 +1,10 @@
 #pragma once
 #include "scScene.h"
+#include "scCamera.h"
 #include "scStateMachine.h"
 
 #include <QWidget>
 
-
-class scCamera;
 class scViewport : public QWidget
 {
 
@@ -16,7 +15,6 @@ public:
 	void AddState(std::string name);
 	void TransitState(std::string name);
 
-	scScene mScene;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
@@ -26,9 +24,11 @@ protected:
 	void keyPressEvent(QKeyEvent* event) override;
 	void keyReleaseEvent(QKeyEvent* event) override;
 	void wheelEvent(QWheelEvent* event) override;
+	void resizeEvent(QResizeEvent* event) override;
 
 private:
-	std::unique_ptr<scCamera> mCamera;
+	scCamera mCamera;
+	scScene mScene;
 	
 	scStateMachine mStateMachine;
 

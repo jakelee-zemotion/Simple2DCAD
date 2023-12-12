@@ -1,6 +1,6 @@
 #include "scScene.h"
 
-void scScene::DrawShape(QPainter& painter)
+void scScene::Render(QPainter& painter)
 {
 	for (const auto& shape : mLineList)
 	{
@@ -65,6 +65,5 @@ void scScene::MoveDrawingPoint(QPointF& point)
 
 	std::shared_ptr<scVertexQtVisual> lastVertex = mVertexList.back();
 
-	lastVertex->SetX(point.x());
-	lastVertex->SetY(point.y());
+	lastVertex->SetXY(point.x(), point.y());
 }

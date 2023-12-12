@@ -35,8 +35,7 @@ void scSelectVertexState::MouseMoveEvent(QPointF& currMousePos)
 
 		if (mSelectedPoint.use_count())
 		{
-			mSelectedPoint->SetX(currMousePos.x());
-			mSelectedPoint->SetY(currMousePos.y());
+			mSelectedPoint->SetXY(currMousePos.x(), currMousePos.y());
 		}
 	}
 }
