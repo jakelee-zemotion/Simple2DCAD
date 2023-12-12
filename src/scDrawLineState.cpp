@@ -17,7 +17,7 @@ scDrawLineState::~scDrawLineState()
 void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 {
     // Return the added vertex.
-    mSelectedPoint = mScene->AddVertex(currMousePos, mIsDrawing);
+    mSelectedShape = mScene->AddVertex(currMousePos, mIsDrawing);
     mIsDrawing = true;
 
     mPrevMousePos = currMousePos;
@@ -25,12 +25,12 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 
 void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
-    if (mIsDrawing && mSelectedPoint.use_count())
+    if (mIsDrawing && mSelectedShape.use_count())
     {
         QPointF dist = currMousePos - mPrevMousePos;
         mPrevMousePos = currMousePos;
 
-        mSelectedPoint->MoveShape(dist.x(), dist.y());
+        mSelectedShape->MoveShape(dist.x(), dist.y());
     }
 
 }
@@ -46,6 +46,6 @@ void scDrawLineState::KeyPressEvent()
         mScene->EndDrawing();
         mIsDrawing = false;
 
-        mSelectedPoint.reset();
+        mSelectedShape.reset();
     }
 }

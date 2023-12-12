@@ -19,25 +19,25 @@ void scSelectVertexState::MousePressEvent(const QPointF& currMousePos)
 	mIsPressed = true;
 	mPrevMousePos = currMousePos;
 
-	mSelectedPoint = mScene->GetSelectedVertex(currMousePos, 0);
+	mSelectedShape = mScene->HitTest(currMousePos, 0);
 }
 
 void scSelectVertexState::MouseMoveEvent(const QPointF& currMousePos)
 {
-				   // mSelectedPoint != nullptr
-	if (mIsPressed && mSelectedPoint.use_count())
+				   // mSelectedShape != nullptr
+	if (mIsPressed && mSelectedShape.use_count())
 	{
 		QPointF dist = currMousePos - mPrevMousePos;
 		mPrevMousePos = currMousePos;
 
-		mSelectedPoint->MoveShape(dist.x(), dist.y());
+		mSelectedShape->MoveShape(dist.x(), dist.y());
 	}
 }
 
 void scSelectVertexState::MouseReleaseEvent()
 {
 	mIsPressed = false;
-	mSelectedPoint.reset();
+	mSelectedShape.reset();
 }
 
 void scSelectVertexState::KeyPressEvent()

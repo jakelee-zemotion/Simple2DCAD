@@ -14,7 +14,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
-	std::shared_ptr<scShapeQtVisual> mSelectedLine;
+	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 	QPointF mPrevMousePos;
 
 	bool mIsPressed;

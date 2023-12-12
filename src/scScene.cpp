@@ -68,33 +68,21 @@ void scScene::EndDrawing()
 	mLineList.pop_back();
 }
 
-shared_ptr<scShapeQtVisual> scScene::GetSelectedVertex(const QPointF& currMousePos, int shapeType)
+shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, int shapeType)
 {
 	list<shared_ptr<scShapeQtVisual>>* shapeList;
 
 	switch (shapeType)
 	{
 		case 0: shapeList = &mVertexList;  break;
+		case 1: shapeList = &mLineList; break;
 	}
 
-	for (const auto& point : mVertexList)
+	for (const auto& point : *shapeList)
 	{
 		if (point->HitTest(currMousePos))
 		{
 			return point;
-		}
-	}
-
-	return nullptr;
-}
-
-shared_ptr<scShapeQtVisual> scScene::GetSelectedLine(const QPointF& currMousePos)
-{
-	for (const auto& line : mLineList)
-	{
-		if (line->HitTest(currMousePos))
-		{
-			return line;
 		}
 	}
 

@@ -20,24 +20,24 @@ void scSelectLineState::MousePressEvent(const QPointF& currMousePos)
 	mIsPressed = true;
 	mPrevMousePos = currMousePos;
 
-	mSelectedLine = mScene->GetSelectedLine(currMousePos);
+	mSelectedShape = mScene->HitTest(currMousePos, 1);
 }
 
 void scSelectLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
-	if (mIsPressed && mSelectedLine.use_count())
+	if (mIsPressed && mSelectedShape.use_count())
 	{
 		QPointF dist = currMousePos - mPrevMousePos;
 		mPrevMousePos = currMousePos;
 
-		mSelectedLine->MoveShape(dist.x(), dist.y());
+		mSelectedShape->MoveShape(dist.x(), dist.y());
 	}
 }
 
 void scSelectLineState::MouseReleaseEvent()
 {
 	mIsPressed = false;
-	mSelectedLine.reset();
+	mSelectedShape.reset();
 }
 
 void scSelectLineState::KeyPressEvent()
