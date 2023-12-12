@@ -7,7 +7,7 @@ scLineQtVisual::scLineQtVisual(
 	shared_ptr<scVertexQtVisual>& startVertex, 
 	shared_ptr<scVertexQtVisual>& endVertex,
 	const QRect& viewportSize)
-	: scShapeQtVisual(viewportSize)
+: scShapeQtVisual(viewportSize)
 {
 	mLineData = make_shared<scLineData>();
 	mLineData->SetStartVertex(startVertex->GetVertexData());
@@ -20,22 +20,40 @@ scLineQtVisual::~scLineQtVisual()
 
 void scLineQtVisual::MoveLine(double dx, double dy)
 {
-	double nextStartX = mLineData->GetStartX() + dx;
-	double nextStartY = mLineData->GetStartY() + dy;
-	
-	double nextEndX = mLineData->GetEndX() + dx;
-	double nextEndY = mLineData->GetEndY() + dy;
+	pair<double, double> screenStartCoord = 
+		WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
 
-	mLineData->SetStartVertex(nextStartX, nextStartY);
-	mLineData->SetEndVertex(nextEndX, nextEndY);
+	pair<double, double> screenEndCoord =
+		WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
+
+	screenStartCoord.first += dx;
+	screenStartCoord.second += dy;
+
+	screenEndCoord.first += dx;
+	screenEndCoord.second += dy;
+
+	pair<double, double> worldStartCoord =
+		ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+
+	pair<double, double> worldEndCoord =
+		ScreenToWorld(screenEndCoord.first, screenEndCoord.second);
+
+	mLineData->SetStartVertex(worldStartCoord.first, worldStartCoord.second);
+	mLineData->SetEndVertex(worldEndCoord.first, worldEndCoord.second);
 }
 
 QLineF scLineQtVisual::MakeQLineF()
 {
+	pair<double, double> screenStart =
+		WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
+
+	pair<double, double> screenEnd =
+		WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
+
 	return 
 		QLineF(
-			{ mLineData->GetStartX(), mLineData->GetStartY() },
-			{ mLineData->GetEndX(), mLineData->GetEndY() });
+			{ screenStart.first, screenStart.second },
+			{ screenEnd.first, screenEnd.second });
 }
 
 void scLineQtVisual::Paint(QPainter& painter)

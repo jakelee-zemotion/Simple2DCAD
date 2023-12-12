@@ -21,18 +21,18 @@ scVertexQtVisual::~scVertexQtVisual()
 
 QPointF scVertexQtVisual::MakeQPointF()
 {
-	return { mVertexData->GetX(), mVertexData->GetY() };
+	pair<double, double> screenCoord 
+		= WorldToScreen(mVertexData->GetX(), mVertexData->GetY());
+
+	return { screenCoord.first, screenCoord.second };
 }
 
 void scVertexQtVisual::SetXY(double x, double y)
 {
-	qDebug() << x << y;
-	qDebug() << ScreenToWorldX(x) << ScreenToWorldY(y);
-	qDebug() << WorldToScreenX(ScreenToWorldX(x)) << WorldToScreenY(ScreenToWorldY(y));
-	qDebug() << ' ';
+	pair<double, double> worldCoord = ScreenToWorld(x, y);
 
-	mVertexData->SetX(x);
-	mVertexData->SetY(y);
+	mVertexData->SetX(worldCoord.first);
+	mVertexData->SetY(worldCoord.second);
 }
 
 void scVertexQtVisual::Paint(QPainter& painter)

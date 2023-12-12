@@ -15,14 +15,11 @@ public:
 protected:
 	const QRect& mViewportSize;
 
-	double WorldToScreenX(double x);
-	double WorldToScreenY(double y);
-
-	double ScreenToWorldX(double x);
-	double ScreenToWorldY(double y);
+	std::pair<double, double> WorldToScreen(double x, double y);
+	std::pair<double, double> ScreenToWorld(double x, double y);
 
 private:
-	double WorldToScreen(double value, double size);
-	double ScreenToWorld(double value, double size);
+	double WorldToScreenExpression(double value, double size);
+	double ScreenToWorldExpression(double value, double size);
 };
 
