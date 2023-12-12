@@ -6,6 +6,6 @@ class scShapeList;
 class scObjectListDialog : public QDialog
 {
 public:
-	scObjectListDialog(scShapeList& shapeObjects, QWidget* parent = 0);
+	scObjectListDialog(const scShapeList& shapeObjects, QWidget* parent = 0);
 };
 

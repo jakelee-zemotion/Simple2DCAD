@@ -12,8 +12,8 @@ public:
 	scViewport(QWidget* parent = 0);
 	~scViewport();
 
-	void AddState(std::string name);
-	void TransitState(std::string name);
+	void AddState(const std::string& name);
+	void TransitState(const std::string& name);
 
 
 protected:

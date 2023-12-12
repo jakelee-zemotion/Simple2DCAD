@@ -21,6 +21,6 @@ private:
 
 private slots:
 	void OpenObjectListDialog();
-	void TransitState(std::string name);
+	void TransitState(const std::string& name);
 };
 

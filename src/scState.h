@@ -8,8 +8,8 @@ public:
 	scState(std::shared_ptr<scScene>& scene);
 	virtual ~scState();
 
-	virtual void MousePressEvent(QPointF& currMousePos) = 0;
-	virtual void MouseMoveEvent(QPointF& currMousePos) = 0;
+	virtual void MousePressEvent(const QPointF& currMousePos) = 0;
+	virtual void MouseMoveEvent(const QPointF& currMousePos) = 0;
 	virtual void MouseReleaseEvent() = 0;
 	virtual void KeyPressEvent() = 0;
 

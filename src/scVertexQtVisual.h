@@ -8,7 +8,7 @@ class QPainter;
 class scVertexQtVisual : public scShapeQtVisual
 {
 public:
-	scVertexQtVisual(QPointF& qpointF, const QRect& viewportSize);
+	scVertexQtVisual(const QPointF& qpointF, const QRect& viewportSize);
 	~scVertexQtVisual() override;
 
 	QPointF MakeQPointF();
@@ -16,7 +16,7 @@ public:
 	void SetXY(double x, double y);
 
 	void Paint(QPainter& painter) override;
-	bool HitTest(QPointF& currMousePos) override;
+	bool HitTest(const QPointF& currMousePos) override;
 
 	std::shared_ptr<scVertexData> GetVertexData() const;
 

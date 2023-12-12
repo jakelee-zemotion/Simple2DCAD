@@ -15,7 +15,7 @@ scObjectSelectionToolBar::~scObjectSelectionToolBar()
 {
 }
 
-void scObjectSelectionToolBar::AddToolButton(std::string name)
+void scObjectSelectionToolBar::AddToolButton(const string& name)
 {
 	mToolButtonMap[name] = make_unique<QToolButton>();
 	mToolButtonMap[name]->setText(QString::fromStdString(name));
@@ -24,17 +24,17 @@ void scObjectSelectionToolBar::AddToolButton(std::string name)
 	addWidget(mToolButtonMap[name].get());
 }
 
-void scObjectSelectionToolBar::SetCurrentToolButton(std::string name)
+void scObjectSelectionToolBar::SetCurrentToolButton(const string& name)
 {
 	mToolButtonMap[name]->setChecked(true);
 }
 
-void scObjectSelectionToolBar::ConnectToolButton(std::string name)
+void scObjectSelectionToolBar::ConnectToolButton(const string& name)
 {
 	connect(mToolButtonMap[name].get(), SIGNAL(clicked()), this, SLOT(ClickToolButton()));
 }
 
-void scObjectSelectionToolBar::ConnectTransitSignal(QObject* widgetManager)
+void scObjectSelectionToolBar::ConnectTransitSignal(const QObject* widgetManager)
 {
 	connect(this, SIGNAL(PressToolButton(std::string)), widgetManager, SLOT(TransitState(std::string)));
 }
@@ -46,7 +46,7 @@ void scObjectSelectionToolBar::ClickToolButton()
 	emit PressToolButton(obj->objectName().toStdString());
 }
 
-bool scObjectSelectionToolBar::SetButtonPressed(const string name)
+bool scObjectSelectionToolBar::SetButtonPressed(const string& name)
 {
 	// If name button is pressed, return false.
 	if (!mToolButtonMap[name]->isChecked())

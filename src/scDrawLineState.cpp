@@ -4,7 +4,7 @@
 
 using namespace std;
 
-scDrawLineState::scDrawLineState(shared_ptr<scScene> scene)
+scDrawLineState::scDrawLineState(shared_ptr<scScene>& scene)
     :scState(scene)
 {
     mIsDrawing = false;
@@ -14,13 +14,13 @@ scDrawLineState::~scDrawLineState()
 {
 }
 
-void scDrawLineState::MousePressEvent(QPointF& currMousePos)
+void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 {
     mScene->AddVertex(currMousePos, mIsDrawing);
     mIsDrawing = true;
 }
 
-void scDrawLineState::MouseMoveEvent(QPointF& currMousePos)
+void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
     if (mIsDrawing)
     {

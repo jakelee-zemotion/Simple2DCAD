@@ -10,7 +10,7 @@ public:
 	virtual ~scShapeQtVisual();
 
 	virtual void Paint(QPainter& painter) = 0;
-	virtual bool HitTest(QPointF& currMousePos) = 0;
+	virtual bool HitTest(const QPointF& currMousePos) = 0;
 
 protected:
 	const QRect& mViewportSize;

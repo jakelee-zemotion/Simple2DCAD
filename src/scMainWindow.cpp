@@ -53,7 +53,7 @@ void scMainWindow::OpenObjectListDialog()
 	//objectListDialog.exec();
 }
 
-void scMainWindow::TransitState(std::string name)
+void scMainWindow::TransitState(const string& name)
 {
 	if (mObjSelectToolBar->SetButtonPressed(name))
 	{

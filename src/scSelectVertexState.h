@@ -10,8 +10,8 @@ public:
 	scSelectVertexState(std::shared_ptr<scScene> scene);
 	~scSelectVertexState() override;
 
-	void MousePressEvent(QPointF& currMousePos) override;
-	void MouseMoveEvent(QPointF& currMousePos) override;
+	void MousePressEvent(const QPointF& currMousePos) override;
+	void MouseMoveEvent(const QPointF& currMousePos) override;
 	void MouseReleaseEvent() override;
 	void KeyPressEvent() override;
 

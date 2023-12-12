@@ -47,7 +47,7 @@ void scLineQtVisual::Paint(QPainter& painter)
 	painter.drawLine(this->MakeQLineF());
 }
 
-bool scLineQtVisual::HitTest(QPointF& currMousePos)
+bool scLineQtVisual::HitTest(const QPointF& currMousePos)
 {
 	QLineF normal = this->MakeQLineF().normalVector();
 	QLineF normal2 = this->MakeQLineF().normalVector();

@@ -15,7 +15,7 @@ scSelectLineState::~scSelectLineState()
 {
 }
 
-void scSelectLineState::MousePressEvent(QPointF& currMousePos)
+void scSelectLineState::MousePressEvent(const QPointF& currMousePos)
 {
 	mIsPressed = true;
 
@@ -32,7 +32,7 @@ void scSelectLineState::MousePressEvent(QPointF& currMousePos)
 	mPrevMousePos = currMousePos;
 }
 
-void scSelectLineState::MouseMoveEvent(QPointF& currMousePos)
+void scSelectLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
 	if (mIsPressed)
 	{

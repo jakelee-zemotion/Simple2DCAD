@@ -5,7 +5,7 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(QPointF& qpointF, const QRect& viewportSize)
+scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const QRect& viewportSize)
 	:scShapeQtVisual(viewportSize)
 {
 	mVertexData = make_shared<scVertexData>();
@@ -39,7 +39,7 @@ void scVertexQtVisual::Paint(QPainter& painter)
 	painter.drawPoint(this->MakeQPointF());
 }
 
-bool scVertexQtVisual::HitTest(QPointF& currMousePos)
+bool scVertexQtVisual::HitTest(const QPointF& currMousePos)
 {
 	QRectF rect(
 		currMousePos.x() - 10.0, currMousePos.y() - 10.0,

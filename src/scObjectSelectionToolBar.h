@@ -11,15 +11,15 @@ public:
 	scObjectSelectionToolBar(QWidget* parent = 0);
 	~scObjectSelectionToolBar();
 
-	void AddToolButton(std::string name);
-	void SetCurrentToolButton(std::string name);
+	void AddToolButton(const std::string& name);
+	void SetCurrentToolButton(const std::string& name);
 
-	void ConnectToolButton(std::string name);
-	void ConnectTransitSignal(QObject* widgetManager);
-	bool SetButtonPressed(const std::string name);
+	void ConnectToolButton(const std::string& name);
+	void ConnectTransitSignal(const QObject* widgetManager);
+	bool SetButtonPressed(const std::string& name);
 
 signals:
-	void PressToolButton(std::string name);
+	void PressToolButton(const std::string& name);
 
 private:
 	std::map<std::string, std::unique_ptr<QToolButton>> mToolButtonMap;

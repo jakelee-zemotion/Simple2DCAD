@@ -11,7 +11,7 @@ scCamera::~scCamera()
 {
 }
 
-void scCamera::Pan(QPoint currentMousePos)
+void scCamera::Pan(const QPoint& currentMousePos)
 {
     QPoint dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
@@ -25,7 +25,7 @@ void scCamera::Pan(QPoint currentMousePos)
     }*/
 }
 
-void scCamera::Zoom(QPoint currentMousePos, int mouseDir)
+void scCamera::Zoom(const QPoint& currentMousePos, int mouseDir)
 {
     /*for (const auto& object : mScene.mScene)
     {
@@ -46,7 +46,7 @@ void scCamera::Zoom(QPoint currentMousePos, int mouseDir)
     
 }
 
-void scCamera::SetPrevMousePos(QPoint prevMousePos)
+void scCamera::SetPrevMousePos(const QPoint& prevMousePos)
 {
     mPrevMousePos = prevMousePos;
 }

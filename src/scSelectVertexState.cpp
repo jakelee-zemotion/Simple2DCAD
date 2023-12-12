@@ -14,7 +14,7 @@ scSelectVertexState::~scSelectVertexState()
 {
 }
 
-void scSelectVertexState::MousePressEvent(QPointF& currMousePos)
+void scSelectVertexState::MousePressEvent(const QPointF& currMousePos)
 {
 	mIsPressed = true;
 
@@ -28,7 +28,7 @@ void scSelectVertexState::MousePressEvent(QPointF& currMousePos)
 	}
 }
 
-void scSelectVertexState::MouseMoveEvent(QPointF& currMousePos)
+void scSelectVertexState::MouseMoveEvent(const QPointF& currMousePos)
 {
 	if (mIsPressed)
 	{

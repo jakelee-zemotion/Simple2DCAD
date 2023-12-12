@@ -11,9 +11,9 @@ public:
 	scCamera();
 	~scCamera();
 
-	void Pan(QPoint currentMousePos);
-	void Zoom(QPoint currentMousePos, int mouseDir);
-	void SetPrevMousePos(QPoint prevMousePos);
+	void Pan(const QPoint& currentMousePos);
+	void Zoom(const QPoint& currentMousePos, int mouseDir);
+	void SetPrevMousePos(const QPoint& prevMousePos);
 
 
 private:

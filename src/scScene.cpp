@@ -25,7 +25,7 @@ void scScene::Render(QPainter& painter)
 	}
 }
 
-void scScene::AddVertex(QPointF& point, bool isDrawing)
+void scScene::AddVertex(const QPointF& point, bool isDrawing)
 {
 	shared_ptr<scVertexQtVisual> startVertex;
 
@@ -65,7 +65,7 @@ void scScene::EndDrawing()
 
 }
 
-void scScene::MoveDrawingPoint(QPointF& point)
+void scScene::MoveDrawingPoint(const QPointF& point)
 {
 	if (mVertexList.empty())
 		return;

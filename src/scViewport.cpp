@@ -26,7 +26,7 @@ scViewport::~scViewport()
 {
 }
 
-void scViewport::AddState(string name)
+void scViewport::AddState(const string& name)
 {
     shared_ptr<scState> state;
 
@@ -41,7 +41,7 @@ void scViewport::AddState(string name)
     mStateMachine.AddState(name, state);
 }
 
-void scViewport::TransitState(string name)
+void scViewport::TransitState(const string& name)
 {
     mStateMachine.Transition(name);
 }

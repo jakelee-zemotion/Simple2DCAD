@@ -11,8 +11,8 @@ public:
 	scStateMachine();
 	~scStateMachine();
 
-	void AddState(const std::string name, std::shared_ptr<scState> state);
-	void Transition(const std::string name);
+	void AddState(const std::string& name, std::shared_ptr<scState>& state);
+	void Transition(const std::string& name);
 	std::shared_ptr<scState> GetCurrentState() const;
 
 private:

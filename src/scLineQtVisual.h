@@ -18,7 +18,7 @@ public:
 	QLineF MakeQLineF();
 
 	void Paint(QPainter& painter) override;
-	bool HitTest(QPointF& currMousePos) override;
+	bool HitTest(const QPointF& currMousePos) override;
 
 private:
 	std::shared_ptr<scLineData> mLineData;
