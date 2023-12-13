@@ -16,8 +16,9 @@ public:
 
 private:
 	std::shared_ptr<scShapeQtVisual> mSelectedShape;
-	bool mIsDrawing; // Use in mouseReleaseEvent
 	QPointF mStartVertexPos;
+	bool mIsDrawing;
+	bool mCanCreateFace;
 
 	std::shared_ptr<scShapeQtVisual> mStartVertex;
 };

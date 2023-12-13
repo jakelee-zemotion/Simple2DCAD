@@ -6,8 +6,9 @@ using namespace std;
 scDrawLineState::scDrawLineState(shared_ptr<scScene>& scene)
     :scState(scene)
 {
-    mIsDrawing = false;
     mStartVertexPos = { 0.0, 0.0 };
+    mIsDrawing = false;
+    mCanCreateFace = false;
 }
 
 scDrawLineState::~scDrawLineState()
@@ -16,6 +17,16 @@ scDrawLineState::~scDrawLineState()
 
 void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 {
+    // Create a Face.
+    if (mCanCreateFace)
+    {
+        mScene->EndDrawing();
+        mIsDrawing = false;
+
+        mCanCreateFace = false;
+        return;
+    }
+
     // Put two points to create a line on the first click.
     // Therefore, the second point is adjusted in MouseMoveEvent.
     if (!mIsDrawing)
@@ -37,9 +48,12 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
     if (mIsDrawing && mSelectedShape != nullptr)
     {
         QPointF targetPos = currMousePos;
+        mCanCreateFace = false;
+
         if (mScene->CanCreateFace() && mStartVertex->HitTest(currMousePos))
         {
             targetPos = mStartVertexPos;
+            mCanCreateFace = true;
         }
 
         QPointF dist = targetPos - mPrevMousePos;
@@ -60,10 +74,10 @@ void scDrawLineState::KeyPressEvent()
 {
     if (mIsDrawing)
     {
+        // KeyPress do not create a face.
+        mCanCreateFace = false;
+
         mScene->EndDrawing();
         mIsDrawing = false;
-
-        mSelectedShape.reset();
-        mStartVertex.reset();
     }
 }
