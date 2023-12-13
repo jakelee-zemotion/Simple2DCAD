@@ -2,10 +2,12 @@
 
 using namespace std;
 
-scFaceQtVisual::scFaceQtVisual(const QRect& viewportSize)
+scFaceQtVisual::scFaceQtVisual(
+	const list<shared_ptr<scLineData>>& lineList, 
+	const QRect& viewportSize)
 	: scShapeQtVisual(viewportSize)
 {
-	mFaceData = make_shared<scFaceData>();
+	mFaceData = make_shared<scFaceData>(lineList);
 }
 
 scFaceQtVisual::~scFaceQtVisual()
@@ -19,12 +21,10 @@ std::vector<QPointF>& scFaceQtVisual::MakeQPolygonF()
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		QPointF endVertex =
-		{
-			mFaceData->GetLineEndX(),
-			mFaceData->GetLineEndY()
-		};
-		mPolyVertices.push_back(endVertex);
+		pair<double, double> screenStart =
+			WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+
+		mPolyVertices.push_back({ screenStart.first, screenStart.second });
 	}
 
 	return mPolyVertices;
@@ -39,6 +39,9 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	QPen pen(mPenColor);
 	pen.setWidth(3);
 	painter.setPen(pen);
+
+	QBrush brush(Qt::red);
+	painter.setBrush(brush);
 
 	painter.drawPolygon(this->MakeQPolygonF().data(), this->MakeQPolygonF().size());
 }

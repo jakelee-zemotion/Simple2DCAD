@@ -7,7 +7,7 @@
 class scFaceData
 {
 public:
-	scFaceData();
+	scFaceData(const std::list<std::shared_ptr<scLineData>>& lineList);
 	~scFaceData();
 
 	size_t LineListSize() const;
