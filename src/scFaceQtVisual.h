@@ -1,0 +1,18 @@
+#pragma once
+#include "scFaceData.h"
+#include "scLineQtVisual.h"
+
+class scFaceQtVisual : public scShapeQtVisual
+{
+public:
+	scFaceQtVisual(const QRect& viewportSize);
+	~scFaceQtVisual() override;
+
+	void MoveShape(double dx, double dy) override;
+	void Paint(QPainter& painter) override;
+	bool HitTest(const QPointF& currMousePos) override;
+
+private:
+	std::shared_ptr<scFaceData> mFaceData;
+};
+
