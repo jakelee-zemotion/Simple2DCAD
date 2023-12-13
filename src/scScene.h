@@ -25,4 +25,5 @@ private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;
 
 	const QRect& mViewportSize;
+	int mVertexCreatedCount;
 };

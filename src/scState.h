@@ -15,7 +15,6 @@ public:
 
 protected:
 	std::shared_ptr<scScene> mScene;
-	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 	QPointF mPrevMousePos;
 };
 

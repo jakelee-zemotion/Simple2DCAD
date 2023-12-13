@@ -7,6 +7,7 @@ using namespace std;
 scScene::scScene(const QRect& viewportSize)
 	:mViewportSize(viewportSize)
 {
+	mVertexCreatedCount = 0;
 }
 
 scScene::~scScene()
@@ -56,7 +57,8 @@ shared_ptr<scShapeQtVisual> scScene::AddVertex(const QPointF& point, bool isDraw
 	// Add a new line.
 	mLineList.push_back(newLine);
 
-
+	// Count the number of vertices created.
+	mVertexCreatedCount++;
 	return endVertex;
 }
 
@@ -67,6 +69,12 @@ void scScene::EndDrawing()
 
 	mVertexList.pop_back();
 	mLineList.pop_back();
+
+	// Remove single vertex.
+	if (mVertexCreatedCount < 2 && !mVertexList.empty())
+		mVertexList.pop_back();
+
+	mVertexCreatedCount = 0;
 }
 
 shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SELECT shapeType)

@@ -14,6 +14,7 @@ public:
 	void KeyPressEvent() override;
 
 private:
+	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 	bool mIsDrawing; // Use in mouseReleaseEvent
 };
 
