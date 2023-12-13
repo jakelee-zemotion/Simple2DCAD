@@ -1,6 +1,7 @@
 #include "scScene.h"
 #include "scVertexQtVisual.h"
 #include "scLineQtVisual.h"
+#include "scFaceQtVisual.h"
 
 using namespace std;
 
@@ -75,7 +76,11 @@ void scScene::EndDrawing()
 
 	mVertexCreatedCount = 0;
 
-	//list<scLineQtVisual> 
+	list<shared_ptr<scLineData>> faceLineList;
+
+
+	shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(mViewportSize);
+	mFaceList.push_back(newFace);
 
 }
 

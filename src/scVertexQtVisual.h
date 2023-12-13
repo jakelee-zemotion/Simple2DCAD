@@ -11,8 +11,6 @@ public:
 	scVertexQtVisual(const QPointF& qpointF, const QRect& viewportSize);
 	~scVertexQtVisual() override;
 
-	QPointF MakeQPointF();
-
 	void MoveShape(double dx, double dy) override;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
@@ -20,6 +18,8 @@ public:
 	std::shared_ptr<scVertexData> GetVertexData() const;
 
 private:
+	QPointF MakeQPointF();
+
 	std::shared_ptr<scVertexData> mVertexData;
 };
 

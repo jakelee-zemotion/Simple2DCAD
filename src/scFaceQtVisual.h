@@ -13,6 +13,9 @@ public:
 	bool HitTest(const QPointF& currMousePos) override;
 
 private:
+	std::vector<QPointF>& MakeQPolygonF();
+
 	std::shared_ptr<scFaceData> mFaceData;
+	std::vector<QPointF> mPolyVertices;
 };
 
