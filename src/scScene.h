@@ -16,9 +16,11 @@ public:
 	~scScene();
 
 	void Render(QPainter& painter);
-	std::shared_ptr<scShapeQtVisual> AddVertex(const QPointF& point, bool isDrawing);
+	std::shared_ptr<scShapeQtVisual> AddStartVertex(const QPointF& point);
+	std::shared_ptr<scShapeQtVisual> AddEndVertex(const QPointF& point);
 	void EndDrawing();
 	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SELECT shapeType);
+	bool CanCreateFace() const;
 
 private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;

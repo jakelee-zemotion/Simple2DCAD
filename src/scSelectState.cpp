@@ -25,13 +25,13 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 {
 	if (mIsMousePressed)
 	{
-		if (mPrevShape != nullptr)
-		{
-			QPointF dist = currMousePos - mPrevMousePos;
-			mPrevMousePos = currMousePos;
+		if (mPrevShape == nullptr)
+			return;
 
-			mPrevShape->MoveShape(dist.x(), dist.y());
-		}
+		QPointF dist = currMousePos - mPrevMousePos;
+		mPrevMousePos = currMousePos;
+
+		mPrevShape->MoveShape(dist.x(), dist.y());
 
 		return;
 	}
@@ -49,11 +49,11 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 	}
 	else if (mPrevShape != nullptr && mCurrShape != nullptr)
 	{
-		if (mPrevShape->GetID() != mCurrShape->GetID())
-		{
-			mPrevShape->SetColor(Qt::black);
-			mCurrShape->SetColor(Qt::red);
-		}
+		if (mPrevShape->GetID() == mCurrShape->GetID())
+			return;
+
+		mPrevShape->SetColor(Qt::black);
+		mCurrShape->SetColor(Qt::red);
 	}
 
 	mPrevShape = mCurrShape;

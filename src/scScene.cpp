@@ -27,25 +27,18 @@ void scScene::Render(QPainter& painter)
 	}
 }
 
-shared_ptr<scShapeQtVisual> scScene::AddVertex(const QPointF& point, bool isDrawing)
+std::shared_ptr<scShapeQtVisual> scScene::AddStartVertex(const QPointF& point)
 {
-	shared_ptr<scVertexQtVisual> startVertex;
+	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(point, mViewportSize);
+	mVertexList.push_back(startVertex);
 
-	if (!isDrawing)
-	{
-		// Put two points to create a line on the first click.
-		// Therefore, the second point is adjusted in MouseMoveEvent.
-		startVertex 
-			= make_shared<scVertexQtVisual>(point, mViewportSize);
-		mVertexList.push_back(startVertex);
-	}
-	else
-	{
-		// mVertexList element is scShapeQtVisual and must be downcast.
-		startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
-	}
+	return startVertex;
+}
 
+shared_ptr<scShapeQtVisual> scScene::AddEndVertex(const QPointF& point)
+{
 	// Copy the vertices.
+	shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
 	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(point, mViewportSize);
 
 	// Ref the vertices.
@@ -105,4 +98,9 @@ shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SELECT
 	}
 
 	return nullptr;
+}
+
+bool scScene::CanCreateFace() const
+{
+	return mVertexCreatedCount >= 3;
 }

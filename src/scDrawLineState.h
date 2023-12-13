@@ -16,5 +16,10 @@ public:
 private:
 	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 	bool mIsDrawing; // Use in mouseReleaseEvent
+
+	std::shared_ptr<scShapeQtVisual> mStartVertex;
+
+	std::shared_ptr<scShapeQtVisual> mPrevShape;
+	std::shared_ptr<scShapeQtVisual> mCurrShape;
 };
 
