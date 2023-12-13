@@ -7,7 +7,11 @@ using namespace std;
 scScene::scScene(const QRect& viewportSize)
 	:mViewportSize(viewportSize)
 {
+	scShapeID a;
+	scShapeID b;
 
+	qDebug() << (a == a);
+	qDebug() << (a == b);
 }
 
 scScene::~scScene()

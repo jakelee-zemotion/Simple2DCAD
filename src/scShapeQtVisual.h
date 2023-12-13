@@ -1,4 +1,6 @@
 #pragma once
+#include "scShapeID.h"
+
 #include <QPointF>
 #include <QPainter>
 
