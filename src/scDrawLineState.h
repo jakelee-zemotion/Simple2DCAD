@@ -1,5 +1,6 @@
 #pragma once
 #include "scState.h"
+#include <QPointF>
 
 class scScene;
 class scDrawLineState : public scState
@@ -16,10 +17,8 @@ public:
 private:
 	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 	bool mIsDrawing; // Use in mouseReleaseEvent
+	QPointF mStartVertexPos;
 
 	std::shared_ptr<scShapeQtVisual> mStartVertex;
-
-	std::shared_ptr<scShapeQtVisual> mPrevShape;
-	std::shared_ptr<scShapeQtVisual> mCurrShape;
 };
 

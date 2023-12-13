@@ -60,10 +60,11 @@ void scScene::EndDrawing()
 	if (mVertexList.empty() || mLineList.empty())
 		return;
 
+	// Remove the drawing line.
 	mVertexList.pop_back();
 	mLineList.pop_back();
 
-	// Remove single vertex.
+	// Remove the single vertex.
 	if (mVertexCreatedCount < 2 && !mVertexList.empty())
 		mVertexList.pop_back();
 
