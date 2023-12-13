@@ -90,8 +90,10 @@ shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SELECT
 	}
 
 	// Hit testing
-	for (const auto& point : *shapeList)
+	for (auto iter = shapeList->rbegin(); iter != shapeList->rend(); iter++)
 	{
+		shared_ptr<scShapeQtVisual>& point = *iter;
+
 		if (point->HitTest(currMousePos))
 		{
 			return point;
