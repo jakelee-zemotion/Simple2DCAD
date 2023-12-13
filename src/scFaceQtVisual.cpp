@@ -5,6 +5,7 @@ using namespace std;
 scFaceQtVisual::scFaceQtVisual(const QRect& viewportSize)
 	: scShapeQtVisual(viewportSize)
 {
+	mFaceData = make_shared<scFaceData>();
 }
 
 scFaceQtVisual::~scFaceQtVisual()
@@ -14,11 +15,17 @@ scFaceQtVisual::~scFaceQtVisual()
 std::vector<QPointF>& scFaceQtVisual::MakeQPolygonF()
 {
 	mPolyVertices.clear();
+	mPolyVertices.reserve(mFaceData->LineListSize());
 
-	mPolyVertices.push_back({ 100.0, 100.0 });
-	mPolyVertices.push_back({ 100.0, 200.0 });
-	mPolyVertices.push_back({ 200.0, 200.0 });
-	mPolyVertices.push_back({ 200.0, 100.0 });
+	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
+	{
+		QPointF endVertex =
+		{
+			mFaceData->GetLineEndX(),
+			mFaceData->GetLineEndY()
+		};
+		mPolyVertices.push_back(endVertex);
+	}
 
 	return mPolyVertices;
 }
