@@ -14,9 +14,14 @@ scShapeQtVisual::~scShapeQtVisual()
 {
 }
 
-void scShapeQtVisual::SetShapeColor(const Qt::GlobalColor& color)
+void scShapeQtVisual::SetColor(const Qt::GlobalColor& color)
 {
     mPenColor = color;
+}
+
+scShapeID scShapeQtVisual::GetID() const
+{
+    return mShapeID;
 }
 
 // Use -1.0 * to get visibility. Do not change it to -.
