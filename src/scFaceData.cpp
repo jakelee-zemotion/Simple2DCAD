@@ -1,6 +1,9 @@
 #include "scFaceData.h"
 
-scFaceData::scFaceData()
+using namespace std;
+
+scFaceData::scFaceData(const list<shared_ptr<scLineData>>& lineList)
+	:mLineList(lineList)
 {
 }
 

@@ -16,16 +16,19 @@ public:
 	~scScene();
 
 	void Render(QPainter& painter);
-	std::shared_ptr<scShapeQtVisual> AddStartVertex(const QPointF& point);
+	void AddStartVertex(const QPointF& point);
 	std::shared_ptr<scShapeQtVisual> AddEndVertex(const QPointF& point);
 	void EndDrawing();
 	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SELECT shapeType);
-	bool CanCreateFace() const;
+	bool CanCreateFace(const QPointF& currMousePos);
 
 private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;
+	std::list<std::shared_ptr<scShapeQtVisual>> mFaceList;
 
 	const QRect& mViewportSize;
 	int mVertexCreatedCount;
+
+	std::shared_ptr<scShapeQtVisual> mDrawStartVertex;
 };

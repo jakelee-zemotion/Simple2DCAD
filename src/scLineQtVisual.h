@@ -8,8 +8,8 @@ class scLineQtVisual : public scShapeQtVisual
 {
 public:
 	scLineQtVisual(
-		std::shared_ptr<scVertexQtVisual>& startVertex, 
-		std::shared_ptr<scVertexQtVisual>& endVertex,
+		const std::shared_ptr<scVertexQtVisual>& startVertex, 
+		const std::shared_ptr<scVertexQtVisual>& endVertex,
 		const QRect& viewportSize);
 	~scLineQtVisual() override;
 
@@ -18,6 +18,8 @@ public:
 	void MoveShape(double dx, double dy) override;;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
+
+	std::shared_ptr<scLineData> GetLineData() const;
 
 private:
 	std::shared_ptr<scLineData> mLineData;

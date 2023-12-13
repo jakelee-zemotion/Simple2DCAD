@@ -19,7 +19,5 @@ private:
 	QPointF mStartVertexPos;
 	bool mIsDrawing;
 	bool mCanCreateFace;
-
-	std::shared_ptr<scShapeQtVisual> mStartVertex;
 };
 

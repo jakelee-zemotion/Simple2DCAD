@@ -25,14 +25,19 @@ void scScene::Render(QPainter& painter)
 	{
 		shape->Paint(painter);
 	}
+
+	for (const auto& shape : mFaceList)
+	{
+		shape->Paint(painter);
+	}
 }
 
-std::shared_ptr<scShapeQtVisual> scScene::AddStartVertex(const QPointF& point)
+void scScene::AddStartVertex(const QPointF& point)
 {
 	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(point, mViewportSize);
 	mVertexList.push_back(startVertex);
 
-	return startVertex;
+	mDrawStartVertex = startVertex;
 }
 
 shared_ptr<scShapeQtVisual> scScene::AddEndVertex(const QPointF& point)
@@ -69,6 +74,9 @@ void scScene::EndDrawing()
 		mVertexList.pop_back();
 
 	mVertexCreatedCount = 0;
+
+	//list<scLineQtVisual> 
+
 }
 
 shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SELECT shapeType)
@@ -103,7 +111,10 @@ shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SELECT
 	return nullptr;
 }
 
-bool scScene::CanCreateFace() const
+bool scScene::CanCreateFace(const QPointF& currMousePos)
 {
-	return mVertexCreatedCount >= 3;
+	return 
+		mVertexCreatedCount >= 3 
+		&& mDrawStartVertex != nullptr 
+		&& mDrawStartVertex->HitTest(currMousePos);
 }
