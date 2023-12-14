@@ -17,20 +17,28 @@ scScene::~scScene()
 
 void scScene::Render(QPainter& painter)
 {
-	auto iter = mShapeList.begin();
-	while (iter != mShapeList.end())
+	auto listIter = mDrawShapeList.begin();
+	while (listIter != mDrawShapeList.end())
 	{
-		auto& shapePtr = *iter;
+		auto& shapeSet = *listIter;
 
-		// Erase the removed shape.
-		if (shapePtr.expired())
+		auto SetIter = shapeSet.begin();
+		while (SetIter != shapeSet.end())
 		{
-			iter = mShapeList.erase(iter);
-			continue;
-		}
+			auto& shapePtr = *SetIter;
 
-		shapePtr.lock()->Paint(painter);
-		iter++;
+			// Erase the removed shape.
+			if (shapePtr.expired())
+			{
+				//SetIter = shapeSet.erase(SetIter);
+				continue;
+			}
+
+			shapePtr.lock()->Paint(painter);
+			SetIter++;
+		}
+		
+		listIter++;
 	}
 }
 
@@ -39,9 +47,9 @@ shared_ptr<scShapeQtVisual> scScene::AddStartVertex(const QPointF& point)
 	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(SHAPE_TYPE::VERTEX, point, mViewportSize);
 	mVertexList.push_back(startVertex);
 
-	//priority_queue<weak_ptr<scShapeQtVisual>> shapePQ;
-	//mShapeList.push_back(shapePQ);
-	mShapeList.push_back(startVertex);
+	set<weak_ptr<scShapeQtVisual>, ShapeDrawPriority> shapeSet;
+	shapeSet.insert(startVertex);
+	mDrawShapeList.push_back(shapeSet);
 
 	return startVertex;
 }
@@ -55,13 +63,15 @@ shared_ptr<scShapeQtVisual> scScene::AddEndVertex(const QPointF& point)
 	// Ref the vertices.
 	shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(SHAPE_TYPE::LINE, startVertex, endVertex, mViewportSize);
 
+	assert(!mDrawShapeList.empty());
+
 	// Add Vertices.
 	mVertexList.push_back(endVertex);
-	mShapeList.push_back(endVertex);
+	mDrawShapeList.back().insert(endVertex);
 
 	// Add a new line.
 	mLineList.push_back(newLine);
-	mShapeList.push_back(newLine);
+	mDrawShapeList.back().insert(newLine);
 
 	// Count the number of vertices created.
 	mVertexCreatedCount++;
@@ -102,9 +112,11 @@ void scScene::EndDrawing(bool canCreateFace)
 		shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
 		shared_ptr<scVertexQtVisual> endVertex = dynamic_pointer_cast<scVertexQtVisual>(*vertexIter);
 
+		assert(!mDrawShapeList.empty());
+
 		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(SHAPE_TYPE::LINE, startVertex, endVertex, mViewportSize);
 		mLineList.push_back(newLine);
-		mShapeList.push_back(newLine);
+		mDrawShapeList.back().insert(newLine);
 
 
 		// Copy LineData.
@@ -118,7 +130,7 @@ void scScene::EndDrawing(bool canCreateFace)
 		// Add a new face.
 		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(SHAPE_TYPE::FACE, faceLineList, mViewportSize);
 		mFaceList.push_back(newFace);
-		mShapeList.push_back(newFace);
+		mDrawShapeList.back().insert(newFace);
 	}
 
 	// Reset
