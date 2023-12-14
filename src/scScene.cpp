@@ -87,11 +87,11 @@ void scScene::EndDrawing(bool canCreateFace)
 	if (canCreateFace)
 	{
 		// Find the starting vertex of the face.
-		auto listIter = mLineList.end();
+		auto lineIter = mLineList.end();
 		auto vertexIter = mVertexList.end();
 		for (int i = 0; i < mVertexCreatedCount - 1; i++)
 		{
-			listIter--;
+			lineIter--;
 			vertexIter--;
 		}
 		vertexIter--; // vertexCount = lineCount + 1
@@ -109,9 +109,9 @@ void scScene::EndDrawing(bool canCreateFace)
 
 		// Copy LineData.
 		list<shared_ptr<scLineData>> faceLineList;
-		for (; listIter != mLineList.end(); listIter++)
+		for (; lineIter != mLineList.end(); lineIter++)
 		{
-			shared_ptr<scLineData> line = dynamic_pointer_cast<scLineQtVisual>(*listIter)->GetLineData();
+			shared_ptr<scLineData> line = dynamic_pointer_cast<scLineQtVisual>(*lineIter)->GetLineData();
 			faceLineList.push_back(line);
 		}
 
