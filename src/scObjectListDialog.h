@@ -2,10 +2,10 @@
 
 #include <QDialog>
 
-class scShapeList;
+class scScene;
 class scObjectListDialog : public QDialog
 {
 public:
-	scObjectListDialog(const scShapeList& shapeObjects, QWidget* parent = 0);
+	scObjectListDialog(const scScene& scene, QWidget* parent = 0);
 };
 

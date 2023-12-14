@@ -20,7 +20,7 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
     // Create a Face.
     if (mCanCreateFace)
     {
-        mScene->EndDrawing();
+        mScene->EndDrawing(mCanCreateFace);
         mIsDrawing = false;
 
         mCanCreateFace = false;
@@ -76,7 +76,7 @@ void scDrawLineState::KeyPressEvent()
         // KeyPress do not create a face.
         mCanCreateFace = false;
 
-        mScene->EndDrawing();
+        mScene->EndDrawing(mCanCreateFace);
         mIsDrawing = false;
     }
 }

@@ -5,7 +5,7 @@
 #include <QVBoxLayout>
 #include <QStandardItemModel>
 
-scObjectListDialog::scObjectListDialog(const scShapeList& shapeObjects, QWidget* parent)
+scObjectListDialog::scObjectListDialog(const scScene& scene, QWidget* parent)
 	:QDialog(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout();

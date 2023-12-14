@@ -18,7 +18,7 @@ public:
 	void Render(QPainter& painter);
 	void AddStartVertex(const QPointF& point);
 	std::shared_ptr<scShapeQtVisual> AddEndVertex(const QPointF& point);
-	void EndDrawing();
+	void EndDrawing(bool canCreateFace);
 	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SELECT shapeType);
 	bool CanCreateFace(const QPointF& currMousePos);
 

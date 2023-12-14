@@ -19,6 +19,7 @@ std::vector<QPointF>& scFaceQtVisual::MakeQPolygonF()
 	mPolyVertices.clear();
 	mPolyVertices.reserve(mFaceData->LineListSize());
 
+	// Copy data using custom iteration.
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		pair<double, double> screenStart =
