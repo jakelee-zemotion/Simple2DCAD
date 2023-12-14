@@ -14,7 +14,7 @@ scFaceQtVisual::scFaceQtVisual(
 
 scFaceQtVisual::~scFaceQtVisual()
 {
-	qDebug() << "Face" << mShapeID.Get() << " Destruction";
+	//qDebug() << "Face" << mShapeID.Get() << " Destruction";
 }
 
 std::vector<QPointF>& scFaceQtVisual::MakeQPolygonF()

@@ -17,8 +17,8 @@ public:
 	bool CanCreateFace(const QPointF& currMousePos) const;
 
 private:
-	std::shared_ptr<scShapeQtVisual> mSelectedShape;
-	std::shared_ptr<scShapeQtVisual> mDrawStartVertex;
+	std::weak_ptr<scShapeQtVisual> mSelectedShape;
+	std::weak_ptr<scShapeQtVisual> mDrawStartVertex;
 
 	QPointF mStartVertexPos;
 	bool mIsDrawing;

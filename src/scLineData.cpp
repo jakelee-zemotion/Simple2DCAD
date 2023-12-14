@@ -10,7 +10,7 @@ scLineData::scLineData()
 
 scLineData::~scLineData()
 {
-	qDebug() << "LineData Destruction";
+	//qDebug() << "LineData Destruction";
 }
 
 void scLineData::SetStartVertex(const shared_ptr<scVertexData>& startVertex)

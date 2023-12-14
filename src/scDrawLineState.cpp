@@ -46,7 +46,7 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
     if (mIsDrawing)
     {
-        assert(mSelectedShape != nullptr);
+        assert(!mSelectedShape.expired());
 
         QPointF targetPos = currMousePos;
         mCanCreateFace = false;
@@ -60,7 +60,7 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
         QPointF dist = targetPos - mPrevMousePos;
         mPrevMousePos = targetPos;
 
-        mSelectedShape->MoveShape(dist.x(), dist.y());
+        mSelectedShape.lock()->MoveShape(dist.x(), dist.y());
 
 
     }
@@ -87,6 +87,6 @@ bool scDrawLineState::CanCreateFace(const QPointF& currMousePos) const
 {
     return
         mScene->GetVertexCreatedCount() >= 3
-        && mDrawStartVertex != nullptr
-        && mDrawStartVertex->HitTest(currMousePos);
+        && !mDrawStartVertex.expired()
+        && mDrawStartVertex.lock()->HitTest(currMousePos);
 }

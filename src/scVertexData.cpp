@@ -10,7 +10,7 @@ scVertexData::scVertexData()
 
 scVertexData::~scVertexData()
 {
-	qDebug() << "VertexData Destruction";
+	//qDebug() << "VertexData Destruction";
 }
 
 void scVertexData::SetX(double x)
