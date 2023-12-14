@@ -17,6 +17,7 @@ scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const QRect& viewport
 
 scVertexQtVisual::~scVertexQtVisual()
 {
+	qDebug() << "Vertex" << mShapeID.Get() << " Destruction";
 }
 
 QPointF scVertexQtVisual::MakeQPointF()

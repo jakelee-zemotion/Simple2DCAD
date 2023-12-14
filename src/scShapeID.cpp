@@ -19,6 +19,11 @@ bool scShapeID::operator!=(const scShapeID& shapeID)
 	return mID != shapeID.mID;
 }
 
+uint64_t scShapeID::Get()
+{
+	return mID;
+}
+
 
 uint64_t scShapeID::GenerateID()
 {

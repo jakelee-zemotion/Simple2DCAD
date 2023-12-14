@@ -1,5 +1,7 @@
 #include "scVertexData.h"
 
+#include <qDebug>
+
 scVertexData::scVertexData()
 {
 	mX = 0.0;
@@ -8,6 +10,7 @@ scVertexData::scVertexData()
 
 scVertexData::~scVertexData()
 {
+	qDebug() << "VertexData Destruction";
 }
 
 void scVertexData::SetX(double x)

@@ -1,5 +1,7 @@
 #include "scLineData.h"
 
+#include <qDebug>
+
 using namespace std;
 
 scLineData::scLineData()
@@ -8,7 +10,7 @@ scLineData::scLineData()
 
 scLineData::~scLineData()
 {
-
+	qDebug() << "LineData Destruction";
 }
 
 void scLineData::SetStartVertex(const shared_ptr<scVertexData>& startVertex)

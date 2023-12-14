@@ -16,6 +16,7 @@ scLineQtVisual::scLineQtVisual(
 
 scLineQtVisual::~scLineQtVisual()
 {
+	qDebug() << "Line" << mShapeID.Get() << " Destruction";
 }
 
 QLineF scLineQtVisual::MakeQLineF()
