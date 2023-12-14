@@ -6,10 +6,13 @@
 #include <list>
 #include <QDebug>
 
-//struct ShapeCompare
-//{
-//	bool operator<(const )
-//};
+struct ShapeDrawPriority
+{
+	bool operator()(const scShapeQtVisual& shape1, const scShapeQtVisual& shape2) const
+	{
+		return shape1.GetShapeType() < shape2.GetShapeType();
+	}
+};
 
 class scScene
 {
