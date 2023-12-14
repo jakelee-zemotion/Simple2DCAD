@@ -1,6 +1,6 @@
 #pragma once
 
-enum class SELECT
+enum class SHAPE_TYPE
 {
 	VERTEX, LINE, FACE
 };

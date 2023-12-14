@@ -6,7 +6,7 @@
 class scSelectState : public scState
 {
 public:
-	scSelectState(std::shared_ptr<scScene>& scene, SELECT selectShapeType);
+	scSelectState(std::shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType);
 	~scSelectState() override;
 
 	void MousePressEvent(const QPointF& currMousePos) override;
@@ -16,7 +16,7 @@ public:
 
 private:
 	bool mIsMousePressed;
-	SELECT mSelectShapeType;
+	SHAPE_TYPE mSelectShapeType;
 
 
 	std::shared_ptr<scShapeQtVisual> mPrevShape;

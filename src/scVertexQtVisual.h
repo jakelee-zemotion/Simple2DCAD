@@ -8,7 +8,7 @@ class QPainter;
 class scVertexQtVisual : public scShapeQtVisual
 {
 public:
-	scVertexQtVisual(const QPointF& qpointF, const QRect& viewportSize);
+	scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const QRect& viewportSize);
 	~scVertexQtVisual() override;
 
 	void MoveShape(double dx, double dy) override;

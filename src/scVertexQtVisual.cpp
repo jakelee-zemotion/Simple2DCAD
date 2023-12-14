@@ -5,8 +5,8 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const QRect& viewportSize)
-	:scShapeQtVisual(viewportSize)
+scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const QRect& viewportSize)
+	:scShapeQtVisual(shapeType, viewportSize)
 {
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();

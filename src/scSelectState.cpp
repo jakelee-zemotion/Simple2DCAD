@@ -4,7 +4,7 @@
 
 using namespace std;
 
-scSelectState::scSelectState(shared_ptr<scScene>& scene, SELECT selectShapeType)
+scSelectState::scSelectState(shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType)
 	:scState(scene), mSelectShapeType(selectShapeType)
 {
 	mIsMousePressed = false;

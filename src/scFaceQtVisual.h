@@ -6,6 +6,7 @@ class scFaceQtVisual : public scShapeQtVisual
 {
 public:
 	scFaceQtVisual(
+		SHAPE_TYPE shapeType,
 		const std::list<std::shared_ptr<scLineData>>& lineList, 
 		const QRect& viewportSize);
 	~scFaceQtVisual() override;

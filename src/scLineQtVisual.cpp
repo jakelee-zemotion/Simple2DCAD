@@ -4,10 +4,11 @@
 using namespace std;
 
 scLineQtVisual::scLineQtVisual(
+	SHAPE_TYPE shapeType,
 	const shared_ptr<scVertexQtVisual>& startVertex, 
 	const shared_ptr<scVertexQtVisual>& endVertex,
 	const QRect& viewportSize)
-	: scShapeQtVisual(viewportSize)
+	:scShapeQtVisual(shapeType, viewportSize)
 {
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();

@@ -9,7 +9,7 @@ class scCamera;
 class scShapeQtVisual
 {
 public:
-	scShapeQtVisual(const QRect& viewportSize);
+	scShapeQtVisual(SHAPE_TYPE shapeType, const QRect& viewportSize);
 	virtual ~scShapeQtVisual();
 
 	virtual void MoveShape(double dx, double dy) = 0;
@@ -18,10 +18,13 @@ public:
 
 	void SetShapeColorType(const COLOR_TYPE color);
 
+	SHAPE_TYPE GetShapeType() const;
+
 	scShapeID GetID() const;
 
 protected:
-	const double mHitSize = 10.0;
+	const double mHitSize;
+	const SHAPE_TYPE mShapeType;
 
 	const QRect& mViewportSize;
 	scShapeID mShapeID;

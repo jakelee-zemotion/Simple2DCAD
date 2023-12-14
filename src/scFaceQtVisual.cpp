@@ -5,9 +5,10 @@
 using namespace std;
 
 scFaceQtVisual::scFaceQtVisual(
+	SHAPE_TYPE shapeType,
 	const list<shared_ptr<scLineData>>& lineList, 
 	const QRect& viewportSize)
-	: scShapeQtVisual(viewportSize)
+	: scShapeQtVisual(shapeType, viewportSize)
 {
 	// Set the lines.
 	mFaceData = make_shared<scFaceData>(lineList);

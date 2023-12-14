@@ -2,8 +2,14 @@
 #include "scShapeQtVisual.h"
 #include "scheader.h"
 
+#include <queue>
 #include <list>
 #include <QDebug>
+
+//struct ShapeCompare
+//{
+//	bool operator<(const )
+//};
 
 class scScene
 {
@@ -15,7 +21,7 @@ public:
 	std::shared_ptr<scShapeQtVisual> AddStartVertex(const QPointF& point);
 	std::shared_ptr<scShapeQtVisual> AddEndVertex(const QPointF& point);
 	void EndDrawing(bool canCreateFace);
-	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SELECT shapeType);
+	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType);
 	int GetVertexCreatedCount() const;
 
 private:
@@ -24,6 +30,7 @@ private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mFaceList;
 
 	std::list<std::weak_ptr<scShapeQtVisual>> mShapeList;
+	//std::list<std::priority_queue<std::weak_ptr<scShapeQtVisual>>> mShapeList;
 
 	const QRect& mViewportSize;
 	int mVertexCreatedCount;
