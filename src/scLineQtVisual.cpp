@@ -86,8 +86,8 @@ bool scLineQtVisual::HitTest(const QPointF& currMousePos)
 	normal2.setP2(normal2.p1() - normal2.p2() + aaa);
 	normal2.setP1(aaa);
 
-	normal.setLength(10.0);
-	normal2.setLength(10.0);
+	normal.setLength(mHitSize);
+	normal2.setLength(mHitSize);
 
 	QLineF centralNormal(normal.p2(), normal2.p2());
 

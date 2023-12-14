@@ -23,10 +23,9 @@ scFaceQtVisual::~scFaceQtVisual()
 	//qDebug() << "Face" << mShapeID.Get() << " Destruction";
 }
 
-std::vector<QPointF>& scFaceQtVisual::MakeQPolygonF()
+QPolygonF scFaceQtVisual::MakeQPolygonF()
 {
-	mPolyVertices.clear();
-	mPolyVertices.reserve(mFaceData->LineListSize());
+	QList<QPointF> lineList;
 
 	// Copy data using custom iteration.
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
@@ -34,10 +33,10 @@ std::vector<QPointF>& scFaceQtVisual::MakeQPolygonF()
 		pair<double, double> screenStartCoord =
 			WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
 
-		mPolyVertices.push_back({ screenStartCoord.first, screenStartCoord.second });
+		lineList.push_back({ screenStartCoord.first, screenStartCoord.second });
 	}
 
-	return mPolyVertices;
+	return QPolygonF(lineList);
 }
 
 void scFaceQtVisual::MoveShape(double dx, double dy)
@@ -69,10 +68,15 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	QBrush brush(color);
 	painter.setBrush(brush);
 
-	painter.drawPolygon(this->MakeQPolygonF().data(), this->MakeQPolygonF().size());
+	painter.drawPolygon(this->MakeQPolygonF());
 }
 
 bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
 {
-	return true;
+	if (this->MakeQPolygonF().containsPoint(currMousePos, Qt::OddEvenFill))
+	{
+		return true;
+	}
+
+	return false;
 }

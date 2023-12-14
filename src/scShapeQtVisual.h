@@ -21,6 +21,8 @@ public:
 	scShapeID GetID() const;
 
 protected:
+	const double mHitSize = 10.0;
+
 	const QRect& mViewportSize;
 	scShapeID mShapeID;
 	COLOR_TYPE mShapeColorType;

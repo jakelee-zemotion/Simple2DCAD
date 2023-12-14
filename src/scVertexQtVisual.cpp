@@ -63,8 +63,10 @@ void scVertexQtVisual::Paint(QPainter& painter)
 bool scVertexQtVisual::HitTest(const QPointF& currMousePos)
 {
 	QRectF rect(
-		currMousePos.x() - 10.0, currMousePos.y() - 10.0,
-		20.0, 20.0);
+		currMousePos.x() - mHitSize,
+		currMousePos.y() - mHitSize,
+		mHitSize * 2.0,
+		mHitSize * 2.0);
 
 	/*if (currMousePos.x() - 10.0 < this->GetX()
 		&& currMousePos.x() + 10.0 > this->GetX()
