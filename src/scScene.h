@@ -27,6 +27,8 @@ private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mFaceList;
 
+	std::list<std::shared_ptr<scShapeQtVisual>> mShapeList;
+
 	const QRect& mViewportSize;
 	int mVertexCreatedCount;
 

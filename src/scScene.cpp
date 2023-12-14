@@ -17,17 +17,7 @@ scScene::~scScene()
 
 void scScene::Render(QPainter& painter)
 {
-	for (const auto& shape : mFaceList)
-	{
-		shape->Paint(painter);
-	}
-
-	for (const auto& shape : mLineList)
-	{
-		shape->Paint(painter);
-	}
-
-	for (const auto& shape : mVertexList)
+	for (const auto& shape : mShapeList)
 	{
 		shape->Paint(painter);
 	}
@@ -37,6 +27,7 @@ void scScene::AddStartVertex(const QPointF& point)
 {
 	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(point, mViewportSize);
 	mVertexList.push_back(startVertex);
+	mShapeList.push_back(startVertex);
 
 	mDrawStartVertex = startVertex;
 }
@@ -52,9 +43,11 @@ shared_ptr<scShapeQtVisual> scScene::AddEndVertex(const QPointF& point)
 
 	// Add Vertices.
 	mVertexList.push_back(endVertex);
+	mShapeList.push_back(endVertex);
 
 	// Add a new line.
 	mLineList.push_back(newLine);
+	mShapeList.push_back(newLine);
 
 	// Count the number of vertices created.
 	mVertexCreatedCount++;
@@ -96,6 +89,7 @@ void scScene::EndDrawing(bool canCreateFace)
 
 		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mViewportSize);
 		mLineList.push_back(newLine);
+		mShapeList.push_back(newLine);
 
 
 		// Copy LineData.
@@ -109,6 +103,7 @@ void scScene::EndDrawing(bool canCreateFace)
 		// Add a new face.
 		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(faceLineList, mViewportSize);
 		mFaceList.push_back(newFace);
+		mShapeList.push_back(newFace);
 	}
 
 	// Reset
