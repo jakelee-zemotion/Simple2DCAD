@@ -1,5 +1,6 @@
 #pragma once
 #include "scShapeID.h"
+#include "scheader.h"
 
 #include <QPointF>
 #include <QPainter>
@@ -15,13 +16,15 @@ public:
 	virtual void Paint(QPainter& painter) = 0;
 	virtual bool HitTest(const QPointF& currMousePos) = 0;
 
-	void SetColor(const Qt::GlobalColor& color);
+	void SetShapeColorType(const COLOR_TYPE color);
+
 	scShapeID GetID() const;
 
 protected:
 	const QRect& mViewportSize;
-	Qt::GlobalColor mPenColor;
 	scShapeID mShapeID;
+	COLOR_TYPE mShapeColorType;
+	std::vector<Qt::GlobalColor> mShapeColors;
 
 	std::pair<double, double> WorldToScreen(double x, double y);
 	std::pair<double, double> ScreenToWorld(double x, double y);

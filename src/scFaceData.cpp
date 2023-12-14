@@ -34,6 +34,14 @@ bool scFaceData::IsIterEnd()
 	return mIter == mLineList.end();
 }
 
+void scFaceData::SetLineStart(double startX, double startY)
+{
+	assert(mIter != mLineList.end());
+
+	shared_ptr<scLineData>& line = *mIter;
+	line->SetStartVertex(startX, startY);
+}
+
 double scFaceData::GetLineStartX() const
 {
 	assert(mIter != mLineList.end());
@@ -65,10 +73,3 @@ double scFaceData::GetLineEndY() const
 	shared_ptr<scLineData>& line = *mIter;
 	return line->GetEndY();
 }
-
-//void scFaceData::SetLineStartEnd(double startX, double startY, double endX, double endY)
-//{
-//	shared_ptr<scLineData>& line = *mIter;
-//	line->SetStartVertex(startX, startY);
-//	line->SetEndVertex(endX, endY);
-//}

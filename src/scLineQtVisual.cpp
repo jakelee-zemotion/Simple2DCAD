@@ -9,9 +9,15 @@ scLineQtVisual::scLineQtVisual(
 	const QRect& viewportSize)
 	: scShapeQtVisual(viewportSize)
 {
+	// Set the vertices.
 	mLineData = make_shared<scLineData>();
 	mLineData->SetStartVertex(startVertex->GetVertexData());
 	mLineData->SetEndVertex(endVertex->GetVertexData());
+
+	// Set the colors.
+	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
+	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::red;
+	mShapeColors[static_cast<int>(COLOR_TYPE::CLICK)] = Qt::blue;
 }
 
 scLineQtVisual::~scLineQtVisual()
@@ -59,7 +65,9 @@ void scLineQtVisual::MoveShape(double dx, double dy)
 
 void scLineQtVisual::Paint(QPainter& painter)
 {
-	QPen pen(mPenColor);
+	Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
+
+	QPen pen(color);
 	pen.setWidth(3);
 	painter.setPen(pen);
 

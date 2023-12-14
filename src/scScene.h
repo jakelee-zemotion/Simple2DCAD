@@ -1,13 +1,9 @@
 #pragma once
 #include "scShapeQtVisual.h"
+#include "scheader.h"
 
 #include <list>
 #include <QDebug>
-
-enum class SELECT
-{
-	VERTEX, LINE, FACE
-};
 
 class scScene
 {
@@ -27,7 +23,7 @@ private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mFaceList;
 
-	//std::list<std::weak_ptr<scShapeQtVisual>> mShapeList;
+	std::list<std::weak_ptr<scShapeQtVisual>> mShapeList;
 
 	const QRect& mViewportSize;
 	int mVertexCreatedCount;

@@ -41,19 +41,19 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 
 	if (mPrevShape == nullptr && mCurrShape != nullptr)
 	{
-		mCurrShape->SetColor(Qt::red);
+		mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
 	}
 	else if (mPrevShape != nullptr && mCurrShape == nullptr)
 	{
-		mPrevShape->SetColor(Qt::black);
+		mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 	}
 	else if (mPrevShape != nullptr && mCurrShape != nullptr)
 	{
 		if (mPrevShape->GetID() == mCurrShape->GetID())
 			return;
 
-		mPrevShape->SetColor(Qt::black);
-		mCurrShape->SetColor(Qt::red);
+		mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+		mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
 	}
 
 	mPrevShape = mCurrShape;

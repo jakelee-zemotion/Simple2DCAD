@@ -17,9 +17,7 @@ public:
 	void NextIter();
 	bool IsIterEnd();
 
-	/*void SetLineStartEnd(
-		double startX, double startY, 
-		double endX, double endY);*/
+	void SetLineStart(double startX, double startY);
 
 	double GetLineStartX() const;
 	double GetLineStartY() const;

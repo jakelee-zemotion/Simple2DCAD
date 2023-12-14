@@ -8,11 +8,17 @@ using namespace std;
 scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const QRect& viewportSize)
 	:scShapeQtVisual(viewportSize)
 {
+	// Set the position.
 	mVertexData = make_shared<scVertexData>();
 
 	pair<double, double> worldCoord = ScreenToWorld(qpointF.x(), qpointF.y());
 	mVertexData->SetX(worldCoord.first);
 	mVertexData->SetY(worldCoord.second);
+
+	// Set the colors.
+	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
+	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::red;
+	mShapeColors[static_cast<int>(COLOR_TYPE::CLICK)] = Qt::blue;
 }
 
 scVertexQtVisual::~scVertexQtVisual()
@@ -45,7 +51,9 @@ void scVertexQtVisual::MoveShape(double dx, double dy)
 
 void scVertexQtVisual::Paint(QPainter& painter)
 {
-	QPen pen(mPenColor);
+	Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
+
+	QPen pen(color);
 	pen.setWidth(6);
 	painter.setPen(pen);
 

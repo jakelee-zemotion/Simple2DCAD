@@ -7,16 +7,17 @@ using namespace std;
 scShapeQtVisual::scShapeQtVisual(const QRect& viewportSize)
     :mViewportSize(viewportSize)
 {
-    mPenColor = Qt::black;
+    mShapeColorType = COLOR_TYPE::DEFAULT;
+    mShapeColors = vector<Qt::GlobalColor>(3, Qt::black);
 }
 
 scShapeQtVisual::~scShapeQtVisual()
 {
 }
 
-void scShapeQtVisual::SetColor(const Qt::GlobalColor& color)
+void scShapeQtVisual::SetShapeColorType(const COLOR_TYPE color)
 {
-    mPenColor = color;
+    mShapeColorType = color;
 }
 
 scShapeID scShapeQtVisual::GetID() const
