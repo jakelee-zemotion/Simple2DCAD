@@ -35,6 +35,8 @@ void scViewport::AddState(const string& name)
         state = make_shared<scSelectState>(mScene, SELECT::VERTEX);
     else if (name == "SelectLine")
         state = make_shared<scSelectState>(mScene, SELECT::LINE);
+    else if (name == "SelectFace")
+        state = make_shared<scSelectState>(mScene, SELECT::FACE);
 
 
     mStateMachine.AddState(name, state);

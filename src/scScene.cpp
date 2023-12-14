@@ -56,16 +56,18 @@ shared_ptr<scShapeQtVisual> scScene::AddEndVertex(const QPointF& point)
 
 void scScene::EndDrawing(bool canCreateFace)
 {
-	if (mVertexList.empty() || mLineList.empty())
-		return;
+	assert(!mVertexList.empty() && !mLineList.empty());
 
 	// Remove the drawing line.
 	mVertexList.pop_back();
 	mLineList.pop_back();
 
 	// Remove the single vertex.
-	if (mVertexCreatedCount < 2 && !mVertexList.empty())
+	if (mVertexCreatedCount < 2)
+	{
+		assert(!mVertexList.empty());
 		mVertexList.pop_back();
+	}
 
 
 	if (canCreateFace)
@@ -73,15 +75,14 @@ void scScene::EndDrawing(bool canCreateFace)
 		// Find the starting vertex of the face.
 		auto listIter = mLineList.end();
 		auto vertexIter = mVertexList.end();
+		//vertexIter--;
 		for (int i = 0; i < mVertexCreatedCount - 1; i++)
 		{
 			listIter--;
 			vertexIter--;
 		}
-		vertexIter--;
 
-		if (mVertexList.empty())
-			return;
+		assert(!mVertexList.empty());
 
 		// Add the last line of the face.
 		shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
@@ -126,7 +127,7 @@ shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SELECT
 
 		case SELECT::FACE :
 		default:
-			shapeList = &mLineList;
+			shapeList = &mFaceList;
 			break;
 	}
 

@@ -3,6 +3,7 @@
 
 #include <list>
 #include <memory>
+#include <cassert>
 
 class scFaceData
 {
