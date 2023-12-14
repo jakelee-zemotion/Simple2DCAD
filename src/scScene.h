@@ -6,14 +6,6 @@
 #include <list>
 #include <QDebug>
 
-struct ShapeDrawPriority
-{
-	bool operator()(const scShapeQtVisual& shape1, const scShapeQtVisual& shape2) const
-	{
-		return shape1.GetShapeType() < shape2.GetShapeType();
-	}
-};
-
 class scScene
 {
 public:
@@ -33,7 +25,8 @@ private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mFaceList;
 
 	std::list<std::weak_ptr<scShapeQtVisual>> mShapeList;
-	//std::list<std::priority_queue<std::weak_ptr<scShapeQtVisual>>> mShapeList;
+	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mLineIter;
+	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mFaceIter;
 
 	const QRect& mViewportSize;
 	int mVertexCreatedCount;
