@@ -17,8 +17,8 @@ scLineQtVisual::scLineQtVisual(
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
-	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::red;
-	mShapeColors[static_cast<int>(COLOR_TYPE::CLICK)] = Qt::blue;
+	mShapeColors[static_cast<int>(COLOR_TYPE::PUT_ON)] = Qt::red;
+	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::blue;
 }
 
 scLineQtVisual::~scLineQtVisual()

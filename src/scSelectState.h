@@ -17,7 +17,7 @@ public:
 	void EndState() override;
 
 private:
-	void ResetClicked();
+	void ResetSelected();
 
 	bool mIsMousePressed;
 	SHAPE_TYPE mSelectShapeType;
@@ -25,6 +25,6 @@ private:
 	std::shared_ptr<scShapeQtVisual> mPrevShape;
 	std::shared_ptr<scShapeQtVisual> mCurrShape;
 
-	std::shared_ptr<scShapeQtVisual> mClickedShape;
+	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 };
 

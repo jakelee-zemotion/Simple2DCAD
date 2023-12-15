@@ -15,8 +15,8 @@ scFaceQtVisual::scFaceQtVisual(
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::gray;
-	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::darkGray;
-	mShapeColors[static_cast<int>(COLOR_TYPE::CLICK)] = Qt::cyan;
+	mShapeColors[static_cast<int>(COLOR_TYPE::PUT_ON)] = Qt::darkGray;
+	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::cyan;
 }
 
 scFaceQtVisual::~scFaceQtVisual()
@@ -69,7 +69,17 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	QBrush brush(color);
 	painter.setBrush(brush);
 
-	painter.drawPolygon(this->MakeQPolygonF());
+	QPolygonF qp = this->MakeQPolygonF();
+	painter.drawPolygon(qp);
+
+	pen.setWidth(1);
+	pen.setStyle(Qt::DotLine);
+	painter.setPen(pen);
+
+	painter.setBrush(Qt::NoBrush);
+
+	QRectF qr = qp.boundingRect();
+	painter.drawPolygon(qr);
 }
 
 bool scFaceQtVisual::HitTest(const QPointF& currMousePos)

@@ -7,5 +7,5 @@ enum class SHAPE_TYPE
 
 enum class COLOR_TYPE
 {
-	DEFAULT, SELECT, CLICK
+	DEFAULT, PUT_ON, SELECT
 };
