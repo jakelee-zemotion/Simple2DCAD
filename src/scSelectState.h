@@ -17,6 +17,13 @@ public:
 	void EndState() override;
 
 private:
+	bool IsSameShape(
+		std::shared_ptr<scShapeQtVisual>& shape1, 
+		std::shared_ptr<scShapeQtVisual>& shape2);
+	bool IsNotSameShape(
+		std::shared_ptr<scShapeQtVisual>& shape1,
+		std::shared_ptr<scShapeQtVisual>& shape2);
+
 	bool mIsMousePressed;
 	SHAPE_TYPE mSelectShapeType;
 

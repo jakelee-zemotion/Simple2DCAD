@@ -41,52 +41,34 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 	
 	if (mPrevShape == nullptr && mCurrShape != nullptr)
 	{
-		if (mClickedShape != nullptr && mClickedShape->GetID() == mCurrShape->GetID())
-		{
-			mPrevShape = mCurrShape;
-			return;
-		}
-
-		mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
+		if (!IsSameShape(mClickedShape, mCurrShape))
+			mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
 	}
 	else if (mPrevShape != nullptr && mCurrShape == nullptr)
 	{
-		if (mClickedShape != nullptr && mClickedShape->GetID() == mPrevShape->GetID())
-		{
-			mPrevShape = mCurrShape;
-			return;
-		}
-
-		mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+		if (!IsSameShape(mClickedShape, mPrevShape))
+			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 	}
 	else if (mPrevShape != nullptr && mCurrShape != nullptr)
 	{
-
-		if (mClickedShape != nullptr && mClickedShape->GetID() == mPrevShape->GetID())
-		{
-			if (mPrevShape->GetID() == mCurrShape->GetID())
-				return;
-
-			mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
-			mPrevShape = mCurrShape;
-			return;
-		}
-
-		if (mClickedShape != nullptr && mClickedShape->GetID() == mCurrShape->GetID())
-		{
-			if (mPrevShape->GetID() == mCurrShape->GetID())
-				return;
-
-			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
-			mPrevShape = mCurrShape;
-			return;
-		}
-
 		if (mPrevShape->GetID() == mCurrShape->GetID())
 			return;
 
-		mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
-		mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
+
+		if (IsSameShape(mClickedShape, mPrevShape))
+		{
+			mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
+		}
+		else if (IsSameShape(mClickedShape, mCurrShape))
+		{
+			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+		}
+		else
+		{
+			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+			mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
+		}
+
 	}
 
 	mPrevShape = mCurrShape;
@@ -102,7 +84,7 @@ void scSelectState::MouseReleaseEvent()
 
 	mCurrShape->SetShapeColorType(COLOR_TYPE::CLICK);
 
-	if (mClickedShape != nullptr && mClickedShape->GetID() != mCurrShape->GetID())
+	if (IsNotSameShape(mClickedShape, mCurrShape))
 	{
 		mClickedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 	}
@@ -129,3 +111,20 @@ void scSelectState::EndState()
 	mCurrShape.reset();
 	mClickedShape.reset();
 }
+
+bool scSelectState::IsSameShape(
+	shared_ptr<scShapeQtVisual>& shape1, 
+	shared_ptr<scShapeQtVisual>& shape2)
+{
+	return shape1 != nullptr && shape2 != nullptr
+		&& shape1->GetID() == shape2->GetID();
+}
+
+bool scSelectState::IsNotSameShape(
+	shared_ptr<scShapeQtVisual>& shape1,
+	shared_ptr<scShapeQtVisual>& shape2)
+{
+	return shape1 != nullptr && shape2 != nullptr
+		&& shape1->GetID() != shape2->GetID();
+}
+
