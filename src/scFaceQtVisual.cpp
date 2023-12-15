@@ -116,3 +116,34 @@ void scFaceQtVisual::ScaleFace(double dx, double dy)
 		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
 	}
 }
+
+void scFaceQtVisual::RotateFace(double theta)
+{
+	QPointF center = this->MakeQPolygonF().boundingRect().center();
+
+	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
+	{
+		pair<double, double> screenStartCoord =
+			WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+
+		screenStartCoord.first -= center.x();
+		screenStartCoord.second -= center.y();
+
+		double cosT = cos(theta);
+		double sinT = sin(theta);
+
+		double x = screenStartCoord.first;
+		double y = screenStartCoord.second;
+
+		screenStartCoord.first = cosT * x - sinT * y;
+		screenStartCoord.second = sinT * x + cosT * y;
+
+		screenStartCoord.first += center.x();
+		screenStartCoord.second += center.y();
+
+		pair<double, double> worldStartCoord =
+			ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+
+		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
+	}
+}

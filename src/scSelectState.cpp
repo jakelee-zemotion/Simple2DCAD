@@ -155,6 +155,34 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 			}
 		}
 		break;
+
+		case Qt::Key_A:
+		{
+			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			{
+				if (mSelectedShape != nullptr)
+				{
+					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+					transformFace->RotateFace(0.1);
+
+				}
+			}
+		}
+		break;
+
+		case Qt::Key_D:
+		{
+			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			{
+				if (mSelectedShape != nullptr)
+				{
+					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+					transformFace->RotateFace(-0.1);
+
+				}
+			}
+		}
+		break;
 	}
 }
 

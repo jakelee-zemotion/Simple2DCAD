@@ -16,6 +16,7 @@ public:
 	bool HitTest(const QPointF& currMousePos) override;
 
 	void ScaleFace(double dx, double dy);
+	void RotateFace(double theta);
 
 private:
 	QPolygonF MakeQPolygonF();
