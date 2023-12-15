@@ -17,6 +17,9 @@ void scStateMachine::AddState(const string& name, shared_ptr<scState>& state)
 
 void scStateMachine::Transition(const string& name)
 {
+	if (mCurrState != nullptr)
+		mCurrState->EndState();
+
 	mCurrState = mStateMap[name];
 }
 

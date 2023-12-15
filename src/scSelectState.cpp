@@ -68,3 +68,15 @@ void scSelectState::MouseReleaseEvent()
 void scSelectState::KeyPressEvent()
 {
 }
+
+void scSelectState::EndState()
+{
+	if (mPrevShape != nullptr)
+		mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+
+	if (mCurrShape != nullptr)
+		mCurrShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+
+	mPrevShape.reset();
+	mCurrShape.reset();
+}

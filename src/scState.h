@@ -13,6 +13,8 @@ public:
 	virtual void MouseReleaseEvent() = 0;
 	virtual void KeyPressEvent() = 0;
 
+	virtual void EndState() = 0;
+
 protected:
 	std::shared_ptr<scScene> mScene;
 	QPointF mPrevMousePos;

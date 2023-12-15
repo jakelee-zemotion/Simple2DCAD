@@ -45,6 +45,9 @@ void scViewport::AddState(const string& name)
 void scViewport::TransitState(const string& name)
 {
     mStateMachine.Transition(name);
+
+    // Update for EndState()
+    update();
 }
 
 void scViewport::paintEvent(QPaintEvent* event)

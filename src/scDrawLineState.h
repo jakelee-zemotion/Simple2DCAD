@@ -14,10 +14,12 @@ public:
 	void MouseReleaseEvent() override;
 	void KeyPressEvent() override;
 
+	void EndState() override;
+
 	bool CanCreateFace(const QPointF& currMousePos) const;
 
 private:
-	std::weak_ptr<scShapeQtVisual> mSelectedShape;
+	std::weak_ptr<scShapeQtVisual> mDrawingShape;
 	std::weak_ptr<scShapeQtVisual> mDrawStartVertex;
 
 	QPointF mStartVertexPos;

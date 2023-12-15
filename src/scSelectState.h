@@ -14,12 +14,15 @@ public:
 	void MouseReleaseEvent() override;
 	void KeyPressEvent() override;
 
+	void EndState() override;
+
 private:
 	bool mIsMousePressed;
 	SHAPE_TYPE mSelectShapeType;
 
-
 	std::shared_ptr<scShapeQtVisual> mPrevShape;
 	std::shared_ptr<scShapeQtVisual> mCurrShape;
+
+	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 };
 
