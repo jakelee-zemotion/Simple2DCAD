@@ -7,7 +7,7 @@ class scSelectState : public scState
 {
 public:
 	scSelectState(std::shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType);
-	~scSelectState() override;
+	virtual ~scSelectState() override;
 
 	void MousePressEvent(const QPointF& currMousePos) override;
 	void MouseMoveEvent(const QPointF& currMousePos) override;
@@ -16,7 +16,7 @@ public:
 
 	void EndState() override;
 
-private:
+protected:
 	void ResetSelected();
 
 	bool mIsMousePressed;
