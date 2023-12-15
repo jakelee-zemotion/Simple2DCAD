@@ -14,5 +14,14 @@ public:
 private:
 	double mX;
 	double mY;
+
+	double mScaleX;
+	double mScaleY;
+
+	double mRotateX;
+	double mRotateY;
+
+	double mTransX;
+	double mTransY;
 };
 
