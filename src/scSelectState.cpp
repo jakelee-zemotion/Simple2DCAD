@@ -38,17 +38,50 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 
 
 	mCurrShape = mScene->HitTest(currMousePos, mSelectShapeType);
-
+	
 	if (mPrevShape == nullptr && mCurrShape != nullptr)
 	{
+		if (mClickedShape != nullptr && mClickedShape->GetID() == mCurrShape->GetID())
+		{
+			mPrevShape = mCurrShape;
+			return;
+		}
+
 		mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
 	}
 	else if (mPrevShape != nullptr && mCurrShape == nullptr)
 	{
+		if (mClickedShape != nullptr && mClickedShape->GetID() == mPrevShape->GetID())
+		{
+			mPrevShape = mCurrShape;
+			return;
+		}
+
 		mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 	}
 	else if (mPrevShape != nullptr && mCurrShape != nullptr)
 	{
+
+		if (mClickedShape != nullptr && mClickedShape->GetID() == mPrevShape->GetID())
+		{
+			if (mPrevShape->GetID() == mCurrShape->GetID())
+				return;
+
+			mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
+			mPrevShape = mCurrShape;
+			return;
+		}
+
+		if (mClickedShape != nullptr && mClickedShape->GetID() == mCurrShape->GetID())
+		{
+			if (mPrevShape->GetID() == mCurrShape->GetID())
+				return;
+
+			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+			mPrevShape = mCurrShape;
+			return;
+		}
+
 		if (mPrevShape->GetID() == mCurrShape->GetID())
 			return;
 
@@ -57,12 +90,24 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 	}
 
 	mPrevShape = mCurrShape;
-
 }
 
 void scSelectState::MouseReleaseEvent()
 {
 	mIsMousePressed = false;
+
+
+	if (mCurrShape == nullptr)
+		return;
+
+	mCurrShape->SetShapeColorType(COLOR_TYPE::CLICK);
+
+	if (mClickedShape != nullptr && mClickedShape->GetID() != mCurrShape->GetID())
+	{
+		mClickedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+	}
+
+	mClickedShape = mCurrShape;
 }
 
 void scSelectState::KeyPressEvent()
@@ -77,6 +122,10 @@ void scSelectState::EndState()
 	if (mCurrShape != nullptr)
 		mCurrShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
+	if (mClickedShape != nullptr)
+		mClickedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+
 	mPrevShape.reset();
 	mCurrShape.reset();
+	mClickedShape.reset();
 }

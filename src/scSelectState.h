@@ -23,6 +23,6 @@ private:
 	std::shared_ptr<scShapeQtVisual> mPrevShape;
 	std::shared_ptr<scShapeQtVisual> mCurrShape;
 
-	std::shared_ptr<scShapeQtVisual> mSelectedShape;
+	std::shared_ptr<scShapeQtVisual> mClickedShape;
 };
 
