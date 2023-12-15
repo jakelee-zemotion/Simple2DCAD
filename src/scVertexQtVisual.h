@@ -16,9 +16,9 @@ public:
 	bool HitTest(const QPointF& currMousePos) override;
 
 	std::shared_ptr<scVertexData> GetVertexData() const;
+	QPointF MakeQPointF();
 
 private:
-	QPointF MakeQPointF();
 
 	std::shared_ptr<scVertexData> mVertexData;
 };

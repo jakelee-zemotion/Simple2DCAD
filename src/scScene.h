@@ -16,7 +16,7 @@ public:
 	std::shared_ptr<scShapeQtVisual> AddStartVertex(const QPointF& point);
 	std::shared_ptr<scShapeQtVisual> AddEndVertex(const QPointF& point);
 	void EndDrawing(bool canCreateFace);
-	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType);
+	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(false));
 	int GetVertexCreatedCount() const;
 
 private:

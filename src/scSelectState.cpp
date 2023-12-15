@@ -1,4 +1,5 @@
 #include "scSelectState.h"
+#include "scVertexQtVisual.h"
 
 #include <qDebug>
 #include <QKeyEvent>
@@ -24,21 +25,34 @@ void scSelectState::MousePressEvent(const QPointF& currMousePos)
 
 void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 {
+	
 	if (mIsMousePressed)
 	{
 		if (mPrevShape == nullptr)
 			return;
 
-		QPointF dist = currMousePos - mPrevMousePos;
-		mPrevMousePos = currMousePos;
+		QPointF targetPos = currMousePos;
+		if (mSelectShapeType == SHAPE_TYPE::VERTEX)
+		{
+			shared_ptr<scVertexQtVisual> snappedVertex = 
+				dynamic_pointer_cast<scVertexQtVisual>(mScene->HitTest(currMousePos, mSelectShapeType, mPrevShape->GetID()));
+
+			if (snappedVertex != nullptr)
+			{
+				targetPos = snappedVertex->MakeQPointF();
+			}
+		}
+
+
+		QPointF dist = targetPos - mPrevMousePos;
+		mPrevMousePos = targetPos;
 
 		mPrevShape->MoveShape(dist.x(), dist.y());
 
 		return;
 	}
-
-
 	mCurrShape = mScene->HitTest(currMousePos, mSelectShapeType);
+
 	
 	// From outside to inside the shape.
 	if (mPrevShape == nullptr && mCurrShape != nullptr)

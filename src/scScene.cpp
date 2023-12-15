@@ -133,22 +133,23 @@ void scScene::EndDrawing(bool canCreateFace)
 	qDebug() << mFaceList.size();
 }
 
-shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType)
+std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID)
 {
+
 	list<shared_ptr<scShapeQtVisual>>* shapeList;
 
 	switch (shapeType)
 	{
-		case SHAPE_TYPE::VERTEX :
-			shapeList = &mVertexList;  break;
+	case SHAPE_TYPE::VERTEX:
+		shapeList = &mVertexList;  break;
 
-		case SHAPE_TYPE::LINE :
-			shapeList = &mLineList; break;
+	case SHAPE_TYPE::LINE:
+		shapeList = &mLineList; break;
 
-		case SHAPE_TYPE::FACE :
-		default:
-			shapeList = &mFaceList;
-			break;
+	case SHAPE_TYPE::FACE:
+	default:
+		shapeList = &mFaceList;
+		break;
 	}
 
 	// Hit testing
@@ -156,7 +157,8 @@ shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SHAPE_
 	{
 		shared_ptr<scShapeQtVisual>& shape = *iter;
 
-		if (shape->HitTest(currMousePos))
+		if (shape->HitTest(currMousePos) 
+			&& shape->GetID() != noTestShapeID)
 		{
 			return shape;
 		}

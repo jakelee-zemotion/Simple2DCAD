@@ -1,8 +1,14 @@
 #include "scShapeID.h"
 
-scShapeID::scShapeID()
+scShapeID::scShapeID(bool IsInvalidID)
 {
-	mID = this->GenerateID();
+	mID = 0;
+
+	if (IsInvalidID)
+	{
+		mID = this->GenerateID();
+	}
+
 }
 
 scShapeID::~scShapeID()
@@ -19,7 +25,7 @@ bool scShapeID::operator!=(const scShapeID& shapeID)
 	return mID != shapeID.mID;
 }
 
-uint64_t scShapeID::Get()
+uint64_t scShapeID::Get() const
 {
 	return mID;
 }
@@ -27,7 +33,7 @@ uint64_t scShapeID::Get()
 
 uint64_t scShapeID::GenerateID()
 {
-	static uint64_t id = 0;
+	static uint64_t id = 1;
 
 	return id++;
 }
