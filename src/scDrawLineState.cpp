@@ -1,5 +1,6 @@
 #include "scDrawLineState.h"
 
+#include <QKeyEvent>
 
 using namespace std;
 
@@ -73,7 +74,15 @@ void scDrawLineState::MouseReleaseEvent()
 
 void scDrawLineState::KeyPressEvent(QKeyEvent* event)
 {
-    EndState();
+    switch (event->key())
+    {
+        case Qt::Key_Return:
+        case Qt::Key_Escape:
+        {
+            EndState();
+        }
+        break;
+    }
 }
 
 void scDrawLineState::EndState()

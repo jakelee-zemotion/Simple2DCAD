@@ -1,5 +1,6 @@
 #include "scSelectState.h"
 #include "scVertexQtVisual.h"
+#include "scFaceQtVisual.h"
 
 #include <qDebug>
 #include <QKeyEvent>
@@ -100,7 +101,7 @@ void scSelectState::MouseReleaseEvent()
 {
 	mIsMousePressed = false;
 
-	// Click the shape.
+	// Select the shape.
 	if (mCurrShape == nullptr)
 		return;
 
@@ -124,6 +125,34 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 		case Qt::Key_Escape:
 		{
 			ResetSelected();
+		}
+		break;
+
+		case Qt::Key_W:
+		{
+			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			{
+				if (mSelectedShape != nullptr)
+				{
+					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+					transformFace->ScaleFace(1.1, 1.1);
+
+				}
+			}
+		}
+		break;
+
+		case Qt::Key_S:
+		{
+			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			{
+				if (mSelectedShape != nullptr)
+				{
+					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+					transformFace->ScaleFace(0.9, 0.9);
+
+				}
+			}
 		}
 		break;
 	}

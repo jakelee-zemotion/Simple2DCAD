@@ -91,3 +91,28 @@ bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
 
 	return false;
 }
+
+void scFaceQtVisual::ScaleFace(double dx, double dy)
+{
+	QPointF center = this->MakeQPolygonF().boundingRect().center();
+
+	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
+	{
+		pair<double, double> screenStartCoord =
+			WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+
+		screenStartCoord.first -= center.x();
+		screenStartCoord.second -= center.y();
+
+		screenStartCoord.first *= dx;
+		screenStartCoord.second *= dy;
+
+		screenStartCoord.first += center.x();
+		screenStartCoord.second += center.y();
+
+		pair<double, double> worldStartCoord =
+			ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+
+		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
+	}
+}
