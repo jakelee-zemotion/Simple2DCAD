@@ -118,8 +118,9 @@ void scViewport::keyPressEvent(QKeyEvent* event)
         // Key_Enter is the Enter key on the numeric keypad.
         case Qt::Key_Return:
         case Qt::Key_Escape:
+        case Qt::Key_Delete:
         {
-            mStateMachine.GetCurrentState()->KeyPressEvent();
+            mStateMachine.GetCurrentState()->KeyPressEvent(event);
             update();
         }
         break;

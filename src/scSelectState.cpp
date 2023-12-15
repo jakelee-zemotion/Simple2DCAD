@@ -1,6 +1,7 @@
 #include "scSelectState.h"
 
 #include <qDebug>
+#include <QKeyEvent>
 
 using namespace std;
 
@@ -97,8 +98,16 @@ void scSelectState::MouseReleaseEvent()
 	mClickedShape = mCurrShape;
 }
 
-void scSelectState::KeyPressEvent()
+void scSelectState::KeyPressEvent(QKeyEvent* event)
 {
+	switch (event->key())
+	{
+		case Qt::Key_Escape:
+		{
+			ResetClicked();
+		}
+		break;
+	}
 }
 
 void scSelectState::EndState()
@@ -109,10 +118,16 @@ void scSelectState::EndState()
 	if (mCurrShape != nullptr)
 		mCurrShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
+	mPrevShape.reset();
+	mCurrShape.reset();
+
+	ResetClicked();
+}
+
+void scSelectState::ResetClicked()
+{
 	if (mClickedShape != nullptr)
 		mClickedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
-	mPrevShape.reset();
-	mCurrShape.reset();
 	mClickedShape.reset();
 }

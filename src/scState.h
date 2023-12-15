@@ -1,6 +1,7 @@
 #pragma once
 #include "scScene.h"
 
+class QKeyEvent;
 class QPointF;
 class scState
 {
@@ -11,7 +12,7 @@ public:
 	virtual void MousePressEvent(const QPointF& currMousePos) = 0;
 	virtual void MouseMoveEvent(const QPointF& currMousePos) = 0;
 	virtual void MouseReleaseEvent() = 0;
-	virtual void KeyPressEvent() = 0;
+	virtual void KeyPressEvent(QKeyEvent* event) = 0;
 
 	virtual void EndState() = 0;
 

@@ -71,7 +71,7 @@ void scDrawLineState::MouseReleaseEvent()
 {
 }
 
-void scDrawLineState::KeyPressEvent()
+void scDrawLineState::KeyPressEvent(QKeyEvent* event)
 {
     EndState();
 }

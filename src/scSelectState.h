@@ -12,11 +12,13 @@ public:
 	void MousePressEvent(const QPointF& currMousePos) override;
 	void MouseMoveEvent(const QPointF& currMousePos) override;
 	void MouseReleaseEvent() override;
-	void KeyPressEvent() override;
+	void KeyPressEvent(QKeyEvent* event) override;
 
 	void EndState() override;
 
 private:
+	void ResetClicked();
+
 	bool mIsMousePressed;
 	SHAPE_TYPE mSelectShapeType;
 
