@@ -1,6 +1,6 @@
 #pragma once
 #include "scShapeQtVisual.h"
-#include "scheader.h"
+#include "scCommon.h"
 
 #include <queue>
 #include <list>
