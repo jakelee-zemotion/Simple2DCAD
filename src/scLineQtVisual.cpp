@@ -30,11 +30,11 @@ QLineF scLineQtVisual::MakeQLineF()
 {
 	pair<double, double> localStart =
 		WorldToCamera(mLineData->GetStartX(), mLineData->GetStartY(), 
-			mLineData->GetStartScaleX(), mLineData->GetStartScaleY());
+			mLineData->GetStartTransform());
 
 	pair<double, double> localEnd =
 		WorldToCamera(mLineData->GetEndX(), mLineData->GetEndY(),
-			mLineData->GetEndScaleX(), mLineData->GetEndScaleY());
+			mLineData->GetEndTransform());
 
 	return
 		QLineF(

@@ -61,23 +61,21 @@ pair<double, double> scShapeQtVisual::WorldToScreen(double x, double y)
 
 
 
-pair<double, double> scShapeQtVisual::ScreenToLoacl(double x, double y, double scaleX, double scaleY)
+pair<double, double> scShapeQtVisual::ScreenToLoacl(double x, double y, scTransform& transform)
 {
     // 1. Scale
-
+    pair<double, double> scaleCoord = transform.Scale(x, y);
 
     // 2. Rotate
 
-    // 3. Translate
 
-
-    return std::pair<double, double>(x * scaleX, y * scaleY);
+    return scaleCoord;
 }
 
-pair<double, double> scShapeQtVisual::WorldToCamera(double x, double y, double transX, double transY)
+pair<double, double> scShapeQtVisual::WorldToCamera(double x, double y, scTransform& transform)
 {
     auto screenCoord = WorldToScreen(x, y);
-    auto localCoord = ScreenToLoacl(screenCoord.first, screenCoord.second, transX, transY);
+    auto localCoord = ScreenToLoacl(screenCoord.first, screenCoord.second, transform);
 
     return localCoord;
 }

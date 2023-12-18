@@ -33,7 +33,7 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	{
 		auto localStartCoord =
 			WorldToCamera(mFaceData->GetLineStartX(), mFaceData->GetLineStartY(),
-				mFaceData->GetLineStartScaleX(), mFaceData->GetLineStartScaleY());
+				mFaceData->GetStartTransform());
 
 		lineList.push_back({ localStartCoord.first, localStartCoord.second });
 	}
@@ -99,24 +99,7 @@ void scFaceQtVisual::ScaleFace(double dx, double dy)
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		//pair<double, double> screenStartCoord =
-		//	WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
-
-		////screenStartCoord.first -= center.x();
-		////screenStartCoord.second -= center.y();
-
-		//screenStartCoord.first *= dx;
-		//screenStartCoord.second *= dy;
-
-		////screenStartCoord.first += center.x();
-		////screenStartCoord.second += center.y();
-
-		//pair<double, double> worldStartCoord =
-		//	ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
-
-		//mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
-
-		mFaceData->SetLineStartScale(mFaceData->GetLineStartScaleX() * dx, mFaceData->GetLineStartScaleY() * dy);
+		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy);
 	}
 }
 

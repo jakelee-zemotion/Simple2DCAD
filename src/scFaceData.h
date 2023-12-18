@@ -18,12 +18,10 @@ public:
 	bool IsIterEnd();
 
 	void SetLineStart(double startX, double startY);
-	void SetLineStartScale(double scaleX, double scaleY);
 
 	double GetLineStartX() const;
 	double GetLineStartY() const;
-	double GetLineStartScaleX() const;
-	double GetLineStartScaleY() const;
+	scTransform& GetStartTransform();
 
 private:
 	std::list<std::shared_ptr<scLineData>> mLineList;

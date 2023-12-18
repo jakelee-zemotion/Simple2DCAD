@@ -15,18 +15,13 @@ public:
 	void SetStartVertex(double x, double y);
 	void SetEndVertex(double x, double y);
 
-	void SetStartVertexScale(double scaleX, double scaleY);
-	void SetEndVertexScale(double scaleX, double scaleY);
-
 	double GetStartX() const;
 	double GetStartY() const;
 	double GetEndX() const;
 	double GetEndY() const;
 
-	double GetStartScaleX() const;
-	double GetStartScaleY() const;
-	double GetEndScaleX() const;
-	double GetEndScaleY() const;
+	scTransform& GetStartTransform();
+	scTransform& GetEndTransform();
 
 private:
 	std::shared_ptr<scVertexData> mStartVertex;

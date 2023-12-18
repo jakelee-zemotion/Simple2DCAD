@@ -42,14 +42,6 @@ void scFaceData::SetLineStart(double startX, double startY)
 	line->SetStartVertex(startX, startY);
 }
 
-void scFaceData::SetLineStartScale(double scaleX, double scaleY)
-{
-	assert(mIter != mLineList.end());
-
-	shared_ptr<scLineData>& line = *mIter;
-	line->SetStartVertexScale(scaleX, scaleY);
-}
-
 double scFaceData::GetLineStartX() const
 {
 	assert(mIter != mLineList.end());
@@ -66,18 +58,10 @@ double scFaceData::GetLineStartY() const
 	return line->GetStartY();
 }
 
-double scFaceData::GetLineStartScaleX() const
+scTransform& scFaceData::GetStartTransform()
 {
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	return line->GetStartScaleX();
-}
-
-double scFaceData::GetLineStartScaleY() const
-{
-	assert(mIter != mLineList.end());
-
-	shared_ptr<scLineData>& line = *mIter;
-	return line->GetStartScaleY();
+	return line->GetStartTransform();
 }
