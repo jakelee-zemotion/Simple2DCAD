@@ -7,7 +7,7 @@ using namespace std;
 scFaceQtVisual::scFaceQtVisual(
 	SHAPE_TYPE shapeType,
 	const list<shared_ptr<scLineData>>& lineList, 
-	const std::shared_ptr<scCoordinate>& coordinate)
+	const std::shared_ptr<scCoordinateHelper>& coordinate)
 	: scShapeQtVisual(shapeType, coordinate)
 {
 	// Set the lines.

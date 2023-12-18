@@ -1,19 +1,19 @@
-#include "scCoordinate.h"
+#include "scCoordinateHelper.h"
 
 using namespace std;
 
-scCoordinate::scCoordinate(const scCamera& camera, const QRect& viewportSize)
+scCoordinateHelper::scCoordinateHelper(const scCamera& camera, const QRect& viewportSize)
 	:mCamera(camera), mViewportSize(viewportSize)
 {
 }
 
-scCoordinate::~scCoordinate()
+scCoordinateHelper::~scCoordinateHelper()
 {
 }
 
 
 // Use -1.0 * to get visibility. Do not change it to -.
-pair<double, double> scCoordinate::WorldToScreen(double x, double y)
+pair<double, double> scCoordinateHelper::WorldToScreen(double x, double y)
 {
     auto expr = [](double value, double size) -> double
         {
@@ -28,7 +28,7 @@ pair<double, double> scCoordinate::WorldToScreen(double x, double y)
 }
 
 
-pair<double, double> scCoordinate::ScreenToWorld(double x, double y)
+pair<double, double> scCoordinateHelper::ScreenToWorld(double x, double y)
 {
     auto expr = [](double value, double size) -> double
         {
@@ -44,7 +44,7 @@ pair<double, double> scCoordinate::ScreenToWorld(double x, double y)
 
 
 
-pair<double, double> scCoordinate::ScreenToLoacl(double x, double y, scTransform& transform)
+pair<double, double> scCoordinateHelper::ScreenToLoacl(double x, double y, scTransform& transform)
 {
     // 1. Scale
     pair<double, double> scaleCoord = transform.Scale(x, y);
@@ -55,7 +55,7 @@ pair<double, double> scCoordinate::ScreenToLoacl(double x, double y, scTransform
     return scaleCoord;
 }
 
-std::pair<double, double> scCoordinate::LoaclToScreen(double x, double y, scTransform& transform)
+std::pair<double, double> scCoordinateHelper::LoaclToScreen(double x, double y, scTransform& transform)
 {
     // 2. Rotate
     // 
@@ -70,7 +70,7 @@ std::pair<double, double> scCoordinate::LoaclToScreen(double x, double y, scTran
 
 
 
-std::pair<double, double> scCoordinate::LocalToCamera(double x, double y)
+std::pair<double, double> scCoordinateHelper::LocalToCamera(double x, double y)
 {
     x += mCamera.GetPanX();
     y += mCamera.GetPanY();
@@ -78,7 +78,7 @@ std::pair<double, double> scCoordinate::LocalToCamera(double x, double y)
     return { x, y };
 }
 
-std::pair<double, double> scCoordinate::CameraToLocal(double x, double y)
+std::pair<double, double> scCoordinateHelper::CameraToLocal(double x, double y)
 {
     x -= mCamera.GetPanX();
     y -= mCamera.GetPanY();
@@ -89,7 +89,7 @@ std::pair<double, double> scCoordinate::CameraToLocal(double x, double y)
 
 
 
-pair<double, double> scCoordinate::WorldToCamera(double x, double y, scTransform& transform)
+pair<double, double> scCoordinateHelper::WorldToCamera(double x, double y, scTransform& transform)
 {
     auto screenCoord = WorldToScreen(x, y);
     auto localCoord = ScreenToLoacl(screenCoord.first, screenCoord.second, transform);
@@ -98,7 +98,7 @@ pair<double, double> scCoordinate::WorldToCamera(double x, double y, scTransform
     return cameraCoord;
 }
 
-std::pair<double, double> scCoordinate::CameraToWorld(double x, double y, scTransform& transform)
+std::pair<double, double> scCoordinateHelper::CameraToWorld(double x, double y, scTransform& transform)
 {
     auto localCoord = CameraToLocal(x, y);
     auto screenCoord = LoaclToScreen(localCoord.first, localCoord.second, transform);

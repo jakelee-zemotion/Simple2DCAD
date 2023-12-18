@@ -5,7 +5,7 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const shared_ptr<scCoordinate>& coordinate)
+scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const shared_ptr<scCoordinateHelper>& coordinate)
 	:scShapeQtVisual(shapeType, coordinate)
 {
 	// Set the position.

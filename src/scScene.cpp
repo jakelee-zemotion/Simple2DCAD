@@ -2,7 +2,7 @@
 
 using namespace std;
 
-scScene::scScene(const shared_ptr<scCoordinate>& coordinate)
+scScene::scScene(const shared_ptr<scCoordinateHelper>& coordinate)
 	:mCoordinate(coordinate)
 {
 	mVertexCreatedCount = 0;

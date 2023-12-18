@@ -3,11 +3,11 @@
 #include "scTransform.h"
 #include <QRect>
 
-class scCoordinate
+class scCoordinateHelper
 {
 public:
-	scCoordinate(const scCamera& camera, const QRect& viewportSize);
-	~scCoordinate();
+	scCoordinateHelper(const scCamera& camera, const QRect& viewportSize);
+	~scCoordinateHelper();
 
 	// World -> Screen -> Local -> Camera
 	std::pair<double, double> WorldToScreen(double x, double y);
