@@ -1,4 +1,6 @@
 #include "scVertexQtVisual.h"
+#include "scCoordinateHelper.h"
+#include "scVertexData.h"
 
 #include <QPainter>
 #include <QDebug>

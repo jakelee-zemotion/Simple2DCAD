@@ -1,8 +1,10 @@
 #pragma once
-#include "scScene.h"
 
+#include <QPoint>
+#include <memory>
+
+class scScene;
 class QKeyEvent;
-class QPointF;
 class scState
 {
 public:

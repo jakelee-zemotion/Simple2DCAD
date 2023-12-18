@@ -1,8 +1,9 @@
 #pragma once
 #include "scState.h"
-#include "scShapeQtVisual.h"
-#include <memory>
+#include "scCommon.h"
 
+class scShapeQtVisual;
+class scScene;
 class scSelectState : public scState
 {
 public:

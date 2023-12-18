@@ -1,4 +1,7 @@
 #include "scSelectState.h"
+
+#include "scScene.h"
+#include "scShapeQtVisual.h"
 #include "scVertexQtVisual.h"
 #include "scFaceQtVisual.h"
 

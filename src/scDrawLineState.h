@@ -1,8 +1,10 @@
 #pragma once
 #include "scState.h"
+
 #include <QPointF>
 
 class scScene;
+class scShapeQtVisual;
 class scDrawLineState : public scState
 {
 public:

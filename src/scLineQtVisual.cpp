@@ -1,4 +1,9 @@
 #include "scLineQtVisual.h"
+
+#include "scVertexQtVisual.h"
+#include "scLineData.h"
+#include "scCoordinateHelper.h"
+
 #include <qDebug>
 
 using namespace std;

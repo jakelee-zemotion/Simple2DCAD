@@ -1,14 +1,14 @@
 #pragma once
-#include "scVertexQtVisual.h"
-#include "scLineQtVisual.h"
-#include "scFaceQtVisual.h"
 #include "scCommon.h"
-#include "scCoordinateHelper.h"
+#include "scShapeID.h"
 
 #include <queue>
 #include <list>
 #include <QDebug>
 
+class scCoordinateHelper;
+class scShapeQtVisual;
+class QPainter;
 class scScene
 {
 public:

@@ -1,11 +1,11 @@
 #pragma once
-#include "scScene.h"
 #include "scCamera.h"
 #include "scStateMachine.h"
-#include "scCoordinateHelper.h"
 
 #include <QWidget>
 
+class scScene;
+class scCoordinateHelper;
 class scViewport : public QWidget
 {
 

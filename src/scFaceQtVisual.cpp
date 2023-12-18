@@ -1,4 +1,6 @@
 #include "scFaceQtVisual.h"
+#include "scCoordinateHelper.h"
+#include "scFaceData.h"
 
 #include <qDebug>
 

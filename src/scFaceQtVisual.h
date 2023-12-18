@@ -1,7 +1,9 @@
 #pragma once
-#include "scFaceData.h"
-#include "scLineQtVisual.h"
+#include "scShapeQtVisual.h"
 
+class scCoordinateHelper;
+class scFaceData;
+class scLineData;
 class scFaceQtVisual : public scShapeQtVisual
 {
 public:

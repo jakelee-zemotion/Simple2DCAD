@@ -1,8 +1,10 @@
 #pragma once
-#include "scCamera.h"
-#include "scTransform.h"
-#include <QRect>
 
+#include <utility>
+
+class scCamera;
+class scTransform;
+class QRect;
 class scCoordinateHelper
 {
 public:

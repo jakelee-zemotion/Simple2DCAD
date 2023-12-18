@@ -1,13 +1,12 @@
 #pragma once
 #include "scShapeID.h"
 #include "scCommon.h"
-#include "scTransform.h"
-#include "scCoordinateHelper.h"
 
 #include <QPointF>
 #include <QPainter>
 
 class scCamera;
+class scCoordinateHelper;
 class scShapeQtVisual
 {
 public:

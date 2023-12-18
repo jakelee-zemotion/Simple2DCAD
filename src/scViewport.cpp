@@ -6,6 +6,9 @@
 #include "scSelectLineState.h"
 #include "scSelectFaceState.h"
 
+#include "scScene.h"
+#include "scCoordinateHelper.h"
+
 #include <QPainter>
 #include <QtWidgets/QApplication>
 #include <QKeyEvent>

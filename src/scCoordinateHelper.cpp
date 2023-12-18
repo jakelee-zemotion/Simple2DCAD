@@ -1,5 +1,9 @@
 #include "scCoordinateHelper.h"
 
+#include "scCamera.h"
+#include "scTransform.h"
+#include <QRect>
+
 using namespace std;
 
 scCoordinateHelper::scCoordinateHelper(const scCamera& camera, const QRect& viewportSize)

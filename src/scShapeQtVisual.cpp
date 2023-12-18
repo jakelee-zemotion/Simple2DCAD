@@ -1,4 +1,5 @@
 #include "scShapeQtVisual.h"
+#include "scCoordinateHelper.h"
 
 #include <qDebug>
 

@@ -1,5 +1,10 @@
 #include "scScene.h"
 
+#include "scCoordinateHelper.h"
+#include "scVertexQtVisual.h"
+#include "scLineQtVisual.h"
+#include "scFaceQtVisual.h"
+
 using namespace std;
 
 scScene::scScene(const shared_ptr<scCoordinateHelper>& coordinate)

@@ -1,4 +1,6 @@
 #include "scDrawLineState.h"
+#include "scShapeQtVisual.h"
+#include "scScene.h"
 
 #include <QKeyEvent>
 

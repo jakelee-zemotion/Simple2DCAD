@@ -1,9 +1,11 @@
 #pragma once
-#include "scLineData.h"
-#include "scVertexQtVisual.h"
+#include "scShapeQtVisual.h"
 
 #include <QLineF>
 
+class scCoordinateHelper;
+class scLineData;
+class scVertexQtVisual;
 class scLineQtVisual : public scShapeQtVisual
 {
 public:
