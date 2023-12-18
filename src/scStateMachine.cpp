@@ -25,5 +25,7 @@ void scStateMachine::Transition(const string& name)
 
 shared_ptr<scState> scStateMachine::GetCurrentState() const
 {
+	assert(mCurrState != nullptr);
+
 	return mCurrState;
 }

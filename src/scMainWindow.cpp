@@ -20,7 +20,7 @@ scMainWindow::scMainWindow()
 	mObjSelectToolBar->ConnectTransitSignal(this);
 
 	// Add states and toolButtons.
-	vector<string> stateName = { "Draw", "SelectVertex", "SelectLine", "SelectFace" };
+	vector<string> stateName = { "Draw", "SelectAll", "SelectVertex", "SelectLine", "SelectFace" };
 
 	for (const auto& name : stateName)
 	{

@@ -34,6 +34,8 @@ void scViewport::AddState(const string& name)
 
     if (name == "Draw")
         state = make_shared<scDrawLineState>(mScene);
+    else if (name == "SelectAll")
+        state = make_shared<scSelectState>(mScene, SHAPE_TYPE::VERTEX | SHAPE_TYPE::LINE | SHAPE_TYPE::FACE);
     else if (name == "SelectVertex")
         state = make_shared<scSelectVertexState>(mScene);
     else if (name == "SelectLine")
