@@ -14,7 +14,7 @@ public:
 		const QRect& viewportSize);
 	~scLineQtVisual() override;
 
-	void MoveShape(double dx, double dy) override;;
+	void Move(double dx, double dy) override;;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 

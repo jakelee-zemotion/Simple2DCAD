@@ -40,7 +40,7 @@ QLineF scLineQtVisual::MakeQLineF()
 			{ screenEnd.first, screenEnd.second });
 }
 
-void scLineQtVisual::MoveShape(double dx, double dy)
+void scLineQtVisual::Move(double dx, double dy)
 {
 	pair<double, double> screenStartCoord = 
 		WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());

@@ -58,12 +58,7 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
             mCanCreateFace = true;
         }
 
-        QPointF dist = targetPos - mPrevMousePos;
-        mPrevMousePos = targetPos;
-
-        mDrawingShape.lock()->MoveShape(dist.x(), dist.y());
-
-
+        mDrawingShape.lock()->Move(targetPos.x(), targetPos.y());
     }
 
 }

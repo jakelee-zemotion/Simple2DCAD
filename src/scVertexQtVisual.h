@@ -11,7 +11,7 @@ public:
 	scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const QRect& viewportSize);
 	~scVertexQtVisual() override;
 
-	void MoveShape(double dx, double dy) override;
+	void Move(double x, double y) override;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 

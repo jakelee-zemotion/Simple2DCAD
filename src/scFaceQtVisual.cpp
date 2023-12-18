@@ -40,7 +40,7 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	return QPolygonF(lineList);
 }
 
-void scFaceQtVisual::MoveShape(double dx, double dy)
+void scFaceQtVisual::Move(double dx, double dy)
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{

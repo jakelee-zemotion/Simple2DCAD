@@ -12,7 +12,7 @@ public:
 	scShapeQtVisual(SHAPE_TYPE shapeType, const QRect& viewportSize);
 	virtual ~scShapeQtVisual();
 
-	virtual void MoveShape(double dx, double dy) = 0;
+	virtual void Move(double dx, double dy) = 0;
 	virtual void Paint(QPainter& painter) = 0;
 	virtual bool HitTest(const QPointF& currMousePos) = 0;
 

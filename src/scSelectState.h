@@ -18,6 +18,7 @@ public:
 
 protected:
 	void ResetSelected();
+	void HightlightShape();
 
 	bool mIsMousePressed;
 	SHAPE_TYPE mSelectShapeType;

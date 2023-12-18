@@ -11,9 +11,7 @@ scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF,
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
 
-	pair<double, double> worldCoord = ScreenToWorld(qpointF.x(), qpointF.y());
-	mVertexData->SetX(worldCoord.first);
-	mVertexData->SetY(worldCoord.second);
+	this->Move(qpointF.x(), qpointF.y());
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
@@ -37,19 +35,10 @@ QPointF scVertexQtVisual::MakeQPointF()
 	return { screenCoord.first, screenCoord.second };
 }
 
-void scVertexQtVisual::MoveShape(double dx, double dy)
+void scVertexQtVisual::Move(double x, double y)
 {
-	/*mVertexData->SetTransX(mVertexData->GetTransX() + dx);
-	mVertexData->SetTransY(mVertexData->GetTransY() + dy);*/
-
-	pair<double, double> screenCoord =
-		WorldToScreen(mVertexData->GetX(), mVertexData->GetY());
-
-	screenCoord.first += dx;
-	screenCoord.second += dy;
-
-	pair<double, double> worldCoord =
-		ScreenToWorld(screenCoord.first, screenCoord.second);
+	// Unlike Line and Face, it moves directly to x, y.
+	pair<double, double> worldCoord = ScreenToWorld(x, y);
 
 	mVertexData->SetX(worldCoord.first);
 	mVertexData->SetY(worldCoord.second);
