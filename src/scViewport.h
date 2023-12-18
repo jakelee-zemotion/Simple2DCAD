@@ -2,6 +2,7 @@
 #include "scScene.h"
 #include "scCamera.h"
 #include "scStateMachine.h"
+#include "scCoordinate.h"
 
 #include <QWidget>
 
@@ -27,6 +28,7 @@ protected:
 
 private:
 	scCamera mCamera;
+	std::shared_ptr<scCoordinate> mCoordinate;
 	std::shared_ptr<scScene> mScene;
 	
 	scStateMachine mStateMachine;
