@@ -61,14 +61,15 @@ pair<double, double> scShapeQtVisual::WorldToScreen(double x, double y)
 
 
 
-std::pair<double, double> scShapeQtVisual::ScreenToLoacl(double x, double y, double transX, double transY)
+std::pair<double, double> scShapeQtVisual::ScreenToLoacl(double x, double y, double scaleX, double scaleY)
 {
     // 1. Scale
+
 
     // 2. Rotate
 
     // 3. Translate
 
 
-    return std::pair<double, double>(x + transX, y + transY);
+    return std::pair<double, double>(x * scaleX, y * scaleY);
 }

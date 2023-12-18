@@ -7,8 +7,8 @@ scVertexData::scVertexData()
 	mX = 0.0;
 	mY = 0.0;
 
-	mScaleX = 0.0;
-	mScaleY = 0.0;
+	mScaleX = 1.0;
+	mScaleY = 1.0;
 
 	mRotateX = 0.0;
 	mRotateY = 0.0;

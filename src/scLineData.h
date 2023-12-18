@@ -15,6 +15,9 @@ public:
 	void SetStartVertex(double x, double y);
 	void SetEndVertex(double x, double y);
 
+	void SetStartVertexScale(double scaleX, double scaleY);
+	void SetEndVertexScale(double scaleX, double scaleY);
+
 	double GetStartX() const;
 	double GetStartY() const;
 	double GetEndX() const;

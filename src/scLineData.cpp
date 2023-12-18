@@ -35,6 +35,18 @@ void scLineData::SetEndVertex(double x, double y)
 	mEndVertex->SetY(y);
 }
 
+void scLineData::SetStartVertexScale(double scaleX, double scaleY)
+{
+	mStartVertex->SetScaleX(scaleX);
+	mStartVertex->SetScaleY(scaleY);
+}
+
+void scLineData::SetEndVertexScale(double scaleX, double scaleY)
+{
+	mEndVertex->SetScaleX(scaleX);
+	mEndVertex->SetScaleY(scaleY);
+}
+
 double scLineData::GetStartX() const
 {
 	return mStartVertex->GetX();

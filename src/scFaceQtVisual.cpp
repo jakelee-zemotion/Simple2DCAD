@@ -34,7 +34,11 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 		pair<double, double> screenStartCoord =
 			WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
 
-		lineList.push_back({ screenStartCoord.first, screenStartCoord.second });
+		pair<double, double> localStartCoord =
+			ScreenToLoacl(screenStartCoord.first, screenStartCoord.second, 
+				mFaceData->GetLineStartScaleX(), mFaceData->GetLineStartScaleY());
+
+		lineList.push_back({ localStartCoord.first, localStartCoord.second });
 	}
 
 	return QPolygonF(lineList);
@@ -98,22 +102,24 @@ void scFaceQtVisual::ScaleFace(double dx, double dy)
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		pair<double, double> screenStartCoord =
-			WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+		//pair<double, double> screenStartCoord =
+		//	WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
 
-		screenStartCoord.first -= center.x();
-		screenStartCoord.second -= center.y();
+		////screenStartCoord.first -= center.x();
+		////screenStartCoord.second -= center.y();
 
-		screenStartCoord.first *= dx;
-		screenStartCoord.second *= dy;
+		//screenStartCoord.first *= dx;
+		//screenStartCoord.second *= dy;
 
-		screenStartCoord.first += center.x();
-		screenStartCoord.second += center.y();
+		////screenStartCoord.first += center.x();
+		////screenStartCoord.second += center.y();
 
-		pair<double, double> worldStartCoord =
-			ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+		//pair<double, double> worldStartCoord =
+		//	ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
 
-		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
+		//mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
+
+		mFaceData->SetLineStartScale(mFaceData->GetLineStartScaleX() * dx, mFaceData->GetLineStartScaleY() * dy);
 	}
 }
 
