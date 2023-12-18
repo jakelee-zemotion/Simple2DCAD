@@ -6,7 +6,7 @@
 class scSelectState : public scState
 {
 public:
-	scSelectState(std::shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType);
+	scSelectState(const std::shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType);
 	virtual ~scSelectState() override;
 
 	void MousePressEvent(const QPointF& currMousePos) override;

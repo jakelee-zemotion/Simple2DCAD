@@ -4,7 +4,7 @@
 
 using namespace std;
 
-scDrawLineState::scDrawLineState(shared_ptr<scScene>& scene)
+scDrawLineState::scDrawLineState(const shared_ptr<scScene>& scene)
     :scState(scene)
 {
     mStartVertexPos = { 0.0, 0.0 };

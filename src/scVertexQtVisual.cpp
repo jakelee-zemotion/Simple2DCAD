@@ -26,19 +26,17 @@ scVertexQtVisual::~scVertexQtVisual()
 
 QPointF scVertexQtVisual::MakeQPointF()
 {
-	pair<double, double> localCoord 
-		= mCoordinate->WorldToCamera(mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
-
-	//pair<double, double> loaclCoord
-	//	= ScreenToLoacl(screenCoord.first, screenCoord.second, mVertexData->GetTransX(), mVertexData->GetTransY());
+	pair<double, double> localCoord = 
+		mCoordinate->WorldToCamera(mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
 
 	return { localCoord.first, localCoord.second };
 }
 
-void scVertexQtVisual::Move(double x, double y)
+void scVertexQtVisual::Move(double targetX, double targetY)
 {
 	// Unlike Line and Face, it moves directly to x, y.
-	pair<double, double> worldCoord = mCoordinate->ScreenToWorld(x, y);
+	auto worldCoord = 
+		mCoordinate->CameraToWorld(targetX, targetY, mVertexData->GetTransform());
 
 	mVertexData->SetX(worldCoord.first);
 	mVertexData->SetY(worldCoord.second);

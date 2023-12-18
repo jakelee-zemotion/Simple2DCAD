@@ -2,7 +2,7 @@
 
 using namespace std;
 
-scState::scState(shared_ptr<scScene>& scene)
+scState::scState(const shared_ptr<scScene>& scene)
 	:mScene(scene)
 {
 }

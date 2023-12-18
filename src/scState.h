@@ -6,7 +6,7 @@ class QPointF;
 class scState
 {
 public:
-	scState(std::shared_ptr<scScene>& scene);
+	scState(const std::shared_ptr<scScene>& scene);
 	virtual ~scState();
 
 	virtual void MousePressEvent(const QPointF& currMousePos) = 0;
@@ -17,7 +17,7 @@ public:
 	virtual void EndState() = 0;
 
 protected:
-	std::shared_ptr<scScene> mScene;
+	const std::shared_ptr<scScene> mScene;
 	QPointF mPrevMousePos;
 };
 

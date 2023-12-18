@@ -6,7 +6,7 @@ class scScene;
 class scDrawLineState : public scState
 {
 public:
-	scDrawLineState(std::shared_ptr<scScene>& scene);
+	scDrawLineState(const std::shared_ptr<scScene>& scene);
 	~scDrawLineState() override;
 
 	void MousePressEvent(const QPointF& currMousePos) override;

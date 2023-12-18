@@ -79,7 +79,7 @@ void scViewport::mousePressEvent(QMouseEvent* event)
         // Panning
         case Qt::MiddleButton:
         {
-            //mCamera->SetPrevMousePos(currMousePos);
+            mCamera.SetPrevMousePos(currMousePos);
         }
         break;
     }
@@ -109,7 +109,7 @@ void scViewport::mouseMoveEvent(QMouseEvent* event)
     {
         case Qt::MiddleButton:
         {
-            //mCamera->Pan(currMousePos);
+            mCamera.AddPanXY(currMousePos);
         }
         break;
     }
@@ -163,7 +163,7 @@ void scViewport::wheelEvent(QWheelEvent* event)
 
     // Zooming
     if (mIsCtrlPressed)
-        mCamera.Zoom(currMousePos, mouseDir);
+       // mCamera.Zoom(currMousePos, mouseDir);
 
     update();
 }

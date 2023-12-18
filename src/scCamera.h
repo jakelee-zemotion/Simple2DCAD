@@ -10,14 +10,24 @@ public:
 	scCamera();
 	~scCamera();
 
-	void Pan(const QPoint& currentMousePos);
-	void Zoom(const QPoint& currentMousePos, int mouseDir);
-	void SetPrevMousePos(const QPoint& prevMousePos);
+	void AddPanXY(const QPointF& currentMousePos);
+	void MultiplyZoomXY(const QPointF& currentMousePos, int mouseDir);
 
+	//void Pan(const QPointF& currentMousePos);
+	//void Zoom(const QPointF& currentMousePos, int mouseDir);
+	void SetPrevMousePos(const QPointF& prevMousePos);
+
+	double GetPanX() const;
+	double GetPanY() const;
 
 private:
-	const float zoomValue = 1.2f;
+	const double mZoomRatio = 0.2;
 
-	QPoint mPrevMousePos;
+	double mPanX;
+	double mPanY;
+
+	double mZoomX;
+	double mZoomY;
+
+	QPointF mPrevMousePos;
 };
-
