@@ -33,7 +33,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			return;
 
 		QPointF targetPos = currMousePos;
-		if (mSelectShapeType == SHAPE_TYPE::VERTEX)
+		if (mPrevShape->GetShapeType() & SHAPE_TYPE::VERTEX)
 		{
 			shared_ptr<scVertexQtVisual> snappedVertex = 
 				dynamic_pointer_cast<scVertexQtVisual>(mScene->HitTest(currMousePos, mSelectShapeType, mPrevShape->GetID()));
@@ -106,7 +106,7 @@ void scSelectState::MouseReleaseEvent()
 		return;
 
 	mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
-	if (mSelectShapeType == SHAPE_TYPE::FACE)
+	if (mSelectShapeType & SHAPE_TYPE::FACE)
 	{
 
 	}
@@ -130,56 +130,40 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 
 		case Qt::Key_W:
 		{
-			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() & SHAPE_TYPE::FACE)
 			{
-				if (mSelectedShape != nullptr)
-				{
-					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-					transformFace->ScaleFace(1.1, 1.1);
-
-				}
+				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+				transformFace->ScaleFace(1.1, 1.1);
 			}
 		}
 		break;
 
 		case Qt::Key_S:
 		{
-			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() & SHAPE_TYPE::FACE)
 			{
-				if (mSelectedShape != nullptr)
-				{
-					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-					transformFace->ScaleFace(0.9, 0.9);
-
-				}
+				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+				transformFace->ScaleFace(0.9, 0.9);
 			}
 		}
 		break;
 
 		case Qt::Key_A:
 		{
-			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() & SHAPE_TYPE::FACE)
 			{
-				if (mSelectedShape != nullptr)
-				{
-					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-					transformFace->RotateFace(0.1);
-
-				}
+				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+				transformFace->RotateFace(0.1);
 			}
 		}
 		break;
 
 		case Qt::Key_D:
 		{
-			if (mSelectShapeType == SHAPE_TYPE::FACE)
+			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() & SHAPE_TYPE::FACE)
 			{
-				if (mSelectedShape != nullptr)
-				{
-					shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-					transformFace->RotateFace(-0.1);
-
-				}
+				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+				transformFace->RotateFace(-0.1);
 			}
 		}
 		break;

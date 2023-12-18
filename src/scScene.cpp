@@ -137,7 +137,7 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, S
 
 	for (int i = 0; i < 3; i++)
 	{
-		if (!((static_cast<int>(shapeType) >> i) & 1))
+		if (!((shapeType >> i) & 1))
 			continue;
 
 		for (auto iter = shapeLists[i]->rbegin(); iter != shapeLists[i]->rend(); iter++)
