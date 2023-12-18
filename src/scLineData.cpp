@@ -54,3 +54,24 @@ double scLineData::GetEndY() const
 {
 	return mEndVertex->GetY();
 }
+
+
+double scLineData::GetStartScaleX() const
+{
+	return mStartVertex->GetScaleX();
+}
+
+double scLineData::GetStartScaleY() const
+{
+	return mStartVertex->GetScaleY();
+}
+
+double scLineData::GetEndScaleX() const
+{
+	return mEndVertex->GetScaleX();
+}
+
+double scLineData::GetEndScaleY() const
+{
+	return mEndVertex->GetScaleY();
+}

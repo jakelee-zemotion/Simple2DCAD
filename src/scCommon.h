@@ -16,7 +16,7 @@ inline int operator>>(SHAPE_TYPE stype, int value)
 	return static_cast<int>(stype) >> value;
 }
 
-inline int operator&(SHAPE_TYPE stype1, SHAPE_TYPE stype2)
+inline bool operator==(SHAPE_TYPE stype1, SHAPE_TYPE stype2)
 {
 	return static_cast<int>(stype1) & static_cast<int>(stype2);
 }

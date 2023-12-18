@@ -8,26 +8,29 @@ public:
 	void SetX(double x);
 	void SetY(double y);
 
-	void SetTransX(double transX);
-	void SetTransY(double transY);
+	void SetScaleX(double scaleX);
+	void SetScaleY(double scaleY);
+
+	void SetRotateX(double rotateX);
+	void SetRotateY(double rotateY);
 
 	double GetX() const;
 	double GetY() const;
 
-	double GetTransX() const;
-	double GetTransY() const;
+	double GetScaleX() const;
+	double GetScaleY() const;
+
+	double GetRotateX() const;
+	double GetRotateY() const;
 
 private:
 	double mX;
 	double mY;
 
-	/*double mScaleX;
+	double mScaleX;
 	double mScaleY;
 
 	double mRotateX;
-	double mRotateY;*/
-
-	double mTransX;
-	double mTransY;
+	double mRotateY;
 };
 

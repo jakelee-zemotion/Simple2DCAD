@@ -133,19 +133,22 @@ void scScene::EndDrawing(bool canCreateFace)
 std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID)
 {
 	// Hit testing
+	// The order is vertex, line, and face.
 	vector<list<shared_ptr<scShapeQtVisual>>*> shapeLists = { &mVertexList, &mLineList, &mFaceList };
 
 	for (int i = 0; i < 3; i++)
 	{
+		// Check shapeType using bitwise operators.
 		if (!((shapeType >> i) & 1))
 			continue;
 
+		// Reverse search
 		for (auto iter = shapeLists[i]->rbegin(); iter != shapeLists[i]->rend(); iter++)
 		{
 			shared_ptr<scShapeQtVisual>& shape = *iter;
 
 			if (shape->HitTest(currMousePos)
-				&& shape->GetID() != noTestShapeID)
+				&& shape->GetID() != noTestShapeID) // The specific shape is excluded from the search.
 			{
 				return shape;
 			}

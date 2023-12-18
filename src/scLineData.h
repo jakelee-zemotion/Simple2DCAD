@@ -20,6 +20,11 @@ public:
 	double GetEndX() const;
 	double GetEndY() const;
 
+	double GetStartScaleX() const;
+	double GetStartScaleY() const;
+	double GetEndScaleX() const;
+	double GetEndScaleY() const;
+
 private:
 	std::shared_ptr<scVertexData> mStartVertex;
 	std::shared_ptr<scVertexData> mEndVertex;

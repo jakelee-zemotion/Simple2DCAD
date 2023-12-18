@@ -21,8 +21,6 @@ public:
 
 	double GetLineStartX() const;
 	double GetLineStartY() const;
-	double GetLineEndX() const;
-	double GetLineEndY() const;
 
 private:
 	std::list<std::shared_ptr<scLineData>> mLineList;

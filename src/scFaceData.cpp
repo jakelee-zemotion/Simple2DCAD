@@ -57,19 +57,3 @@ double scFaceData::GetLineStartY() const
 	shared_ptr<scLineData>& line = *mIter;
 	return line->GetStartY();
 }
-
-double scFaceData::GetLineEndX() const
-{
-	assert(mIter != mLineList.end());
-
-	shared_ptr<scLineData>& line = *mIter;
-	return line->GetEndX();
-}
-
-double scFaceData::GetLineEndY() const
-{
-	assert(mIter != mLineList.end());
-
-	shared_ptr<scLineData>& line = *mIter;
-	return line->GetEndY();
-}
