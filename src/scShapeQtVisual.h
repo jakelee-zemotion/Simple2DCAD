@@ -34,6 +34,6 @@ protected:
 	std::pair<double, double> WorldToScreen(double x, double y);
 	std::pair<double, double> ScreenToWorld(double x, double y);
 
-	std::pair<double, double> ScreenToTransfrom(double x, double y);
+	std::pair<double, double> ScreenToLoacl(double x, double y, double transX, double transY);
 };
 

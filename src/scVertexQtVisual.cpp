@@ -31,11 +31,17 @@ QPointF scVertexQtVisual::MakeQPointF()
 	pair<double, double> screenCoord 
 		= WorldToScreen(mVertexData->GetX(), mVertexData->GetY());
 
+	//pair<double, double> loaclCoord
+	//	= ScreenToLoacl(screenCoord.first, screenCoord.second, mVertexData->GetTransX(), mVertexData->GetTransY());
+
 	return { screenCoord.first, screenCoord.second };
 }
 
 void scVertexQtVisual::MoveShape(double dx, double dy)
 {
+	/*mVertexData->SetTransX(mVertexData->GetTransX() + dx);
+	mVertexData->SetTransY(mVertexData->GetTransY() + dy);*/
+
 	pair<double, double> screenCoord =
 		WorldToScreen(mVertexData->GetX(), mVertexData->GetY());
 

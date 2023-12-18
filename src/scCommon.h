@@ -2,7 +2,7 @@
 
 enum class SHAPE_TYPE
 {
-	VERTEX, LINE, FACE
+	VERTEX = 1, LINE = 2, FACE = 4
 };
 
 enum class COLOR_TYPE

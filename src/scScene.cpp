@@ -1,7 +1,4 @@
 #include "scScene.h"
-#include "scVertexQtVisual.h"
-#include "scLineQtVisual.h"
-#include "scFaceQtVisual.h"
 
 using namespace std;
 
@@ -135,33 +132,25 @@ void scScene::EndDrawing(bool canCreateFace)
 
 std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID)
 {
-
-	list<shared_ptr<scShapeQtVisual>>* shapeList;
-
-	switch (shapeType)
-	{
-	case SHAPE_TYPE::VERTEX:
-		shapeList = &mVertexList;  break;
-
-	case SHAPE_TYPE::LINE:
-		shapeList = &mLineList; break;
-
-	case SHAPE_TYPE::FACE:
-	default:
-		shapeList = &mFaceList;
-		break;
-	}
-
 	// Hit testing
-	for (auto iter = shapeList->rbegin(); iter != shapeList->rend(); iter++)
-	{
-		shared_ptr<scShapeQtVisual>& shape = *iter;
+	vector<list<shared_ptr<scShapeQtVisual>>*> shapeLists = { &mVertexList, &mLineList, &mFaceList };
 
-		if (shape->HitTest(currMousePos) 
-			&& shape->GetID() != noTestShapeID)
+	for (int i = 0; i < 3; i++)
+	{
+		if (!((static_cast<int>(shapeType) >> i) & 1))
+			continue;
+
+		for (auto iter = shapeLists[i]->rbegin(); iter != shapeLists[i]->rend(); iter++)
 		{
-			return shape;
+			shared_ptr<scShapeQtVisual>& shape = *iter;
+
+			if (shape->HitTest(currMousePos)
+				&& shape->GetID() != noTestShapeID)
+			{
+				return shape;
+			}
 		}
+
 	}
 
 	return nullptr;

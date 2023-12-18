@@ -1,5 +1,7 @@
 #pragma once
-#include "scShapeQtVisual.h"
+#include "scVertexQtVisual.h"
+#include "scLineQtVisual.h"
+#include "scFaceQtVisual.h"
 #include "scCommon.h"
 
 #include <queue>
