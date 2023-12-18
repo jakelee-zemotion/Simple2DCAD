@@ -2,6 +2,7 @@
 #include "scShapeID.h"
 #include "scCommon.h"
 #include "scTransform.h"
+#include "scCoordinate.h"
 
 #include <QPointF>
 #include <QPainter>
@@ -10,7 +11,7 @@ class scCamera;
 class scShapeQtVisual
 {
 public:
-	scShapeQtVisual(SHAPE_TYPE shapeType, const QRect& viewportSize);
+	scShapeQtVisual(SHAPE_TYPE shapeType, const std::shared_ptr<scCoordinate>& coordinate);
 	virtual ~scShapeQtVisual();
 
 	virtual void Move(double dx, double dy) = 0;
@@ -27,16 +28,10 @@ protected:
 	const double mHitSize;
 	const SHAPE_TYPE mShapeType;
 
-	const QRect& mViewportSize;
 	scShapeID mShapeID;
 	COLOR_TYPE mShapeColorType;
 	std::vector<Qt::GlobalColor> mShapeColors;
 
-	std::pair<double, double> WorldToScreen(double x, double y);
-	std::pair<double, double> ScreenToWorld(double x, double y);
-
-	std::pair<double, double> ScreenToLoacl(double x, double y, scTransform& transform);
-
-	std::pair<double, double> WorldToCamera(double x, double y, scTransform& transform);
+	const std::shared_ptr<scCoordinate>& mCoordinate;
 };
 

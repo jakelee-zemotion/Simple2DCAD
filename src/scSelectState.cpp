@@ -33,7 +33,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			return;
 
 		QPointF dist = currMousePos - mPrevMousePos;
-		qDebug() << mPrevMousePos << currMousePos;
+		//qDebug() << mPrevMousePos << currMousePos;
 
 		if (mCurrShape->GetShapeType() == SHAPE_TYPE::VERTEX)
 		{

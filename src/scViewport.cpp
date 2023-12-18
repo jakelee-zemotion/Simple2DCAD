@@ -17,7 +17,7 @@ scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
     mCoordinate = make_shared<scCoordinate>(mCamera, this->geometry());
-    mScene = make_shared<scScene>(this->geometry());
+    mScene = make_shared<scScene>(mCoordinate);
 
     mIsCtrlPressed = false;
 

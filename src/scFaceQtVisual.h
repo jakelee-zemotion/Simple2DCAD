@@ -8,7 +8,7 @@ public:
 	scFaceQtVisual(
 		SHAPE_TYPE shapeType,
 		const std::list<std::shared_ptr<scLineData>>& lineList, 
-		const QRect& viewportSize);
+		const std::shared_ptr<scCoordinate>& coordinate);
 	~scFaceQtVisual() override;
 
 	void Move(double dx, double dy) override;

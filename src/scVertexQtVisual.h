@@ -8,7 +8,7 @@ class QPainter;
 class scVertexQtVisual : public scShapeQtVisual
 {
 public:
-	scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const QRect& viewportSize);
+	scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const std::shared_ptr<scCoordinate>& coordinate);
 	~scVertexQtVisual() override;
 
 	void Move(double x, double y) override;

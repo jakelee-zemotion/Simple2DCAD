@@ -1,5 +1,4 @@
 #pragma once
-#include "scScene.h"
 
 #include <QPoint>
 

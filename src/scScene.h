@@ -3,6 +3,7 @@
 #include "scLineQtVisual.h"
 #include "scFaceQtVisual.h"
 #include "scCommon.h"
+#include "scCoordinate.h"
 
 #include <queue>
 #include <list>
@@ -11,7 +12,7 @@
 class scScene
 {
 public:
-	scScene(const QRect& viewportSize);
+	scScene(const std::shared_ptr<scCoordinate>& coordinate);
 	~scScene();
 
 	void Render(QPainter& painter);
@@ -30,6 +31,6 @@ private:
 	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mLineIter;
 	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mFaceIter;
 
-	const QRect& mViewportSize;
+	const std::shared_ptr<scCoordinate>& mCoordinate;
 	int mVertexCreatedCount;
 };
