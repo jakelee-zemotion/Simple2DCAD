@@ -31,11 +31,8 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	// Copy data using custom iteration.
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		pair<double, double> screenStartCoord =
-			WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
-
-		pair<double, double> localStartCoord =
-			ScreenToLoacl(screenStartCoord.first, screenStartCoord.second, 
+		auto localStartCoord =
+			WorldToCamera(mFaceData->GetLineStartX(), mFaceData->GetLineStartY(),
 				mFaceData->GetLineStartScaleX(), mFaceData->GetLineStartScaleY());
 
 		lineList.push_back({ localStartCoord.first, localStartCoord.second });

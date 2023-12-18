@@ -28,16 +28,18 @@ scLineQtVisual::~scLineQtVisual()
 
 QLineF scLineQtVisual::MakeQLineF()
 {
-	pair<double, double> screenStart =
-		WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
+	pair<double, double> localStart =
+		WorldToCamera(mLineData->GetStartX(), mLineData->GetStartY(), 
+			mLineData->GetStartScaleX(), mLineData->GetStartScaleY());
 
-	pair<double, double> screenEnd =
-		WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
+	pair<double, double> localEnd =
+		WorldToCamera(mLineData->GetEndX(), mLineData->GetEndY(),
+			mLineData->GetEndScaleX(), mLineData->GetEndScaleY());
 
 	return
 		QLineF(
-			{ screenStart.first, screenStart.second },
-			{ screenEnd.first, screenEnd.second });
+			{ localStart.first, localStart.second },
+			{ localEnd.first, localEnd.second });
 }
 
 void scLineQtVisual::Move(double dx, double dy)
