@@ -37,7 +37,7 @@ private:
 
 	std::list<ZoomData> mZoomDataList;
 
-	std::vector
+	//std::vector
 
 	QPointF mPrevMousePos;
 };

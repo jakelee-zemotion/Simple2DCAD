@@ -37,7 +37,17 @@ void scCamera::MultiplyDivideZoomXY(const QPointF& currentMousePos, int mouseDir
         mZoomY /= mZoomRatio;
     }*/
 
+
+    /*if (mouseDir < 0)
+    {
+        auto m = mZoomDataList.back();
+        mZoomDataList.pop_back();
+
+        return;
+    }*/
+
     mZoomDataList.push_back({ currentMousePos.x(), currentMousePos.y(), mouseDir });
+
 }
 
 std::pair<double, double> scCamera::Pan(double x, double y) const
@@ -60,8 +70,8 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
 {
     for (const auto& zoom : mZoomDataList)
     {
-        x -= zoom.centerX;
-        y -= zoom.centerY;
+        x -= (zoom.centerX - mPanX);
+        y -= (zoom.centerY - mPanY);
 
         if (zoom.mouseDir > 0)
         {
@@ -74,8 +84,8 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
             y /= mZoomRatio;
         }
 
-        x += zoom.centerX;
-        y += zoom.centerY;
+        x += (zoom.centerX - mPanX);
+        y += (zoom.centerY - mPanY);
     }
 
     qDebug() << "ZoomList size = " << mZoomDataList.size();
@@ -89,8 +99,8 @@ std::pair<double, double> scCamera::UnZoom(double x, double y) const
     {
         const auto& zoom = *iter;
 
-        x -= zoom.centerX;
-        y -= zoom.centerY;
+        x -= (zoom.centerX - mPanX);
+        y -= (zoom.centerY - mPanY);
 
         if (zoom.mouseDir > 0)
         {
@@ -103,8 +113,8 @@ std::pair<double, double> scCamera::UnZoom(double x, double y) const
             y *= mZoomRatio;
         }
 
-        x += zoom.centerX;
-        y += zoom.centerY;
+        x += (zoom.centerX - mPanX);
+        y += (zoom.centerY - mPanY);
     }
 
 
