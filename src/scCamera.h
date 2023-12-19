@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QPoint>
+#include <list>
+
 
 class QMouseEvent;
 class QWheelEvent;
@@ -21,13 +23,21 @@ public:
 	void SetPrevMousePos(const QPointF& prevMousePos);
 
 private:
+	struct ZoomData
+	{
+		double centerX;
+		double centerY;
+		int mouseDir;
+	};
+
 	const double mZoomRatio = 1.2;
 
 	double mPanX;
 	double mPanY;
 
-	double mZoomX;
-	double mZoomY;
+	std::list<ZoomData> mZoomDataList;
+
+	std::vector
 
 	QPointF mPrevMousePos;
 };
