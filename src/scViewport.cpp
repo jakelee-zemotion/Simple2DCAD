@@ -166,7 +166,7 @@ void scViewport::wheelEvent(QWheelEvent* event)
 
     // Zooming
     if (mIsCtrlPressed)
-       // mCamera.Zoom(currMousePos, mouseDir);
+       mCamera.MultiplyDivideZoomXY(currMousePos, mouseDir);
 
     update();
 }

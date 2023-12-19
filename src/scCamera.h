@@ -11,17 +11,17 @@ public:
 	~scCamera();
 
 	void AddPanXY(const QPointF& currentMousePos);
-	void MultiplyZoomXY(const QPointF& currentMousePos, int mouseDir);
+	void MultiplyDivideZoomXY(const QPointF& currentMousePos, int mouseDir);
 
-	//void Pan(const QPointF& currentMousePos);
-	//void Zoom(const QPointF& currentMousePos, int mouseDir);
+	std::pair<double, double> Pan(double x, double y) const;
+	std::pair<double, double> UnPan(double x, double y) const;
+	std::pair<double, double> Zoom(double x, double y) const;
+	std::pair<double, double> UnZoom(double x, double y) const;
+
 	void SetPrevMousePos(const QPointF& prevMousePos);
 
-	double GetPanX() const;
-	double GetPanY() const;
-
 private:
-	const double mZoomRatio = 0.2;
+	const double mZoomRatio = 1.2;
 
 	double mPanX;
 	double mPanY;

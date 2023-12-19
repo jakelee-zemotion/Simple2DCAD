@@ -8,7 +8,7 @@ class QRect;
 class scCoordinateHelper
 {
 public:
-	scCoordinateHelper(const scCamera& camera, const QRect& viewportSize);
+	scCoordinateHelper(scCamera& camera, const QRect& viewportSize);
 	~scCoordinateHelper();
 
 	// World -> Screen -> Local -> Camera
@@ -26,7 +26,7 @@ public:
 	std::pair<double, double> CameraToWorld(double x, double y, scTransform& transform);
 
 private:
-	const scCamera& mCamera;
+	scCamera& mCamera;
 	const QRect& mViewportSize;
 };
 

@@ -25,47 +25,55 @@ void scCamera::AddPanXY(const QPointF& currentMousePos)
     mPanX += dist.x();
     mPanY += dist.y();
 
-   /* for (const auto& object : mScene.mScene)
-    {
-        for (auto& point : object->mPoints)
-        {
-            point += dist;
-        }
-    }*/
 }
 
-void scCamera::MultiplyZoomXY(const QPointF& currentMousePos, int mouseDir)
+void scCamera::MultiplyDivideZoomXY(const QPointF& currentMousePos, int mouseDir)
 {
-    /*for (const auto& object : mScene.mScene)
+    if (mouseDir > 0)
     {
-        for (auto& point : object->mPoints)
-        {
-            point -= currentMousePos;
-            if (mouseDir > 0)
-            {
-                point *= zoomValue;
-            }
-            else
-            {
-                point /= zoomValue;
-            }
-            point += currentMousePos;
-        }
-    }*/
-    
+        mZoomX *= mZoomRatio;
+        mZoomY *= mZoomRatio;
+    }
+    else
+    {
+        mZoomX /= mZoomRatio;
+        mZoomY /= mZoomRatio;
+    }
+}
+
+std::pair<double, double> scCamera::Pan(double x, double y) const
+{
+    x += mPanX;
+    y += mPanY;
+
+    return { x, y };
+}
+
+std::pair<double, double> scCamera::UnPan(double x, double y) const
+{
+    x -= mPanX;
+    y -= mPanY;
+
+    return { x, y };
+}
+
+std::pair<double, double> scCamera::Zoom(double x, double y) const
+{
+    x *= mZoomX;
+    y *= mZoomY;
+
+    return { x, y };
+}
+
+std::pair<double, double> scCamera::UnZoom(double x, double y) const
+{
+    x /= mZoomX;
+    y /= mZoomY;
+
+    return { x, y };
 }
 
 void scCamera::SetPrevMousePos(const QPointF& prevMousePos)
 {
     mPrevMousePos = prevMousePos;
-}
-
-double scCamera::GetPanX() const
-{
-    return mPanX;
-}
-
-double scCamera::GetPanY() const
-{
-    return mPanY;
 }
