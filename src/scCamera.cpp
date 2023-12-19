@@ -114,8 +114,8 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
 {
     for (const auto& zoomCenter : mZoomCenterVector)
     {
-        x -= (zoomCenter.first - mPanX);
-        y -= (zoomCenter.second - mPanY);
+        x -= (zoomCenter.first );
+        y -= (zoomCenter.second );
 
         if (mZoomState == ZOOM::IN)
         {
@@ -128,8 +128,8 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
             y /= mZoomRatio;
         }
 
-        x += (zoomCenter.first  - mPanX);
-        y += (zoomCenter.second - mPanY);
+        x += (zoomCenter.first  );
+        y += (zoomCenter.second);
     }
 
     qDebug() << "ZoomVector size = " << mZoomCenterVector.size();
@@ -143,8 +143,8 @@ std::pair<double, double> scCamera::UnZoom(double x, double y) const
     {
         const auto& zoomCenter = *iter;
 
-        x -= (zoomCenter.first - mPanX);
-        y -= (zoomCenter.second - mPanY);
+        x -= (zoomCenter.first );
+        y -= (zoomCenter.second );
 
         if (mZoomState == ZOOM::IN)
         {
@@ -157,8 +157,8 @@ std::pair<double, double> scCamera::UnZoom(double x, double y) const
             y *= mZoomRatio;
         }
 
-        x += (zoomCenter.first - mPanX);
-        y += (zoomCenter.second - mPanY);
+        x += (zoomCenter.first );
+        y += (zoomCenter.second );
     }
 
 
