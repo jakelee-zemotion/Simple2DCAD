@@ -2,6 +2,7 @@
 
 #include <QPoint>
 #include <list>
+#include <vector>
 
 
 class QMouseEvent;
@@ -23,21 +24,17 @@ public:
 	void SetPrevMousePos(const QPointF& prevMousePos);
 
 private:
-	struct ZoomData
-	{
-		double centerX;
-		double centerY;
-		int mouseDir;
-	};
+	QPointF mPrevMousePos;
 
-	const double mZoomRatio = 1.2;
-
+	// Pan
 	double mPanX;
 	double mPanY;
 
-	std::list<ZoomData> mZoomDataList;
+	// Zoom
+	const double mZoomRatio = 1.2;
+	const size_t mZoomLimit = 5;
+	enum class ZOOM { IN, OUT };
 
-	//std::vector
-
-	QPointF mPrevMousePos;
+	std::vector<std::pair<double, double>> mZoomCenterVector;
+	ZOOM mZoomState;
 };
