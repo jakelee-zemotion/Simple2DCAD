@@ -38,6 +38,7 @@ private:
 	ZOOM mZoomState;
 	int idx;
 	std::vector<std::pair<double, double>> mZoomCenterVector;
+	std::vector<ZOOM> mZoomStates;
 	std::vector<std::pair<double, double>> mPanDistVector;
 
 	void PushPopZoomCenterVector(const QPointF& currentMousePos, const ZOOM& currZoomState);
