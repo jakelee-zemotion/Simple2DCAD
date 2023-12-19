@@ -80,19 +80,19 @@ std::pair<double, double> scCoordinateHelper::LocalToCamera(double x, double y)
     // 1. Zoom
     auto zoomCoord = mCamera.Zoom(x, y);
 
-    // 2. Pan
-    auto panCoord = mCamera.Pan(zoomCoord.first, zoomCoord.second);
+    //// 2. Pan
+    //auto panCoord = mCamera.Pan(zoomCoord.first, zoomCoord.second);
 
-    return panCoord;
+    return zoomCoord;
 }
 
 std::pair<double, double> scCoordinateHelper::CameraToLocal(double x, double y)
 {
-    // 1. Pan
-    auto panCoord = mCamera.UnPan(x, y);
+    //// 1. Pan
+    //auto panCoord = mCamera.UnPan(x, y);
 
     // 2. Zoom
-    auto zoomCoord = mCamera.UnZoom(panCoord.first, panCoord.second);
+    auto zoomCoord = mCamera.UnZoom(x, y);
 
     return zoomCoord;
 }
