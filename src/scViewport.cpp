@@ -79,7 +79,7 @@ void scViewport::mousePressEvent(QMouseEvent* event)
         }
         break;
 
-        // Panning
+        // Pan
         case Qt::MiddleButton:
         {
             mCamera.SetPrevMousePos(currMousePos);
@@ -107,7 +107,7 @@ void scViewport::mouseMoveEvent(QMouseEvent* event)
     // The last point tracks the mouse in drawing mode
     mStateMachine.GetCurrentState()->MouseMoveEvent(currMousePos);
 
-    // Panning
+    // Pan
     switch (event->buttons())
     {
         case Qt::MiddleButton:
@@ -164,9 +164,9 @@ void scViewport::wheelEvent(QWheelEvent* event)
     QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
     int mouseDir = event->angleDelta().y();
 
-    // Zooming
+    // Zoom
     if (mIsCtrlPressed)
-       mCamera.MultiplyDivideZoomXY(currMousePos, mouseDir);
+       mCamera.ZoomInOut(currMousePos, mouseDir);
 
     update();
 }

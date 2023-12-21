@@ -8,7 +8,7 @@ scCamera::scCamera()
 {
     mPrevMousePos = { 0, 0 };
 
-    mZoomState = ZOOM::IN;
+    mPrevZoomState = ZOOM::IN;
     mZoomBackIdx = -1;
     mPanBackIdx = 0;
     mZoomCenterVector.resize(mZoomLimitSize);
@@ -35,34 +35,63 @@ void scCamera::AddPanXY(const QPointF& currentMousePos)
 
 
 
-void scCamera::PushPopZoomCenterVector(const QPointF& currentMousePos, const ZOOM& currZoomState)
+void scCamera::AddRemoveZoomPanVectorElement(const QPointF& currentMousePos, const ZOOM& currZoomState)
 {
-    if (mZoomBackIdx == -1 || mZoomState == currZoomState)
+    // Zoom/Pan information is saved in vectors step by step.
+    // 
+    // If the vector is empty or 
+    // the previous state is the same as the current state (e.g. Zoom In->In->In, Out->Out->Out)
+    if (mZoomBackIdx == -1 || mPrevZoomState == currZoomState)
     {
+        // Add Zoom/Pan Elements.
         if (mZoomBackIdx + 1 >= mZoomLimitSize)
             return;
 
         mZoomBackIdx++; mPanBackIdx++;
 
         mZoomCenterVector[mZoomBackIdx] = { currentMousePos.x(), currentMousePos.y() };
-        mZoomState = currZoomState;
+        mPrevZoomState = currZoomState;
         mPanDistVector[mPanBackIdx] = { 0.0, 0.0 };
         return;
     }
 
+    // Remove Zoom/Pan Elements.
+    // ####################################
+    // Consider the case of 
+    // [stage1] --ZoomIn --> [stage2] --ZoomOut--> [stage3]
+    // or
+    // [stage1] --ZoomOut--> [stage2] --ZoomIn --> [stage3]
+    // 
+    // Here, the object size of stage3 is the same as stage1. 
+    // 
+    // This is because the Zoom ratio for all Zoom steps is the same. (mZoomRatio)
+    // 
+    // So instead of going through the steps above, 
+    // we just find the distance difference between steps 1 and 3 
+    // and add it to Pan.
+    // ####################################
+
     pair<double, double> center1 = mZoomCenterVector[mZoomBackIdx];
     pair<double, double> center2 = { currentMousePos.x(), currentMousePos.y() };
 
+    // Find the distance difference between steps 1 and 3.
     auto zoomtoPan =
         [&mZoomRatio = mZoomRatio, &currZoomState](double c1, double c2, double p1) -> double
         {
-            // Zoom In
+            // ####################################
+            // 1. [stage1] --ZoomOut--> [stage2] --ZoomIn --> [stage3]
+            // 
             // ((x - c1) / r + c1 + p1 - c2) * r + c2 = newX
             // newX - x = -c1 + c2 + c1 * r + p1 * r - c2 * r
-
-            // Zoom Out
+            //
+            //
+            // 2. [stage1] --ZoomIn --> [stage2] --ZoomOut--> [stage3]
+            // 
             // ((x - c1) * r + c1 + p1 - c2) / r + c2 = newX
             // newX - x = -c1 + c2 + c1 / r + p1 / r - c2 / r
+            //  
+            // (c.f. newX - x = distance)
+            // ####################################
 
             const double r = (currZoomState == ZOOM::IN ? mZoomRatio : 1.0 / mZoomRatio);
             return c2 - c1 + c1 * r - c2 * r + p1 * r;
@@ -71,34 +100,34 @@ void scCamera::PushPopZoomCenterVector(const QPointF& currentMousePos, const ZOO
 
     assert(mPanBackIdx - 1 >= 0 && mPanBackIdx < mPanLimitSize);
 
+    // Add the distance to Pan.
     mPanDistVector[mPanBackIdx - 1].first += zoomtoPan(center1.first, center2.first, mPanDistVector[mPanBackIdx].first);
     mPanDistVector[mPanBackIdx - 1].second += zoomtoPan(center1.second, center2.second, mPanDistVector[mPanBackIdx].second);
 
     mPanBackIdx--;
     mZoomBackIdx--;
-    //mZoomCenterVector.pop_back();
-    //mPanDistVector.pop_back();
 }
 
 
-void scCamera::MultiplyDivideZoomXY(const QPointF& currentMousePos, int mouseDir)
+void scCamera::ZoomInOut(const QPointF& currentMousePos, int mouseDir)
 {
     if (mouseDir > 0) // Zoom In
     {
-        PushPopZoomCenterVector(currentMousePos, ZOOM::IN);
+        AddRemoveZoomPanVectorElement(currentMousePos, ZOOM::IN);
     }
     else // Zoom Out
     {
-        PushPopZoomCenterVector(currentMousePos, ZOOM::OUT);
+        AddRemoveZoomPanVectorElement(currentMousePos, ZOOM::OUT);
     }
 
 }
 
-std::pair<double, double> scCamera::Zoom(double x, double y) const
+std::pair<double, double> scCamera::ZoomPan(double x, double y) const
 {
     assert(!mPanDistVector.empty());
 
-    // First Panning
+    // Pan Zoom Pan Zoom Pan ...
+    // First Pan
     x += mPanDistVector[0].first;
     y += mPanDistVector[0].second;
 
@@ -109,11 +138,11 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
         const auto& zoomCenter = mZoomCenterVector[i];
         const auto& panDist = mPanDistVector[i + 1];
 
-        // Zooming
+        // Zoom
         x -= (zoomCenter.first);
         y -= (zoomCenter.second);
 
-        if (mZoomState == ZOOM::IN)
+        if (mPrevZoomState == ZOOM::IN)
         {
             x *= mZoomRatio;
             y *= mZoomRatio;
@@ -128,21 +157,22 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
         y += (zoomCenter.second);
 
 
-        // Panning
+        // Pan
         x += panDist.first;
         y += panDist.second;
     }
 
-    qDebug() << "ZoomVector size = " << mZoomCenterVector.size() << "  //  PanVector size = " << mPanDistVector.size();
+    //qDebug() << "ZoomVector size = " << mZoomCenterVector.size() << "  //  PanVector size = " << mPanDistVector.size();
 
     return { x, y };
 }
 
-std::pair<double, double> scCamera::UnZoom(double x, double y) const
+std::pair<double, double> scCamera::UnZoomPan(double x, double y) const
 {
     assert(mPanBackIdx < mPanLimitSize);
 
-    // First Panning
+    // UnPan UnZoom UnPan UnZoom UnPan ...
+    // First UnPan
     x -= mPanDistVector[mPanBackIdx].first;
     y -= mPanDistVector[mPanBackIdx].second;
 
@@ -153,11 +183,11 @@ std::pair<double, double> scCamera::UnZoom(double x, double y) const
         const auto& zoomCenter = mZoomCenterVector[i];
         const auto& panDist = mPanDistVector[i];
 
-        // Zooming
+        // UnZoom
         x -= (zoomCenter.first);
         y -= (zoomCenter.second);
 
-        if (mZoomState == ZOOM::IN)
+        if (mPrevZoomState == ZOOM::IN)
         {
             x /= mZoomRatio;
             y /= mZoomRatio;
@@ -172,7 +202,7 @@ std::pair<double, double> scCamera::UnZoom(double x, double y) const
         y += (zoomCenter.second);
 
 
-        // Panning
+        // UnPan
         x -= panDist.first;
         y -= panDist.second;
     }

@@ -77,16 +77,16 @@ std::pair<double, double> scCoordinateHelper::LoaclToScreen(double x, double y, 
 
 std::pair<double, double> scCoordinateHelper::LocalToCamera(double x, double y)
 {
-    // 1. Zoom
-    auto zoomCoord = mCamera.Zoom(x, y);
+    // Pan Zoom Pan Zoom Pan ...
+    auto zoomPanCoord = mCamera.ZoomPan(x, y);
 
-    return zoomCoord;
+    return zoomPanCoord;
 }
 
 std::pair<double, double> scCoordinateHelper::CameraToLocal(double x, double y)
 {
-    // 2. Zoom
-    auto zoomCoord = mCamera.UnZoom(x, y);
+    // UnPan UnZoom UnPan UnZoom UnPan ...
+    auto zoomCoord = mCamera.UnZoomPan(x, y);
 
     return zoomCoord;
 }
