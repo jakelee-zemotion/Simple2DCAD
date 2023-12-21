@@ -21,7 +21,6 @@ private:
 	void ResetSelected();
 	void HightlightShape();
 
-	QPointF VertexSnapping(const QPointF& currMousePos);
 	void SelectShape();
 
 	bool mIsMousePressed;

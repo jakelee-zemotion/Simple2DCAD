@@ -3,6 +3,7 @@
 #include <QPoint>
 #include <memory>
 
+class scShapeID;
 class scScene;
 class QKeyEvent;
 class scState
@@ -19,6 +20,8 @@ public:
 	virtual void EndState() = 0;
 
 protected:
+	QPointF SnapVertex(const QPointF& currMousePos, const scShapeID& noTestShapeID);
+
 	const std::shared_ptr<scScene> mScene;
 	QPointF mPrevMousePos;
 };
