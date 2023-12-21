@@ -47,13 +47,7 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
     {
         assert(mDrawingShape != nullptr);
 
-        QPointF targetPos = currMousePos;
-
-        // Vertex snapping
-        if (CanCreateFace(currMousePos))
-        {
-            targetPos = mStartVertexPos;
-        }
+        QPointF targetPos = SnapVertex(currMousePos, mDrawingShape->GetID());
 
         mDrawingShape->Move(targetPos.x(), targetPos.y());
     }

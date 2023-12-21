@@ -165,7 +165,7 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, S
 	return nullptr;
 }
 
-void scScene::AddBoundingBoxOfFace(shared_ptr<scFaceQtVisual>& face)
+void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 {
 	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
 

@@ -26,8 +26,8 @@ public:
 protected:
 	const double mHitSize;
 	const SHAPE_TYPE mShapeType;
+	const scShapeID mShapeID;
 
-	scShapeID mShapeID;
 	COLOR_TYPE mShapeColorType;
 	std::vector<Qt::GlobalColor> mShapeColors;
 
