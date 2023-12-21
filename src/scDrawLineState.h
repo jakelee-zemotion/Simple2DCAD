@@ -18,6 +18,7 @@ public:
 
 	void EndState() override;
 
+	void EndDrawing(bool createFaceFlag);
 	bool CanCreateFace(const QPointF& currMousePos) const;
 
 private:

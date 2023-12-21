@@ -22,13 +22,7 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
     // Create a Face.
     if (CanCreateFace(currMousePos))
     {
-        // Reset the shared pointers.
-        mDrawingShape.reset();
-        mDrawStartVertex.reset();
-
-        mScene->EndDrawing(true);
-
-        mIsDrawing = false;
+        this->EndDrawing(true);
         return;
     }
 
@@ -76,7 +70,7 @@ void scDrawLineState::KeyPressEvent(QKeyEvent* event)
         case Qt::Key_Return:
         case Qt::Key_Escape:
         {
-            EndState();
+            this->EndDrawing(false);
         }
         break;
     }
@@ -84,14 +78,18 @@ void scDrawLineState::KeyPressEvent(QKeyEvent* event)
 
 void scDrawLineState::EndState()
 {
+    this->EndDrawing(false);
+}
+
+void scDrawLineState::EndDrawing(bool createFaceFlag)
+{
     if (mIsDrawing)
     {
         // Reset the shared pointers.
         mDrawingShape.reset();
         mDrawStartVertex.reset();
 
-        // KeyPress do not create a face.
-        mScene->EndDrawing(false);
+        mScene->EndDrawing(createFaceFlag);
 
         mIsDrawing = false;
     }
