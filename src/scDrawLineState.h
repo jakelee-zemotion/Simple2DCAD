@@ -4,6 +4,7 @@
 #include <QPointF>
 
 class scScene;
+class scVertexQtVisual;
 class scShapeQtVisual;
 class scDrawLineState : public scState
 {
@@ -22,10 +23,9 @@ public:
 	bool CanCreateFace(const QPointF& currMousePos) const;
 
 private:
-	std::shared_ptr<scShapeQtVisual> mDrawingShape;
-	std::shared_ptr<scShapeQtVisual> mDrawStartVertex;
-
-	QPointF mStartVertexPos;
+	std::shared_ptr<scVertexQtVisual> mDrawingVertex;
+	std::shared_ptr<scVertexQtVisual> mDrawStartVertex;
+	
 	bool mIsDrawing;
 };
 

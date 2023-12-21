@@ -36,7 +36,7 @@ void scScene::Render(QPainter& painter)
 	}
 }
 
-shared_ptr<scShapeQtVisual> scScene::AddStartVertex(const QPointF& point)
+shared_ptr<scVertexQtVisual> scScene::AddStartVertex(const QPointF& point)
 {
 	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(point, mCoordinateHelper);
 	mVertexList.push_back(startVertex);
@@ -48,7 +48,7 @@ shared_ptr<scShapeQtVisual> scScene::AddStartVertex(const QPointF& point)
 	return startVertex;
 }
 
-shared_ptr<scShapeQtVisual> scScene::AddEndVertex(const QPointF& point)
+shared_ptr<scVertexQtVisual> scScene::AddEndVertex(const QPointF& point)
 {
 	// Copy the vertices.
 	shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());

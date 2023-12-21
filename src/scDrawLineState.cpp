@@ -1,4 +1,5 @@
 #include "scDrawLineState.h"
+#include "scVertexQtVisual.h"
 #include "scShapeQtVisual.h"
 #include "scScene.h"
 
@@ -9,7 +10,6 @@ using namespace std;
 scDrawLineState::scDrawLineState(const shared_ptr<scScene>& scene)
     :scState(scene)
 {
-    mStartVertexPos = { 0.0, 0.0 };
     mIsDrawing = false;
 }
 
@@ -31,12 +31,11 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
     if (!mIsDrawing)
     {
         mDrawStartVertex = mScene->AddStartVertex(currMousePos);
-        mStartVertexPos = currMousePos;
         mIsDrawing = true;
     }
 
     // Add and Return the vertex.
-    mDrawingShape = mScene->AddEndVertex(currMousePos);
+    mDrawingVertex = mScene->AddEndVertex(currMousePos);
 
     mPrevMousePos = currMousePos;
 }
@@ -45,11 +44,11 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
     if (mIsDrawing)
     {
-        assert(mDrawingShape != nullptr);
+        assert(mDrawingVertex != nullptr);
 
-        QPointF targetPos = SnapVertex(currMousePos, mDrawingShape->GetID());
+        QPointF targetPos = SnapVertex(currMousePos, mDrawingVertex->GetID());
 
-        mDrawingShape->Move(targetPos.x(), targetPos.y());
+        mDrawingVertex->Move(targetPos.x(), targetPos.y());
     }
 
 }
@@ -81,7 +80,7 @@ void scDrawLineState::EndDrawing(bool createFaceFlag)
     if (mIsDrawing)
     {
         // Reset the shared pointers.
-        mDrawingShape.reset();
+        mDrawingVertex.reset();
         mDrawStartVertex.reset();
 
         mScene->EndDrawing(createFaceFlag);

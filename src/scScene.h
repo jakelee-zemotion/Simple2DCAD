@@ -8,6 +8,7 @@
 
 class scCoordinateHelper;
 class scShapeQtVisual;
+class scVertexQtVisual;
 class scFaceQtVisual;
 class QPainter;
 class scScene
@@ -18,8 +19,8 @@ public:
 
 	void Render(QPainter& painter);
 
-	std::shared_ptr<scShapeQtVisual> AddStartVertex(const QPointF& point);
-	std::shared_ptr<scShapeQtVisual> AddEndVertex(const QPointF& point);
+	std::shared_ptr<scVertexQtVisual> AddStartVertex(const QPointF& point);
+	std::shared_ptr<scVertexQtVisual> AddEndVertex(const QPointF& point);
 	void EndDrawing(bool canCreateFace);
 	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(false));
 
