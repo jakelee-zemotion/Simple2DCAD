@@ -11,7 +11,6 @@ scDrawLineState::scDrawLineState(const shared_ptr<scScene>& scene)
 {
     mStartVertexPos = { 0.0, 0.0 };
     mIsDrawing = false;
-    mCanCreateFace = false;
 }
 
 scDrawLineState::~scDrawLineState()
@@ -23,11 +22,13 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
     // Create a Face.
     if (CanCreateFace(currMousePos))
     {
+        // Reset the shared pointers.
+        mDrawingShape.reset();
+        mDrawStartVertex.reset();
 
-        mScene->EndDrawing(mCanCreateFace);
+        mScene->EndDrawing(true);
+
         mIsDrawing = false;
-
-        mCanCreateFace = false;
         return;
     }
 
@@ -53,12 +54,10 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
         assert(mDrawingShape != nullptr);
 
         QPointF targetPos = currMousePos;
-        mCanCreateFace = false;
 
         if (CanCreateFace(currMousePos))
         {
             targetPos = mStartVertexPos;
-            mCanCreateFace = true;
         }
 
         mDrawingShape->Move(targetPos.x(), targetPos.y());
@@ -87,14 +86,13 @@ void scDrawLineState::EndState()
 {
     if (mIsDrawing)
     {
-        // KeyPress do not create a face.
-        mCanCreateFace = false;
-
         // Reset the shared pointers.
         mDrawingShape.reset();
         mDrawStartVertex.reset();
 
-        mScene->EndDrawing(mCanCreateFace);
+        // KeyPress do not create a face.
+        mScene->EndDrawing(false);
+
         mIsDrawing = false;
     }
 }

@@ -26,6 +26,5 @@ private:
 
 	QPointF mStartVertexPos;
 	bool mIsDrawing;
-	bool mCanCreateFace;
 };
 
