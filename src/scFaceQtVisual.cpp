@@ -17,7 +17,7 @@ scFaceQtVisual::scFaceQtVisual(
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::gray;
-	mShapeColors[static_cast<int>(COLOR_TYPE::PUT_ON)] = Qt::darkGray;
+	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::darkGray;
 	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::cyan;
 }
 

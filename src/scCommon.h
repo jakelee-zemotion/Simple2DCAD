@@ -23,5 +23,5 @@ inline bool operator==(SHAPE_TYPE stype1, SHAPE_TYPE stype2)
 
 enum class COLOR_TYPE
 {
-	DEFAULT, PUT_ON, SELECT
+	DEFAULT, HIGHTLIGHT, SELECT
 };

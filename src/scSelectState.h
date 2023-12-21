@@ -24,8 +24,8 @@ private:
 	bool mIsMousePressed;
 	SHAPE_TYPE mSelectShapeType;
 
-	std::shared_ptr<scShapeQtVisual> mPrevPutOnShape;
-	std::shared_ptr<scShapeQtVisual> mCurrPutOnShape;
+	std::shared_ptr<scShapeQtVisual> mPrevHighlightShape;
+	std::shared_ptr<scShapeQtVisual> mCurrHighlightShape;
 
 	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 };
