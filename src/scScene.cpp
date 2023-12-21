@@ -169,7 +169,7 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 {
 	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
 
-
+	scBoundingBox boundingBox = face->GetBoundingBox();
 
 }
 

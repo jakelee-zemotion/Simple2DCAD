@@ -73,7 +73,7 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	QPolygonF qp = this->MakeQPolygonF();
 	painter.drawPolygon(qp);
 
-	pen.setColor(Qt::red);
+	/*pen.setColor(Qt::red);
 	pen.setWidth(1);
 	pen.setStyle(Qt::DotLine);
 	painter.setPen(pen);
@@ -81,7 +81,7 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	painter.setBrush(Qt::NoBrush);
 
 	QRectF qr = qp.boundingRect();
-	painter.drawPolygon(qr);
+	painter.drawPolygon(qr);*/
 }
 
 bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
@@ -133,4 +133,33 @@ void scFaceQtVisual::RotateFace(double theta)
 
 		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
 	}
+}
+
+scBoundingBox scFaceQtVisual::GetBoundingBox()
+{
+	scBoundingBox boundingBox;
+
+	double minX = DBL_MAX;
+	double minY = DBL_MAX;
+	double maxX = DBL_MIN;
+	double maxY = DBL_MIN;
+
+	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
+	{
+		auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
+			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
+
+		minX = min(minX, cameraStartCoord.first);
+		maxX = max(maxX, cameraStartCoord.first);
+
+		minY = min(minY, cameraStartCoord.second);
+		maxY = max(maxY, cameraStartCoord.second);
+	}
+
+	boundingBox.topLeft    = { minX, minY };
+	boundingBox.topRight   = { maxX, minY };
+	boundingBox.bottomLeft = { minX, maxY };
+	boundingBox.bottomLeft = { maxX, maxY };
+
+	return boundingBox;
 }

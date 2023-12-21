@@ -1,6 +1,14 @@
 #pragma once
 #include "scShapeQtVisual.h"
 
+struct scBoundingBox
+{
+	QPointF topLeft;
+	QPointF topRight;
+	QPointF bottomLeft;
+	QPointF bottomRight;
+};
+
 class scCoordinateHelper;
 class scFaceData;
 class scLineData;
@@ -18,6 +26,8 @@ public:
 
 	void ScaleFace(double dx, double dy);
 	void RotateFace(double theta);
+
+	scBoundingBox GetBoundingBox();
 
 private:
 	QPolygonF MakeQPolygonF();
