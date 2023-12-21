@@ -49,7 +49,7 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 {
     if (mIsDrawing)
     {
-        assert(!mDrawingShape.expired());
+        assert(mDrawingShape != nullptr);
 
         QPointF targetPos = currMousePos;
         mCanCreateFace = false;
@@ -60,7 +60,7 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
             mCanCreateFace = true;
         }
 
-        mDrawingShape.lock()->Move(targetPos.x(), targetPos.y());
+        mDrawingShape->Move(targetPos.x(), targetPos.y());
     }
 
 }
@@ -89,6 +89,9 @@ void scDrawLineState::EndState()
         // KeyPress do not create a face.
         mCanCreateFace = false;
 
+        mDrawingShape.reset();
+        mDrawStartVertex.reset();
+
         mScene->EndDrawing(mCanCreateFace);
         mIsDrawing = false;
     }
@@ -98,6 +101,6 @@ bool scDrawLineState::CanCreateFace(const QPointF& currMousePos) const
 {
     return
         mScene->GetVertexCreatedCount() >= 3
-        && !mDrawStartVertex.expired()
-        && mDrawStartVertex.lock()->HitTest(currMousePos);
+        && mDrawStartVertex != nullptr
+        && mDrawStartVertex->HitTest(currMousePos);
 }
