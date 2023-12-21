@@ -36,23 +36,14 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			return;
 
 		QPointF dist = currMousePos - mPrevMousePos;
-		//qDebug() << mPrevMousePos << currMousePos;
 
+
+		// Vertex snapping
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::VERTEX)
 		{
-			// Snapping
-			shared_ptr<scVertexQtVisual> snappedVertex = 
-				dynamic_pointer_cast<scVertexQtVisual>(mScene->HitTest(currMousePos, mSelectShapeType, mCurrHighlightShape->GetID()));
-
-			if (snappedVertex != nullptr)
-			{
-				dist = snappedVertex->MakeQPointF();
-			}
-			else
-			{
-				dist = currMousePos;
-			}
+			dist = VertexSnapping(currMousePos);
 		}
+
 
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::FACE)
 		{
@@ -210,4 +201,18 @@ void scSelectState::HightlightShape()
 		}		 
 
 	}
+}
+
+QPointF scSelectState::VertexSnapping(const QPointF& currMousePos)
+{
+	shared_ptr<scShapeQtVisual> hitTestResultVertex = 
+		mScene->HitTest(currMousePos, SHAPE_TYPE::VERTEX, mCurrHighlightShape->GetID());
+
+	shared_ptr<scVertexQtVisual> snappedVertex = 
+		dynamic_pointer_cast<scVertexQtVisual>(hitTestResultVertex);
+
+	if (snappedVertex != nullptr)
+		return snappedVertex->MakeQPointF();
+	else
+		return currMousePos;
 }

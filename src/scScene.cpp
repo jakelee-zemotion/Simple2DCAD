@@ -144,6 +144,7 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, S
 	for (int i = 0; i < 3; i++)
 	{
 		// Check shapeType using bitwise operators.
+		// 001 is Vertex, 010 is Line, 100 is Face and 111 is ALL.
 		if (!((shapeType >> i) & 1))
 			continue;
 
