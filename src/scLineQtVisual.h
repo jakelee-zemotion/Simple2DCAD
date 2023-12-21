@@ -10,7 +10,6 @@ class scLineQtVisual : public scShapeQtVisual
 {
 public:
 	scLineQtVisual(
-		SHAPE_TYPE shapeType,
 		const std::shared_ptr<scVertexQtVisual>& startVertex, 
 		const std::shared_ptr<scVertexQtVisual>& endVertex,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);

@@ -224,6 +224,6 @@ void scSelectState::SelectShape()
 		shared_ptr<scFaceQtVisual> selectedFace =
 			dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
 
-
+		mScene->AddBoundingBoxOfFace(selectedFace);
 	}
 }

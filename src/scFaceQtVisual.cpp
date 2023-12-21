@@ -7,10 +7,9 @@
 using namespace std;
 
 scFaceQtVisual::scFaceQtVisual(
-	SHAPE_TYPE shapeType,
 	const list<shared_ptr<scLineData>>& lineList, 
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-	: scShapeQtVisual(shapeType, coordinateHelper)
+	: scShapeQtVisual(SHAPE_TYPE::FACE, coordinateHelper)
 {
 	// Set the lines.
 	mFaceData = make_shared<scFaceData>(lineList);

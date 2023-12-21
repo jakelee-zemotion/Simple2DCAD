@@ -7,8 +7,8 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const shared_ptr<scCoordinateHelper>& coordinateHelper)
-	:scShapeQtVisual(shapeType, coordinateHelper)
+scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+	:scShapeQtVisual(SHAPE_TYPE::VERTEX, coordinateHelper)
 {
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();

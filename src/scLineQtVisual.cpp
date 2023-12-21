@@ -9,11 +9,10 @@
 using namespace std;
 
 scLineQtVisual::scLineQtVisual(
-	SHAPE_TYPE shapeType,
 	const shared_ptr<scVertexQtVisual>& startVertex, 
 	const shared_ptr<scVertexQtVisual>& endVertex,
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-	:scShapeQtVisual(shapeType, coordinateHelper)
+	:scShapeQtVisual(SHAPE_TYPE::LINE, coordinateHelper)
 {
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();

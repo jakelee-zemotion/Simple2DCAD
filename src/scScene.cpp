@@ -38,7 +38,7 @@ void scScene::Render(QPainter& painter)
 
 shared_ptr<scShapeQtVisual> scScene::AddStartVertex(const QPointF& point)
 {
-	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(SHAPE_TYPE::VERTEX, point, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(point, mCoordinateHelper);
 	mVertexList.push_back(startVertex);
 
 	mShapeList.push_back(startVertex);
@@ -52,10 +52,10 @@ shared_ptr<scShapeQtVisual> scScene::AddEndVertex(const QPointF& point)
 {
 	// Copy the vertices.
 	shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
-	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(SHAPE_TYPE::VERTEX, point, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(point, mCoordinateHelper);
 
 	// Ref the vertices.
-	shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(SHAPE_TYPE::LINE, startVertex, endVertex, mCoordinateHelper);
+	shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
 
 	// Add Vertices.
 	mVertexList.push_back(endVertex);
@@ -110,7 +110,7 @@ void scScene::EndDrawing(bool canCreateFace)
 		shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
 		shared_ptr<scVertexQtVisual> endVertex = dynamic_pointer_cast<scVertexQtVisual>(*vertexIter);
 
-		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(SHAPE_TYPE::LINE, startVertex, endVertex, mCoordinateHelper);
+		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
 		mLineList.push_back(newLine);
 		mShapeList.insert(mLineIter, newLine);
 
@@ -124,7 +124,7 @@ void scScene::EndDrawing(bool canCreateFace)
 		}
 
 		// Add a new face.
-		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(SHAPE_TYPE::FACE, faceLineList, mCoordinateHelper);
+		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(faceLineList, mCoordinateHelper);
 		mFaceList.push_back(newFace);
 		mShapeList.insert(mFaceIter, newFace);
 	}
@@ -163,6 +163,14 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, S
 	}
 
 	return nullptr;
+}
+
+void scScene::AddBoundingBoxOfFace(shared_ptr<scFaceQtVisual>& face)
+{
+	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
+
+
+
 }
 
 int scScene::GetVertexCreatedCount() const

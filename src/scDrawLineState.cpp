@@ -23,6 +23,7 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
     // Create a Face.
     if (CanCreateFace(currMousePos))
     {
+
         mScene->EndDrawing(mCanCreateFace);
         mIsDrawing = false;
 
@@ -89,6 +90,7 @@ void scDrawLineState::EndState()
         // KeyPress do not create a face.
         mCanCreateFace = false;
 
+        // Reset the shared pointers.
         mDrawingShape.reset();
         mDrawStartVertex.reset();
 
