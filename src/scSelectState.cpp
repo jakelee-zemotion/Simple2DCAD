@@ -40,6 +40,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 
 		if (mCurrShape->GetShapeType() == SHAPE_TYPE::VERTEX)
 		{
+			// Snapping
 			shared_ptr<scVertexQtVisual> snappedVertex = 
 				dynamic_pointer_cast<scVertexQtVisual>(mScene->HitTest(currMousePos, mSelectShapeType, mCurrShape->GetID()));
 
@@ -55,14 +56,14 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 
 		if (mCurrShape->GetShapeType() == SHAPE_TYPE::FACE)
 		{
-			double scaleX = currMousePos.x() / mPrevMousePos.x();
-			double scaleY = currMousePos.y() / mPrevMousePos.y();
+			//double scaleX = currMousePos.x() / mPrevMousePos.x();
+			//double scaleY = currMousePos.y() / mPrevMousePos.y();
 
-			shared_ptr<scFaceQtVisual> scaleFace = dynamic_pointer_cast<scFaceQtVisual>(mCurrShape);
-			scaleFace->ScaleFace(scaleX, scaleY);
-			//qDebug() << currMousePos.x() << mPrevMousePos.x() << scaleX << scaleY;
-			mPrevMousePos = currMousePos;
-			return;
+			//shared_ptr<scFaceQtVisual> scaleFace = dynamic_pointer_cast<scFaceQtVisual>(mCurrShape);
+			//scaleFace->ScaleFace(scaleX, scaleY);
+			////qDebug() << currMousePos.x() << mPrevMousePos.x() << scaleX << scaleY;
+			//mPrevMousePos = currMousePos;
+			//return;
 		}
 		mPrevMousePos = currMousePos;
 
@@ -90,7 +91,7 @@ void scSelectState::MouseReleaseEvent()
 
 
 	if (mSelectedShape != nullptr && mSelectedShape->GetID() != mCurrShape->GetID())
-		mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+		ResetSelected();
 
 	mSelectedShape = mCurrShape;
 }

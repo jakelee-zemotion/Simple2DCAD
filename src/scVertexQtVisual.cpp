@@ -18,7 +18,7 @@ scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF,
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
 	mShapeColors[static_cast<int>(COLOR_TYPE::PUT_ON)] = Qt::red;
-	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::blue;
+	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::cyan;
 }
 
 scVertexQtVisual::~scVertexQtVisual()
@@ -28,10 +28,10 @@ scVertexQtVisual::~scVertexQtVisual()
 
 QPointF scVertexQtVisual::MakeQPointF()
 {
-	pair<double, double> localCoord = 
+	pair<double, double> cameraCoord = 
 		mCoordinateHelper->WorldToCamera(mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
 
-	return { localCoord.first, localCoord.second };
+	return { cameraCoord.first, cameraCoord.second };
 }
 
 void scVertexQtVisual::Move(double targetX, double targetY)

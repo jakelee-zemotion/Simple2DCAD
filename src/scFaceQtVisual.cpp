@@ -33,11 +33,10 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	// Copy data using custom iteration.
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		auto localStartCoord =
-			mCoordinateHelper->WorldToCamera(mFaceData->GetLineStartX(), mFaceData->GetLineStartY(),
-				mFaceData->GetStartTransform());
+		auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
+				mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
 
-		lineList.push_back({ localStartCoord.first, localStartCoord.second });
+		lineList.push_back({ cameraStartCoord.first, cameraStartCoord.second });
 	}
 
 	return QPolygonF(lineList);
@@ -47,14 +46,14 @@ void scFaceQtVisual::Move(double dx, double dy)
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		pair<double, double> screenStartCoord =
-			mCoordinateHelper->WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+		auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
+			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
 
-		screenStartCoord.first += dx;
-		screenStartCoord.second += dy;
+		cameraStartCoord.first += dx;
+		cameraStartCoord.second += dy;
 
-		pair<double, double> worldStartCoord =
-			mCoordinateHelper->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+		auto worldStartCoord = mCoordinateHelper->CameraToWorld(
+			cameraStartCoord.first, cameraStartCoord.second, mFaceData->GetStartTransform());
 
 		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
 	}
@@ -75,6 +74,7 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	QPolygonF qp = this->MakeQPolygonF();
 	painter.drawPolygon(qp);
 
+	pen.setColor(Qt::red);
 	pen.setWidth(1);
 	pen.setStyle(Qt::DotLine);
 	painter.setPen(pen);

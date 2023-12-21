@@ -33,39 +33,37 @@ scLineQtVisual::~scLineQtVisual()
 
 QLineF scLineQtVisual::MakeQLineF()
 {
-	pair<double, double> localStart =
-		mCoordinateHelper->WorldToCamera(mLineData->GetStartX(), mLineData->GetStartY(),
-			mLineData->GetStartTransform());
+	auto cameraStart = mCoordinateHelper->WorldToCamera(
+			mLineData->GetStartX(), mLineData->GetStartY(), mLineData->GetStartTransform());
 
-	pair<double, double> localEnd =
-		mCoordinateHelper->WorldToCamera(mLineData->GetEndX(), mLineData->GetEndY(),
-			mLineData->GetEndTransform());
+	auto cameraEnd = mCoordinateHelper->WorldToCamera(
+			mLineData->GetEndX(), mLineData->GetEndY(), mLineData->GetEndTransform());
 
 	return
 		QLineF(
-			{ localStart.first, localStart.second },
-			{ localEnd.first, localEnd.second });
+			{ cameraStart.first, cameraStart.second },
+			{ cameraEnd.first, cameraEnd.second });
 }
 
 void scLineQtVisual::Move(double dx, double dy)
 {
-	pair<double, double> screenStartCoord = 
-		mCoordinateHelper->WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
+	auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
+			mLineData->GetStartX(), mLineData->GetStartY(), mLineData->GetStartTransform());
 
-	pair<double, double> screenEndCoord =
-		mCoordinateHelper->WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
+	auto cameraEndCoord = mCoordinateHelper->WorldToCamera(
+			mLineData->GetEndX(), mLineData->GetEndY(), mLineData->GetEndTransform());
 
-	screenStartCoord.first += dx;
-	screenStartCoord.second += dy;
+	cameraStartCoord.first += dx;
+	cameraStartCoord.second += dy;
 
-	screenEndCoord.first += dx;
-	screenEndCoord.second += dy;
+	cameraEndCoord.first += dx;
+	cameraEndCoord.second += dy;
 
-	pair<double, double> worldStartCoord =
-		mCoordinateHelper->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+	auto worldStartCoord = mCoordinateHelper->CameraToWorld(
+			cameraStartCoord.first, cameraStartCoord.second, mLineData->GetStartTransform());
 
-	pair<double, double> worldEndCoord =
-		mCoordinateHelper->ScreenToWorld(screenEndCoord.first, screenEndCoord.second);
+	auto worldEndCoord = mCoordinateHelper->CameraToWorld(
+			cameraEndCoord.first, cameraEndCoord.second, mLineData->GetEndTransform());
 
 	mLineData->SetStartVertex(worldStartCoord.first, worldStartCoord.second);
 	mLineData->SetEndVertex(worldEndCoord.first, worldEndCoord.second);
