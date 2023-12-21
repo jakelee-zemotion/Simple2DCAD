@@ -12,7 +12,7 @@ class QPainter;
 class scScene
 {
 public:
-	scScene(const std::shared_ptr<scCoordinateHelper>& coordinate);
+	scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scScene();
 
 	void Render(QPainter& painter);
@@ -31,6 +31,6 @@ private:
 	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mLineIter;
 	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mFaceIter;
 
-	const std::shared_ptr<scCoordinateHelper>& mCoordinate;
+	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 	int mVertexCreatedCount;
 };

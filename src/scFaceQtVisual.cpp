@@ -9,8 +9,8 @@ using namespace std;
 scFaceQtVisual::scFaceQtVisual(
 	SHAPE_TYPE shapeType,
 	const list<shared_ptr<scLineData>>& lineList, 
-	const std::shared_ptr<scCoordinateHelper>& coordinate)
-	: scShapeQtVisual(shapeType, coordinate)
+	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+	: scShapeQtVisual(shapeType, coordinateHelper)
 {
 	// Set the lines.
 	mFaceData = make_shared<scFaceData>(lineList);
@@ -34,7 +34,7 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		auto localStartCoord =
-			mCoordinate->WorldToCamera(mFaceData->GetLineStartX(), mFaceData->GetLineStartY(),
+			mCoordinateHelper->WorldToCamera(mFaceData->GetLineStartX(), mFaceData->GetLineStartY(),
 				mFaceData->GetStartTransform());
 
 		lineList.push_back({ localStartCoord.first, localStartCoord.second });
@@ -48,13 +48,13 @@ void scFaceQtVisual::Move(double dx, double dy)
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		pair<double, double> screenStartCoord =
-			mCoordinate->WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+			mCoordinateHelper->WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
 
 		screenStartCoord.first += dx;
 		screenStartCoord.second += dy;
 
 		pair<double, double> worldStartCoord =
-			mCoordinate->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+			mCoordinateHelper->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
 
 		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
 	}
@@ -112,7 +112,7 @@ void scFaceQtVisual::RotateFace(double theta)
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		pair<double, double> screenStartCoord =
-			mCoordinate->WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+			mCoordinateHelper->WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
 
 		screenStartCoord.first -= center.x();
 		screenStartCoord.second -= center.y();
@@ -130,7 +130,7 @@ void scFaceQtVisual::RotateFace(double theta)
 		screenStartCoord.second += center.y();
 
 		pair<double, double> worldStartCoord =
-			mCoordinate->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+			mCoordinateHelper->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
 
 		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
 	}

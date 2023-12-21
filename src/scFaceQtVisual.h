@@ -10,7 +10,7 @@ public:
 	scFaceQtVisual(
 		SHAPE_TYPE shapeType,
 		const std::list<std::shared_ptr<scLineData>>& lineList, 
-		const std::shared_ptr<scCoordinateHelper>& coordinate);
+		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scFaceQtVisual() override;
 
 	void Move(double dx, double dy) override;

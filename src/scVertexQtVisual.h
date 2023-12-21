@@ -9,7 +9,7 @@ class scVertexData;
 class scVertexQtVisual : public scShapeQtVisual
 {
 public:
-	scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const std::shared_ptr<scCoordinateHelper>& coordinate);
+	scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scVertexQtVisual() override;
 
 	void Move(double targetX, double targetY) override;

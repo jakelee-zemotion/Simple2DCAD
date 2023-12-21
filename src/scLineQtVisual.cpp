@@ -12,8 +12,8 @@ scLineQtVisual::scLineQtVisual(
 	SHAPE_TYPE shapeType,
 	const shared_ptr<scVertexQtVisual>& startVertex, 
 	const shared_ptr<scVertexQtVisual>& endVertex,
-	const std::shared_ptr<scCoordinateHelper>& coordinate)
-	:scShapeQtVisual(shapeType, coordinate)
+	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+	:scShapeQtVisual(shapeType, coordinateHelper)
 {
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();
@@ -34,11 +34,11 @@ scLineQtVisual::~scLineQtVisual()
 QLineF scLineQtVisual::MakeQLineF()
 {
 	pair<double, double> localStart =
-		mCoordinate->WorldToCamera(mLineData->GetStartX(), mLineData->GetStartY(),
+		mCoordinateHelper->WorldToCamera(mLineData->GetStartX(), mLineData->GetStartY(),
 			mLineData->GetStartTransform());
 
 	pair<double, double> localEnd =
-		mCoordinate->WorldToCamera(mLineData->GetEndX(), mLineData->GetEndY(),
+		mCoordinateHelper->WorldToCamera(mLineData->GetEndX(), mLineData->GetEndY(),
 			mLineData->GetEndTransform());
 
 	return
@@ -50,10 +50,10 @@ QLineF scLineQtVisual::MakeQLineF()
 void scLineQtVisual::Move(double dx, double dy)
 {
 	pair<double, double> screenStartCoord = 
-		mCoordinate->WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
+		mCoordinateHelper->WorldToScreen(mLineData->GetStartX(), mLineData->GetStartY());
 
 	pair<double, double> screenEndCoord =
-		mCoordinate->WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
+		mCoordinateHelper->WorldToScreen(mLineData->GetEndX(), mLineData->GetEndY());
 
 	screenStartCoord.first += dx;
 	screenStartCoord.second += dy;
@@ -62,10 +62,10 @@ void scLineQtVisual::Move(double dx, double dy)
 	screenEndCoord.second += dy;
 
 	pair<double, double> worldStartCoord =
-		mCoordinate->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+		mCoordinateHelper->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
 
 	pair<double, double> worldEndCoord =
-		mCoordinate->ScreenToWorld(screenEndCoord.first, screenEndCoord.second);
+		mCoordinateHelper->ScreenToWorld(screenEndCoord.first, screenEndCoord.second);
 
 	mLineData->SetStartVertex(worldStartCoord.first, worldStartCoord.second);
 	mLineData->SetEndVertex(worldEndCoord.first, worldEndCoord.second);

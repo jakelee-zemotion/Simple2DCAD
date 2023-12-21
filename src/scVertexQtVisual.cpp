@@ -7,8 +7,8 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const shared_ptr<scCoordinateHelper>& coordinate)
-	:scShapeQtVisual(shapeType, coordinate)
+scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+	:scShapeQtVisual(shapeType, coordinateHelper)
 {
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
@@ -29,7 +29,7 @@ scVertexQtVisual::~scVertexQtVisual()
 QPointF scVertexQtVisual::MakeQPointF()
 {
 	pair<double, double> localCoord = 
-		mCoordinate->WorldToCamera(mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
+		mCoordinateHelper->WorldToCamera(mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
 
 	return { localCoord.first, localCoord.second };
 }
@@ -38,7 +38,7 @@ void scVertexQtVisual::Move(double targetX, double targetY)
 {
 	// Unlike Line and Face, it moves directly to x, y.
 	auto worldCoord = 
-		mCoordinate->CameraToWorld(targetX, targetY, mVertexData->GetTransform());
+		mCoordinateHelper->CameraToWorld(targetX, targetY, mVertexData->GetTransform());
 
 	mVertexData->SetX(worldCoord.first);
 	mVertexData->SetY(worldCoord.second);

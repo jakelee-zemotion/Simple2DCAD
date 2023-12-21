@@ -10,7 +10,7 @@ class scCoordinateHelper;
 class scShapeQtVisual
 {
 public:
-	scShapeQtVisual(SHAPE_TYPE shapeType, const std::shared_ptr<scCoordinateHelper>& coordinate);
+	scShapeQtVisual(SHAPE_TYPE shapeType, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scShapeQtVisual();
 
 	virtual void Move(double dx, double dy) = 0;
@@ -31,6 +31,6 @@ protected:
 	COLOR_TYPE mShapeColorType;
 	std::vector<Qt::GlobalColor> mShapeColors;
 
-	const std::shared_ptr<scCoordinateHelper>& mCoordinate;
+	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 };
 

@@ -19,8 +19,8 @@ using namespace std;
 scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
-    mCoordinate = make_shared<scCoordinateHelper>(mCamera, this->geometry());
-    mScene = make_shared<scScene>(mCoordinate);
+    mCoordinateHelper = make_shared<scCoordinateHelper>(mCamera, this->geometry());
+    mScene = make_shared<scScene>(mCoordinateHelper);
 
     mIsCtrlPressed = false;
 

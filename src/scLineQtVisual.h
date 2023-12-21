@@ -13,7 +13,7 @@ public:
 		SHAPE_TYPE shapeType,
 		const std::shared_ptr<scVertexQtVisual>& startVertex, 
 		const std::shared_ptr<scVertexQtVisual>& endVertex,
-		const std::shared_ptr<scCoordinateHelper>& coordinate);
+		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scLineQtVisual() override;
 
 	void Move(double dx, double dy) override;;
