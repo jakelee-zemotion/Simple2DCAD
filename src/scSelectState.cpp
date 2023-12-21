@@ -36,8 +36,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			return;
 
 		QPointF dist = currMousePos - mPrevMousePos;
-
-
+		
 		// Vertex snapping
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::VERTEX)
 		{

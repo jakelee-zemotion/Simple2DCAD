@@ -24,7 +24,7 @@ public:
 	scShapeID GetID() const;
 
 protected:
-	const double mHitSize;
+	const double mHitSize = 10.0;
 	const SHAPE_TYPE mShapeType;
 	const scShapeID mShapeID;
 
