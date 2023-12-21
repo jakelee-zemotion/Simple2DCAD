@@ -8,11 +8,13 @@ scCamera::scCamera()
 {
     mPrevMousePos = { 0, 0 };
 
-    mZoomCenterVector.reserve(mZoomLimit);
     mZoomState = ZOOM::IN;
+    mZoomBackIdx = -1;
+    mPanBackIdx = 0;
+    mZoomCenterVector.resize(mZoomLimitSize);
+    mPanDistVector.resize(mPanLimitSize);
 
-    idx = 0;
-    mPanDistVector.push_back({ 0.0, 0.0 });
+    mPanDistVector[mPanBackIdx] = { 0.0, 0.0 };
 }
 
 scCamera::~scCamera()
@@ -24,10 +26,10 @@ void scCamera::AddPanXY(const QPointF& currentMousePos)
     QPointF dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 
-    assert(idx >= 0 && idx < mPanDistVector.size());
+    assert(mPanBackIdx >= 0 && mPanBackIdx < mPanLimitSize);
 
-    mPanDistVector[idx].first += dist.x();
-    mPanDistVector[idx].second += dist.y();
+    mPanDistVector[mPanBackIdx].first += dist.x();
+    mPanDistVector[mPanBackIdx].second += dist.y();
 
 }
 
@@ -35,20 +37,20 @@ void scCamera::AddPanXY(const QPointF& currentMousePos)
 
 void scCamera::PushPopZoomCenterVector(const QPointF& currentMousePos, const ZOOM& currZoomState)
 {
-    if (mZoomCenterVector.empty() || mZoomState == currZoomState)
+    if (mZoomBackIdx == -1 || mZoomState == currZoomState)
     {
-        if (mZoomCenterVector.size() >= mZoomLimit)
+        if (mZoomBackIdx + 1 >= mZoomLimitSize)
             return;
 
-        mZoomCenterVector.push_back({ currentMousePos.x(), currentMousePos.y() });
-        mZoomState = currZoomState;
-        mPanDistVector.push_back({ 0.0, 0.0 });
+        mZoomBackIdx++; mPanBackIdx++;
 
-        idx++;
+        mZoomCenterVector[mZoomBackIdx] = { currentMousePos.x(), currentMousePos.y() };
+        mZoomState = currZoomState;
+        mPanDistVector[mPanBackIdx] = { 0.0, 0.0 };
         return;
     }
 
-    pair<double, double> center1 = mZoomCenterVector.back();
+    pair<double, double> center1 = mZoomCenterVector[mZoomBackIdx];
     pair<double, double> center2 = { currentMousePos.x(), currentMousePos.y() };
 
     auto zoomtoPan =
@@ -67,14 +69,15 @@ void scCamera::PushPopZoomCenterVector(const QPointF& currentMousePos, const ZOO
         };
 
 
-    assert(idx - 1 >= 0 && idx - 1 < mPanDistVector.size());
+    assert(mPanBackIdx - 1 >= 0 && mPanBackIdx < mPanLimitSize);
 
-    mPanDistVector[idx - 1].first += zoomtoPan(center1.first, center2.first, mPanDistVector[idx].first);
-    mPanDistVector[idx - 1].second += zoomtoPan(center1.second, center2.second, mPanDistVector[idx].second);
+    mPanDistVector[mPanBackIdx - 1].first += zoomtoPan(center1.first, center2.first, mPanDistVector[mPanBackIdx].first);
+    mPanDistVector[mPanBackIdx - 1].second += zoomtoPan(center1.second, center2.second, mPanDistVector[mPanBackIdx].second);
 
-    idx--;
-    mZoomCenterVector.pop_back();
-    mPanDistVector.pop_back();
+    mPanBackIdx--;
+    mZoomBackIdx--;
+    //mZoomCenterVector.pop_back();
+    //mPanDistVector.pop_back();
 }
 
 
@@ -82,40 +85,14 @@ void scCamera::MultiplyDivideZoomXY(const QPointF& currentMousePos, int mouseDir
 {
     if (mouseDir > 0) // Zoom In
     {
-        /*mZoomCenterVector.push_back({ currentMousePos.x(), currentMousePos.y() });
-        mPanDistVector.push_back({ 0.0, 0.0 });
-        mZoomStates.push_back(ZOOM::IN);
-
-        idx++;*/
         PushPopZoomCenterVector(currentMousePos, ZOOM::IN);
     }
     else // Zoom Out
     {
-        /*mZoomCenterVector.push_back({ currentMousePos.x(), currentMousePos.y()});
-        mPanDistVector.push_back({ 0.0, 0.0 });
-        mZoomStates.push_back(ZOOM::OUT);
-
-        idx++;*/
         PushPopZoomCenterVector(currentMousePos, ZOOM::OUT);
     }
 
 }
-
-//std::pair<double, double> scCamera::Pan(double x, double y) const
-//{
-//    x += mPanX;
-//    y += mPanY;
-//
-//    return { x, y };
-//}
-//
-//std::pair<double, double> scCamera::UnPan(double x, double y) const
-//{
-//    x -= mPanX;
-//    y -= mPanY;
-//
-//    return { x, y };
-//}
 
 std::pair<double, double> scCamera::Zoom(double x, double y) const
 {
@@ -125,9 +102,9 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
     x += mPanDistVector[0].first;
     y += mPanDistVector[0].second;
 
-    for (int i = 0; i < mZoomCenterVector.size(); i++)
+    for (int i = 0; i <= mZoomBackIdx; i++)
     {
-        assert(i + 1 < mPanDistVector.size());
+        assert(i + 1 < mPanLimitSize);
 
         const auto& zoomCenter = mZoomCenterVector[i];
         const auto& panDist = mPanDistVector[i + 1];
@@ -163,15 +140,15 @@ std::pair<double, double> scCamera::Zoom(double x, double y) const
 
 std::pair<double, double> scCamera::UnZoom(double x, double y) const
 {
-    assert(!mPanDistVector.empty());
+    assert(mPanBackIdx < mPanLimitSize);
 
     // First Panning
-    x -= mPanDistVector.back().first;
-    y -= mPanDistVector.back().second;
+    x -= mPanDistVector[mPanBackIdx].first;
+    y -= mPanDistVector[mPanBackIdx].second;
 
-    for (int i = mZoomCenterVector.size() - 1; i >= 0; i--)
+    for (int i = mZoomBackIdx; i >= 0; i--)
     {
-        assert(i < mPanDistVector.size());
+        assert(i + 1 < mPanLimitSize);
 
         const auto& zoomCenter = mZoomCenterVector[i];
         const auto& panDist = mPanDistVector[i];
