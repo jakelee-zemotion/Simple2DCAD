@@ -19,15 +19,20 @@ scScene::~scScene()
 
 void scScene::Render(QPainter& painter)
 {
-	auto iter = mShapeList.begin();
-	while (iter != mShapeList.end())
+	// Vertices, lines, and faces are pushed to mDrawShapeList in the order they are drawn. 
+	// So, we can draw shapes in a specific order by iterating the mDrawShapeList.
+	auto iter = mDrawShapeList.begin();
+	while (iter != mDrawShapeList.end())
 	{
 		auto& shapePtr = *iter;
 
 		// Erase the removed shape.
+		// mDrawShapeList has elements of mVertexList, mLineList, and mFaceList as weak_ptr.
+		// So, if the shared_ptr pointed to by Weak_ptr has been popped from the list, 
+		// we need to erase the Shape from mDrawShapeList.
 		if (shapePtr.expired())
 		{
-			iter = mShapeList.erase(iter);
+			iter = mDrawShapeList.erase(iter);
 			continue;
 		}
 
@@ -36,14 +41,32 @@ void scScene::Render(QPainter& painter)
 	}
 }
 
+// L1[V1, V2], L2[V2, V3], L3[V3, V1], F1[L1, L2, L3]
+// 
+// The drawing order for the example above is:
+// V1 V2 L1 V3 L2 L3 F1
+// 
+// The insertion order we want is:
+// F1 L1 L2 L3 V1 V2 V3 
+// 
+// So, Insertion iterators are:
+// [previous elements] [F1] [L1 L2 L3] [V1 V2 V3] 
+// --------------------------ก่---------ก่-------ก่
+// -------------------------Face-------Line----Vertex
+// 
+// Note that insert() in std::list inserts an element before the iterator.
+// Also, VertexIterator is not needed because we can use push_back().
+
 shared_ptr<scVertexQtVisual> scScene::AddStartVertex(const QPointF& point)
 {
 	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(point, mCoordinateHelper);
 	mVertexList.push_back(startVertex);
 
-	mShapeList.push_back(startVertex);
-	mLineIter = mShapeList.end();
-	mLineIter--;
+	mDrawShapeList.push_back(startVertex);
+
+	// Initialize mInsertLineIter.
+	mInsertLineIter = mDrawShapeList.end();
+	mInsertLineIter--;
 
 	return startVertex;
 }
@@ -59,16 +82,17 @@ shared_ptr<scVertexQtVisual> scScene::AddEndVertex(const QPointF& point)
 
 	// Add Vertices.
 	mVertexList.push_back(endVertex);
-	mShapeList.push_back(endVertex);
+	mDrawShapeList.push_back(endVertex);
 
 	// Add a new line.
 	mLineList.push_back(newLine);
-	mShapeList.insert(mLineIter, newLine);
+	mDrawShapeList.insert(mInsertLineIter, newLine);
 
+	// Initialize mInsertFaceIter.
 	if (mVertexCreatedCount == 0)
 	{
-		mFaceIter = mLineIter;
-		mFaceIter--;
+		mInsertFaceIter = mInsertLineIter;
+		mInsertFaceIter--;
 	}
 
 	// Count the number of vertices created.
@@ -112,7 +136,7 @@ void scScene::EndDrawing(bool canCreateFace)
 
 		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
 		mLineList.push_back(newLine);
-		mShapeList.insert(mLineIter, newLine);
+		mDrawShapeList.insert(mInsertLineIter, newLine);
 
 
 		// Copy LineData.
@@ -126,7 +150,7 @@ void scScene::EndDrawing(bool canCreateFace)
 		// Add a new face.
 		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(faceLineList, mCoordinateHelper);
 		mFaceList.push_back(newFace);
-		mShapeList.insert(mFaceIter, newFace);
+		mDrawShapeList.insert(mInsertFaceIter, newFace);
 	}
 
 	// Reset

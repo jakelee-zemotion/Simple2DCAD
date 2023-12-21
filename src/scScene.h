@@ -33,9 +33,9 @@ private:
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mFaceList;
 
-	std::list<std::weak_ptr<scShapeQtVisual>> mShapeList;
-	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mLineIter;
-	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mFaceIter;
+	std::list<std::weak_ptr<scShapeQtVisual>> mDrawShapeList;
+	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mInsertLineIter;
+	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mInsertFaceIter;
 
 	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 	int mVertexCreatedCount;
