@@ -74,17 +74,7 @@ void scSelectState::MouseReleaseEvent()
 {
 	mIsMousePressed = false;
 
-	// Select the shape.
-	if (mCurrHighlightShape == nullptr)
-		return;
-
-	mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::SELECT);
-
-
-	if (mSelectedShape != nullptr && mSelectedShape->GetID() != mCurrHighlightShape->GetID())
-		ResetSelected();
-
-	mSelectedShape = mCurrHighlightShape;
+	SelectShape();
 }
 
 void scSelectState::KeyPressEvent(QKeyEvent* event)
@@ -215,4 +205,25 @@ QPointF scSelectState::VertexSnapping(const QPointF& currMousePos)
 		return snappedVertex->MakeQPointF();
 	else
 		return currMousePos;
+}
+
+void scSelectState::SelectShape()
+{
+	if (mCurrHighlightShape == nullptr)
+		return;
+
+	if (mSelectedShape != nullptr && mSelectedShape->GetID() != mCurrHighlightShape->GetID())
+		ResetSelected();
+
+	mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::SELECT);
+	mSelectedShape = mCurrHighlightShape;
+
+
+	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
+	{
+		shared_ptr<scFaceQtVisual> selectedFace =
+			dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+
+
+	}
 }
