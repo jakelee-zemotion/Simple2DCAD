@@ -32,17 +32,17 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 	
 	if (mIsMousePressed)
 	{
-		if (mCurrShape == nullptr)
+		if (mCurrPutOnShape == nullptr)
 			return;
 
 		QPointF dist = currMousePos - mPrevMousePos;
 		//qDebug() << mPrevMousePos << currMousePos;
 
-		if (mCurrShape->GetShapeType() == SHAPE_TYPE::VERTEX)
+		if (mCurrPutOnShape->GetShapeType() == SHAPE_TYPE::VERTEX)
 		{
 			// Snapping
 			shared_ptr<scVertexQtVisual> snappedVertex = 
-				dynamic_pointer_cast<scVertexQtVisual>(mScene->HitTest(currMousePos, mSelectShapeType, mCurrShape->GetID()));
+				dynamic_pointer_cast<scVertexQtVisual>(mScene->HitTest(currMousePos, mSelectShapeType, mCurrPutOnShape->GetID()));
 
 			if (snappedVertex != nullptr)
 			{
@@ -54,7 +54,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			}
 		}
 
-		if (mCurrShape->GetShapeType() == SHAPE_TYPE::FACE)
+		if (mCurrPutOnShape->GetShapeType() == SHAPE_TYPE::FACE)
 		{
 			//double scaleX = currMousePos.x() / mPrevMousePos.x();
 			//double scaleY = currMousePos.y() / mPrevMousePos.y();
@@ -67,16 +67,16 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 		}
 		mPrevMousePos = currMousePos;
 
-		mCurrShape->Move(dist.x(), dist.y());
+		mCurrPutOnShape->Move(dist.x(), dist.y());
 
 		return;
 	}
 
 
-	mCurrShape = mScene->HitTest(currMousePos, mSelectShapeType);
+	mCurrPutOnShape = mScene->HitTest(currMousePos, mSelectShapeType);
 	HightlightShape();
 	
-	mPrevShape = mCurrShape;
+	mPrevPutOnShape = mCurrPutOnShape;
 }
 
 void scSelectState::MouseReleaseEvent()
@@ -84,16 +84,16 @@ void scSelectState::MouseReleaseEvent()
 	mIsMousePressed = false;
 
 	// Select the shape.
-	if (mCurrShape == nullptr)
+	if (mCurrPutOnShape == nullptr)
 		return;
 
-	mCurrShape->SetShapeColorType(COLOR_TYPE::SELECT);
+	mCurrPutOnShape->SetShapeColorType(COLOR_TYPE::SELECT);
 
 
-	if (mSelectedShape != nullptr && mSelectedShape->GetID() != mCurrShape->GetID())
+	if (mSelectedShape != nullptr && mSelectedShape->GetID() != mCurrPutOnShape->GetID())
 		ResetSelected();
 
-	mSelectedShape = mCurrShape;
+	mSelectedShape = mCurrPutOnShape;
 }
 
 void scSelectState::KeyPressEvent(QKeyEvent* event)
@@ -150,14 +150,14 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 
 void scSelectState::EndState()
 {
-	if (mPrevShape != nullptr)
-		mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+	if (mPrevPutOnShape != nullptr)
+		mPrevPutOnShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
-	if (mCurrShape != nullptr)
-		mCurrShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+	if (mCurrPutOnShape != nullptr)
+		mCurrPutOnShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
-	mPrevShape.reset();
-	mCurrShape.reset();
+	mPrevPutOnShape.reset();
+	mCurrPutOnShape.reset();
 
 	ResetSelected();
 }
@@ -173,41 +173,41 @@ void scSelectState::ResetSelected()
 void scSelectState::HightlightShape()
 {
 	// From outside to inside the shape.
-	if (mPrevShape == nullptr && mCurrShape != nullptr)
+	if (mPrevPutOnShape == nullptr && mCurrPutOnShape != nullptr)
 	{
 		// If there is not a selected shape or the selected shape is not the current shape.
-		if (mSelectedShape == nullptr || mSelectedShape->GetID() != mCurrShape->GetID())
-			mCurrShape->SetShapeColorType(COLOR_TYPE::PUT_ON);
+		if (mSelectedShape == nullptr || mSelectedShape->GetID() != mCurrPutOnShape->GetID())
+			mCurrPutOnShape->SetShapeColorType(COLOR_TYPE::PUT_ON);
 	}
 	// From inside the shape to outside.
-	else if (mPrevShape != nullptr && mCurrShape == nullptr)
+	else if (mPrevPutOnShape != nullptr && mCurrPutOnShape == nullptr)
 	{
 		// If there is not a selected shape or the selected shape is not the current shape.
-		if (mSelectedShape == nullptr || mSelectedShape->GetID() != mPrevShape->GetID())
-			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+		if (mSelectedShape == nullptr || mSelectedShape->GetID() != mPrevPutOnShape->GetID())
+			mPrevPutOnShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 	}
 	// From inside one shape to inside another shape.
-	else if (mPrevShape != nullptr && mCurrShape != nullptr)
+	else if (mPrevPutOnShape != nullptr && mCurrPutOnShape != nullptr)
 	{
-		if (mPrevShape->GetID() == mCurrShape->GetID())
+		if (mPrevPutOnShape->GetID() == mCurrPutOnShape->GetID())
 			return;
 
 		// From inside the selected shape(previous shape) to inside the current shape.
-		if (mSelectedShape != nullptr && mSelectedShape->GetID() == mPrevShape->GetID())
+		if (mSelectedShape != nullptr && mSelectedShape->GetID() == mPrevPutOnShape->GetID())
 		{
-			mCurrShape->SetShapeColorType(COLOR_TYPE::PUT_ON);
+			mCurrPutOnShape->SetShapeColorType(COLOR_TYPE::PUT_ON);
 		}
 		// From inside the previous shape to inside the the selected shape(current shape).
-		else if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrShape->GetID())
+		else if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrPutOnShape->GetID())
 		{
-			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+			mPrevPutOnShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 		}
 		// If there is not a selected shape.
 		else
 		{
-			mPrevShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
-			mCurrShape->SetShapeColorType(COLOR_TYPE::PUT_ON);
-		}
+			mPrevPutOnShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+			mCurrPutOnShape->SetShapeColorType(COLOR_TYPE::PUT_ON);
+		}		 
 
 	}
 }

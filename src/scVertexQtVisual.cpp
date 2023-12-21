@@ -18,7 +18,7 @@ scVertexQtVisual::scVertexQtVisual(SHAPE_TYPE shapeType, const QPointF& qpointF,
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
 	mShapeColors[static_cast<int>(COLOR_TYPE::PUT_ON)] = Qt::red;
-	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::cyan;
+	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::blue;
 }
 
 scVertexQtVisual::~scVertexQtVisual()
