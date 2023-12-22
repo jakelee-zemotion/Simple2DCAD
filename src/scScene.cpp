@@ -201,6 +201,18 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 	shared_ptr<scScaleVertexQtVisual> V3 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
 	shared_ptr<scScaleVertexQtVisual> V4 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
 
+	V1->SetHorizontalScaleVector(V2);
+	V1->SetVerticalScaleVector(V4);
+
+	V2->SetHorizontalScaleVector(V1);
+	V2->SetVerticalScaleVector(V3);
+
+	V3->SetHorizontalScaleVector(V4);
+	V3->SetVerticalScaleVector(V2);
+
+	V4->SetHorizontalScaleVector(V3);
+	V4->SetVerticalScaleVector(V1);
+
 	//shared_ptr<scLineQtVisual> L1
 	
 	mVertexList.push_back(V1);

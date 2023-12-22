@@ -15,7 +15,13 @@ public:
 
 	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;
 
+	void SetHorizontalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector);
+	void SetVerticalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector);
+
 private:
 	const std::shared_ptr<scFaceQtVisual> mParentFace;
+
+	std::weak_ptr<scScaleVertexQtVisual> mHorizontalScaleVertex;
+	std::weak_ptr<scScaleVertexQtVisual> mVerticalScaleVertex;
 };
 
