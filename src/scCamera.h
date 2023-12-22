@@ -1,4 +1,5 @@
 #pragma once
+#include "scMatrixVectorHelper.h"
 
 #include <QPoint>
 #include <list>
@@ -16,8 +17,8 @@ public:
 	void AddPanXY(const QPointF& currentMousePos);
 	void ZoomInOut(const QPointF& currentMousePos, int mouseDir);
 
-	std::pair<double, double> ZoomPan(double x, double y) const;
-	std::pair<double, double> UnZoomPan(double x, double y) const;
+	scVector2D ZoomPan(double x, double y) const;
+	scVector2D UnZoomPan(double x, double y) const;
 
 	void SetPrevMousePos(const QPointF& prevMousePos);
 

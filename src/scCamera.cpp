@@ -122,7 +122,7 @@ void scCamera::ZoomInOut(const QPointF& currentMousePos, int mouseDir)
 
 }
 
-std::pair<double, double> scCamera::ZoomPan(double x, double y) const
+scVector2D scCamera::ZoomPan(double x, double y) const
 {
     assert(!mPanDistVector.empty());
 
@@ -167,7 +167,7 @@ std::pair<double, double> scCamera::ZoomPan(double x, double y) const
     return { x, y };
 }
 
-std::pair<double, double> scCamera::UnZoomPan(double x, double y) const
+scVector2D scCamera::UnZoomPan(double x, double y) const
 {
     assert(mPanBackIdx < mPanLimitSize);
 

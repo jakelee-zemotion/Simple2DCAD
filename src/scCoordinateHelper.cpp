@@ -76,18 +76,18 @@ scVector2D scCoordinateHelper::LoaclToScreen(double x, double y, scTransform& tr
 
 
 
-std::pair<double, double> scCoordinateHelper::LocalToCamera(double x, double y)
+scVector2D scCoordinateHelper::LocalToCamera(double x, double y)
 {
     // Pan Zoom Pan Zoom Pan ...
-    auto zoomPanCoord = mCamera.ZoomPan(x, y);
+    scVector2D zoomPanCoord = mCamera.ZoomPan(x, y);
 
     return zoomPanCoord;
 }
 
-std::pair<double, double> scCoordinateHelper::CameraToLocal(double x, double y)
+scVector2D scCoordinateHelper::CameraToLocal(double x, double y)
 {
     // UnPan UnZoom UnPan UnZoom UnPan ...
-    auto zoomCoord = mCamera.UnZoomPan(x, y);
+    scVector2D zoomCoord = mCamera.UnZoomPan(x, y);
 
     return zoomCoord;
 }
@@ -99,15 +99,15 @@ scVector2D scCoordinateHelper::WorldToCamera(double x, double y, scTransform& tr
 {
     scVector2D screenCoord = WorldToScreen(x, y);
     scVector2D localCoord = ScreenToLoacl(screenCoord.x, screenCoord.y, transform);
-    auto cameraCoord = LocalToCamera(localCoord.x, localCoord.y);
+    scVector2D cameraCoord = LocalToCamera(localCoord.x, localCoord.y);
 
-    return { cameraCoord.first, cameraCoord.second };
+    return cameraCoord;
 }
 
 scVector2D scCoordinateHelper::CameraToWorld(double x, double y, scTransform& transform)
 {
-    auto localCoord = CameraToLocal(x, y);
-    scVector2D screenCoord = LoaclToScreen(localCoord.first, localCoord.second, transform);
+    scVector2D localCoord = CameraToLocal(x, y);
+    scVector2D screenCoord = LoaclToScreen(localCoord.x, localCoord.y, transform);
     scVector2D worldCoord = ScreenToWorld(screenCoord.x, screenCoord.y);
 
     return worldCoord;

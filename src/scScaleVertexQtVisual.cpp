@@ -31,11 +31,11 @@ void scScaleVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& p
 	mHorizontalScaleVertex.lock()->GetVertexData()->SetY(worldCoord.y);
 
 
-	auto targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
-	auto prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
+	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
+	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
 
-	double dx = targetLocalCoord.first / prevLocalCoord.first;
-	double dy = targetLocalCoord.second / prevLocalCoord.second;
+	double dx = targetLocalCoord.x / prevLocalCoord.x;
+	double dy = targetLocalCoord.y / prevLocalCoord.y;
 
 
 
