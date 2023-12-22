@@ -144,10 +144,18 @@ void scSelectState::EndState()
 
 void scSelectState::ResetSelected()
 {
-	if (mSelectedShape != nullptr)
-		mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+	if (mSelectedShape == nullptr)
+		return;
+
+	mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+
+	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
+	{
+		mScene->RemoveBoundingBoxOfFace();
+	}
 
 	mSelectedShape.reset();
+
 }
 
 void scSelectState::HightlightShape()
@@ -197,11 +205,18 @@ void scSelectState::SelectShape()
 	if (mCurrHighlightShape == nullptr)
 		return;
 
+	if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
+		return;
+
+
+	// Reset mSelectedShape
 	if (mSelectedShape != nullptr && mSelectedShape->GetID() != mCurrHighlightShape->GetID())
 		ResetSelected();
 
+	// Set mSelectedShape
 	mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::SELECT);
 	mSelectedShape = mCurrHighlightShape;
+
 
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)

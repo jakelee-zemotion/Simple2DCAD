@@ -156,10 +156,12 @@ scBoundingBox scFaceQtVisual::GetBoundingBox()
 		maxY = max(maxY, cameraStartCoord.second);
 	}
 
-	boundingBox.topLeft    = { minX, minY };
-	boundingBox.topRight   = { maxX, minY };
-	boundingBox.bottomLeft = { minX, maxY };
-	boundingBox.bottomLeft = { maxX, maxY };
+	constexpr double offset = 10.0;
+
+	boundingBox.topLeft     = { minX - offset, minY - offset };
+	boundingBox.topRight    = { maxX + offset, minY - offset };
+	boundingBox.bottomLeft  = { minX - offset, maxY + offset };
+	boundingBox.bottomRight = { maxX + offset, maxY + offset };
 
 	return boundingBox;
 }

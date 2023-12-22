@@ -10,7 +10,7 @@ class scVertexQtVisual : public scShapeQtVisual
 {
 public:
 	scVertexQtVisual(const QPointF& qpointF, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
-	~scVertexQtVisual() override;
+	virtual ~scVertexQtVisual() override;
 
 	void Move(double targetX, double targetY) override;
 	void Paint(QPainter& painter) override;

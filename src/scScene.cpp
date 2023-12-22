@@ -1,4 +1,4 @@
-#include "scScene.h"
+ï»¿#include "scScene.h"
 
 #include "scCoordinateHelper.h"
 #include "scVertexQtVisual.h"
@@ -51,7 +51,7 @@ void scScene::Render(QPainter& painter)
 // 
 // So, Insertion iterators are:
 // [previous elements] [F1] [L1 L2 L3] [V1 V2 V3] 
-// --------------------------¡è---------¡è-------¡è
+// --------------------------â†‘---------â†‘-------â†‘
 // -------------------------Face-------Line----Vertex
 // 
 // Note that insert() in std::list inserts an element before the iterator.
@@ -195,7 +195,39 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 
 	scBoundingBox boundingBox = face->GetBoundingBox();
 
+	shared_ptr<scVertexQtVisual> V1 = make_shared<scVertexQtVisual>(boundingBox.topLeft, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> V2 = make_shared<scVertexQtVisual>(boundingBox.topRight, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> V3 = make_shared<scVertexQtVisual>(boundingBox.bottomRight, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> V4 = make_shared<scVertexQtVisual>(boundingBox.bottomLeft, mCoordinateHelper);
+
+	//shared_ptr<scLineQtVisual> L1
+	
+	mVertexList.push_back(V1);
+	mVertexList.push_back(V2);
+	mVertexList.push_back(V3);
+	mVertexList.push_back(V4);
+
+	mDrawShapeList.push_back(V1);
+	mDrawShapeList.push_back(V2);
+	mDrawShapeList.push_back(V3);
+	mDrawShapeList.push_back(V4);
 }
+
+
+
+void scScene::RemoveBoundingBoxOfFace()
+{
+	mVertexList.pop_back();
+	mVertexList.pop_back();
+	mVertexList.pop_back();
+	mVertexList.pop_back();
+
+	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();
+}
+
 
 int scScene::GetVertexCreatedCount() const
 {
