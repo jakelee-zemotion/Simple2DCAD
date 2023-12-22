@@ -42,10 +42,6 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 		{
 			targetPos = SnapVertex(currMousePos, mCurrHighlightShape->GetID());
 		}
-		/*else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_VERTEX)
-		{
-			dist = currMousePos;
-		}*/
 
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::FACE)
 		{

@@ -1,6 +1,7 @@
 #pragma once
 #include "scVertexQtVisual.h"
 
+class scCoordinateHelper;
 class scFaceQtVisual;
 class scScaleVertexQtVisual : public scVertexQtVisual
 {

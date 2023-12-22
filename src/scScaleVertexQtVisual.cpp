@@ -1,6 +1,7 @@
 #include "scScaleVertexQtVisual.h"
 
 #include "scFaceQtVisual.h"
+#include "scCoordinateHelper.h"
 
 using namespace std;
 
@@ -22,5 +23,10 @@ void scScaleVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& p
 {
 	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 
-	mParentFace->ScaleFace(0.9999, 0.9999);
+	auto targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
+	auto prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
+
+	double dx = targetLocalCoord.first / prevLocalCoord.first;
+	double dy = targetLocalCoord.second / prevLocalCoord.second;
+	mParentFace->ScaleFace(dx, dy);
 }
