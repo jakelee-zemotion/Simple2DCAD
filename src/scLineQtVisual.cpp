@@ -44,13 +44,16 @@ QLineF scLineQtVisual::MakeQLineF()
 			{ cameraEnd.first, cameraEnd.second });
 }
 
-void scLineQtVisual::Move(double dx, double dy)
+void scLineQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
 	auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
 			mLineData->GetStartX(), mLineData->GetStartY(), mLineData->GetStartTransform());
 
 	auto cameraEndCoord = mCoordinateHelper->WorldToCamera(
 			mLineData->GetEndX(), mLineData->GetEndY(), mLineData->GetEndTransform());
+
+	double dx = targetMousePos.x() - prevMousePos.x();
+	double dy = targetMousePos.y() - prevMousePos.y();
 
 	cameraStartCoord.first += dx;
 	cameraStartCoord.second += dy;

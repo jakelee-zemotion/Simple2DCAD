@@ -48,7 +48,7 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 
         QPointF targetPos = SnapVertex(currMousePos, mDrawingVertex->GetID());
 
-        mDrawingVertex->Move(targetPos.x(), targetPos.y());
+        mDrawingVertex->Move(targetPos);
     }
 
 }

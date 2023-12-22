@@ -34,15 +34,18 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 	{
 		if (mCurrHighlightShape == nullptr)
 			return;
-
-		QPointF dist = currMousePos - mPrevMousePos;
 		
+		QPointF targetPos = currMousePos;
+
 		// Vertex snapping
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::VERTEX)
 		{
-			dist = SnapVertex(currMousePos, mCurrHighlightShape->GetID());
+			targetPos = SnapVertex(currMousePos, mCurrHighlightShape->GetID());
 		}
-
+		/*else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_VERTEX)
+		{
+			dist = currMousePos;
+		}*/
 
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::FACE)
 		{
@@ -55,9 +58,10 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			//mPrevMousePos = currMousePos;
 			//return;
 		}
-		mPrevMousePos = currMousePos;
 
-		mCurrHighlightShape->Move(dist.x(), dist.y());
+		mCurrHighlightShape->Move(targetPos, mPrevMousePos);
+
+		mPrevMousePos = currMousePos;
 
 		return;
 	}
@@ -150,9 +154,7 @@ void scSelectState::ResetSelected()
 	mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-	{
 		mScene->RemoveBoundingBoxOfFace();
-	}
 
 	mSelectedShape.reset();
 
@@ -206,6 +208,9 @@ void scSelectState::SelectShape()
 		return;
 
 	if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
+		return;
+
+	if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_VERTEX)
 		return;
 
 

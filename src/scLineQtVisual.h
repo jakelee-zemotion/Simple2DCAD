@@ -15,7 +15,7 @@ public:
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scLineQtVisual() override;
 
-	void Move(double dx, double dy) override;;
+	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 

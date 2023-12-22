@@ -7,13 +7,28 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(const QPointF& qpointF, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+scVertexQtVisual::scVertexQtVisual(const QPointF& point, const shared_ptr<scCoordinateHelper>& coordinateHelper)
 	:scShapeQtVisual(SHAPE_TYPE::VERTEX, coordinateHelper)
+{
+	Initialize(point);
+}
+
+
+scVertexQtVisual::scVertexQtVisual(
+	const SHAPE_TYPE shapeType, 
+	const QPointF& point, 
+	const shared_ptr<scCoordinateHelper>& coordinateHelper)
+		:scShapeQtVisual(shapeType, coordinateHelper)
+{
+	Initialize(point);
+}
+
+void scVertexQtVisual::Initialize(const QPointF& point)
 {
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
 
-	this->Move(qpointF.x(), qpointF.y());
+	this->Move(point);
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
@@ -34,11 +49,12 @@ QPointF scVertexQtVisual::MakeQPointF()
 	return { cameraCoord.first, cameraCoord.second };
 }
 
-void scVertexQtVisual::Move(double targetX, double targetY)
+
+void scVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
 	// Unlike Line and Face, it moves directly to x, y.
 	auto worldCoord = 
-		mCoordinateHelper->CameraToWorld(targetX, targetY, mVertexData->GetTransform());
+		mCoordinateHelper->CameraToWorld(targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
 
 	mVertexData->SetX(worldCoord.first);
 	mVertexData->SetY(worldCoord.second);

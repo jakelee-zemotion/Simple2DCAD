@@ -2,7 +2,7 @@
 
 enum class SHAPE_TYPE
 {
-	VERTEX = 1, LINE = 2, FACE = 4
+	VERTEX = 1, LINE = 2, FACE = 4, SCALE_VERTEX = 8
 };
 
 inline SHAPE_TYPE operator|(SHAPE_TYPE stype1, SHAPE_TYPE stype2)

@@ -4,6 +4,7 @@
 #include "scVertexQtVisual.h"
 #include "scLineQtVisual.h"
 #include "scFaceQtVisual.h"
+#include "scScaleVertexQtVisual.h"
 
 using namespace std;
 
@@ -195,10 +196,10 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 
 	scBoundingBox boundingBox = face->GetBoundingBox();
 
-	shared_ptr<scVertexQtVisual> V1 = make_shared<scVertexQtVisual>(boundingBox.topLeft, mCoordinateHelper);
-	shared_ptr<scVertexQtVisual> V2 = make_shared<scVertexQtVisual>(boundingBox.topRight, mCoordinateHelper);
-	shared_ptr<scVertexQtVisual> V3 = make_shared<scVertexQtVisual>(boundingBox.bottomRight, mCoordinateHelper);
-	shared_ptr<scVertexQtVisual> V4 = make_shared<scVertexQtVisual>(boundingBox.bottomLeft, mCoordinateHelper);
+	shared_ptr<scScaleVertexQtVisual> V1 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
+	shared_ptr<scScaleVertexQtVisual> V2 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
+	shared_ptr<scScaleVertexQtVisual> V3 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
+	shared_ptr<scScaleVertexQtVisual> V4 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
 
 	//shared_ptr<scLineQtVisual> L1
 	

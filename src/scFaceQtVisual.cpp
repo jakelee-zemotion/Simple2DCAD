@@ -41,12 +41,15 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	return QPolygonF(lineList);
 }
 
-void scFaceQtVisual::Move(double dx, double dy)
+void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
 			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
+
+		double dx = targetMousePos.x() - prevMousePos.x();
+		double dy = targetMousePos.y() - prevMousePos.y();
 
 		cameraStartCoord.first += dx;
 		cameraStartCoord.second += dy;
