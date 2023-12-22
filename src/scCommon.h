@@ -1,5 +1,9 @@
 #pragma once
 
+
+#ifndef SC_COMMON_H
+#define SC_COMMON_H
+
 enum class SHAPE_TYPE
 {
 	VERTEX = 1, LINE = 2, FACE = 4, SCALE_VERTEX = 8
@@ -25,3 +29,6 @@ enum class COLOR_TYPE
 {
 	DEFAULT, HIGHTLIGHT, SELECT
 };
+
+
+#endif

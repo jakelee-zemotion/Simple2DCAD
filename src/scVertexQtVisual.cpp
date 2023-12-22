@@ -2,6 +2,7 @@
 #include "scCoordinateHelper.h"
 #include "scVertexData.h"
 
+#include <QPointF>
 #include <QPainter>
 #include <QDebug>
 
