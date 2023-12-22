@@ -110,28 +110,28 @@ void scFaceQtVisual::RotateFace(double theta)
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		pair<double, double> screenStartCoord =
+		scVector2D screenStartCoord = 
 			mCoordinateHelper->WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
 
-		screenStartCoord.first -= center.x();
-		screenStartCoord.second -= center.y();
+		screenStartCoord.x -= center.x();
+		screenStartCoord.y -= center.y();
 
 		double cosT = cos(theta);
 		double sinT = sin(theta);
 
-		double x = screenStartCoord.first;
-		double y = screenStartCoord.second;
+		double x = screenStartCoord.x;
+		double y = screenStartCoord.y;
 
-		screenStartCoord.first = cosT * x - sinT * y;
-		screenStartCoord.second = sinT * x + cosT * y;
+		screenStartCoord.x = cosT * x - sinT * y;
+		screenStartCoord.y = sinT * x + cosT * y;
 
-		screenStartCoord.first += center.x();
-		screenStartCoord.second += center.y();
+		screenStartCoord.x += center.x();
+		screenStartCoord.y += center.y();
 
-		pair<double, double> worldStartCoord =
-			mCoordinateHelper->ScreenToWorld(screenStartCoord.first, screenStartCoord.second);
+		scVector2D worldStartCoord =
+			mCoordinateHelper->ScreenToWorld(screenStartCoord.x, screenStartCoord.y);
 
-		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
+		mFaceData->SetLineStart(worldStartCoord.x, worldStartCoord.y);
 	}
 }
 

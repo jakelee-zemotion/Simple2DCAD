@@ -18,7 +18,7 @@ scCoordinateHelper::~scCoordinateHelper()
 
 
 // Use -1.0 * to get visibility. Do not change it to -.
-pair<double, double> scCoordinateHelper::WorldToScreen(double x, double y)
+scVector2D scCoordinateHelper::WorldToScreen(double x, double y)
 {
     auto expr = [](double value, double size) -> double
         {
@@ -33,7 +33,7 @@ pair<double, double> scCoordinateHelper::WorldToScreen(double x, double y)
 }
 
 
-pair<double, double> scCoordinateHelper::ScreenToWorld(double x, double y)
+scVector2D scCoordinateHelper::ScreenToWorld(double x, double y)
 {
     auto expr = [](double value, double size) -> double
         {
@@ -97,8 +97,8 @@ std::pair<double, double> scCoordinateHelper::CameraToLocal(double x, double y)
 
 scVector2D scCoordinateHelper::WorldToCamera(double x, double y, scTransform& transform)
 {
-    auto screenCoord = WorldToScreen(x, y);
-    auto localCoord = ScreenToLoacl(screenCoord.first, screenCoord.second, transform);
+    scVector2D screenCoord = WorldToScreen(x, y);
+    auto localCoord = ScreenToLoacl(screenCoord.x, screenCoord.y, transform);
     auto cameraCoord = LocalToCamera(localCoord.first, localCoord.second);
 
     return { cameraCoord.first, cameraCoord.second };
@@ -108,8 +108,8 @@ scVector2D scCoordinateHelper::CameraToWorld(double x, double y, scTransform& tr
 {
     auto localCoord = CameraToLocal(x, y);
     auto screenCoord = LoaclToScreen(localCoord.first, localCoord.second, transform);
-    auto worldCoord = ScreenToWorld(screenCoord.first, screenCoord.second);
+    scVector2D worldCoord = ScreenToWorld(screenCoord.first, screenCoord.second);
 
-    return { worldCoord.first, worldCoord.second };
+    return worldCoord;
 }
 

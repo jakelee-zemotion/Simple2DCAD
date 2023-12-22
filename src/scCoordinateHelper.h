@@ -14,7 +14,7 @@ public:
 	~scCoordinateHelper();
 
 	// World -> Screen -> Local -> Camera
-	std::pair<double, double> WorldToScreen(double x, double y);
+	scVector2D WorldToScreen(double x, double y);
 	std::pair<double, double> ScreenToLoacl(double x, double y, scTransform& transform);
 	std::pair<double, double> LocalToCamera(double x, double y);
 
@@ -23,7 +23,7 @@ public:
 	// Camera -> Local -> Screen -> World
 	std::pair<double, double> CameraToLocal(double x, double y);
 	std::pair<double, double> LoaclToScreen(double x, double y, scTransform& transform);
-	std::pair<double, double> ScreenToWorld(double x, double y);
+	scVector2D ScreenToWorld(double x, double y);
 
 	scVector2D CameraToWorld(double x, double y, scTransform& transform);
 
