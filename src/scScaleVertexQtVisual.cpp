@@ -13,7 +13,7 @@ scScaleVertexQtVisual::scScaleVertexQtVisual(
 		:scVertexQtVisual(SHAPE_TYPE::SCALE_VERTEX, point, coordinateHelper), 
 		 mParentFace(face)
 {
-	
+	mScaleCenter = { 0.0, 0.0 };
 }
 
 scScaleVertexQtVisual::~scScaleVertexQtVisual()
@@ -50,4 +50,8 @@ void scScaleVertexQtVisual::SetHorizontalScaleVector(const std::shared_ptr<scSca
 void scScaleVertexQtVisual::SetVerticalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector)
 {
 	mVerticalScaleVertex = scaleVector;
+}
+
+void scScaleVertexQtVisual::SetScaleCenter(const QPointF& point)
+{
 }

@@ -1,9 +1,6 @@
 #pragma once
 #include "scShapeQtVisual.h"
 
-#include <QPointF>
-
-class QPainter;
 class scCoordinateHelper;
 class scVertexData;
 class scVertexQtVisual : public scShapeQtVisual
