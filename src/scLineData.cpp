@@ -13,6 +13,18 @@ scLineData::~scLineData()
 	//qDebug() << "LineData Destruction";
 }
 
+void scLineData::AddDxDyToStart(double dx, double dy)
+{
+	mStartVertex->AddDx(dx);
+	mStartVertex->AddDy(dy);
+}
+
+void scLineData::AddDxDyToEnd(double dx, double dy)
+{
+	mEndVertex->AddDx(dx);
+	mEndVertex->AddDy(dy);
+}
+
 void scLineData::SetStartVertex(const shared_ptr<scVertexData>& startVertex)
 {
 	mStartVertex = startVertex;

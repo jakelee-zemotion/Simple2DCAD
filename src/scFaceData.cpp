@@ -34,6 +34,14 @@ bool scFaceData::IsIterEnd()
 	return mIter == mLineList.end();
 }
 
+void scFaceData::AddDxDyToLineStart(double dx, double dy)
+{
+	assert(mIter != mLineList.end());
+
+	shared_ptr<scLineData>& line = *mIter;
+	line->AddDxDyToStart(dx, dy);
+}
+
 void scFaceData::SetLineStart(double startX, double startY)
 {
 	assert(mIter != mLineList.end());

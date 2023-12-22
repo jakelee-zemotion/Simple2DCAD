@@ -17,6 +17,7 @@ public:
 	void NextIter();
 	bool IsIterEnd();
 
+	void AddDxDyToLineStart(double dx, double dy);
 	void SetLineStart(double startX, double startY);
 
 	double GetLineStartX() const;

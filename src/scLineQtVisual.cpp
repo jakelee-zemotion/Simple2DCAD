@@ -46,29 +46,16 @@ QLineF scLineQtVisual::MakeQLineF()
 
 void scLineQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
-	auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
-			mLineData->GetStartX(), mLineData->GetStartY(), mLineData->GetStartTransform());
+	auto targetWorldCoord = 
+		mCoordinateHelper->CameraToWorld(targetMousePos.x(), targetMousePos.y(), mLineData->GetStartTransform());
+	auto prevWorldCoord = 
+		mCoordinateHelper->CameraToWorld(prevMousePos.x(), prevMousePos.y(), mLineData->GetStartTransform());
 
-	auto cameraEndCoord = mCoordinateHelper->WorldToCamera(
-			mLineData->GetEndX(), mLineData->GetEndY(), mLineData->GetEndTransform());
+	double dx = targetWorldCoord.first - prevWorldCoord.first;
+	double dy = targetWorldCoord.second - prevWorldCoord.second;
 
-	double dx = targetMousePos.x() - prevMousePos.x();
-	double dy = targetMousePos.y() - prevMousePos.y();
-
-	cameraStartCoord.first += dx;
-	cameraStartCoord.second += dy;
-
-	cameraEndCoord.first += dx;
-	cameraEndCoord.second += dy;
-
-	auto worldStartCoord = mCoordinateHelper->CameraToWorld(
-			cameraStartCoord.first, cameraStartCoord.second, mLineData->GetStartTransform());
-
-	auto worldEndCoord = mCoordinateHelper->CameraToWorld(
-			cameraEndCoord.first, cameraEndCoord.second, mLineData->GetEndTransform());
-
-	mLineData->SetStartVertex(worldStartCoord.first, worldStartCoord.second);
-	mLineData->SetEndVertex(worldEndCoord.first, worldEndCoord.second);
+	mLineData->AddDxDyToStart(dx, dy);
+	mLineData->AddDxDyToEnd(dx, dy);
 }
 
 void scLineQtVisual::Paint(QPainter& painter)

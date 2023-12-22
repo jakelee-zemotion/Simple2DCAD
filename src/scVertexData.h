@@ -7,6 +7,9 @@ public:
 	scVertexData();
 	~scVertexData();
 
+	void AddDx(double dx);
+	void AddDy(double dy);
+
 	void SetX(double x);
 	void SetY(double y);
 

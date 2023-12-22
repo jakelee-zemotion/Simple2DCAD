@@ -9,6 +9,9 @@ public:
 	scLineData();
 	~scLineData();
 
+	void AddDxDyToStart(double dx, double dy);
+	void AddDxDyToEnd(double dx, double dy);
+
 	void SetStartVertex(const std::shared_ptr<scVertexData>& startVertex);
 	void SetEndVertex(const std::shared_ptr<scVertexData>& endVertex);
 

@@ -45,19 +45,15 @@ void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMous
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
-			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
+		auto targetWorldCoord =
+			mCoordinateHelper->CameraToWorld(targetMousePos.x(), targetMousePos.y(), mFaceData->GetStartTransform());
+		auto prevWorldCoord =
+			mCoordinateHelper->CameraToWorld(prevMousePos.x(), prevMousePos.y(), mFaceData->GetStartTransform());
 
-		double dx = targetMousePos.x() - prevMousePos.x();
-		double dy = targetMousePos.y() - prevMousePos.y();
+		double dx = targetWorldCoord.first - prevWorldCoord.first;
+		double dy = targetWorldCoord.second - prevWorldCoord.second;
 
-		cameraStartCoord.first += dx;
-		cameraStartCoord.second += dy;
-
-		auto worldStartCoord = mCoordinateHelper->CameraToWorld(
-			cameraStartCoord.first, cameraStartCoord.second, mFaceData->GetStartTransform());
-
-		mFaceData->SetLineStart(worldStartCoord.first, worldStartCoord.second);
+		mFaceData->AddDxDyToLineStart(dx, dy);
 	}
 
 }

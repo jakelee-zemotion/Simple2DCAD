@@ -13,6 +13,16 @@ scVertexData::~scVertexData()
 	//qDebug() << "VertexData Destruction";
 }
 
+void scVertexData::AddDx(double dx)
+{
+	mX += dx;
+}
+
+void scVertexData::AddDy(double dy)
+{
+	mY += dy;
+}
+
 void scVertexData::SetX(double x)
 {
 	mX = x;
