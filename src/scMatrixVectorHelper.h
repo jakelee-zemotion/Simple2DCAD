@@ -14,6 +14,8 @@ struct scMatrix2D
 struct scVector2D
 {
 	double x, y, z;
+
+	scVector2D(double _x, double _y) : x(_x), y(_y), z(1.0) {}
 };
 
 

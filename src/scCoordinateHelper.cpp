@@ -2,6 +2,7 @@
 
 #include "scCamera.h"
 #include "scTransform.h"
+
 #include <QRect>
 
 using namespace std;
@@ -94,21 +95,21 @@ std::pair<double, double> scCoordinateHelper::CameraToLocal(double x, double y)
 
 
 
-pair<double, double> scCoordinateHelper::WorldToCamera(double x, double y, scTransform& transform)
+scVector2D scCoordinateHelper::WorldToCamera(double x, double y, scTransform& transform)
 {
     auto screenCoord = WorldToScreen(x, y);
     auto localCoord = ScreenToLoacl(screenCoord.first, screenCoord.second, transform);
     auto cameraCoord = LocalToCamera(localCoord.first, localCoord.second);
 
-    return cameraCoord;
+    return { cameraCoord.first, cameraCoord.second };
 }
 
-std::pair<double, double> scCoordinateHelper::CameraToWorld(double x, double y, scTransform& transform)
+scVector2D scCoordinateHelper::CameraToWorld(double x, double y, scTransform& transform)
 {
     auto localCoord = CameraToLocal(x, y);
     auto screenCoord = LoaclToScreen(localCoord.first, localCoord.second, transform);
     auto worldCoord = ScreenToWorld(screenCoord.first, screenCoord.second);
 
-    return worldCoord;
+    return { worldCoord.first, worldCoord.second };
 }
 

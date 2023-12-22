@@ -24,11 +24,11 @@ void scScaleVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& p
 {
 	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 
-	auto worldCoord =
-		mCoordinateHelper->CameraToWorld(targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
+	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
+		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
 
-	mVerticalScaleVertex.lock()->GetVertexData()->SetX(worldCoord.first);
-	mHorizontalScaleVertex.lock()->GetVertexData()->SetY(worldCoord.second);
+	mVerticalScaleVertex.lock()->GetVertexData()->SetX(worldCoord.x);
+	mHorizontalScaleVertex.lock()->GetVertexData()->SetY(worldCoord.y);
 
 
 	auto targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());

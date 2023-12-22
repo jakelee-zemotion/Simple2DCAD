@@ -44,21 +44,21 @@ scVertexQtVisual::~scVertexQtVisual()
 
 QPointF scVertexQtVisual::MakeQPointF()
 {
-	pair<double, double> cameraCoord = 
-		mCoordinateHelper->WorldToCamera(mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
+	scVector2D cameraCoord = mCoordinateHelper->WorldToCamera(
+		mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
 
-	return { cameraCoord.first, cameraCoord.second };
+	return { cameraCoord.x, cameraCoord.y };
 }
 
 
 void scVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
 	// Unlike Line and Face, it moves directly to x, y.
-	auto worldCoord = 
-		mCoordinateHelper->CameraToWorld(targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
+	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
+		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
 
-	mVertexData->SetX(worldCoord.first);
-	mVertexData->SetY(worldCoord.second);
+	mVertexData->SetX(worldCoord.x);
+	mVertexData->SetY(worldCoord.y);
 }
 
 void scVertexQtVisual::Paint(QPainter& painter)

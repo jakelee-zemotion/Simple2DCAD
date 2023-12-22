@@ -32,27 +32,28 @@ scLineQtVisual::~scLineQtVisual()
 
 QLineF scLineQtVisual::MakeQLineF()
 {
-	auto cameraStart = mCoordinateHelper->WorldToCamera(
+	scVector2D cameraStart = mCoordinateHelper->WorldToCamera(
 			mLineData->GetStartX(), mLineData->GetStartY(), mLineData->GetStartTransform());
 
-	auto cameraEnd = mCoordinateHelper->WorldToCamera(
+	scVector2D cameraEnd = mCoordinateHelper->WorldToCamera(
 			mLineData->GetEndX(), mLineData->GetEndY(), mLineData->GetEndTransform());
 
 	return
 		QLineF(
-			{ cameraStart.first, cameraStart.second },
-			{ cameraEnd.first, cameraEnd.second });
+			{ cameraStart.x, cameraStart.y },
+			{ cameraEnd.x, cameraEnd.y });
 }
 
 void scLineQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
-	auto targetWorldCoord = 
-		mCoordinateHelper->CameraToWorld(targetMousePos.x(), targetMousePos.y(), mLineData->GetStartTransform());
-	auto prevWorldCoord = 
-		mCoordinateHelper->CameraToWorld(prevMousePos.x(), prevMousePos.y(), mLineData->GetStartTransform());
+	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
+		targetMousePos.x(), targetMousePos.y(), mLineData->GetStartTransform());
 
-	double dx = targetWorldCoord.first - prevWorldCoord.first;
-	double dy = targetWorldCoord.second - prevWorldCoord.second;
+	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
+		prevMousePos.x(), prevMousePos.y(), mLineData->GetStartTransform());
+
+	double dx = targetWorldCoord.x - prevWorldCoord.x;
+	double dy = targetWorldCoord.y - prevWorldCoord.y;
 
 	mLineData->AddDxDyToStart(dx, dy);
 	mLineData->AddDxDyToEnd(dx, dy);

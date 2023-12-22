@@ -32,10 +32,10 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	// Copy data using custom iteration.
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
+		scVector2D cameraStartCoord = mCoordinateHelper->WorldToCamera(
 				mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
 
-		lineList.push_back({ cameraStartCoord.first, cameraStartCoord.second });
+		lineList.push_back({ cameraStartCoord.x, cameraStartCoord.y });
 	}
 
 	return QPolygonF(lineList);
@@ -45,13 +45,14 @@ void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMous
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		auto targetWorldCoord =
-			mCoordinateHelper->CameraToWorld(targetMousePos.x(), targetMousePos.y(), mFaceData->GetStartTransform());
-		auto prevWorldCoord =
-			mCoordinateHelper->CameraToWorld(prevMousePos.x(), prevMousePos.y(), mFaceData->GetStartTransform());
+		scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
+			targetMousePos.x(), targetMousePos.y(), mFaceData->GetStartTransform());
 
-		double dx = targetWorldCoord.first - prevWorldCoord.first;
-		double dy = targetWorldCoord.second - prevWorldCoord.second;
+		scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
+			prevMousePos.x(), prevMousePos.y(), mFaceData->GetStartTransform());
+
+		double dx = targetWorldCoord.x - prevWorldCoord.x;
+		double dy = targetWorldCoord.y - prevWorldCoord.y;
 
 		mFaceData->AddDxDyToLineStart(dx, dy);
 	}
@@ -145,14 +146,14 @@ scBoundingBox scFaceQtVisual::GetBoundingBox()
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		auto cameraStartCoord = mCoordinateHelper->WorldToCamera(
+		scVector2D cameraStartCoord = mCoordinateHelper->WorldToCamera(
 			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
 
-		minX = min(minX, cameraStartCoord.first);
-		maxX = max(maxX, cameraStartCoord.first);
+		minX = min(minX, cameraStartCoord.x);
+		maxX = max(maxX, cameraStartCoord.x);
 
-		minY = min(minY, cameraStartCoord.second);
-		maxY = max(maxY, cameraStartCoord.second);
+		minY = min(minY, cameraStartCoord.y);
+		maxY = max(maxY, cameraStartCoord.y);
 	}
 
 	constexpr double offset = 10.0;
