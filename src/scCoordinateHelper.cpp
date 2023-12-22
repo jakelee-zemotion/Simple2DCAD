@@ -49,10 +49,10 @@ scVector2D scCoordinateHelper::ScreenToWorld(double x, double y)
 
 
 
-pair<double, double> scCoordinateHelper::ScreenToLoacl(double x, double y, scTransform& transform)
+scVector2D scCoordinateHelper::ScreenToLoacl(double x, double y, scTransform& transform)
 {
     // 1. Scale
-    auto scaleCoord = transform.Scale(x, y);
+    scVector2D scaleCoord = transform.Scale(x, y);
 
     // 2. Rotate
 
@@ -60,13 +60,13 @@ pair<double, double> scCoordinateHelper::ScreenToLoacl(double x, double y, scTra
     return scaleCoord;
 }
 
-std::pair<double, double> scCoordinateHelper::LoaclToScreen(double x, double y, scTransform& transform)
+scVector2D scCoordinateHelper::LoaclToScreen(double x, double y, scTransform& transform)
 {
     // 2. Rotate
     
 
     // 1. Scale
-    auto scaleCoord = transform.UnScale(x, y);
+    scVector2D scaleCoord = transform.UnScale(x, y);
 
 
 
@@ -98,8 +98,8 @@ std::pair<double, double> scCoordinateHelper::CameraToLocal(double x, double y)
 scVector2D scCoordinateHelper::WorldToCamera(double x, double y, scTransform& transform)
 {
     scVector2D screenCoord = WorldToScreen(x, y);
-    auto localCoord = ScreenToLoacl(screenCoord.x, screenCoord.y, transform);
-    auto cameraCoord = LocalToCamera(localCoord.first, localCoord.second);
+    scVector2D localCoord = ScreenToLoacl(screenCoord.x, screenCoord.y, transform);
+    auto cameraCoord = LocalToCamera(localCoord.x, localCoord.y);
 
     return { cameraCoord.first, cameraCoord.second };
 }
@@ -107,8 +107,8 @@ scVector2D scCoordinateHelper::WorldToCamera(double x, double y, scTransform& tr
 scVector2D scCoordinateHelper::CameraToWorld(double x, double y, scTransform& transform)
 {
     auto localCoord = CameraToLocal(x, y);
-    auto screenCoord = LoaclToScreen(localCoord.first, localCoord.second, transform);
-    scVector2D worldCoord = ScreenToWorld(screenCoord.first, screenCoord.second);
+    scVector2D screenCoord = LoaclToScreen(localCoord.first, localCoord.second, transform);
+    scVector2D worldCoord = ScreenToWorld(screenCoord.x, screenCoord.y);
 
     return worldCoord;
 }

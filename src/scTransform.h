@@ -1,4 +1,6 @@
 #pragma once
+#include "scMatrixVectorHelper.h"
+
 #include <utility>
 
 class scTransform
@@ -7,8 +9,8 @@ public:
 	scTransform();
 	~scTransform();
 
-	std::pair<double, double> Scale(double x, double y) const;
-	std::pair<double, double> UnScale(double x, double y) const;
+	scVector2D Scale(double x, double y) const;
+	scVector2D UnScale(double x, double y) const;
 	void MultiplyScaleXY(double scaleX, double scaleY);
 
 	double GetScaleX() const;

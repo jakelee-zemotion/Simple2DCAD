@@ -15,7 +15,7 @@ scTransform::~scTransform()
 {
 }
 
-pair<double, double> scTransform::Scale(double x, double y) const
+scVector2D scTransform::Scale(double x, double y) const
 {
 	x *= mScaleX;
 	y *= mScaleY;
@@ -23,7 +23,7 @@ pair<double, double> scTransform::Scale(double x, double y) const
 	return { x, y };
 }
 
-std::pair<double, double> scTransform::UnScale(double x, double y) const
+scVector2D scTransform::UnScale(double x, double y) const
 {
 	x /= mScaleX;
 	y /= mScaleY;
