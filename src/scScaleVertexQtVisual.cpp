@@ -7,7 +7,7 @@
 using namespace std;
 
 scScaleVertexQtVisual::scScaleVertexQtVisual(
-	const std::shared_ptr<scFaceQtVisual>& face,
+	const shared_ptr<scFaceQtVisual>& face,
 	const QPointF& point, 
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scVertexQtVisual(SHAPE_TYPE::SCALE_VERTEX, point, coordinateHelper), 

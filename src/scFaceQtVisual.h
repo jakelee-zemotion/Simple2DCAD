@@ -7,6 +7,8 @@ struct scBoundingBox
 	QPointF topRight;
 	QPointF bottomLeft;
 	QPointF bottomRight;
+
+	QPointF center;
 };
 
 class scCoordinateHelper;

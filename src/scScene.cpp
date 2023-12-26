@@ -5,6 +5,7 @@
 #include "scLineQtVisual.h"
 #include "scFaceQtVisual.h"
 #include "scScaleVertexQtVisual.h"
+#include "scRotateVertexQtVisual.h"
 
 using namespace std;
 
@@ -218,7 +219,7 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 	V4->SetDiagonalScaleVector(V2);
 
 	//shared_ptr<scLineQtVisual> L1
-	
+
 	mVertexList.push_back(V1);
 	mVertexList.push_back(V2);
 	mVertexList.push_back(V3);
@@ -228,6 +229,14 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 	mDrawShapeList.push_back(V2);
 	mDrawShapeList.push_back(V3);
 	mDrawShapeList.push_back(V4);
+
+	QPointF aa = {};
+
+	shared_ptr<scRotateVertexQtVisual> rV = make_shared<scRotateVertexQtVisual>(face, boundingBox.center, mCoordinateHelper);
+
+
+	mVertexList.push_back(rV);
+	mDrawShapeList.push_back(rV);
 }
 
 
@@ -239,9 +248,14 @@ void scScene::RemoveBoundingBoxOfFace()
 	mVertexList.pop_back();
 	mVertexList.pop_back();
 
+	mVertexList.pop_back();
+
+
 	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();
+
 	mDrawShapeList.pop_back();
 }
 

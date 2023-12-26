@@ -163,5 +163,7 @@ scBoundingBox scFaceQtVisual::GetBoundingBox()
 	boundingBox.bottomLeft  = { minX - offset, maxY + offset };
 	boundingBox.bottomRight = { maxX + offset, maxY + offset };
 
+	boundingBox.center = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
+
 	return boundingBox;
 }
