@@ -15,6 +15,18 @@ scCamera::scCamera()
     mPanDistVector.resize(mPanLimitSize);
 
     mPanDistVector[mPanBackIdx] = { 0.0, 0.0 };
+
+    mPanZoomMatrix = MatrixHelper::GetIdentityMatrix();
+
+    scMatrix2D a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    scMatrix2D b = { 2, 3, 4, 5, 6, 7, 8, 9, 1 };
+
+    scMatrix2D c = b * a;
+
+    for (int i = 0; i < 3; i++)
+    {
+        qDebug() << c.m[i][0] << " " << c.m[i][1] << " " << c.m[i][2] << " ";
+    }
 }
 
 scCamera::~scCamera()

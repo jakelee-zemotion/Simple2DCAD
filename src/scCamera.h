@@ -36,5 +36,7 @@ private:
 	std::vector<std::pair<double, double>> mZoomCenterVector;
 	std::vector<std::pair<double, double>> mPanDistVector;
 
+	scMatrix2D mPanZoomMatrix;
+
 	void AddRemoveZoomPanVectorElement(const QPointF& currentMousePos, const ZOOM& currZoomState);
 };
