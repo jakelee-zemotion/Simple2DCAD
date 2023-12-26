@@ -13,12 +13,12 @@ public:
 	scState(const std::shared_ptr<scScene>& scene);
 	virtual ~scState();
 
+	virtual void Paint(QPainter& painter) = 0;
+
 	virtual void MousePressEvent(const QPointF& currMousePos) = 0;
 	virtual void MouseMoveEvent(const QPointF& currMousePos) = 0;
 	virtual void MouseReleaseEvent() = 0;
 	virtual void KeyPressEvent(QKeyEvent* event) = 0;
-
-	virtual void Paint(QPainter& painter) = 0;
 
 	virtual void EndState() = 0;
 

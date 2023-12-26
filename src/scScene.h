@@ -24,9 +24,6 @@ public:
 	void EndDrawing(bool canCreateFace);
 	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(false));
 
-	void AddBoundingBoxOfFace(const std::shared_ptr<scFaceQtVisual>& face);
-	void RemoveBoundingBoxOfFace();
-
 	int GetVertexCreatedCount() const;
 
 private:

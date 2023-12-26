@@ -12,12 +12,12 @@ public:
 	scDrawLineState(const std::shared_ptr<scScene>& scene);
 	~scDrawLineState() override;
 
+	void Paint(QPainter& painter) override;
+
 	void MousePressEvent(const QPointF& currMousePos) override;
 	void MouseMoveEvent(const QPointF& currMousePos) override;
 	void MouseReleaseEvent() override;
 	void KeyPressEvent(QKeyEvent* event) override;
-
-	void Paint(QPainter& painter) override;
 
 	void EndState() override;
 
