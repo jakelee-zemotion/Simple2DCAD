@@ -7,33 +7,9 @@ using namespace std;
 scCamera::scCamera()
 {
     mPrevMousePos = { 0, 0 };
-
-    mPrevZoomState = ZOOM::IN;
-    mZoomBackIdx = -1;
-    mPanBackIdx = 0;
-    mZoomCenterVector.resize(mZoomLimitSize);
-    mPanDistVector.resize(mPanLimitSize);
-
-    mPanDistVector[mPanBackIdx] = { 0.0, 0.0 };
-
+    
     mZoomPanMatrix = MatrixHelper::IdentityMatrix();
-
-    scMatrix2D a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    scMatrix2D b = { 2, 3, 4, 5, 6, 7, 8, 9, 1 };
-
-    scMatrix2D c = a * b;
-
-    for (int i = 0; i < 3; i++)
-    {
-        qDebug() << c.m[i][0] << " " << c.m[i][1] << " " << c.m[i][2] << " ";
-    }
-
-    scVector2D aa(2.0, 7.0);
-    scMatrix2D bb = MatrixHelper::TranslateMatrix(3.0, 3.0);
-
-    aa = bb * aa;
-
-    qDebug() << aa.x << " " << aa.y << " " << aa.z << " ";
+    mInverseZoomPanMatrix = MatrixHelper::IdentityMatrix();
 }
 
 scCamera::~scCamera()
@@ -45,209 +21,56 @@ void scCamera::AddPanXY(const QPointF& currentMousePos)
     QPointF dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 
-    assert(mPanBackIdx >= 0 && mPanBackIdx < mPanLimitSize);
-
-    mPanDistVector[mPanBackIdx].first += dist.x();
-    mPanDistVector[mPanBackIdx].second += dist.y();
 
     scMatrix2D newPanMatrix = MatrixHelper::TranslateMatrix(dist.x(), dist.y());
+    scMatrix2D newInversePanMatrix = MatrixHelper::InverseTranslateMatrix(dist.x(), dist.y());
 
     mZoomPanMatrix = (newPanMatrix * mZoomPanMatrix);
-}
-
-
-
-void scCamera::AddRemoveZoomPanVectorElement(const QPointF& currentMousePos, const ZOOM& currZoomState)
-{
-    // Zoom/Pan information is saved in vectors step by step.
-    // 
-    // If the vector is empty or 
-    // the previous state is the same as the current state (e.g. Zoom In->In->In, Out->Out->Out)
-    if (mZoomBackIdx == -1 || mPrevZoomState == currZoomState)
-    {
-        // Add Zoom/Pan Elements.
-        if (mZoomBackIdx + 1 >= mZoomLimitSize)
-            return;
-
-        mZoomBackIdx++; mPanBackIdx++;
-
-        mZoomCenterVector[mZoomBackIdx] = { currentMousePos.x(), currentMousePos.y() };
-        mPrevZoomState = currZoomState;
-        mPanDistVector[mPanBackIdx] = { 0.0, 0.0 };
-        return;
-    }
-
-    // Remove Zoom/Pan Elements.
-    // ####################################
-    // Consider the case of 
-    // [stage1] --ZoomIn --> [stage2] --ZoomOut--> [stage3]
-    // or
-    // [stage1] --ZoomOut--> [stage2] --ZoomIn --> [stage3]
-    // 
-    // Here, the object size of stage3 is the same as stage1. 
-    // 
-    // This is because the Zoom ratio for all Zoom steps is the same. (mZoomRatio)
-    // 
-    // So instead of going through the steps above, 
-    // we just find the distance difference between steps 1 and 3 
-    // and add it to Pan.
-    // ####################################
-
-    pair<double, double> center1 = mZoomCenterVector[mZoomBackIdx];
-    pair<double, double> center2 = { currentMousePos.x(), currentMousePos.y() };
-
-    // Find the distance difference between steps 1 and 3.
-    auto zoomtoPan =
-        [&mZoomRatio = mZoomRatio, &currZoomState](double c1, double c2, double p1) -> double
-        {
-            // ####################################
-            // 1. [stage1] --ZoomOut--> [stage2] --ZoomIn --> [stage3]
-            // 
-            // ((x - c1) / r + c1 + p1 - c2) * r + c2 = newX
-            // newX - x = -c1 + c2 + c1 * r + p1 * r - c2 * r
-            //
-            //
-            // 2. [stage1] --ZoomIn --> [stage2] --ZoomOut--> [stage3]
-            // 
-            // ((x - c1) * r + c1 + p1 - c2) / r + c2 = newX
-            // newX - x = -c1 + c2 + c1 / r + p1 / r - c2 / r
-            //  
-            // (c.f. newX - x = distance)
-            // ####################################
-
-            const double r = (currZoomState == ZOOM::IN ? mZoomRatio : 1.0 / mZoomRatio);
-            return c2 - c1 + c1 * r - c2 * r + p1 * r;
-        };
-
-
-    assert(mPanBackIdx - 1 >= 0 && mPanBackIdx < mPanLimitSize);
-
-    // Add the distance to Pan.
-    mPanDistVector[mPanBackIdx - 1].first += zoomtoPan(center1.first, center2.first, mPanDistVector[mPanBackIdx].first);
-    mPanDistVector[mPanBackIdx - 1].second += zoomtoPan(center1.second, center2.second, mPanDistVector[mPanBackIdx].second);
-
-    mPanBackIdx--;
-    mZoomBackIdx--;
+    mInverseZoomPanMatrix = (mInverseZoomPanMatrix * newInversePanMatrix);
 }
 
 
 void scCamera::ZoomInOut(const QPointF& currentMousePos, int mouseDir)
 {
     scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(currentMousePos.x(), currentMousePos.y());
-    scMatrix2D scaleMatrix;
+    scMatrix2D scaleMatrix, inverseScaleMatrix;
     scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(currentMousePos.x(), currentMousePos.y());
 
     if (mouseDir > 0) // Zoom In
     {
-        AddRemoveZoomPanVectorElement(currentMousePos, ZOOM::IN);
-
         scaleMatrix = MatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
+        inverseScaleMatrix = MatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
 
     }
     else // Zoom Out
     {
-        AddRemoveZoomPanVectorElement(currentMousePos, ZOOM::OUT);
-
-
         scaleMatrix = MatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
+        inverseScaleMatrix = MatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
     }
 
 
-    scMatrix2D newZoomInMatrix = transMatrix * scaleMatrix * inverseTransMatrix;
+    scMatrix2D nextZoomMatrix = transMatrix * scaleMatrix * inverseTransMatrix;
+    scMatrix2D nextInverseZoomMatrix = transMatrix * inverseScaleMatrix * inverseTransMatrix;
 
-    mZoomPanMatrix = (newZoomInMatrix * mZoomPanMatrix);
+    // newM = A * oldM;
+    mZoomPanMatrix = (nextZoomMatrix * mZoomPanMatrix);
+    mInverseZoomPanMatrix = (mInverseZoomPanMatrix * nextInverseZoomMatrix);
 }
 
 scVector2D scCamera::ZoomPan(double x, double y) const
 {
-    assert(!mPanDistVector.empty());
-
-    // Pan Zoom Pan Zoom Pan ...
-    // First Pan
-    //x += mPanDistVector[0].first;
-    //y += mPanDistVector[0].second;
-
-    //for (int i = 0; i <= mZoomBackIdx; i++)
-    //{
-    //    assert(i + 1 < mPanLimitSize);
-
-    //    const auto& zoomCenter = mZoomCenterVector[i];
-    //    const auto& panDist = mPanDistVector[i + 1];
-
-    //    // Zoom
-    //    x -= (zoomCenter.first);
-    //    y -= (zoomCenter.second);
-
-    //    if (mPrevZoomState == ZOOM::IN)
-    //    {
-    //        x *= mZoomRatio;
-    //        y *= mZoomRatio;
-    //    }
-    //    else
-    //    {
-    //        x /= mZoomRatio;
-    //        y /= mZoomRatio;
-    //    }
-
-    //    x += (zoomCenter.first);
-    //    y += (zoomCenter.second);
-
-
-    //    // Pan
-    //    x += panDist.first;
-    //    y += panDist.second;
-    //}
-
-    //qDebug() << "ZoomVector size = " << mZoomCenterVector.size() << "  //  PanVector size = " << mPanDistVector.size();
-
-    scVector2D r = { x, y };
-    scVector2D result = mZoomPanMatrix * r;
+    scVector2D v = { x, y };
+    scVector2D result = mZoomPanMatrix * v;
 
     return result;
 }
 
 scVector2D scCamera::UnZoomPan(double x, double y) const
 {
-    assert(mPanBackIdx < mPanLimitSize);
+    scVector2D v = { x, y };
+    scVector2D result = mInverseZoomPanMatrix * v;
 
-    // UnPan UnZoom UnPan UnZoom UnPan ...
-    // First UnPan
-    x -= mPanDistVector[mPanBackIdx].first;
-    y -= mPanDistVector[mPanBackIdx].second;
-
-    for (int i = mZoomBackIdx; i >= 0; i--)
-    {
-        assert(i + 1 < mPanLimitSize);
-
-        const auto& zoomCenter = mZoomCenterVector[i];
-        const auto& panDist = mPanDistVector[i];
-
-        // UnZoom
-        x -= (zoomCenter.first);
-        y -= (zoomCenter.second);
-
-        if (mPrevZoomState == ZOOM::IN)
-        {
-            x /= mZoomRatio;
-            y /= mZoomRatio;
-        }
-        else
-        {
-            x *= mZoomRatio;
-            y *= mZoomRatio;
-        }
-
-        x += (zoomCenter.first);
-        y += (zoomCenter.second);
-
-
-        // UnPan
-        x -= panDist.first;
-        y -= panDist.second;
-    }
-
-
-    return { x, y };
+    return result;
 }
 
 void scCamera::SetPrevMousePos(const QPointF& prevMousePos)
