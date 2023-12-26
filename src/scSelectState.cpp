@@ -111,7 +111,7 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 			{
 				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->RotateFace(0.1);
+				transformFace->RotateFace(0.1, 0.1, 0.0, 0.0);
 			}
 		}
 		break;
@@ -121,7 +121,7 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 			{
 				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->RotateFace(-0.1);
+				transformFace->RotateFace(-0.1, -0.1, 0.0, 0.0);
 			}
 		}
 		break;

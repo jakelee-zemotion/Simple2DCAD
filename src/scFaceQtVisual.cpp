@@ -96,42 +96,17 @@ bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
 
 void scFaceQtVisual::ScaleFace(double dx, double dy, double transX, double transY)
 {
-	QPointF center = this->MakeQPolygonF().boundingRect().center();
-
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy, transX, transY);
 	}
 }
 
-void scFaceQtVisual::RotateFace(double theta)
+void scFaceQtVisual::RotateFace(double sinX, double cosX, double transX, double transY)
 {
-	QPointF center = this->MakeQPolygonF().boundingRect().center();
-
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		scVector2D screenStartCoord = 
-			mCoordinateHelper->WorldToScreen(mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
-
-		screenStartCoord.x -= center.x();
-		screenStartCoord.y -= center.y();
-
-		double cosT = cos(theta);
-		double sinT = sin(theta);
-
-		double x = screenStartCoord.x;
-		double y = screenStartCoord.y;
-
-		screenStartCoord.x = cosT * x - sinT * y;
-		screenStartCoord.y = sinT * x + cosT * y;
-
-		screenStartCoord.x += center.x();
-		screenStartCoord.y += center.y();
-
-		scVector2D worldStartCoord =
-			mCoordinateHelper->ScreenToWorld(screenStartCoord.x, screenStartCoord.y);
-
-		mFaceData->SetLineStart(worldStartCoord.x, worldStartCoord.y);
+		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, transX, transY);
 	}
 }
 

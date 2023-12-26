@@ -42,16 +42,19 @@ void scRotateVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& 
 	QVector3D v1(B - A);
 	QVector3D v2(C - A);
 
-	QVector3D cross = QVector3D::crossProduct(v1, v2);
-	
+	double crossZ = QVector3D::crossProduct(v1, v2).z();
+	double dot = QPointF::dotProduct(B - A, C - A);
 
 	/*double a = sqrt(QPointF::dotProduct(prevMousePos, targetMousePos));
 	double b = sqrt(QPointF::dotProduct(prevMousePos, mCenter));
 	double c = sqrt(QPointF::dotProduct(targetMousePos, mCenter));*/
 
-	double angle = asin(cross.z() / (b * c));
+	double sinX = crossZ / (b * c);
+	double cosX = dot / (b * c);
+
+	qDebug() << asin(sinX) / 3.14 * 360.0;
 
 	//qDebug() << (angle / 3.14) * 360.0;
 
-	mParentFace->RotateFace(angle);
+	mParentFace->RotateFace(sinX, cosX, 0.0, 0.0);
 }

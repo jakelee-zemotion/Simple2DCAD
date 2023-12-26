@@ -27,7 +27,7 @@ public:
 	bool HitTest(const QPointF& currMousePos) override;
 
 	void ScaleFace(double dx, double dy, double transX, double transY);
-	void RotateFace(double theta);
+	void RotateFace(double sinX, double cosX, double transX, double transY);
 
 	scBoundingBox GetBoundingBox();
 
