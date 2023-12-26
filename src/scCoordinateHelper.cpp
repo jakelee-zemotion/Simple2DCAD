@@ -27,7 +27,7 @@ scVector2D scCoordinateHelper::WorldToScreen(double x, double y)
 
     return
     {
-        expr(x, static_cast<double>(mViewportSize.width())),
+        expr(       x, static_cast<double>(mViewportSize.width())),
         expr(-1.0 * y, static_cast<double>(mViewportSize.height()))
     };
 }
@@ -42,7 +42,7 @@ scVector2D scCoordinateHelper::ScreenToWorld(double x, double y)
 
     return
     {
-        expr(x, static_cast<double>(mViewportSize.width())),
+               expr(x, static_cast<double>(mViewportSize.width())),
         -1.0 * expr(y, static_cast<double>(mViewportSize.height()))
     };
 }
@@ -78,7 +78,6 @@ scVector2D scCoordinateHelper::LoaclToScreen(double x, double y, scTransform& tr
 
 scVector2D scCoordinateHelper::LocalToCamera(double x, double y)
 {
-    // Pan Zoom Pan Zoom Pan ...
     scVector2D zoomPanCoord = mCamera.ZoomPan(x, y);
 
     return zoomPanCoord;
@@ -86,7 +85,6 @@ scVector2D scCoordinateHelper::LocalToCamera(double x, double y)
 
 scVector2D scCoordinateHelper::CameraToLocal(double x, double y)
 {
-    // UnPan UnZoom UnPan UnZoom UnPan ...
     scVector2D zoomCoord = mCamera.UnZoomPan(x, y);
 
     return zoomCoord;

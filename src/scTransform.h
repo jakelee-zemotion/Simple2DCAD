@@ -22,5 +22,8 @@ private:
 
 	double mRotateX;
 	double mRotateY;
+
+	scMatrix2D mScaleRotateMatrix;
+	scMatrix2D mInverseScaleRotateMatrix;
 };
 
