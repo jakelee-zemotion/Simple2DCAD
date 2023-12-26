@@ -4,6 +4,8 @@
 #include "scVertexQtVisual.h"
 #include "scLineQtVisual.h"
 #include "scFaceQtVisual.h"
+#include "scScaleVertexQtVisual.h"
+#include "scRotateVertexQtVisual.h"
 
 using namespace std;
 
@@ -189,6 +191,73 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, S
 	return nullptr;
 }
 
+void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
+{
+	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
+
+	scBoundingBox boundingBox = face->GetBoundingBox();
+
+	shared_ptr<scScaleVertexQtVisual> V1 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
+	shared_ptr<scScaleVertexQtVisual> V2 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
+	shared_ptr<scScaleVertexQtVisual> V3 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
+	shared_ptr<scScaleVertexQtVisual> V4 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
+
+	V1->SetHorizontalScaleVector(V2);
+	V1->SetVerticalScaleVector(V4);
+	V1->SetDiagonalScaleVector(V3);
+
+	V2->SetHorizontalScaleVector(V1);
+	V2->SetVerticalScaleVector(V3);
+	V2->SetDiagonalScaleVector(V4);
+
+	V3->SetHorizontalScaleVector(V4);
+	V3->SetVerticalScaleVector(V2);
+	V3->SetDiagonalScaleVector(V1);
+
+	V4->SetHorizontalScaleVector(V3);
+	V4->SetVerticalScaleVector(V1);
+	V4->SetDiagonalScaleVector(V2);
+
+	//shared_ptr<scLineQtVisual> L1
+
+	mVertexList.push_back(V1);
+	mVertexList.push_back(V2);
+	mVertexList.push_back(V3);
+	mVertexList.push_back(V4);
+
+	mDrawShapeList.push_back(V1);
+	mDrawShapeList.push_back(V2);
+	mDrawShapeList.push_back(V3);
+	mDrawShapeList.push_back(V4);
+
+	QPointF aa = { boundingBox.center.x(), boundingBox.topLeft.y() - 50.0 };
+
+	shared_ptr<scRotateVertexQtVisual> rV = make_shared<scRotateVertexQtVisual>(face, aa, boundingBox.center, mCoordinateHelper);
+
+
+	mVertexList.push_back(rV);
+	mDrawShapeList.push_back(rV);
+}
+
+
+
+void scScene::RemoveBoundingBoxOfFace()
+{
+	mVertexList.pop_back();
+	mVertexList.pop_back();
+	mVertexList.pop_back();
+	mVertexList.pop_back();
+
+	mVertexList.pop_back();
+
+
+	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();
+
+	mDrawShapeList.pop_back();
+}
 
 
 int scScene::GetVertexCreatedCount() const

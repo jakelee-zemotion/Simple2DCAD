@@ -4,8 +4,6 @@
 #include "scShapeQtVisual.h"
 #include "scVertexQtVisual.h"
 #include "scFaceQtVisual.h"
-#include "scScaleVertexQtVisual.h"
-#include "scRotateVertexQtVisual.h"
 
 #include <qDebug>
 #include <QKeyEvent>
@@ -22,15 +20,6 @@ scSelectState::scSelectState(const shared_ptr<scScene>& scene, SHAPE_TYPE select
 scSelectState::~scSelectState()
 {
 }
-
-void scSelectState::Paint(QPainter& painter)
-{
-	for (const auto& shape : mDrawShapeList)
-	{
-		shape->Paint(painter);
-	}
-}
-
 
 void scSelectState::MousePressEvent(const QPointF& currMousePos)
 {
@@ -161,7 +150,7 @@ void scSelectState::ResetSelected()
 	mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-		RemoveBoundingBoxOfFace();
+		mScene->RemoveBoundingBoxOfFace();
 
 	mSelectedShape.reset();
 
@@ -237,62 +226,6 @@ void scSelectState::SelectShape()
 		shared_ptr<scFaceQtVisual> selectedFace =
 			dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
 
-		AddBoundingBoxOfFace(selectedFace);
+		mScene->AddBoundingBoxOfFace(selectedFace);
 	}
-}
-
-
-void scSelectState::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
-{
-	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
-
-	scBoundingBox boundingBox = face->GetBoundingBox();
-
-	shared_ptr<scScaleVertexQtVisual> V1 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
-	shared_ptr<scScaleVertexQtVisual> V2 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
-	shared_ptr<scScaleVertexQtVisual> V3 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
-	shared_ptr<scScaleVertexQtVisual> V4 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
-
-	V1->SetHorizontalScaleVector(V2);
-	V1->SetVerticalScaleVector(V4);
-	V1->SetDiagonalScaleVector(V3);
-
-	V2->SetHorizontalScaleVector(V1);
-	V2->SetVerticalScaleVector(V3);
-	V2->SetDiagonalScaleVector(V4);
-
-	V3->SetHorizontalScaleVector(V4);
-	V3->SetVerticalScaleVector(V2);
-	V3->SetDiagonalScaleVector(V1);
-
-	V4->SetHorizontalScaleVector(V3);
-	V4->SetVerticalScaleVector(V1);
-	V4->SetDiagonalScaleVector(V2);
-
-	//shared_ptr<scLineQtVisual> L1
-
-	mDrawShapeList.push_back(V1);
-	mDrawShapeList.push_back(V2);
-	mDrawShapeList.push_back(V3);
-	mDrawShapeList.push_back(V4);
-
-	//QPointF aa = { boundingBox.center.x(), boundingBox.center.};
-
-	shared_ptr<scRotateVertexQtVisual> rV = make_shared<scRotateVertexQtVisual>(face, boundingBox.center, mCoordinateHelper);
-
-
-	mDrawShapeList.push_back(rV);
-}
-
-
-
-void scSelectState::RemoveBoundingBoxOfFace()
-{
-
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
-
-	mDrawShapeList.pop_back();
 }

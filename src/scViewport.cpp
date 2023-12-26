@@ -45,7 +45,6 @@ void scViewport::paintEvent(QPaintEvent* event)
     
     // Draw objects
     mScene->Render(painter);
-    mStateMachine.GetCurrentState()->Paint(painter);
 }
 
 void scViewport::mousePressEvent(QMouseEvent* event)

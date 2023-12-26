@@ -17,10 +17,6 @@ scDrawLineState::~scDrawLineState()
 {
 }
 
-void scDrawLineState::Paint(QPainter& painter)
-{
-}
-
 void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 {
     // Create a Face.
