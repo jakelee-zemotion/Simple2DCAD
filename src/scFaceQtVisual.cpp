@@ -94,13 +94,13 @@ bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
 	return false;
 }
 
-void scFaceQtVisual::ScaleFace(double dx, double dy)
+void scFaceQtVisual::ScaleFace(double dx, double dy, double transX, double transY)
 {
 	QPointF center = this->MakeQPolygonF().boundingRect().center();
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy);
+		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy, transX, transY);
 	}
 }
 

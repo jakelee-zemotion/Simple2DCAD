@@ -4,12 +4,6 @@ using namespace std;
 
 scTransform::scTransform()
 {
-	mScaleX = 1.0;
-	mScaleY = 1.0;
-
-	mRotateX = 0.0;
-	mRotateY = 0.0;
-
 	mScaleRotateMatrix = MatrixHelper::IdentityMatrix();
 	mInverseScaleRotateMatrix = MatrixHelper::IdentityMatrix();
 }
@@ -34,24 +28,17 @@ scVector2D scTransform::UnScale(double x, double y) const
 	return result;
 }
 
-void scTransform::MultiplyScaleXY(double scaleX, double scaleY)
+void scTransform::MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY)
 {
-	mScaleX *= scaleX;
-	mScaleY *= scaleY;
+	scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(transX, transY);
+	scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(transX, transY);
 
-	scMatrix2D nextScaleMatrix = MatrixHelper::ScaleMatrix(scaleX, scaleY);
-	scMatrix2D nextInverseScaleMatrix = MatrixHelper::InverseScaleMatrix(scaleX, scaleY);
+	scMatrix2D scaleMatrix = MatrixHelper::ScaleMatrix(scaleX, scaleY);
+	scMatrix2D inverseScaleMatrix = MatrixHelper::InverseScaleMatrix(scaleX, scaleY);
+
+	scMatrix2D nextScaleMatrix = transMatrix * scaleMatrix * inverseTransMatrix;
+	scMatrix2D nextInverseScaleMatrix = transMatrix * inverseScaleMatrix * inverseTransMatrix;
 
 	mScaleRotateMatrix = (nextScaleMatrix * mScaleRotateMatrix);
 	mInverseScaleRotateMatrix = (mInverseScaleRotateMatrix * nextInverseScaleMatrix);
-}
-
-double scTransform::GetScaleX() const
-{
-	return mScaleX;
-}
-
-double scTransform::GetScaleY() const
-{
-	return mScaleY;
 }

@@ -24,7 +24,7 @@ public:
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 
-	void ScaleFace(double dx, double dy);
+	void ScaleFace(double dx, double dy, double transX, double transY);
 	void RotateFace(double theta);
 
 	scBoundingBox GetBoundingBox();

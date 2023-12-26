@@ -91,7 +91,7 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 			{
 				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->ScaleFace(1.1, 1.1);
+				transformFace->ScaleFace(1.1, 1.1, 0.0, 0.0);
 			}
 		}
 		break;
@@ -101,7 +101,7 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 			{
 				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->ScaleFace(0.9, 0.9);
+				transformFace->ScaleFace(0.9, 0.9, 0.0, 0.0);
 			}
 		}
 		break;
@@ -203,15 +203,15 @@ void scSelectState::SelectShape()
 	if (mCurrHighlightShape == nullptr)
 		return;
 
-	if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
-		return;
+	//if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
+	//	return;
 
 	if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_VERTEX)
 		return;
 
 
 	// Reset mSelectedShape
-	if (mSelectedShape != nullptr && mSelectedShape->GetID() != mCurrHighlightShape->GetID())
+	if (mSelectedShape != nullptr)// && mSelectedShape->GetID() != mCurrHighlightShape->GetID())
 		ResetSelected();
 
 	// Set mSelectedShape

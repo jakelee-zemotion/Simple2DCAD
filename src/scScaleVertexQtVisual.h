@@ -17,14 +17,14 @@ public:
 
 	void SetHorizontalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector);
 	void SetVerticalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector);
-	void SetScaleCenter(const QPointF& point);
+	void SetDiagonalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector);
 
 private:
 	const std::shared_ptr<scFaceQtVisual> mParentFace;
 
 	std::weak_ptr<scScaleVertexQtVisual> mHorizontalScaleVertex;
 	std::weak_ptr<scScaleVertexQtVisual> mVerticalScaleVertex;
+	std::weak_ptr<scScaleVertexQtVisual> mDiagonalScaleVertex;
 
-	QPointF mScaleCenter;
 };
 
