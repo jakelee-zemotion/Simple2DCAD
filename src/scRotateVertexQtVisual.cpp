@@ -4,6 +4,7 @@
 #include "scCoordinateHelper.h"
 
 #include <qDebug>
+#include <QVector3D>
 
 using namespace std;
 
@@ -26,9 +27,9 @@ void scRotateVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& 
 {
 	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 
-	QPointF A(0.0, 0.0);
-	QPointF B(0.0, 1.0);
-	QPointF C(1.0, 0.0);
+	QPointF A = mCenter;
+	QPointF B = prevMousePos;
+	QPointF C = targetMousePos;
 
 	QLineF AB(A, B);
 	QLineF BC(B, C);
@@ -37,16 +38,20 @@ void scRotateVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& 
 	double a = BC.length();
 	double b = AB.length();
 	double c = CA.length();
+	
+	QVector3D v1(B - A);
+	QVector3D v2(C - A);
 
-	qDebug() << a << " " << b << " " << c;
+	QVector3D cross = QVector3D::crossProduct(v1, v2);
+	
 
 	/*double a = sqrt(QPointF::dotProduct(prevMousePos, targetMousePos));
 	double b = sqrt(QPointF::dotProduct(prevMousePos, mCenter));
 	double c = sqrt(QPointF::dotProduct(targetMousePos, mCenter));*/
 
-	double angle = acos((b * b + c * c - a * a) / (2.0 * b * c));
+	double angle = asin(cross.z() / (b * c));
 
-	qDebug() << (angle / 3.14) * 360.0;
+	//qDebug() << (angle / 3.14) * 360.0;
 
 	mParentFace->RotateFace(angle);
 }
