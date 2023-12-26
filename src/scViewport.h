@@ -30,7 +30,7 @@ private:
 	scCamera mCamera;
 	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 	std::shared_ptr<scScene> mScene;
-	
+
 	scStateMachine mStateMachine;
 
 	bool mIsCtrlPressed;

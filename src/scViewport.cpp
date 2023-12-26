@@ -1,11 +1,5 @@
 #include "scViewport.h"
 
-#include "scDrawLineState.h"
-#include "scSelectState.h"
-#include "scSelectVertexState.h"
-#include "scSelectLineState.h"
-#include "scSelectFaceState.h"
-
 #include "scScene.h"
 #include "scCoordinateHelper.h"
 
@@ -34,21 +28,7 @@ scViewport::~scViewport()
 
 void scViewport::AddState(const string& name)
 {
-    shared_ptr<scState> state;
-
-    if (name == "Draw")
-        state = make_shared<scDrawLineState>(mScene);
-    else if (name == "SelectAll")
-        state = make_shared<scSelectState>(mScene, SHAPE_TYPE::VERTEX | SHAPE_TYPE::LINE | SHAPE_TYPE::FACE);
-    else if (name == "SelectVertex")
-        state = make_shared<scSelectState>(mScene, SHAPE_TYPE::VERTEX);
-    else if (name == "SelectLine")
-        state = make_shared<scSelectState>(mScene, SHAPE_TYPE::LINE);
-    else if (name == "SelectFace")
-        state = make_shared<scSelectState>(mScene, SHAPE_TYPE::FACE);
-
-
-    mStateMachine.AddState(name, state);
+    mStateMachine.AddState(name, mScene);
 }
 
 void scViewport::TransitState(const string& name)
@@ -65,6 +45,7 @@ void scViewport::paintEvent(QPaintEvent* event)
     
     // Draw objects
     mScene->Render(painter);
+    mStateMachine.GetCurrentState()->Paint(painter);
 }
 
 void scViewport::mousePressEvent(QMouseEvent* event)

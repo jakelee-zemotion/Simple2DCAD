@@ -15,6 +15,8 @@ public:
 	void MouseReleaseEvent() override;
 	void KeyPressEvent(QKeyEvent* event) override;
 
+	void Paint(QPainter& painter) override;
+
 	void EndState() override;
 
 private:

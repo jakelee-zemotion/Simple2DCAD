@@ -6,6 +6,7 @@
 class scShapeID;
 class scScene;
 class QKeyEvent;
+class QPainter;
 class scState
 {
 public:
@@ -16,6 +17,8 @@ public:
 	virtual void MouseMoveEvent(const QPointF& currMousePos) = 0;
 	virtual void MouseReleaseEvent() = 0;
 	virtual void KeyPressEvent(QKeyEvent* event) = 0;
+
+	virtual void Paint(QPainter& painter) = 0;
 
 	virtual void EndState() = 0;
 

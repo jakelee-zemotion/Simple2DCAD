@@ -70,6 +70,10 @@ void scDrawLineState::KeyPressEvent(QKeyEvent* event)
     }
 }
 
+void scDrawLineState::Paint(QPainter& painter)
+{
+}
+
 void scDrawLineState::EndState()
 {
     this->EndDrawing(false);

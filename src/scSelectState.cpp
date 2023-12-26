@@ -128,6 +128,10 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 	}
 }
 
+void scSelectState::Paint(QPainter& painter)
+{
+}
+
 void scSelectState::EndState()
 {
 	if (mPrevHighlightShape != nullptr)

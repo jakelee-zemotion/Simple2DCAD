@@ -230,7 +230,7 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 	mDrawShapeList.push_back(V3);
 	mDrawShapeList.push_back(V4);
 
-	QPointF aa = {};
+	//QPointF aa = { boundingBox.center.x(), boundingBox.center.};
 
 	shared_ptr<scRotateVertexQtVisual> rV = make_shared<scRotateVertexQtVisual>(face, boundingBox.center, mCoordinateHelper);
 
