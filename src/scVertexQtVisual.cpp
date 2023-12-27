@@ -14,7 +14,7 @@ scVertexQtVisual::scVertexQtVisual(const QPointF& point, const shared_ptr<scCoor
 	Initialize(point);
 }
 
-
+// For the scScaleVertexQtVisual, scRotateVertexQtVisual.
 scVertexQtVisual::scVertexQtVisual(
 	const SHAPE_TYPE shapeType, 
 	const QPointF& point, 
@@ -97,9 +97,4 @@ bool scVertexQtVisual::HitTest(const QPointF& currMousePos)
 	}
 
 	return false;
-}
-
-shared_ptr<scVertexData> scVertexQtVisual::GetVertexData() const
-{
-	return mVertexData;
 }

@@ -85,46 +85,6 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 			ResetSelected();
 		}
 		break;
-
-		case Qt::Key_W:
-		{
-			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-			{
-				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->ScaleFace(1.1, 1.1, 0.0, 0.0);
-			}
-		}
-		break;
-
-		case Qt::Key_S:
-		{
-			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-			{
-				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->ScaleFace(0.9, 0.9, 0.0, 0.0);
-			}
-		}
-		break;
-
-		case Qt::Key_A:
-		{
-			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-			{
-				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->RotateFace(0.1, 0.1, 0.0, 0.0);
-			}
-		}
-		break;
-
-		case Qt::Key_D:
-		{
-			if (mSelectedShape != nullptr && mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-			{
-				shared_ptr<scFaceQtVisual> transformFace = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
-				transformFace->RotateFace(-0.1, -0.1, 0.0, 0.0);
-			}
-		}
-		break;
 	}
 }
 
@@ -149,8 +109,8 @@ void scSelectState::ResetSelected()
 
 	mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
-	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-		mScene->RemoveBoundingBoxOfFace();
+	//if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
+		//mScene->RemoveBoundingBoxOfFace();
 
 	mSelectedShape.reset();
 
@@ -223,9 +183,9 @@ void scSelectState::SelectShape()
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 	{
-		shared_ptr<scFaceQtVisual> selectedFace =
-			dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+		//shared_ptr<scFaceQtVisual> selectedFace =
+		//	dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
 
-		mScene->AddBoundingBoxOfFace(selectedFace);
+		//mScene->AddBoundingBoxOfFace(selectedFace);
 	}
 }

@@ -16,8 +16,8 @@ scLineQtVisual::scLineQtVisual(
 {
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();
-	mLineData->SetStartVertex(startVertex->GetVertexData());
-	mLineData->SetEndVertex(endVertex->GetVertexData());
+	mLineData->SetStartVertex(startVertex->mVertexData);
+	mLineData->SetEndVertex(endVertex->mVertexData);
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
@@ -93,9 +93,4 @@ bool scLineQtVisual::HitTest(const QPointF& currMousePos)
 	}
 
 	return false;
-}
-
-std::shared_ptr<scLineData> scLineQtVisual::GetLineData() const
-{
-	return mLineData;
 }

@@ -142,10 +142,10 @@ void scScene::EndDrawing(bool canCreateFace)
 
 
 		// Copy LineData.
-		list<shared_ptr<scLineData>> faceLineList;
+		list<shared_ptr<scLineQtVisual>> faceLineList;
 		for (; lineIter != mLineList.end(); lineIter++)
 		{
-			shared_ptr<scLineData> line = dynamic_pointer_cast<scLineQtVisual>(*lineIter)->GetLineData();
+			shared_ptr<scLineQtVisual> line = dynamic_pointer_cast<scLineQtVisual>(*lineIter);
 			faceLineList.push_back(line);
 		}
 

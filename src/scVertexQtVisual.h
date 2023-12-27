@@ -13,8 +13,9 @@ public:
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 
-	std::shared_ptr<scVertexData> GetVertexData() const;
 	QPointF MakeQPointF();
+
+	friend class scLineQtVisual;
 
 protected:
 	scVertexQtVisual(

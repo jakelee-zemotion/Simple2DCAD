@@ -1,18 +1,23 @@
 #include "scFaceQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scFaceData.h"
+#include "scLineQtVisual.h"
 
 #include <qDebug>
 
 using namespace std;
 
 scFaceQtVisual::scFaceQtVisual(
-	const list<shared_ptr<scLineData>>& lineList, 
+	const list<shared_ptr<scLineQtVisual>>& lineList,
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 	: scShapeQtVisual(SHAPE_TYPE::FACE, coordinateHelper)
 {
 	// Set the lines.
-	mFaceData = make_shared<scFaceData>(lineList);
+	mFaceData = make_shared<scFaceData>();
+	for (const auto& line : lineList)
+	{
+		mFaceData->AddLineData(line->mLineData);
+	}
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::gray;

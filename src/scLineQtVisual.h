@@ -19,7 +19,7 @@ public:
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 
-	std::shared_ptr<scLineData> GetLineData() const;
+	friend class scFaceQtVisual;
 
 private:
 	QLineF MakeQLineF();

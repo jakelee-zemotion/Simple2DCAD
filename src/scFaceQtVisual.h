@@ -14,11 +14,12 @@ struct scBoundingBox
 class scCoordinateHelper;
 class scFaceData;
 class scLineData;
+class scLineQtVisual;
 class scFaceQtVisual : public scShapeQtVisual
 {
 public:
 	scFaceQtVisual(
-		const std::list<std::shared_ptr<scLineData>>& lineList, 
+		const std::list<std::shared_ptr<scLineQtVisual>>& lineList,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scFaceQtVisual() override;
 

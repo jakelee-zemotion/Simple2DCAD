@@ -2,8 +2,7 @@
 
 using namespace std;
 
-scFaceData::scFaceData(const std::list<std::shared_ptr<scLineData>>& lineList)
-	:mLineList(lineList)
+scFaceData::scFaceData()
 {
 	ResetIter();
 }
@@ -12,9 +11,9 @@ scFaceData::~scFaceData()
 {
 }
 
-size_t scFaceData::LineListSize() const
+void scFaceData::AddLineData(const std::shared_ptr<scLineData>& lineData)
 {
-	return mLineList.size();
+	mLineList.push_back(lineData);
 }
 
 void scFaceData::ResetIter()

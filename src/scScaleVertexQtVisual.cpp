@@ -23,7 +23,7 @@ void scScaleVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& p
 {
 	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 
-	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
+	/*scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
 		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
 
 	mVerticalScaleVertex.lock()->GetVertexData()->SetX(worldCoord.x);
@@ -41,7 +41,7 @@ void scScaleVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& p
 		mDiagonalScaleVertex.lock()->GetVertexData()->GetX(), 
 		mDiagonalScaleVertex.lock()->GetVertexData()->GetY());
 
-	mParentFace->ScaleFace(dx, dy, dignalWorldCoord.x, dignalWorldCoord.y);
+	mParentFace->ScaleFace(dx, dy, dignalWorldCoord.x, dignalWorldCoord.y);*/
 }
 
 void scScaleVertexQtVisual::SetHorizontalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector)

@@ -8,10 +8,10 @@
 class scFaceData
 {
 public:
-	scFaceData(const std::list<std::shared_ptr<scLineData>>& lineList);
+	scFaceData();
 	~scFaceData();
 
-	size_t LineListSize() const;
+	void AddLineData(const std::shared_ptr<scLineData>& lineData);
 
 	void ResetIter();
 	void NextIter();
