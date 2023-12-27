@@ -43,7 +43,7 @@ void scScaleControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPo
 		mDiagonalScaleVertex.lock()->GetVertexData()->GetY());
 
 	mParentFace->ScaleFace(dx, dy, dignalWorldCoord.x, dignalWorldCoord.y);*/
-	mParentFace->ScaleFace(targetMousePos, prevMousePos);
+	mParentFace->ScaleFace(targetMousePos, prevMousePos, mBoxPos);
 }
 
 void scScaleControlVertexQtVisual::SetHorizontalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)

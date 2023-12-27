@@ -23,9 +23,12 @@ inline scVector2D operator-(const scVector2D& v1, const scVector2D& v2)
 	return { v1.x - v2.x, v1.y - v2.y };
 }
 
-inline scVector2D operator+=(const scVector2D& v1, const scVector2D& v2)
+inline scVector2D& operator+=(scVector2D& v1, const scVector2D& v2)
 {
-	return { v1.x + v2.x, v1.y + v2.y };
+	v1.x += v2.x;
+	v1.y += v2.y;
+
+	return v1;
 }
 
 struct scMatrix2D

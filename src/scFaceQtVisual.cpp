@@ -75,12 +75,11 @@ void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMous
 
 	scVector2D dist = targetScreenCoord - prevScreenCoord;
 
-	mBoundingBox.center.x = mBoundingBox.center.x + dist.x;
-	mBoundingBox.center.y = mBoundingBox.center.y + dist.y;
+	mBoundingBox.center += dist;
 
 	mRotateControlVertex->MoveControlVertexDirectly(targetMousePos, prevMousePos);
 
-	for (const auto& ss : mScaleControlVertexList)
+	for (const auto& ss : mScaleControlVertexVector)
 	{
 		ss->MoveControlVertexDirectly(targetMousePos, prevMousePos);
 	}
@@ -121,12 +120,17 @@ bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
 	return false;
 }
 
-void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& prevMousePos, const BOX_POSITION& boxPos)
 {
-	
+	int diagIdx = (static_cast<int>(boxPos) + 1) % 4;
+
+	scScaleControlVertexQtVisual diagVertex = *mScaleControlVertexVector[diagIdx];
+
+	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex.mVertexData->GetX(), diagVertex.mVertexData->GetY(), diagVertex.mVertexData->GetTransform());
 
 	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
 	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
+
 
 	double dx = targetLocalCoord.x / prevLocalCoord.x;
 	double dy = targetLocalCoord.y / prevLocalCoord.y;
@@ -139,7 +143,7 @@ void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& pre
 
 	mRotateControlVertex->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, 0.0, 0.0);
 
-	for (const auto& ss : mScaleControlVertexList)
+	for (const auto& ss : mScaleControlVertexVector)
 	{
 		ss->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, 0.0, 0.0);
 	}
@@ -186,7 +190,7 @@ void scFaceQtVisual::RotateFace(const QPointF& targetMousePos, const QPointF& pr
 
 	mRotateControlVertex->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, mBoundingBox.center.x, mBoundingBox.center.y);
 
-	for (const auto& ss : mScaleControlVertexList)
+	for (const auto& ss : mScaleControlVertexVector)
 	{
 		ss->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, mBoundingBox.center.x, mBoundingBox.center.y);
 	}
@@ -204,23 +208,23 @@ void scFaceQtVisual::ResetControlVertices()
 	mRotateControlVertex = make_shared<scRotateControlVertexQtVisual>(this, aa, mCoordinateHelper);
 
 
-	mScaleControlVertexList.clear();
+	mScaleControlVertexVector.clear();
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topLeft.x, mBoundingBox.topLeft.y);
 	aa = { bb.x, bb.y };
-	mScaleControlVertexList.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::TOP_LEFT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::TOP_LEFT, mCoordinateHelper) });
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topRight.x, mBoundingBox.topRight.y);
 	aa = { bb.x, bb.y };
-	mScaleControlVertexList.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::TOP_RIGHT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::TOP_RIGHT, mCoordinateHelper) });
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomRight.x, mBoundingBox.bottomRight.y);
 	aa = { bb.x, bb.y };
-	mScaleControlVertexList.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper) });
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomLeft.x, mBoundingBox.bottomLeft.y);
 	aa = { bb.x, bb.y };
-	mScaleControlVertexList.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper) });
 }
 
 void scFaceQtVisual::ResetBoundingBox()
