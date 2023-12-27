@@ -114,52 +114,51 @@ void scFaceQtVisual::ScaleFace(double dx, double dy, double transX, double trans
 
 void scFaceQtVisual::RotateFace(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
-	//scBoundingBox box = MakeBoundingBox();
+	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
+	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
 
-	//scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
-	//scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
+	QPointF A = { mRotateCenter.x, mRotateCenter.y };
+	QPointF B = { pp.x, pp.y };
+	QPointF C = { tt.x, tt.y };
 
-	//QPointF A = { box.center.x, box.center.y };
-	//QPointF B = { pp.x, pp.y };
-	//QPointF C = { tt.x, tt.y };
+	QLineF AB(A, B);
+	QLineF BC(B, C);
+	QLineF CA(C, A);
 
-	//QLineF AB(A, B);
-	//QLineF BC(B, C);
-	//QLineF CA(C, A);
+	double a = BC.length();
+	double b = AB.length();
+	double c = CA.length();
 
-	//double a = BC.length();
-	//double b = AB.length();
-	//double c = CA.length();
+	qDebug() << b * c;
 
-	///*if (b * c == 0.0)
-	//	return;*/
-
-	//qDebug() << b * c;
-
-	//QVector3D v1(B - A);
-	//QVector3D v2(C - A);
-
-	//double crossZ = QVector3D::crossProduct(v1, v2).z();
-	//double dot = QPointF::dotProduct(B - A, C - A);
-
-	///*double a = sqrt(QPointF::dotProduct(prevMousePos, targetMousePos));
-	//double b = sqrt(QPointF::dotProduct(prevMousePos, mCenter));
-	//double c = sqrt(QPointF::dotProduct(targetMousePos, mCenter));*/
-
-	//double sinX = crossZ / (b * c);
-	//double cosX = dot / (b * c);
-
-	////qDebug() << asin(sinX) / 3.14 * 360.0;
-
-	////qDebug() << (angle / 3.14) * 360.0;
+	if (b * c == 0.0)
+		return;
 
 
-	//for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
-	//{
-	//	mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, box.center.x, box.center.y);
-	//}
+	QVector3D v1(B - A);
+	QVector3D v2(C - A);
 
-	//mRotateControlVertex->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, box.center.x, box.center.y);
+	double crossZ = QVector3D::crossProduct(v1, v2).z();
+	double dot = QPointF::dotProduct(B - A, C - A);
+
+	/*double a = sqrt(QPointF::dotProduct(prevMousePos, targetMousePos));
+	double b = sqrt(QPointF::dotProduct(prevMousePos, mCenter));
+	double c = sqrt(QPointF::dotProduct(targetMousePos, mCenter));*/
+
+	double sinX = crossZ / (b * c);
+	double cosX = dot / (b * c);
+
+	//qDebug() << asin(sinX) / 3.14 * 360.0;
+
+	//qDebug() << (angle / 3.14) * 360.0;
+
+
+	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
+	{
+		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, mRotateCenter.x, mRotateCenter.y);
+	}
+
+	mRotateControlVertex->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, mRotateCenter.x, mRotateCenter.y);
 }
 
 void scFaceQtVisual::ResetControlVertices()
