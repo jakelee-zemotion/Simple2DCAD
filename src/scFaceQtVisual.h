@@ -14,6 +14,7 @@ class scCoordinateHelper;
 class scFaceData;
 class scLineData;
 class scLineQtVisual;
+class scVertexQtVisual;
 class scScaleControlVertexQtVisual;
 class scRotateControlVertexQtVisual;
 class scFaceQtVisual : public scShapeQtVisual
@@ -33,6 +34,7 @@ public:
 
 	void ResetControlVertices();
 	std::shared_ptr<scRotateControlVertexQtVisual> mRotateControlVertex;
+	std::shared_ptr<scVertexQtVisual> mRotateCenterVertex;
 
 private:
 	QPolygonF MakeQPolygonF();

@@ -242,6 +242,11 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 
 	mVertexList.push_back(rV);
 	mDrawShapeList.push_back(rV);
+
+	/*shared_ptr<scVertexQtVisual> rVc = face->mRotateCenterVertex;
+
+	mVertexList.push_back(rVc);
+	mDrawShapeList.push_back(rVc);*/
 }
 
 

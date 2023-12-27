@@ -29,6 +29,7 @@ public:
 	scVector2D ScreenToWorld(double x, double y);
 
 	scVector2D CameraToWorld(double x, double y, scTransform& transform);
+	scVector2D CameraToScreen(double x, double y, scTransform& transform);
 
 private:
 	scCamera& mCamera;

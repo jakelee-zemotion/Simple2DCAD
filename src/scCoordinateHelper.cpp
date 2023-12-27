@@ -129,3 +129,11 @@ scVector2D scCoordinateHelper::CameraToWorld(double x, double y, scTransform& tr
     return worldCoord;
 }
 
+scVector2D scCoordinateHelper::CameraToScreen(double x, double y, scTransform& transform)
+{
+    scVector2D localCoord = CameraToLocal(x, y);
+    scVector2D screenCoord = LoaclToScreen(localCoord.x, localCoord.y, transform);
+
+    return screenCoord;
+}
+

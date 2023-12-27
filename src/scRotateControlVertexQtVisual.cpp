@@ -2,6 +2,7 @@
 
 #include "scFaceQtVisual.h"
 #include "scCoordinateHelper.h"
+#include "scVertexData.h"
 
 #include <qDebug>
 
@@ -27,4 +28,19 @@ void scRotateControlVertexQtVisual::Move(const QPointF& targetMousePos, const QP
 
 
 	mParentFace->RotateFace(targetMousePos, prevMousePos);
+}
+
+void scRotateControlVertexQtVisual::MoveControlVertexDirectly(const QPointF& targetMousePos, const QPointF& prevMousePos)
+{
+	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
+		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
+
+	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
+		prevMousePos.x(), prevMousePos.y(), mVertexData->GetTransform());
+
+	double dx = targetWorldCoord.x - prevWorldCoord.x;
+	double dy = targetWorldCoord.y - prevWorldCoord.y;
+
+	mVertexData->AddDx(dx);
+	mVertexData->AddDy(dy);
 }

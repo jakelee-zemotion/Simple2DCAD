@@ -14,6 +14,7 @@ public:
 	~scRotateControlVertexQtVisual();
 
 	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;
+	void MoveControlVertexDirectly(const QPointF& targetMousePos, const QPointF& prevMousePos);
 
 private:
 	scFaceQtVisual* mParentFace;

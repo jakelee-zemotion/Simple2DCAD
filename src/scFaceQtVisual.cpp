@@ -1,6 +1,7 @@
 #include "scFaceQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scFaceData.h"
+#include "scVertexQtVisual.h"
 #include "scLineQtVisual.h"
 #include "scScaleControlVertexQtVisual.h"
 #include "scRotateControlVertexQtVisual.h"
@@ -67,6 +68,19 @@ void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMous
 		mFaceData->AddDxDyToLineStart(dx, dy);
 	}
 
+	scVector2D targetScreenCoord = mCoordinateHelper->CameraToLocal(
+		targetMousePos.x(), targetMousePos.y());
+	scVector2D prevScreenCoord = mCoordinateHelper->CameraToLocal(
+		prevMousePos.x(), prevMousePos.y());
+
+	scVector2D dist = targetScreenCoord - prevScreenCoord;
+
+	mRotateCenter.x = mRotateCenter.x + dist.x;
+	mRotateCenter.y = mRotateCenter.y + dist.y;
+	qDebug() << mRotateCenter.x << " " << mRotateCenter.y;
+	qDebug() << dist.x << " " << dist.y;
+
+	mRotateControlVertex->MoveControlVertexDirectly(targetMousePos, prevMousePos);
 }
 
 void scFaceQtVisual::Paint(QPainter& painter)
@@ -165,8 +179,7 @@ void scFaceQtVisual::ResetControlVertices()
 {
 	ResetBoundingBox();
 
-	mFaceData->ResetIter();
-	scVector2D bb = mCoordinateHelper->ScreenToCamera(mRotateCenter.x, mBoundingBox.topLeft.y, mFaceData->GetStartTransform());
+	scVector2D bb = mCoordinateHelper->LocalToCamera(mRotateCenter.x, mBoundingBox.topLeft.y);
 	QPointF aa = { bb.x, bb.y };
 
 	mRotateControlVertex = make_shared<scRotateControlVertexQtVisual>(this, aa, mCoordinateHelper);
@@ -181,8 +194,8 @@ void scFaceQtVisual::ResetBoundingBox()
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		scVector2D cameraStartCoord = mCoordinateHelper->WorldToScreen(
-			mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
+		scVector2D cameraStartCoord = mCoordinateHelper->WorldToLocal(
+			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
 
 		minX = min(minX, cameraStartCoord.x);
 		maxX = max(maxX, cameraStartCoord.x);
@@ -199,4 +212,7 @@ void scFaceQtVisual::ResetBoundingBox()
 	mBoundingBox.bottomRight = { maxX + offset, maxY + offset };
 
 	mRotateCenter = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
+
+	QPointF q = { mRotateCenter.x, mRotateCenter.y };
+	mRotateCenterVertex = make_shared<scVertexQtVisual>(q, mCoordinateHelper);
 }
