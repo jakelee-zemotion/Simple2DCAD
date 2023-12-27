@@ -7,7 +7,7 @@ class scRotateControlVertexQtVisual : public scVertexQtVisual
 {
 public:
 	scRotateControlVertexQtVisual(
-		const std::shared_ptr<scFaceQtVisual>& face,
+		scFaceQtVisual* face,
 		const QPointF& point,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
@@ -16,6 +16,6 @@ public:
 	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;
 
 private:
-	const std::shared_ptr<scFaceQtVisual> mParentFace;
+	scFaceQtVisual* mParentFace;
 };
 

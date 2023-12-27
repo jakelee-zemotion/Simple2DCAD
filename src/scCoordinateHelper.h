@@ -20,6 +20,8 @@ public:
 
 	scVector2D WorldToLocal(double x, double y, scTransform& transform);
 	scVector2D WorldToCamera(double x, double y, scTransform& transform);
+
+	scVector2D ScreenToCamera(double x, double y, scTransform& transform);
 	
 	// Camera -> Local -> Screen -> World
 	scVector2D CameraToLocal(double x, double y);

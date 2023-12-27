@@ -8,7 +8,7 @@
 using namespace std;
 
 scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(
-	const shared_ptr<scFaceQtVisual>& face, 
+	scFaceQtVisual* face,
 	const QPointF& point,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scVertexQtVisual(SHAPE_TYPE::ROTATE_VERTEX, point, coordinateHelper),

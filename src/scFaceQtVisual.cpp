@@ -26,6 +26,8 @@ scFaceQtVisual::scFaceQtVisual(
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::gray;
 	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::darkGray;
 	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::cyan;
+
+	ResetControlVertices();
 }
 
 scFaceQtVisual::~scFaceQtVisual()
@@ -112,58 +114,67 @@ void scFaceQtVisual::ScaleFace(double dx, double dy, double transX, double trans
 
 void scFaceQtVisual::RotateFace(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
-	scBoundingBox box = MakeBoundingBox();
+	//scBoundingBox box = MakeBoundingBox();
 
-	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
-	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
+	//scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
+	//scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
 
-	QPointF A = { box.center.x, box.center.y };
-	QPointF B = { pp.x, pp.y };
-	QPointF C = { tt.x, tt.y };
+	//QPointF A = { box.center.x, box.center.y };
+	//QPointF B = { pp.x, pp.y };
+	//QPointF C = { tt.x, tt.y };
 
-	QLineF AB(A, B);
-	QLineF BC(B, C);
-	QLineF CA(C, A);
+	//QLineF AB(A, B);
+	//QLineF BC(B, C);
+	//QLineF CA(C, A);
 
-	double a = BC.length();
-	double b = AB.length();
-	double c = CA.length();
+	//double a = BC.length();
+	//double b = AB.length();
+	//double c = CA.length();
 
-	/*if (b * c == 0.0)
-		return;*/
+	///*if (b * c == 0.0)
+	//	return;*/
 
-	qDebug() << b * c;
+	//qDebug() << b * c;
 
-	QVector3D v1(B - A);
-	QVector3D v2(C - A);
+	//QVector3D v1(B - A);
+	//QVector3D v2(C - A);
 
-	double crossZ = QVector3D::crossProduct(v1, v2).z();
-	double dot = QPointF::dotProduct(B - A, C - A);
+	//double crossZ = QVector3D::crossProduct(v1, v2).z();
+	//double dot = QPointF::dotProduct(B - A, C - A);
 
-	/*double a = sqrt(QPointF::dotProduct(prevMousePos, targetMousePos));
-	double b = sqrt(QPointF::dotProduct(prevMousePos, mCenter));
-	double c = sqrt(QPointF::dotProduct(targetMousePos, mCenter));*/
+	///*double a = sqrt(QPointF::dotProduct(prevMousePos, targetMousePos));
+	//double b = sqrt(QPointF::dotProduct(prevMousePos, mCenter));
+	//double c = sqrt(QPointF::dotProduct(targetMousePos, mCenter));*/
 
-	double sinX = crossZ / (b * c);
-	double cosX = dot / (b * c);
+	//double sinX = crossZ / (b * c);
+	//double cosX = dot / (b * c);
 
-	//qDebug() << asin(sinX) / 3.14 * 360.0;
+	////qDebug() << asin(sinX) / 3.14 * 360.0;
 
-	//qDebug() << (angle / 3.14) * 360.0;
+	////qDebug() << (angle / 3.14) * 360.0;
 
 
-	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
-	{
-		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, box.center.x, box.center.y);
-	}
+	//for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
+	//{
+	//	mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, box.center.x, box.center.y);
+	//}
 
-	mRotateControlVertex->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, box.center.x, box.center.y);
+	//mRotateControlVertex->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, box.center.x, box.center.y);
 }
 
-scBoundingBox scFaceQtVisual::MakeBoundingBox()
+void scFaceQtVisual::ResetControlVertices()
 {
-	scBoundingBox boundingBox;
+	ResetBoundingBox();
 
+	mFaceData->ResetIter();
+	scVector2D bb = mCoordinateHelper->ScreenToCamera(mRotateCenter.x, mBoundingBox.topLeft.y, mFaceData->GetStartTransform());
+	QPointF aa = { bb.x, bb.y };
+
+	mRotateControlVertex = make_shared<scRotateControlVertexQtVisual>(this, aa, mCoordinateHelper);
+}
+
+void scFaceQtVisual::ResetBoundingBox()
+{
 	double minX = DBL_MAX;
 	double minY = DBL_MAX;
 	double maxX = DBL_MIN;
@@ -171,8 +182,8 @@ scBoundingBox scFaceQtVisual::MakeBoundingBox()
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		scVector2D cameraStartCoord = mCoordinateHelper->WorldToLocal(
-			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
+		scVector2D cameraStartCoord = mCoordinateHelper->WorldToScreen(
+			mFaceData->GetLineStartX(), mFaceData->GetLineStartY());
 
 		minX = min(minX, cameraStartCoord.x);
 		maxX = max(maxX, cameraStartCoord.x);
@@ -183,12 +194,10 @@ scBoundingBox scFaceQtVisual::MakeBoundingBox()
 
 	constexpr double offset = 10.0;
 
-	boundingBox.topLeft     = { minX - offset, minY - offset };
-	boundingBox.topRight    = { maxX + offset, minY - offset };
-	boundingBox.bottomLeft  = { minX - offset, maxY + offset };
-	boundingBox.bottomRight = { maxX + offset, maxY + offset };
+	mBoundingBox.topLeft     = { minX - offset, minY - offset };
+	mBoundingBox.topRight    = { maxX + offset, minY - offset };
+	mBoundingBox.bottomLeft  = { minX - offset, maxY + offset };
+	mBoundingBox.bottomRight = { maxX + offset, maxY + offset };
 
-	boundingBox.center = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
-
-	return boundingBox;
+	mRotateCenter = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
 }

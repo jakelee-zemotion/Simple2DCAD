@@ -195,7 +195,7 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 {
 	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
 
-	scBoundingBox boundingBox = face->MakeBoundingBox();
+	//scBoundingBox boundingBox = face->MakeBoundingBox();
 
 	//shared_ptr<scScaleControlVertexQtVisual> V1 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
 	//shared_ptr<scScaleControlVertexQtVisual> V2 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
@@ -230,11 +230,15 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 	//mDrawShapeList.push_back(V3);
 	//mDrawShapeList.push_back(V4);
 
-	scVector2D bb = mCoordinateHelper->LocalToCamera(boundingBox.center.x, boundingBox.topLeft.y);
+	/*scVector2D bb = mCoordinateHelper->LocalToCamera(boundingBox.center.x, boundingBox.topLeft.y);
 	QPointF aa = { bb.x, bb.y };
 
 	shared_ptr<scRotateControlVertexQtVisual> rV = make_shared<scRotateControlVertexQtVisual>(face, aa, mCoordinateHelper);
-	face->mRotateControlVertex = rV;
+	face->mRotateControlVertex = rV;*/
+
+	face->ResetControlVertices();
+
+	shared_ptr<scRotateControlVertexQtVisual> rV = face->mRotateControlVertex;
 
 	mVertexList.push_back(rV);
 	mDrawShapeList.push_back(rV);

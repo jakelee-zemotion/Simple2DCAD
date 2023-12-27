@@ -8,8 +8,6 @@ struct scBoundingBox
 	scVector2D topRight;
 	scVector2D bottomLeft;
 	scVector2D bottomRight;
-
-	scVector2D center;
 };
 
 class scCoordinateHelper;
@@ -33,13 +31,16 @@ public:
 	void ScaleFace(double dx, double dy, double transX, double transY);
 	void RotateFace(const QPointF& targetMousePos, const QPointF& prevMousePos);
 
-	scBoundingBox MakeBoundingBox();
+	void ResetControlVertices();
 	std::shared_ptr<scRotateControlVertexQtVisual> mRotateControlVertex;
 
 private:
 	QPolygonF MakeQPolygonF();
+	void ResetBoundingBox();
 
 	std::shared_ptr<scFaceData> mFaceData;
 
+	scBoundingBox mBoundingBox;
+	scVector2D mRotateCenter;
 };
 
