@@ -1,6 +1,11 @@
 #pragma once
 #include "scVertexQtVisual.h"
 
+enum class BOX_POSITION
+{
+	TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT
+};
+
 class scCoordinateHelper;
 class scFaceQtVisual;
 class scScaleControlVertexQtVisual : public scVertexQtVisual
@@ -9,6 +14,7 @@ public:
 	scScaleControlVertexQtVisual(
 		scFaceQtVisual* face,
 		const QPointF& point, 
+		const BOX_POSITION& boxPos,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
 	~scScaleControlVertexQtVisual() override;
@@ -22,6 +28,8 @@ public:
 
 private:
 	scFaceQtVisual* mParentFace;
+
+	BOX_POSITION mBoxPos;
 
 	std::weak_ptr<scScaleControlVertexQtVisual> mHorizontalScaleVertex;
 	std::weak_ptr<scScaleControlVertexQtVisual> mVerticalScaleVertex;

@@ -9,9 +9,10 @@ using namespace std;
 scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
 	scFaceQtVisual* face,
 	const QPointF& point, 
+	const BOX_POSITION& boxPos,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scVertexQtVisual(SHAPE_TYPE::SCALE_VERTEX, point, coordinateHelper), 
-		 mParentFace(face)
+		 mParentFace(face), mBoxPos(boxPos)
 {
 }
 
@@ -42,6 +43,7 @@ void scScaleControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPo
 		mDiagonalScaleVertex.lock()->GetVertexData()->GetY());
 
 	mParentFace->ScaleFace(dx, dy, dignalWorldCoord.x, dignalWorldCoord.y);*/
+	mParentFace->ScaleFace(targetMousePos, prevMousePos);
 }
 
 void scScaleControlVertexQtVisual::SetHorizontalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)

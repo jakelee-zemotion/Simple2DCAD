@@ -31,7 +31,7 @@ public:
 	void Paint(QPainter& painter) override;
 	bool HitTest(const QPointF& currMousePos) override;
 
-	void ScaleFace(double dx, double dy, double transX, double transY);
+	void ScaleFace(const QPointF& targetMousePos, const QPointF& prevMousePos);
 	void RotateFace(const QPointF& targetMousePos, const QPointF& prevMousePos);
 
 	void ResetControlVertices();
