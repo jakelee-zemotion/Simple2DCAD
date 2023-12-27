@@ -7,7 +7,7 @@
 using namespace std;
 
 scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
-	const shared_ptr<scFaceQtVisual>& face,
+	scFaceQtVisual* face,
 	const QPointF& point, 
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scVertexQtVisual(SHAPE_TYPE::SCALE_VERTEX, point, coordinateHelper), 
@@ -21,7 +21,7 @@ scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()
 
 void scScaleControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
-	scVertexQtVisual::Move(targetMousePos, prevMousePos);
+	//scVertexQtVisual::Move(targetMousePos, prevMousePos);
 
 	/*scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
 		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
@@ -57,4 +57,19 @@ void scScaleControlVertexQtVisual::SetVerticalScaleVector(const std::shared_ptr<
 void scScaleControlVertexQtVisual::SetDiagonalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)
 {
 	mDiagonalScaleVertex = scaleVector;
+}
+
+void scScaleControlVertexQtVisual::MoveControlVertexDirectly(const QPointF& targetMousePos, const QPointF& prevMousePos)
+{
+	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
+		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
+
+	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
+		prevMousePos.x(), prevMousePos.y(), mVertexData->GetTransform());
+
+	double dx = targetWorldCoord.x - prevWorldCoord.x;
+	double dy = targetWorldCoord.y - prevWorldCoord.y;
+
+	mVertexData->AddDx(dx);
+	mVertexData->AddDy(dy);
 }
