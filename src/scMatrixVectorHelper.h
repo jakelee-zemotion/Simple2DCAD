@@ -31,6 +31,14 @@ inline scVector2D& operator+=(scVector2D& v1, const scVector2D& v2)
 	return v1;
 }
 
+inline scVector2D& operator-=(scVector2D& v1, const scVector2D& v2)
+{
+	v1.x -= v2.x;
+	v1.y -= v2.y;
+
+	return v1;
+}
+
 struct scMatrix2D
 {
 	double m[3][3];

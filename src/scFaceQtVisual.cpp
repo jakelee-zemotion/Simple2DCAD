@@ -122,15 +122,17 @@ bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
 
 void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& prevMousePos, const BOX_POSITION& boxPos)
 {
-	int diagIdx = (static_cast<int>(boxPos) + 1) % 4;
+	int diagIdx = (static_cast<int>(boxPos) + 2) % 4;
 
-	scScaleControlVertexQtVisual diagVertex = *mScaleControlVertexVector[diagIdx];
+	shared_ptr<scScaleControlVertexQtVisual> diagVertex = mScaleControlVertexVector[diagIdx];
 
-	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex.mVertexData->GetX(), diagVertex.mVertexData->GetY(), diagVertex.mVertexData->GetTransform());
+	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetX(), diagVertex->mVertexData->GetY(), diagVertex->mVertexData->GetTransform());
 
 	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
 	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
 
+	targetLocalCoord -= diagLocalCoord;
+	prevLocalCoord -= diagLocalCoord;
 
 	double dx = targetLocalCoord.x / prevLocalCoord.x;
 	double dy = targetLocalCoord.y / prevLocalCoord.y;
@@ -138,14 +140,14 @@ void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& pre
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy, 0.0, 0.0);
+		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y);
 	}
 
-	mRotateControlVertex->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, 0.0, 0.0);
+	mRotateControlVertex->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y);
 
 	for (const auto& ss : mScaleControlVertexVector)
 	{
-		ss->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, 0.0, 0.0);
+		ss->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y);
 	}
 }
 
@@ -166,7 +168,7 @@ void scFaceQtVisual::RotateFace(const QPointF& targetMousePos, const QPointF& pr
 	double b = AB.length();
 	double c = CA.length();
 
-	qDebug() << b * c;
+	//qDebug() << b * c;
 
 	if (b * c == 0.0)
 		return;
