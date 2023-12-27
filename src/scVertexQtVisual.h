@@ -17,6 +17,7 @@ public:
 
 	friend class scLineQtVisual;
 
+	std::shared_ptr<scVertexData> mVertexData;
 protected:
 	scVertexQtVisual(
 		const SHAPE_TYPE shapeType,
@@ -25,6 +26,5 @@ protected:
 
 	void Initialize(const QPointF& point);
 
-	std::shared_ptr<scVertexData> mVertexData;
 };
 

@@ -1,22 +1,23 @@
 #pragma once
 #include "scShapeQtVisual.h"
-#include "scScaleControlVertexQtVisual.h"
-#include "scRotateControlVertexQtVisual.h"
+#include "scMatrixVectorHelper.h"
 
 struct scBoundingBox
 {
-	QPointF topLeft;
-	QPointF topRight;
-	QPointF bottomLeft;
-	QPointF bottomRight;
+	scVector2D topLeft;
+	scVector2D topRight;
+	scVector2D bottomLeft;
+	scVector2D bottomRight;
 
-	QPointF center;
+	scVector2D center;
 };
 
 class scCoordinateHelper;
 class scFaceData;
 class scLineData;
 class scLineQtVisual;
+class scScaleControlVertexQtVisual;
+class scRotateControlVertexQtVisual;
 class scFaceQtVisual : public scShapeQtVisual
 {
 public:
@@ -30,15 +31,15 @@ public:
 	bool HitTest(const QPointF& currMousePos) override;
 
 	void ScaleFace(double dx, double dy, double transX, double transY);
-	void RotateFace(double sinX, double cosX, double transX, double transY);
+	void RotateFace(const QPointF& targetMousePos, const QPointF& prevMousePos);
 
-	scBoundingBox GetBoundingBox();
+	scBoundingBox MakeBoundingBox();
+	std::shared_ptr<scRotateControlVertexQtVisual> mRotateControlVertex;
 
 private:
 	QPolygonF MakeQPolygonF();
 
 	std::shared_ptr<scFaceData> mFaceData;
 
-	//scRotateControlVertexQtVisual mRotateControlVertex;
 };
 

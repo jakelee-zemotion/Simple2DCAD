@@ -109,8 +109,8 @@ void scSelectState::ResetSelected()
 
 	mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
 
-	//if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
-		//mScene->RemoveBoundingBoxOfFace();
+	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
+		mScene->RemoveBoundingBoxOfFace();
 
 	mSelectedShape.reset();
 
@@ -183,9 +183,9 @@ void scSelectState::SelectShape()
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 	{
-		//shared_ptr<scFaceQtVisual> selectedFace =
-		//	dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+		shared_ptr<scFaceQtVisual> selectedFace =
+			dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
 
-		//mScene->AddBoundingBoxOfFace(selectedFace);
+		mScene->AddBoundingBoxOfFace(selectedFace);
 	}
 }

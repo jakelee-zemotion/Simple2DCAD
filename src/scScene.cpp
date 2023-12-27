@@ -195,45 +195,46 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 {
 	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
 
-	scBoundingBox boundingBox = face->GetBoundingBox();
+	scBoundingBox boundingBox = face->MakeBoundingBox();
 
-	shared_ptr<scScaleControlVertexQtVisual> V1 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
-	shared_ptr<scScaleControlVertexQtVisual> V2 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
-	shared_ptr<scScaleControlVertexQtVisual> V3 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
-	shared_ptr<scScaleControlVertexQtVisual> V4 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
+	//shared_ptr<scScaleControlVertexQtVisual> V1 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
+	//shared_ptr<scScaleControlVertexQtVisual> V2 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
+	//shared_ptr<scScaleControlVertexQtVisual> V3 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
+	//shared_ptr<scScaleControlVertexQtVisual> V4 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
 
-	V1->SetHorizontalScaleVector(V2);
-	V1->SetVerticalScaleVector(V4);
-	V1->SetDiagonalScaleVector(V3);
+	//V1->SetHorizontalScaleVector(V2);
+	//V1->SetVerticalScaleVector(V4);
+	//V1->SetDiagonalScaleVector(V3);
 
-	V2->SetHorizontalScaleVector(V1);
-	V2->SetVerticalScaleVector(V3);
-	V2->SetDiagonalScaleVector(V4);
+	//V2->SetHorizontalScaleVector(V1);
+	//V2->SetVerticalScaleVector(V3);
+	//V2->SetDiagonalScaleVector(V4);
 
-	V3->SetHorizontalScaleVector(V4);
-	V3->SetVerticalScaleVector(V2);
-	V3->SetDiagonalScaleVector(V1);
+	//V3->SetHorizontalScaleVector(V4);
+	//V3->SetVerticalScaleVector(V2);
+	//V3->SetDiagonalScaleVector(V1);
 
-	V4->SetHorizontalScaleVector(V3);
-	V4->SetVerticalScaleVector(V1);
-	V4->SetDiagonalScaleVector(V2);
+	//V4->SetHorizontalScaleVector(V3);
+	//V4->SetVerticalScaleVector(V1);
+	//V4->SetDiagonalScaleVector(V2);
 
-	//shared_ptr<scLineQtVisual> L1
+	////shared_ptr<scLineQtVisual> L1
 
-	mVertexList.push_back(V1);
-	mVertexList.push_back(V2);
-	mVertexList.push_back(V3);
-	mVertexList.push_back(V4);
+	//mVertexList.push_back(V1);
+	//mVertexList.push_back(V2);
+	//mVertexList.push_back(V3);
+	//mVertexList.push_back(V4);
 
-	mDrawShapeList.push_back(V1);
-	mDrawShapeList.push_back(V2);
-	mDrawShapeList.push_back(V3);
-	mDrawShapeList.push_back(V4);
+	//mDrawShapeList.push_back(V1);
+	//mDrawShapeList.push_back(V2);
+	//mDrawShapeList.push_back(V3);
+	//mDrawShapeList.push_back(V4);
 
-	QPointF aa = { boundingBox.center.x(), boundingBox.topLeft.y() - 50.0 };
+	scVector2D bb = mCoordinateHelper->LocalToCamera(boundingBox.center.x, boundingBox.topLeft.y);
+	QPointF aa = { bb.x, bb.y };
 
-	shared_ptr<scRotateControlVertexQtVisual> rV = make_shared<scRotateControlVertexQtVisual>(face, aa, boundingBox.center, mCoordinateHelper);
-
+	shared_ptr<scRotateControlVertexQtVisual> rV = make_shared<scRotateControlVertexQtVisual>(face, aa, mCoordinateHelper);
+	face->mRotateControlVertex = rV;
 
 	mVertexList.push_back(rV);
 	mDrawShapeList.push_back(rV);
@@ -244,6 +245,10 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 void scScene::RemoveBoundingBoxOfFace()
 {
 	mVertexList.pop_back();
+
+	mDrawShapeList.pop_back();
+
+	/*mVertexList.pop_back();
 	mVertexList.pop_back();
 	mVertexList.pop_back();
 	mVertexList.pop_back();
@@ -256,7 +261,7 @@ void scScene::RemoveBoundingBoxOfFace()
 	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();
 
-	mDrawShapeList.pop_back();
+	mDrawShapeList.pop_back();*/
 }
 
 

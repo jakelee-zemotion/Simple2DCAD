@@ -9,7 +9,6 @@ public:
 	scRotateControlVertexQtVisual(
 		const std::shared_ptr<scFaceQtVisual>& face,
 		const QPointF& point,
-		const QPointF& center,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
 	~scRotateControlVertexQtVisual();
@@ -18,6 +17,5 @@ public:
 
 private:
 	const std::shared_ptr<scFaceQtVisual> mParentFace;
-	const QPointF mCenter;
 };
 
