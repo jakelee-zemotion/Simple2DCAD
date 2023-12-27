@@ -8,6 +8,8 @@ struct scBoundingBox
 	scVector2D topRight;
 	scVector2D bottomLeft;
 	scVector2D bottomRight;
+
+	scVector2D center;
 };
 
 class scCoordinateHelper;
@@ -34,7 +36,7 @@ public:
 
 	void ResetControlVertices();
 	std::shared_ptr<scRotateControlVertexQtVisual> mRotateControlVertex;
-	std::shared_ptr<scVertexQtVisual> mRotateCenterVertex;
+	std::list<std::shared_ptr<scScaleControlVertexQtVisual>> mScaleControlVertexList;
 
 private:
 	QPolygonF MakeQPolygonF();
@@ -43,6 +45,5 @@ private:
 	std::shared_ptr<scFaceData> mFaceData;
 
 	scBoundingBox mBoundingBox;
-	scVector2D mRotateCenter;
 };
 

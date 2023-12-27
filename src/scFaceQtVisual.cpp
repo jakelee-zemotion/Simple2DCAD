@@ -75,10 +75,8 @@ void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMous
 
 	scVector2D dist = targetScreenCoord - prevScreenCoord;
 
-	mRotateCenter.x = mRotateCenter.x + dist.x;
-	mRotateCenter.y = mRotateCenter.y + dist.y;
-	qDebug() << mRotateCenter.x << " " << mRotateCenter.y;
-	qDebug() << dist.x << " " << dist.y;
+	mBoundingBox.center.x = mBoundingBox.center.x + dist.x;
+	mBoundingBox.center.y = mBoundingBox.center.y + dist.y;
 
 	mRotateControlVertex->MoveControlVertexDirectly(targetMousePos, prevMousePos);
 }
@@ -131,7 +129,7 @@ void scFaceQtVisual::RotateFace(const QPointF& targetMousePos, const QPointF& pr
 	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
 	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
 
-	QPointF A = { mRotateCenter.x, mRotateCenter.y };
+	QPointF A = { mBoundingBox.center.x, mBoundingBox.center.y };
 	QPointF B = { pp.x, pp.y };
 	QPointF C = { tt.x, tt.y };
 
@@ -155,31 +153,24 @@ void scFaceQtVisual::RotateFace(const QPointF& targetMousePos, const QPointF& pr
 	double crossZ = QVector3D::crossProduct(v1, v2).z();
 	double dot = QPointF::dotProduct(B - A, C - A);
 
-	/*double a = sqrt(QPointF::dotProduct(prevMousePos, targetMousePos));
-	double b = sqrt(QPointF::dotProduct(prevMousePos, mCenter));
-	double c = sqrt(QPointF::dotProduct(targetMousePos, mCenter));*/
-
 	double sinX = crossZ / (b * c);
 	double cosX = dot / (b * c);
 
-	//qDebug() << asin(sinX) / 3.14 * 360.0;
-
-	//qDebug() << (angle / 3.14) * 360.0;
 
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, mRotateCenter.x, mRotateCenter.y);
+		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, mBoundingBox.center.x, mBoundingBox.center.y);
 	}
 
-	mRotateControlVertex->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, mRotateCenter.x, mRotateCenter.y);
+	mRotateControlVertex->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, mBoundingBox.center.x, mBoundingBox.center.y);
 }
 
 void scFaceQtVisual::ResetControlVertices()
 {
 	ResetBoundingBox();
 
-	scVector2D bb = mCoordinateHelper->LocalToCamera(mRotateCenter.x, mBoundingBox.topLeft.y);
+	scVector2D bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.topLeft.y);
 	QPointF aa = { bb.x, bb.y };
 
 	mRotateControlVertex = make_shared<scRotateControlVertexQtVisual>(this, aa, mCoordinateHelper);
@@ -211,8 +202,5 @@ void scFaceQtVisual::ResetBoundingBox()
 	mBoundingBox.bottomLeft  = { minX - offset, maxY + offset };
 	mBoundingBox.bottomRight = { maxX + offset, maxY + offset };
 
-	mRotateCenter = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
-
-	QPointF q = { mRotateCenter.x, mRotateCenter.y };
-	mRotateCenterVertex = make_shared<scVertexQtVisual>(q, mCoordinateHelper);
+	mBoundingBox.center = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
 }
