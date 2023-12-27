@@ -134,20 +134,29 @@ void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& pre
 	targetLocalCoord -= diagLocalCoord;
 	prevLocalCoord -= diagLocalCoord;
 
+
+	double angle = diagVertex->mVertexData->GetTransform().angle;
+	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
+
+	targetLocalCoord = (inverseRotateMatrix * targetLocalCoord);
+	prevLocalCoord = (inverseRotateMatrix * prevLocalCoord);
+
 	double dx = targetLocalCoord.x / prevLocalCoord.x;
 	double dy = targetLocalCoord.y / prevLocalCoord.y;
 
 
+	//mBoundingBox.center = ( * mBoundingBox.center);
+
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y);
+		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y, angle);
 	}
 
-	mRotateControlVertex->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y);
+	mRotateControlVertex->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y, angle);
 
 	for (const auto& ss : mScaleControlVertexVector)
 	{
-		ss->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y);
+		ss->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y, angle);
 	}
 }
 

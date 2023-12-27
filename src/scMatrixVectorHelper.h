@@ -3,6 +3,7 @@
 #ifndef SC_MATRIX_VECTOR_HELPER_H
 #define SC_MATRIX_VECTOR_HELPER_H
 
+#include <cmath>
 
 struct scVector2D
 {
@@ -143,7 +144,7 @@ namespace MatrixHelper
 		{
 			 cosX, -sinX,  0.0,
 			 sinX,  cosX,  0.0,
-			 0.0 ,   0.0,  1.0
+			  0.0,   0.0,  1.0
 		};
 	}
 
@@ -153,7 +154,27 @@ namespace MatrixHelper
 		{
 			 cosX,  sinX,  0.0,
 			-sinX,  cosX,  0.0,
-			 0.0 ,   0.0,  1.0
+			  0.0,   0.0,  1.0
+		};
+	}
+
+	inline scMatrix2D RotateMatrix(double theta)
+	{
+		return
+		{
+			 cos(theta), -sin(theta),  0.0,
+			 sin(theta),  cos(theta),  0.0,
+			        0.0,         0.0,  1.0
+		};
+	}
+
+	inline scMatrix2D InverseRotateMatrix(double theta)
+	{
+		return
+		{
+			 cos(theta),  sin(theta),  0.0,
+			-sin(theta),  cos(theta),  0.0,
+			        0.0,         0.0,  1.0
 		};
 	}
 }

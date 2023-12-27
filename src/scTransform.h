@@ -11,8 +11,10 @@ public:
 
 	scVector2D Scale(double x, double y) const;
 	scVector2D UnScale(double x, double y) const;
-	void MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY);
+	void MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY, double angle);
 	void MultiplyRotateXY(double sinX, double cosX, double transX, double transY);
+
+	double angle = 0.0;
 
 private:
 	scMatrix2D mScaleRotateMatrix;
