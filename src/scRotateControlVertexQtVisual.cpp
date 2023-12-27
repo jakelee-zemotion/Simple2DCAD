@@ -1,4 +1,4 @@
-#include "scRotateVertexQtVisual.h"
+#include "scRotateControlVertexQtVisual.h"
 
 #include "scFaceQtVisual.h"
 #include "scCoordinateHelper.h"
@@ -8,7 +8,7 @@
 
 using namespace std;
 
-scRotateVertexQtVisual::scRotateVertexQtVisual(
+scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(
 	const shared_ptr<scFaceQtVisual>& face, 
 	const QPointF& point,
 	const QPointF& center,
@@ -19,11 +19,11 @@ scRotateVertexQtVisual::scRotateVertexQtVisual(
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkGreen;
 }
 
-scRotateVertexQtVisual::~scRotateVertexQtVisual()
+scRotateControlVertexQtVisual::~scRotateControlVertexQtVisual()
 {
 }
 
-void scRotateVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scRotateControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
 	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 

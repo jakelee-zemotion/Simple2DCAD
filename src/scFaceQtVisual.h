@@ -1,5 +1,7 @@
 #pragma once
 #include "scShapeQtVisual.h"
+#include "scScaleControlVertexQtVisual.h"
+#include "scRotateControlVertexQtVisual.h"
 
 struct scBoundingBox
 {
@@ -36,5 +38,7 @@ private:
 	QPolygonF MakeQPolygonF();
 
 	std::shared_ptr<scFaceData> mFaceData;
+
+	//scRotateControlVertexQtVisual mRotateControlVertex;
 };
 

@@ -1,4 +1,4 @@
-#include "scScaleVertexQtVisual.h"
+#include "scScaleControlVertexQtVisual.h"
 
 #include "scFaceQtVisual.h"
 #include "scCoordinateHelper.h"
@@ -6,7 +6,7 @@
 
 using namespace std;
 
-scScaleVertexQtVisual::scScaleVertexQtVisual(
+scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
 	const shared_ptr<scFaceQtVisual>& face,
 	const QPointF& point, 
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
@@ -15,11 +15,11 @@ scScaleVertexQtVisual::scScaleVertexQtVisual(
 {
 }
 
-scScaleVertexQtVisual::~scScaleVertexQtVisual()
+scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()
 {
 }
 
-void scScaleVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scScaleControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
 	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 
@@ -44,17 +44,17 @@ void scScaleVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& p
 	mParentFace->ScaleFace(dx, dy, dignalWorldCoord.x, dignalWorldCoord.y);*/
 }
 
-void scScaleVertexQtVisual::SetHorizontalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector)
+void scScaleControlVertexQtVisual::SetHorizontalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)
 {
 	mHorizontalScaleVertex = scaleVector;
 }
 
-void scScaleVertexQtVisual::SetVerticalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector)
+void scScaleControlVertexQtVisual::SetVerticalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)
 {
 	mVerticalScaleVertex = scaleVector;
 }
 
-void scScaleVertexQtVisual::SetDiagonalScaleVector(const std::shared_ptr<scScaleVertexQtVisual>& scaleVector)
+void scScaleControlVertexQtVisual::SetDiagonalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)
 {
 	mDiagonalScaleVertex = scaleVector;
 }

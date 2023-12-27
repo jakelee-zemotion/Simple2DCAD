@@ -4,8 +4,8 @@
 #include "scVertexQtVisual.h"
 #include "scLineQtVisual.h"
 #include "scFaceQtVisual.h"
-#include "scScaleVertexQtVisual.h"
-#include "scRotateVertexQtVisual.h"
+#include "scScaleControlVertexQtVisual.h"
+#include "scRotateControlVertexQtVisual.h"
 
 using namespace std;
 
@@ -197,10 +197,10 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 
 	scBoundingBox boundingBox = face->GetBoundingBox();
 
-	shared_ptr<scScaleVertexQtVisual> V1 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
-	shared_ptr<scScaleVertexQtVisual> V2 = make_shared<scScaleVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
-	shared_ptr<scScaleVertexQtVisual> V3 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
-	shared_ptr<scScaleVertexQtVisual> V4 = make_shared<scScaleVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
+	shared_ptr<scScaleControlVertexQtVisual> V1 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topLeft, mCoordinateHelper);
+	shared_ptr<scScaleControlVertexQtVisual> V2 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.topRight, mCoordinateHelper);
+	shared_ptr<scScaleControlVertexQtVisual> V3 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.bottomRight, mCoordinateHelper);
+	shared_ptr<scScaleControlVertexQtVisual> V4 = make_shared<scScaleControlVertexQtVisual>(face, boundingBox.bottomLeft, mCoordinateHelper);
 
 	V1->SetHorizontalScaleVector(V2);
 	V1->SetVerticalScaleVector(V4);
@@ -232,7 +232,7 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 
 	QPointF aa = { boundingBox.center.x(), boundingBox.topLeft.y() - 50.0 };
 
-	shared_ptr<scRotateVertexQtVisual> rV = make_shared<scRotateVertexQtVisual>(face, aa, boundingBox.center, mCoordinateHelper);
+	shared_ptr<scRotateControlVertexQtVisual> rV = make_shared<scRotateControlVertexQtVisual>(face, aa, boundingBox.center, mCoordinateHelper);
 
 
 	mVertexList.push_back(rV);

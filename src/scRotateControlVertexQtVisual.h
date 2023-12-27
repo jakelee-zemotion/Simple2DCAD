@@ -3,16 +3,16 @@
 
 class scCoordinateHelper;
 class scFaceQtVisual;
-class scRotateVertexQtVisual : public scVertexQtVisual
+class scRotateControlVertexQtVisual : public scVertexQtVisual
 {
 public:
-	scRotateVertexQtVisual(
+	scRotateControlVertexQtVisual(
 		const std::shared_ptr<scFaceQtVisual>& face,
 		const QPointF& point,
 		const QPointF& center,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
-	~scRotateVertexQtVisual();
+	~scRotateControlVertexQtVisual();
 
 	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;
 
