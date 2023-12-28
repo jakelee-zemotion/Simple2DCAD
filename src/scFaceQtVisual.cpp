@@ -128,8 +128,6 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 	targetLocalCoord -= diagLocalCoord;
 	prevLocalCoord -= diagLocalCoord;
 
-
-	double angle = diagVertex->mVertexData->GetTransform().angle;
 	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
 
 	targetLocalCoord = (inverseRotateMatrix * targetLocalCoord);
@@ -186,7 +184,7 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 	double sinX = crossZ / (b * c);
 	double cosX = dot / (b * c);
 
-	
+	angle += asin(sinX);
 
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
@@ -262,4 +260,6 @@ void scFaceQtVisual::ResetBoundingBox()
 	mBoundingBox.bottomRight = { maxX + offset, maxY + offset };
 
 	mBoundingBox.center = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
+
+	angle = 0.0;
 }

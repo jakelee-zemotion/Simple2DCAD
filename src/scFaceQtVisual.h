@@ -43,5 +43,7 @@ private:
 	std::shared_ptr<scFaceData> mFaceData;
 
 	scBoundingBox mBoundingBox;
+
+	double angle = 0.0;
 };
 

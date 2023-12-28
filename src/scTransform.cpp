@@ -59,6 +59,4 @@ void scTransform::MultiplyRotateXY(double sinX, double cosX, double transX, doub
 
 	mScaleRotateMatrix = (nextRotateMatrix * mScaleRotateMatrix);
 	mInverseScaleRotateMatrix = (mInverseScaleRotateMatrix * nextInverseRotateMatrix);
-
-	angle += asin(sinX);
 }
