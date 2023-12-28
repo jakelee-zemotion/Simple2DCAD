@@ -12,7 +12,7 @@ scLineQtVisual::scLineQtVisual(
 	const shared_ptr<scVertexQtVisual>& startVertex, 
 	const shared_ptr<scVertexQtVisual>& endVertex,
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-	:scShapeQtVisual(SHAPE_TYPE::LINE, coordinateHelper)
+		:scShapeQtVisual(SHAPE_TYPE::LINE, coordinateHelper)
 {
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();

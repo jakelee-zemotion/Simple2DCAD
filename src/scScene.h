@@ -11,6 +11,7 @@ class scShapeQtVisual;
 class scVertexQtVisual;
 class scFaceQtVisual;
 class scCamera;
+class scGrid;
 class QPainter;
 class QRect;
 class scScene
@@ -37,6 +38,7 @@ public:
 
 private:
 	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
+	std::shared_ptr<scGrid> mGrid;
 
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;

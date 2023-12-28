@@ -1,14 +1,14 @@
 #pragma once
-#include "scVertexQtVisual.h"
+#include "scControlVertexQtVisual.h"
 
 class scCoordinateHelper;
 class scFaceQtVisual;
-class scRotateControlVertexQtVisual : public scVertexQtVisual
+class scRotateControlVertexQtVisual : public scControlVertexQtVisual
 {
 public:
 	scRotateControlVertexQtVisual(
 		scFaceQtVisual* face,
-		const scVector2D& point,
+		const scVector2D& pos,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
 	~scRotateControlVertexQtVisual();
@@ -17,6 +17,5 @@ public:
 	void MoveControlVertexDirectly(const scVector2D& targetMousePos, const scVector2D& prevMousePos);
 
 private:
-	scFaceQtVisual* mParentFace;
 };
 

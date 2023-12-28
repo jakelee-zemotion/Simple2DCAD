@@ -18,8 +18,8 @@ public:
 	friend class scLineQtVisual;
 
 	std::shared_ptr<scVertexData> mVertexData;
-
 protected:
 	QPointF MakeQPointF() const;
+
 };
 

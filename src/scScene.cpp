@@ -1,5 +1,6 @@
 ﻿#include "scScene.h"
 
+#include "scGrid.h"
 #include "scCoordinateHelper.h"
 #include "scVertexQtVisual.h"
 #include "scLineQtVisual.h"
@@ -16,6 +17,7 @@ scScene::scScene(const scCamera& camera, const QRect& viewportSize)
 	mVertexCreatedCount = 0;
 
 	mCoordinateHelper = make_shared<scCoordinateHelper>(camera, viewportSize);
+	mGrid = make_shared<scGrid>(viewportSize);
 }
 
 scScene::~scScene()
@@ -24,6 +26,13 @@ scScene::~scScene()
 
 void scScene::Render(QPainter& painter)
 {
+	/*QPen pen(Qt::black);
+	pen.setWidth(10);
+	painter.setPen(pen);
+
+	QLineF a();
+	painter.drawLine();*/
+
 	// Vertices, lines, and faces are pushed to mDrawShapeList in the order they are drawn. 
 	// So, we can draw shapes in a specific order by iterating the mDrawShapeList.
 	auto iter = mDrawShapeList.begin();

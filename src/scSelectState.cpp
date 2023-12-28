@@ -165,8 +165,7 @@ void scSelectState::SelectShape()
 	if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
 		return;
 
-	if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_VERTEX
-		|| mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::ROTATE_VERTEX)
+	if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::CONTROL_VERTEX)
 		return;
 
 
