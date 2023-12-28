@@ -44,13 +44,13 @@ QLineF scLineQtVisual::MakeQLineF()
 			{ cameraEnd.x, cameraEnd.y });
 }
 
-void scLineQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scLineQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-		targetMousePos.x(), targetMousePos.y(), mLineData->GetStartTransform());
+		targetMousePos.x, targetMousePos.y, mLineData->GetStartTransform());
 
 	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-		prevMousePos.x(), prevMousePos.y(), mLineData->GetStartTransform());
+		prevMousePos.x, prevMousePos.y, mLineData->GetStartTransform());
 
 	double dx = targetWorldCoord.x - prevWorldCoord.x;
 	double dy = targetWorldCoord.y - prevWorldCoord.y;
@@ -70,11 +70,11 @@ void scLineQtVisual::Paint(QPainter& painter)
 	painter.drawLine(this->MakeQLineF());
 }
 
-bool scLineQtVisual::HitTest(const QPointF& currMousePos)
+bool scLineQtVisual::HitTest(const scVector2D& currMousePos)
 {
 	QLineF normal = this->MakeQLineF().normalVector();
 	QLineF normal2 = this->MakeQLineF().normalVector();
-	QPointF aaa(currMousePos);
+	QPointF aaa(currMousePos.x, currMousePos.y);
 
 	normal.setP2(normal.p2() - normal.p1() + aaa);
 	normal.setP1(aaa);

@@ -10,7 +10,7 @@ using namespace std;
 
 scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(
 	scFaceQtVisual* face,
-	const QPointF& point,
+	const scVector2D& point,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scVertexQtVisual(point, coordinateHelper),
 		 mParentFace(face)
@@ -24,11 +24,8 @@ scRotateControlVertexQtVisual::~scRotateControlVertexQtVisual()
 {
 }
 
-void scRotateControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scRotateControlVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
-	//scVertexQtVisual::Move(targetMousePos, prevMousePos);
-
-
 	mParentFace->RotateFace(targetMousePos, prevMousePos);
 }
 

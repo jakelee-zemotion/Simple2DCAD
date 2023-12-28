@@ -1,6 +1,5 @@
 #pragma once
 #include "scShapeQtVisual.h"
-#include "scMatrixVectorHelper.h"
 #include "scCommon.h"
 
 struct scBoundingBox
@@ -28,12 +27,12 @@ public:
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scFaceQtVisual() override;
 
-	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;
+	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
 	void Paint(QPainter& painter) override;
-	bool HitTest(const QPointF& currMousePos) override;
+	bool HitTest(const scVector2D& currMousePos) override;
 
-	void ScaleFace(const QPointF& targetMousePos, const QPointF& prevMousePos, const BOX_POSITION& boxPos);
-	void RotateFace(const QPointF& targetMousePos, const QPointF& prevMousePos);
+	void ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos);
+	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos);
 
 	void ResetControlVertices();
 	std::shared_ptr<scRotateControlVertexQtVisual> mRotateControlVertex;

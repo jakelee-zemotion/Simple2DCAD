@@ -20,7 +20,7 @@ public:
 	void EndState() override;
 
 	void EndDrawing(bool createFaceFlag);
-	bool CanCreateFace(const QPointF& currMousePos) const;
+	bool CanCreateFace(const scVector2D& currMousePos) const;
 
 private:
 	std::shared_ptr<scVertexQtVisual> mDrawingVertex;

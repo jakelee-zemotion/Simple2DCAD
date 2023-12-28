@@ -18,8 +18,10 @@ scState::~scState()
 
 QPointF scState::SnapVertex(const QPointF& currMousePos, const scShapeID& noTestShapeID)
 {
+	scVector2D pos = { currMousePos.x(), currMousePos.y() };
+
 	shared_ptr<scShapeQtVisual> hitTestResultVertex =
-		mScene->HitTest(currMousePos, SHAPE_TYPE::VERTEX, noTestShapeID);
+		mScene->HitTest(pos, SHAPE_TYPE::VERTEX, noTestShapeID);
 
 	shared_ptr<scVertexQtVisual> snappedVertex =
 		dynamic_pointer_cast<scVertexQtVisual>(hitTestResultVertex);

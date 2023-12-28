@@ -1,4 +1,5 @@
 #pragma once
+#include "scMatrixVectorHelper.h"
 
 #include <QPoint>
 #include <memory>

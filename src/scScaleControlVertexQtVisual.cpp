@@ -8,7 +8,7 @@ using namespace std;
 
 scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
 	scFaceQtVisual* face,
-	const QPointF& point, 
+	const scVector2D& point,
 	const BOX_POSITION& boxPos,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scVertexQtVisual(point, coordinateHelper), 
@@ -21,7 +21,7 @@ scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()
 {
 }
 
-void scScaleControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scScaleControlVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	mParentFace->ScaleFace(targetMousePos, prevMousePos, mBoxPos);
 }

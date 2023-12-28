@@ -1,6 +1,5 @@
 #pragma once
 #include "scVertexQtVisual.h"
-#include "scCommon.h"
 
 class scCoordinateHelper;
 class scFaceQtVisual;
@@ -9,13 +8,13 @@ class scScaleControlVertexQtVisual : public scVertexQtVisual
 public:
 	scScaleControlVertexQtVisual(
 		scFaceQtVisual* face,
-		const QPointF& point, 
+		const scVector2D& point,
 		const BOX_POSITION& boxPos,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
 	~scScaleControlVertexQtVisual() override;
 
-	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;
+	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
 	void MoveControlVertexDirectly(const QPointF& targetMousePos, const QPointF& prevMousePos);
 
 private:

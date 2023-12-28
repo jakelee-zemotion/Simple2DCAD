@@ -6,12 +6,12 @@ class scVertexData;
 class scVertexQtVisual : public scShapeQtVisual
 {
 public:
-	scVertexQtVisual(const QPointF& point, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scVertexQtVisual(const scVector2D& pos, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scVertexQtVisual() override;
 
-	virtual void Move(const QPointF& targetMousePos, const QPointF& prevMousePos = QPoint(0.0, 0.0)) override;
+	virtual void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos = scVector2D(0.0, 0.0)) override;
 	void Paint(QPainter& painter) override;
-	bool HitTest(const QPointF& currMousePos) override;
+	bool HitTest(const scVector2D& currMousePos) override;
 
 	QPointF MakeQPointF();
 

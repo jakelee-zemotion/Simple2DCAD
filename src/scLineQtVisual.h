@@ -15,9 +15,9 @@ public:
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scLineQtVisual() override;
 
-	void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) override;;
+	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;;
 	void Paint(QPainter& painter) override;
-	bool HitTest(const QPointF& currMousePos) override;
+	bool HitTest(const scVector2D& currMousePos) override;
 
 	friend class scFaceQtVisual;
 

@@ -8,13 +8,13 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(const QPointF& point, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoordinateHelper>& coordinateHelper)
 	:scShapeQtVisual(SHAPE_TYPE::VERTEX, coordinateHelper)
 {
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
 
-	this->Move(point);
+	this->Move(pos);
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
@@ -36,11 +36,11 @@ QPointF scVertexQtVisual::MakeQPointF()
 }
 
 
-void scVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	// Unlike Line and Face, it moves directly to x, y.
 	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
-		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
+		targetMousePos.x, targetMousePos.y, mVertexData->GetTransform());
 
 	mVertexData->SetX(worldCoord.x);
 	mVertexData->SetY(worldCoord.y);
@@ -57,8 +57,10 @@ void scVertexQtVisual::Paint(QPainter& painter)
 	painter.drawPoint(this->MakeQPointF());
 }
 
-bool scVertexQtVisual::HitTest(const QPointF& currMousePos)
+bool scVertexQtVisual::HitTest(const scVector2D& currMousePos)
 {
+	QPointF currQPointF = { currMousePos.x, currMousePos.y };
+
 	QPointF vertex = this->MakeQPointF();
 
 	QRectF rect(
@@ -76,7 +78,7 @@ bool scVertexQtVisual::HitTest(const QPointF& currMousePos)
 		return true;
 	}*/
 
-	if (rect.contains(currMousePos))
+	if (rect.contains(currQPointF))
 	{
 		return true;
 	}

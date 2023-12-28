@@ -1,8 +1,8 @@
 #pragma once
 #include "scShapeID.h"
 #include "scCommon.h"
+#include "scMatrixVectorHelper.h"
 
-#include <QPointF>
 #include <QPainter>
 
 class scCamera;
@@ -13,9 +13,9 @@ public:
 	scShapeQtVisual(const SHAPE_TYPE& shapeType, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scShapeQtVisual();
 
-	virtual void Move(const QPointF& targetMousePos, const QPointF& prevMousePos) = 0;
+	virtual void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) = 0;
 	virtual void Paint(QPainter& painter) = 0;
-	virtual bool HitTest(const QPointF& currMousePos) = 0;
+	virtual bool HitTest(const scVector2D& currMousePos) = 0;
 
 	void SetShapeColorType(const COLOR_TYPE color);
 

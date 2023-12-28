@@ -7,6 +7,8 @@
 #include "scScaleControlVertexQtVisual.h"
 #include "scRotateControlVertexQtVisual.h"
 
+#include <QDebug>
+
 using namespace std;
 
 scScene::scScene(const shared_ptr<scCoordinateHelper>& coordinateHelper)
@@ -59,9 +61,9 @@ void scScene::Render(QPainter& painter)
 // Note that insert() in std::list inserts an element before the iterator.
 // Also, VertexIterator is not needed because we can use push_back().
 
-shared_ptr<scVertexQtVisual> scScene::AddStartVertex(const QPointF& point)
+shared_ptr<scVertexQtVisual> scScene::AddStartVertex(const scVector2D& pos)
 {
-	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(point, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(pos, mCoordinateHelper);
 	mVertexList.push_back(startVertex);
 
 	mDrawShapeList.push_back(startVertex);
@@ -73,11 +75,11 @@ shared_ptr<scVertexQtVisual> scScene::AddStartVertex(const QPointF& point)
 	return startVertex;
 }
 
-shared_ptr<scVertexQtVisual> scScene::AddEndVertex(const QPointF& point)
+shared_ptr<scVertexQtVisual> scScene::AddEndVertex(const scVector2D& pos)
 {
 	// Copy the vertices.
 	shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
-	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(point, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(pos, mCoordinateHelper);
 
 	// Ref the vertices.
 	shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
@@ -161,7 +163,7 @@ void scScene::EndDrawing(bool canCreateFace)
 	qDebug() << mFaceList.size();
 }
 
-std::shared_ptr<scShapeQtVisual> scScene::HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID)
+std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID)
 {
 	// Hit testing
 	// The order is vertex, line, and face.
@@ -222,7 +224,6 @@ void scScene::RemoveBoundingBoxOfFace()
 	mVertexList.pop_back();
 	mVertexList.pop_back();
 
-	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();

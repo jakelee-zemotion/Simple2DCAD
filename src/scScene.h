@@ -1,10 +1,10 @@
 #pragma once
 #include "scCommon.h"
 #include "scShapeID.h"
+#include "scMatrixVectorHelper.h"
 
-#include <queue>
+#include <memory>
 #include <list>
-#include <QDebug>
 
 class scCoordinateHelper;
 class scShapeQtVisual;
@@ -19,10 +19,10 @@ public:
 
 	void Render(QPainter& painter);
 
-	std::shared_ptr<scVertexQtVisual> AddStartVertex(const QPointF& point);
-	std::shared_ptr<scVertexQtVisual> AddEndVertex(const QPointF& point);
+	std::shared_ptr<scVertexQtVisual> AddStartVertex(const scVector2D& pos);
+	std::shared_ptr<scVertexQtVisual> AddEndVertex(const scVector2D& pos);
 	void EndDrawing(bool canCreateFace);
-	std::shared_ptr<scShapeQtVisual> HitTest(const QPointF& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(false));
+	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(false));
 
 	void AddBoundingBoxOfFace(const std::shared_ptr<scFaceQtVisual>& face);
 	void RemoveBoundingBoxOfFace();

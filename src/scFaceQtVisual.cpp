@@ -52,15 +52,15 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	return QPolygonF(lineList);
 }
 
-void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-			targetMousePos.x(), targetMousePos.y(), mFaceData->GetStartTransform());
+			targetMousePos.x, targetMousePos.y, mFaceData->GetStartTransform());
 
 		scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-			prevMousePos.x(), prevMousePos.y(), mFaceData->GetStartTransform());
+			prevMousePos.x, prevMousePos.y, mFaceData->GetStartTransform());
 
 		double dx = targetWorldCoord.x - prevWorldCoord.x;
 		double dy = targetWorldCoord.y - prevWorldCoord.y;
@@ -69,19 +69,22 @@ void scFaceQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMous
 	}
 
 	scVector2D targetScreenCoord = mCoordinateHelper->CameraToLocal(
-		targetMousePos.x(), targetMousePos.y());
+		targetMousePos.x, targetMousePos.y);
 	scVector2D prevScreenCoord = mCoordinateHelper->CameraToLocal(
-		prevMousePos.x(), prevMousePos.y());
+		prevMousePos.x, prevMousePos.y);
 
 	scVector2D dist = targetScreenCoord - prevScreenCoord;
 
 	mBoundingBox.center += dist;
 
-	mRotateControlVertex->MoveControlVertexDirectly(targetMousePos, prevMousePos);
+	QPointF aa = { targetMousePos.x, targetMousePos.y };
+	QPointF bb = { prevMousePos.x, prevMousePos.y };
+
+	mRotateControlVertex->MoveControlVertexDirectly(aa, bb);
 
 	for (const auto& ss : mScaleControlVertexVector)
 	{
-		ss->MoveControlVertexDirectly(targetMousePos, prevMousePos);
+		ss->MoveControlVertexDirectly(aa, bb);
 	}
 }
 
@@ -116,9 +119,11 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	painter.drawPolygon(qr);*/
 }
 
-bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
+bool scFaceQtVisual::HitTest(const scVector2D& currMousePos)
 {
-	if (this->MakeQPolygonF().containsPoint(currMousePos, Qt::OddEvenFill))
+	QPointF currQPointF = { currMousePos.x, currMousePos.y };
+
+	if (this->MakeQPolygonF().containsPoint(currQPointF, Qt::OddEvenFill))
 	{
 		return true;
 	}
@@ -126,7 +131,7 @@ bool scFaceQtVisual::HitTest(const QPointF& currMousePos)
 	return false;
 }
 
-void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& prevMousePos, const BOX_POSITION& boxPos)
+void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos)
 {
 	int diagIdx = (static_cast<int>(boxPos) + 2) % 4;
 
@@ -134,8 +139,8 @@ void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& pre
 
 	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetX(), diagVertex->mVertexData->GetY(), diagVertex->mVertexData->GetTransform());
 
-	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
-	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
+	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x, targetMousePos.y);
+	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x, prevMousePos.y);
 
 	targetLocalCoord -= diagLocalCoord;
 	prevLocalCoord -= diagLocalCoord;
@@ -169,10 +174,10 @@ void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& pre
 	}
 }
 
-void scFaceQtVisual::RotateFace(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
-	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
-	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
+	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x, prevMousePos.y);
+	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x, targetMousePos.y);
 
 	QPointF A = { mBoundingBox.center.x, mBoundingBox.center.y };
 	QPointF B = { pp.x, pp.y };
@@ -223,28 +228,23 @@ void scFaceQtVisual::ResetControlVertices()
 
 	mRotateControlVertex.reset();
 	scVector2D bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.topLeft.y);
-	QPointF aa = { bb.x, bb.y };
 
-	mRotateControlVertex = make_shared<scRotateControlVertexQtVisual>(this, aa, mCoordinateHelper);
+	mRotateControlVertex = make_shared<scRotateControlVertexQtVisual>(this, bb, mCoordinateHelper);
 
 
 	mScaleControlVertexVector.clear();
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topLeft.x, mBoundingBox.topLeft.y);
-	aa = { bb.x, bb.y };
-	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::TOP_LEFT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::TOP_LEFT, mCoordinateHelper) });
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topRight.x, mBoundingBox.topRight.y);
-	aa = { bb.x, bb.y };
-	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::TOP_RIGHT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::TOP_RIGHT, mCoordinateHelper) });
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomRight.x, mBoundingBox.bottomRight.y);
-	aa = { bb.x, bb.y };
-	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper) });
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomLeft.x, mBoundingBox.bottomLeft.y);
-	aa = { bb.x, bb.y };
-	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, aa, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper) });
+	mScaleControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper) });
 }
 
 void scFaceQtVisual::ResetBoundingBox()

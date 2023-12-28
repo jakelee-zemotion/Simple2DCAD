@@ -29,7 +29,9 @@ void scSelectState::MousePressEvent(const QPointF& currMousePos)
 
 void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 {
-	
+
+	scVector2D pos = { currMousePos.x(), currMousePos.y() };
+
 	if (mIsMousePressed)
 	{
 		if (mCurrHighlightShape == nullptr)
@@ -55,7 +57,10 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			//return;
 		}
 
-		mCurrHighlightShape->Move(targetPos, mPrevMousePos);
+		scVector2D aa = { targetPos.x(), targetPos.y() };
+		scVector2D bb = { mPrevMousePos.x(), mPrevMousePos.y() };
+
+		mCurrHighlightShape->Move(aa, bb);
 
 		mPrevMousePos = currMousePos;
 
@@ -63,7 +68,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 	}
 
 
-	mCurrHighlightShape = mScene->HitTest(currMousePos, mSelectShapeType);
+	mCurrHighlightShape = mScene->HitTest(pos, mSelectShapeType);
 	HightlightShape();
 	
 	mPrevHighlightShape = mCurrHighlightShape;

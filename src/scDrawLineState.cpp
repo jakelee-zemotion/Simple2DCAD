@@ -19,8 +19,10 @@ scDrawLineState::~scDrawLineState()
 
 void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
 {
+    scVector2D pos = { currMousePos.x(), currMousePos.y() };
+
     // Create a Face.
-    if (CanCreateFace(currMousePos))
+    if (CanCreateFace(pos))
     {
         this->EndDrawing(true);
         return;
@@ -30,12 +32,12 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
     // Therefore, the second point is adjusted in MouseMoveEvent.
     if (!mIsDrawing)
     {
-        mDrawStartVertex = mScene->AddStartVertex(currMousePos);
+        mDrawStartVertex = mScene->AddStartVertex(pos);
         mIsDrawing = true;
     }
 
     // Add and Return the vertex.
-    mDrawingVertex = mScene->AddEndVertex(currMousePos);
+    mDrawingVertex = mScene->AddEndVertex(pos);
 
     mPrevMousePos = currMousePos;
 }
@@ -48,7 +50,9 @@ void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
 
         QPointF targetPos = SnapVertex(currMousePos, mDrawingVertex->GetID());
 
-        mDrawingVertex->Move(targetPos);
+        scVector2D aa = { targetPos.x(), targetPos.y() };
+
+        mDrawingVertex->Move(aa);
     }
 
 }
@@ -89,7 +93,7 @@ void scDrawLineState::EndDrawing(bool createFaceFlag)
     }
 }
 
-bool scDrawLineState::CanCreateFace(const QPointF& currMousePos) const
+bool scDrawLineState::CanCreateFace(const scVector2D& currMousePos) const
 {
     return
         mScene->GetVertexCreatedCount() >= 3
