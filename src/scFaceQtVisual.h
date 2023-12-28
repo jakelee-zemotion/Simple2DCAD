@@ -17,8 +17,7 @@ class scFaceData;
 class scLineData;
 class scLineQtVisual;
 class scVertexQtVisual;
-class scScaleControlVertexQtVisual;
-class scRotateControlVertexQtVisual;
+class scControlVertexQtVisual;
 class scFaceQtVisual : public scShapeQtVisual
 {
 public:
@@ -35,8 +34,7 @@ public:
 	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos);
 
 	void ResetControlVertices();
-	std::shared_ptr<scRotateControlVertexQtVisual> mRotateControlVertex;
-	std::vector<std::shared_ptr<scScaleControlVertexQtVisual>> mScaleControlVertexVector;
+	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
 
 private:
 	QPolygonF MakeQPolygonF();

@@ -210,12 +210,8 @@ void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
 
 	face->ResetControlVertices();
 
-	shared_ptr<scRotateControlVertexQtVisual> rV = face->mRotateControlVertex;
 
-	mVertexList.push_back(rV);
-	mDrawShapeList.push_back(rV);
-
-	vector<shared_ptr<scScaleControlVertexQtVisual>> listsss = face->mScaleControlVertexVector;
+	vector<shared_ptr<scControlVertexQtVisual>> listsss = face->mControlVertexVector;
 	for (const auto& ss : listsss)
 	{
 		mVertexList.push_back(ss);

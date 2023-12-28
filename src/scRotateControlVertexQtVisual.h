@@ -14,7 +14,6 @@ public:
 	~scRotateControlVertexQtVisual();
 
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
-	void MoveControlVertexDirectly(const scVector2D& targetMousePos, const scVector2D& prevMousePos);
 
 private:
 };
