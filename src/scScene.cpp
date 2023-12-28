@@ -229,7 +229,9 @@ void scScene::RemoveBoundingBoxOfFace()
 	mVertexList.pop_back();
 	mVertexList.pop_back();
 	mVertexList.pop_back();
+	mVertexList.pop_back();
 
+	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();
 	mDrawShapeList.pop_back();

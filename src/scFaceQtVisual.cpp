@@ -5,6 +5,7 @@
 #include "scLineQtVisual.h"
 #include "scScaleControlVertexQtVisual.h"
 #include "scRotateControlVertexQtVisual.h"
+#include "scCenterControlVertexQtVisual.h"
 
 #include <qDebug>
 #include <QVector3D>
@@ -68,15 +69,6 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 		mFaceData->AddDxDyToLineStart(dx, dy);
 	}
 
-	scVector2D targetScreenCoord = mCoordinateHelper->CameraToLocal(
-		targetMousePos.x, targetMousePos.y);
-	scVector2D prevScreenCoord = mCoordinateHelper->CameraToLocal(
-		prevMousePos.x, prevMousePos.y);
-
-	scVector2D dist = targetScreenCoord - prevScreenCoord;
-
-	mBoundingBox.center += dist;
-
 
 	for (const auto& ss : mControlVertexVector)
 	{
@@ -97,11 +89,6 @@ void scFaceQtVisual::Paint(QPainter& painter)
 
 	QPolygonF qp = this->MakeQPolygonF();
 	painter.drawPolygon(qp);
-
-
-	scVector2D centers = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.center.y);
-	QPointF center = { centers.x, centers.y };
-	painter.drawPoint(center);
 
 
 	/*pen.setColor(Qt::red);
@@ -144,7 +131,6 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 
 	double angle = diagVertex->mVertexData->GetTransform().angle;
 	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
-	scMatrix2D RotateMatrix = MatrixHelper::RotateMatrix(angle);
 
 	targetLocalCoord = (inverseRotateMatrix * targetLocalCoord);
 	prevLocalCoord = (inverseRotateMatrix * prevLocalCoord);
@@ -152,10 +138,6 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 	double dx = targetLocalCoord.x / prevLocalCoord.x;
 	double dy = targetLocalCoord.y / prevLocalCoord.y;
 
-	mBoundingBox.center -= diagLocalCoord;
-	scMatrix2D scaleMatrix = MatrixHelper::ScaleMatrix(dx, dy);
-	mBoundingBox.center = (RotateMatrix * scaleMatrix * inverseRotateMatrix * mBoundingBox.center);
-	mBoundingBox.center += diagLocalCoord;
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
@@ -174,7 +156,10 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x, prevMousePos.y);
 	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x, targetMousePos.y);
 
-	QPointF A = { mBoundingBox.center.x, mBoundingBox.center.y };
+	shared_ptr<scCenterControlVertexQtVisual> centerVertex = dynamic_pointer_cast<scCenterControlVertexQtVisual>(mControlVertexVector.back());
+	scVector2D centerLocalCoord = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetX(), centerVertex->mVertexData->GetY(), centerVertex->mVertexData->GetTransform());
+
+	QPointF A = { centerLocalCoord.x, centerLocalCoord.y };
 	QPointF B = { pp.x, pp.y };
 	QPointF C = { tt.x, tt.y };
 
@@ -201,17 +186,18 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 	double sinX = crossZ / (b * c);
 	double cosX = dot / (b * c);
 
+	
 
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, mBoundingBox.center.x, mBoundingBox.center.y);
+		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, centerLocalCoord.x, centerLocalCoord.y);
 	}
 
 
 	for (const auto& ss : mControlVertexVector)
 	{
-		ss->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, mBoundingBox.center.x, mBoundingBox.center.y);
+		ss->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, centerLocalCoord.x, centerLocalCoord.y);
 	}
 }
 
@@ -238,9 +224,15 @@ void scFaceQtVisual::ResetControlVertices()
 	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper) });
 
 
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.topLeft.y);
 
+
+	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.topLeft.y);
 	mControlVertexVector.push_back({ make_shared<scRotateControlVertexQtVisual>(this, bb, mCoordinateHelper) });
+
+
+
+	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.center.y);
+	mControlVertexVector.push_back({ make_shared<scCenterControlVertexQtVisual>(this, bb, mCoordinateHelper) });
 }
 
 void scFaceQtVisual::ResetBoundingBox()

@@ -8,6 +8,7 @@ scCenterControlVertexQtVisual::scCenterControlVertexQtVisual(
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 	:scControlVertexQtVisual(face, pos, coordinateHelper)
 {
+	mShapeType = SHAPE_TYPE::CONTROL_VERTEX;
 }
 
 scCenterControlVertexQtVisual::~scCenterControlVertexQtVisual()
@@ -16,4 +17,5 @@ scCenterControlVertexQtVisual::~scCenterControlVertexQtVisual()
 
 void scCenterControlVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
+	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 }
