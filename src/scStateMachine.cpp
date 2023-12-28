@@ -2,9 +2,6 @@
 
 #include "scDrawLineState.h"
 #include "scSelectState.h"
-#include "scSelectVertexState.h"
-#include "scSelectLineState.h"
-#include "scSelectFaceState.h"
 #include "scScene.h"
 
 #include <QPainter>
