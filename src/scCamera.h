@@ -1,11 +1,6 @@
 #pragma once
 #include "scMatrixVectorHelper.h"
 
-#include <QPoint>
-#include <list>
-#include <vector>
-
-
 class QMouseEvent;
 class QWheelEvent;
 class scCamera
@@ -14,16 +9,16 @@ public:
 	scCamera();
 	~scCamera();
 
-	void AddPanXY(const QPointF& currentMousePos);
-	void ZoomInOut(const QPointF& currentMousePos, int mouseDir);
+	void AddPanXY(const scVector2D& currentMousePos);
+	void ZoomInOut(const scVector2D& currentMousePos, int mouseDir);
 
 	scVector2D ZoomPan(double x, double y) const;
 	scVector2D UnZoomPan(double x, double y) const;
 
-	void SetPrevMousePos(const QPointF& prevMousePos);
+	void SetPrevMousePos(const scVector2D& prevMousePos);
 
 private:
-	QPointF mPrevMousePos;
+	scVector2D mPrevMousePos;
 
 	const double mZoomRatio = 1.2;
 	const int mZoomLimitSize = 5;

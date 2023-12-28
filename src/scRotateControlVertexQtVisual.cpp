@@ -29,13 +29,13 @@ void scRotateControlVertexQtVisual::Move(const scVector2D& targetMousePos, const
 	mParentFace->RotateFace(targetMousePos, prevMousePos);
 }
 
-void scRotateControlVertexQtVisual::MoveControlVertexDirectly(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scRotateControlVertexQtVisual::MoveControlVertexDirectly(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
+		targetMousePos.x, targetMousePos.y, mVertexData->GetTransform());
 
 	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-		prevMousePos.x(), prevMousePos.y(), mVertexData->GetTransform());
+		prevMousePos.x, prevMousePos.y, mVertexData->GetTransform());
 
 	double dx = targetWorldCoord.x - prevWorldCoord.x;
 	double dy = targetWorldCoord.y - prevWorldCoord.y;

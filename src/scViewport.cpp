@@ -49,7 +49,8 @@ void scViewport::paintEvent(QPaintEvent* event)
 
 void scViewport::mousePressEvent(QMouseEvent* event)
 {
-    QPointF currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+    QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
+    scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF .y() };
 
     switch (event->buttons())
     {
@@ -82,7 +83,8 @@ void scViewport::mouseReleaseEvent(QMouseEvent* event)
 
 void scViewport::mouseMoveEvent(QMouseEvent* event)
 {
-    QPointF currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+    QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
+    scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF.y() };
     
     // The last point tracks the mouse in drawing mode
     mStateMachine.GetCurrentState()->MouseMoveEvent(currMousePos);
@@ -141,7 +143,9 @@ void scViewport::keyReleaseEvent(QKeyEvent* event)
 
 void scViewport::wheelEvent(QWheelEvent* event)
 {
-    QPoint currMousePos = QWidget::mapFromGlobal(QCursor::pos());
+    QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
+    scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF.y() };
+
     int mouseDir = event->angleDelta().y();
 
     // Zoom

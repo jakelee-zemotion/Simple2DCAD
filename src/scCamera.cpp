@@ -16,25 +16,25 @@ scCamera::~scCamera()
 {
 }
 
-void scCamera::AddPanXY(const QPointF& currentMousePos)
+void scCamera::AddPanXY(const scVector2D& currentMousePos)
 {
-    QPointF dist = currentMousePos - mPrevMousePos;
+    scVector2D dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 
 
-    scMatrix2D newPanMatrix = MatrixHelper::TranslateMatrix(dist.x(), dist.y());
-    scMatrix2D newInversePanMatrix = MatrixHelper::InverseTranslateMatrix(dist.x(), dist.y());
+    scMatrix2D newPanMatrix = MatrixHelper::TranslateMatrix(dist.x, dist.y);
+    scMatrix2D newInversePanMatrix = MatrixHelper::InverseTranslateMatrix(dist.x, dist.y);
 
     mZoomPanMatrix = (newPanMatrix * mZoomPanMatrix);
     mInverseZoomPanMatrix = (mInverseZoomPanMatrix * newInversePanMatrix);
 }
 
 
-void scCamera::ZoomInOut(const QPointF& currentMousePos, int mouseDir)
+void scCamera::ZoomInOut(const scVector2D& currentMousePos, int mouseDir)
 {
-    scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(currentMousePos.x(), currentMousePos.y());
+    scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(currentMousePos.x, currentMousePos.y);
     scMatrix2D scaleMatrix, inverseScaleMatrix;
-    scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(currentMousePos.x(), currentMousePos.y());
+    scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(currentMousePos.x, currentMousePos.y);
 
     if (mouseDir > 0) // Zoom In
     {
@@ -73,7 +73,7 @@ scVector2D scCamera::UnZoomPan(double x, double y) const
     return result;
 }
 
-void scCamera::SetPrevMousePos(const QPointF& prevMousePos)
+void scCamera::SetPrevMousePos(const scVector2D& prevMousePos)
 {
     mPrevMousePos = prevMousePos;
 }

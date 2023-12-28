@@ -1,7 +1,6 @@
 #pragma once
 #include "scMatrixVectorHelper.h"
 
-#include <QPoint>
 #include <memory>
 
 class scShapeID;
@@ -13,17 +12,17 @@ public:
 	scState(const std::shared_ptr<scScene>& scene);
 	virtual ~scState();
 
-	virtual void MousePressEvent(const QPointF& currMousePos) = 0;
-	virtual void MouseMoveEvent(const QPointF& currMousePos) = 0;
+	virtual void MousePressEvent(const scVector2D& currMousePos) = 0;
+	virtual void MouseMoveEvent(const scVector2D& currMousePos) = 0;
 	virtual void MouseReleaseEvent() = 0;
 	virtual void KeyPressEvent(QKeyEvent* event) = 0;
 
 	virtual void EndState() = 0;
 
 protected:
-	QPointF SnapVertex(const QPointF& currMousePos, const scShapeID& noTestShapeID);
+	scVector2D SnapVertex(const scVector2D& currMousePos, const scShapeID& noTestShapeID);
 
 	const std::shared_ptr<scScene> mScene;
-	QPointF mPrevMousePos;
+	scVector2D mPrevMousePos;
 };
 

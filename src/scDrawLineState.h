@@ -1,8 +1,6 @@
 #pragma once
 #include "scState.h"
 
-#include <QPointF>
-
 class scScene;
 class scVertexQtVisual;
 class scShapeQtVisual;
@@ -12,8 +10,8 @@ public:
 	scDrawLineState(const std::shared_ptr<scScene>& scene);
 	~scDrawLineState() override;
 
-	void MousePressEvent(const QPointF& currMousePos) override;
-	void MouseMoveEvent(const QPointF& currMousePos) override;
+	void MousePressEvent(const scVector2D& currMousePos) override;
+	void MouseMoveEvent(const scVector2D& currMousePos) override;
 	void MouseReleaseEvent() override;
 	void KeyPressEvent(QKeyEvent* event) override;
 

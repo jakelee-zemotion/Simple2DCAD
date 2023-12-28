@@ -13,12 +13,13 @@ public:
 	void Paint(QPainter& painter) override;
 	bool HitTest(const scVector2D& currMousePos) override;
 
-	QPointF MakeQPointF();
+	scVector2D GetXY() const;
 
 	friend class scLineQtVisual;
 
 	std::shared_ptr<scVertexData> mVertexData;
 
 protected:
+	QPointF MakeQPointF();
 };
 

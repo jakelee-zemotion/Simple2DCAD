@@ -10,8 +10,8 @@ public:
 	scSelectState(const std::shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType);
 	virtual ~scSelectState() override;
 
-	void MousePressEvent(const QPointF& currMousePos) override;
-	void MouseMoveEvent(const QPointF& currMousePos) override;
+	void MousePressEvent(const scVector2D& currMousePos) override;
+	void MouseMoveEvent(const scVector2D& currMousePos) override;
 	void MouseReleaseEvent() override;
 	void KeyPressEvent(QKeyEvent* event) override;
 

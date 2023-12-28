@@ -17,12 +17,10 @@ scDrawLineState::~scDrawLineState()
 {
 }
 
-void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
+void scDrawLineState::MousePressEvent(const scVector2D& currMousePos)
 {
-    scVector2D pos = { currMousePos.x(), currMousePos.y() };
-
     // Create a Face.
-    if (CanCreateFace(pos))
+    if (CanCreateFace(currMousePos))
     {
         this->EndDrawing(true);
         return;
@@ -32,27 +30,25 @@ void scDrawLineState::MousePressEvent(const QPointF& currMousePos)
     // Therefore, the second point is adjusted in MouseMoveEvent.
     if (!mIsDrawing)
     {
-        mDrawStartVertex = mScene->AddStartVertex(pos);
+        mDrawStartVertex = mScene->AddStartVertex(currMousePos);
         mIsDrawing = true;
     }
 
     // Add and Return the vertex.
-    mDrawingVertex = mScene->AddEndVertex(pos);
+    mDrawingVertex = mScene->AddEndVertex(currMousePos);
 
     mPrevMousePos = currMousePos;
 }
 
-void scDrawLineState::MouseMoveEvent(const QPointF& currMousePos)
+void scDrawLineState::MouseMoveEvent(const scVector2D& currMousePos)
 {
     if (mIsDrawing)
     {
         assert(mDrawingVertex != nullptr);
 
-        QPointF targetPos = SnapVertex(currMousePos, mDrawingVertex->GetID());
+        scVector2D targetPos = SnapVertex(currMousePos, mDrawingVertex->GetID());
 
-        scVector2D aa = { targetPos.x(), targetPos.y() };
-
-        mDrawingVertex->Move(aa);
+        mDrawingVertex->Move(targetPos);
     }
 
 }

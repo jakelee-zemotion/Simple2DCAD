@@ -21,23 +21,20 @@ scSelectState::~scSelectState()
 {
 }
 
-void scSelectState::MousePressEvent(const QPointF& currMousePos)
+void scSelectState::MousePressEvent(const scVector2D& currMousePos)
 {
 	mIsMousePressed = true;
 	mPrevMousePos = currMousePos;
 }
 
-void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
+void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 {
-
-	scVector2D pos = { currMousePos.x(), currMousePos.y() };
-
 	if (mIsMousePressed)
 	{
 		if (mCurrHighlightShape == nullptr)
 			return;
 		
-		QPointF targetPos = currMousePos;
+		scVector2D targetPos = currMousePos;
 
 		// Vertex snapping
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::VERTEX)
@@ -57,10 +54,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 			//return;
 		}
 
-		scVector2D aa = { targetPos.x(), targetPos.y() };
-		scVector2D bb = { mPrevMousePos.x(), mPrevMousePos.y() };
-
-		mCurrHighlightShape->Move(aa, bb);
+		mCurrHighlightShape->Move(targetPos, mPrevMousePos);
 
 		mPrevMousePos = currMousePos;
 
@@ -68,7 +62,7 @@ void scSelectState::MouseMoveEvent(const QPointF& currMousePos)
 	}
 
 
-	mCurrHighlightShape = mScene->HitTest(pos, mSelectShapeType);
+	mCurrHighlightShape = mScene->HitTest(currMousePos, mSelectShapeType);
 	HightlightShape();
 	
 	mPrevHighlightShape = mCurrHighlightShape;

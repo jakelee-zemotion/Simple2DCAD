@@ -26,13 +26,13 @@ void scScaleControlVertexQtVisual::Move(const scVector2D& targetMousePos, const 
 	mParentFace->ScaleFace(targetMousePos, prevMousePos, mBoxPos);
 }
 
-void scScaleControlVertexQtVisual::MoveControlVertexDirectly(const QPointF& targetMousePos, const QPointF& prevMousePos)
+void scScaleControlVertexQtVisual::MoveControlVertexDirectly(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
+		targetMousePos.x, targetMousePos.y, mVertexData->GetTransform());
 
 	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-		prevMousePos.x(), prevMousePos.y(), mVertexData->GetTransform());
+		prevMousePos.x, prevMousePos.y, mVertexData->GetTransform());
 
 	double dx = targetWorldCoord.x - prevWorldCoord.x;
 	double dy = targetWorldCoord.y - prevWorldCoord.y;

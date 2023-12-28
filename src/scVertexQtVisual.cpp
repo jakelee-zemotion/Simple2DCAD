@@ -27,15 +27,6 @@ scVertexQtVisual::~scVertexQtVisual()
 	qDebug() << "Vertex" << mShapeID.Get() << " Destruction";
 }
 
-QPointF scVertexQtVisual::MakeQPointF()
-{
-	scVector2D cameraCoord = mCoordinateHelper->WorldToCamera(
-		mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
-
-	return { cameraCoord.x, cameraCoord.y };
-}
-
-
 void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	// Unlike Line and Face, it moves directly to x, y.
@@ -85,3 +76,21 @@ bool scVertexQtVisual::HitTest(const scVector2D& currMousePos)
 
 	return false;
 }
+
+
+scVector2D scVertexQtVisual::GetXY() const
+{
+	scVector2D cameraCoord = mCoordinateHelper->WorldToCamera(
+		mVertexData->GetX(), mVertexData->GetY(), mVertexData->GetTransform());
+
+	return cameraCoord;
+}
+
+
+QPointF scVertexQtVisual::MakeQPointF()
+{
+	scVector2D cameraCoord = this->GetXY();
+
+	return { cameraCoord.x, cameraCoord.y };
+}
+

@@ -77,14 +77,11 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 
 	mBoundingBox.center += dist;
 
-	QPointF aa = { targetMousePos.x, targetMousePos.y };
-	QPointF bb = { prevMousePos.x, prevMousePos.y };
-
-	mRotateControlVertex->MoveControlVertexDirectly(aa, bb);
+	mRotateControlVertex->MoveControlVertexDirectly(targetMousePos, prevMousePos);
 
 	for (const auto& ss : mScaleControlVertexVector)
 	{
-		ss->MoveControlVertexDirectly(aa, bb);
+		ss->MoveControlVertexDirectly(targetMousePos, prevMousePos);
 	}
 }
 
