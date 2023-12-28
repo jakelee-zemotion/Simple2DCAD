@@ -5,7 +5,7 @@
 
 using namespace std;
 
-scShapeQtVisual::scShapeQtVisual(SHAPE_TYPE shapeType, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+scShapeQtVisual::scShapeQtVisual(const SHAPE_TYPE& shapeType, const shared_ptr<scCoordinateHelper>& coordinateHelper)
     : mShapeType(shapeType), mCoordinateHelper(coordinateHelper)
 {
     mShapeColorType = COLOR_TYPE::DEFAULT;

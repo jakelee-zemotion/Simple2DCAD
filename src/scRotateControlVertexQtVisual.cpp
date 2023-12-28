@@ -12,9 +12,11 @@ scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(
 	scFaceQtVisual* face,
 	const QPointF& point,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scVertexQtVisual(SHAPE_TYPE::ROTATE_VERTEX, point, coordinateHelper),
+		:scVertexQtVisual(point, coordinateHelper),
 		 mParentFace(face)
 {
+	mShapeType = SHAPE_TYPE::ROTATE_VERTEX;
+
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkGreen;
 }
 

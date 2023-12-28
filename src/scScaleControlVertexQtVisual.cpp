@@ -11,9 +11,10 @@ scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
 	const QPointF& point, 
 	const BOX_POSITION& boxPos,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scVertexQtVisual(SHAPE_TYPE::SCALE_VERTEX, point, coordinateHelper), 
+		:scVertexQtVisual(point, coordinateHelper), 
 		 mParentFace(face), mBoxPos(boxPos)
 {
+	mShapeType = SHAPE_TYPE::SCALE_VERTEX;
 }
 
 scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()
@@ -22,43 +23,7 @@ scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()
 
 void scScaleControlVertexQtVisual::Move(const QPointF& targetMousePos, const QPointF& prevMousePos)
 {
-	//scVertexQtVisual::Move(targetMousePos, prevMousePos);
-
-	/*scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
-		targetMousePos.x(), targetMousePos.y(), mVertexData->GetTransform());
-
-	mVerticalScaleVertex.lock()->GetVertexData()->SetX(worldCoord.x);
-	mHorizontalScaleVertex.lock()->GetVertexData()->SetY(worldCoord.y);
-
-
-	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x(), targetMousePos.y());
-	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x(), prevMousePos.y());
-
-	double dx = targetLocalCoord.x / prevLocalCoord.x;
-	double dy = targetLocalCoord.y / prevLocalCoord.y;
-
-
-	scVector2D dignalWorldCoord = mCoordinateHelper->WorldToScreen(
-		mDiagonalScaleVertex.lock()->GetVertexData()->GetX(), 
-		mDiagonalScaleVertex.lock()->GetVertexData()->GetY());
-
-	mParentFace->ScaleFace(dx, dy, dignalWorldCoord.x, dignalWorldCoord.y);*/
 	mParentFace->ScaleFace(targetMousePos, prevMousePos, mBoxPos);
-}
-
-void scScaleControlVertexQtVisual::SetHorizontalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)
-{
-	mHorizontalScaleVertex = scaleVector;
-}
-
-void scScaleControlVertexQtVisual::SetVerticalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)
-{
-	mVerticalScaleVertex = scaleVector;
-}
-
-void scScaleControlVertexQtVisual::SetDiagonalScaleVector(const std::shared_ptr<scScaleControlVertexQtVisual>& scaleVector)
-{
-	mDiagonalScaleVertex = scaleVector;
 }
 
 void scScaleControlVertexQtVisual::MoveControlVertexDirectly(const QPointF& targetMousePos, const QPointF& prevMousePos)

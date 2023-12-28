@@ -99,6 +99,12 @@ void scFaceQtVisual::Paint(QPainter& painter)
 	QPolygonF qp = this->MakeQPolygonF();
 	painter.drawPolygon(qp);
 
+
+	scVector2D centers = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.center.y);
+	QPointF center = { centers.x, centers.y };
+	painter.drawPoint(center);
+
+
 	/*pen.setColor(Qt::red);
 	pen.setWidth(1);
 	pen.setStyle(Qt::DotLine);
@@ -137,6 +143,7 @@ void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& pre
 
 	double angle = diagVertex->mVertexData->GetTransform().angle;
 	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
+	scMatrix2D RotateMatrix = MatrixHelper::RotateMatrix(angle);
 
 	targetLocalCoord = (inverseRotateMatrix * targetLocalCoord);
 	prevLocalCoord = (inverseRotateMatrix * prevLocalCoord);
@@ -144,8 +151,10 @@ void scFaceQtVisual::ScaleFace(const QPointF& targetMousePos, const QPointF& pre
 	double dx = targetLocalCoord.x / prevLocalCoord.x;
 	double dy = targetLocalCoord.y / prevLocalCoord.y;
 
-
-	//mBoundingBox.center = ( * mBoundingBox.center);
+	mBoundingBox.center -= diagLocalCoord;
+	scMatrix2D scaleMatrix = MatrixHelper::ScaleMatrix(dx, dy);
+	mBoundingBox.center = (RotateMatrix * scaleMatrix * inverseRotateMatrix * mBoundingBox.center);
+	mBoundingBox.center += diagLocalCoord;
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{

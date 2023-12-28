@@ -11,21 +11,6 @@ using namespace std;
 scVertexQtVisual::scVertexQtVisual(const QPointF& point, const shared_ptr<scCoordinateHelper>& coordinateHelper)
 	:scShapeQtVisual(SHAPE_TYPE::VERTEX, coordinateHelper)
 {
-	Initialize(point);
-}
-
-// For the scScaleVertexQtVisual, scRotateVertexQtVisual.
-scVertexQtVisual::scVertexQtVisual(
-	const SHAPE_TYPE shapeType, 
-	const QPointF& point, 
-	const shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scShapeQtVisual(shapeType, coordinateHelper)
-{
-	Initialize(point);
-}
-
-void scVertexQtVisual::Initialize(const QPointF& point)
-{
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
 
