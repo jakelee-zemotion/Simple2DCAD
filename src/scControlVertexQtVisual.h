@@ -13,7 +13,6 @@ public:
 
 	~scControlVertexQtVisual();
 
-
 	void MoveControlVertexDirectly(const scVector2D& targetMousePos, const scVector2D& prevMousePos);
 
 protected:

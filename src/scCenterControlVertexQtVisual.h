@@ -1,21 +1,19 @@
 #pragma once
 #include "scControlVertexQtVisual.h"
 
-class scScaleControlVertexQtVisual : public scControlVertexQtVisual
+class scCenterControlVertexQtVisual : public scControlVertexQtVisual
 {
 public:
-	scScaleControlVertexQtVisual(
+	scCenterControlVertexQtVisual(
 		scFaceQtVisual* face,
 		const scVector2D& pos,
-		const BOX_POSITION& boxPos,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
-	~scScaleControlVertexQtVisual() override;
+	~scCenterControlVertexQtVisual();
 
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
 
 private:
-	BOX_POSITION mBoxPos;
 
 };
 

@@ -1,8 +1,6 @@
 #pragma once
 #include "scControlVertexQtVisual.h"
 
-class scCoordinateHelper;
-class scFaceQtVisual;
 class scRotateControlVertexQtVisual : public scControlVertexQtVisual
 {
 public:
