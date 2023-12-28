@@ -6,6 +6,7 @@
 #include "scObjectListDialog.h"
 
 #include <QToolButton>
+#include <QFileDialog>
 
 using namespace std;
 
@@ -45,6 +46,10 @@ void scMainWindow::SetWidgets()
 	this->setCentralWidget(mViewport.get());
 	this->setMenuBar(mMenuBar.get());
 	this->addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar.get());
+
+	QFileDialog dialog;
+
+	//QString fileName = QFileDialog::getOpenFileName(this, "Save Scene", "", "JSON (*.json)");
 }
 
 void scMainWindow::OpenObjectListDialog()
@@ -61,4 +66,9 @@ void scMainWindow::TransitState(const string& name)
 
 		mViewport->TransitState(name);
 	}
+}
+
+void scMainWindow::NewScene()
+{
+	mViewport->ResetScene();
 }

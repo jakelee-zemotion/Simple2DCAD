@@ -16,6 +16,9 @@ public:
 	void AddState(const std::string& name);
 	void TransitState(const std::string& name);
 
+	void ResetScene();
+	void SaveScene();
+	void LoadScene();
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
@@ -28,7 +31,6 @@ protected:
 
 private:
 	scCamera mCamera;
-	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 	std::shared_ptr<scScene> mScene;
 
 	scStateMachine mStateMachine;

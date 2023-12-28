@@ -10,11 +10,13 @@ class scCoordinateHelper;
 class scShapeQtVisual;
 class scVertexQtVisual;
 class scFaceQtVisual;
+class scCamera;
 class QPainter;
+class QRect;
 class scScene
 {
 public:
-	scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scScene(const scCamera& camera, const QRect& viewportSize);
 	~scScene();
 
 	void Render(QPainter& painter);
@@ -34,6 +36,8 @@ public:
 	int GetVertexCreatedCount() const;
 
 private:
+	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
+
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mFaceList;
@@ -42,6 +46,5 @@ private:
 	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mInsertLineIter;
 	std::list<std::weak_ptr<scShapeQtVisual>>::iterator mInsertFaceIter;
 
-	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 	int mVertexCreatedCount;
 };

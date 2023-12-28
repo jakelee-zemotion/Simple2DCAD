@@ -8,13 +8,13 @@ scMenuBar::scMenuBar(QWidget* parent)
 	// 1. File
 	mFileMenu = make_unique<QMenu>("File");
 
-	mNewAction = make_unique<QAction>("New");
-	mSaveAction = make_unique<QAction>("Save");
-	mLoadAction = make_unique<QAction>("Load");
+	mNewSceneAction = make_unique<QAction>("New Scene");
+	mOpenSceneAction = make_unique<QAction>("Open Scene");
+	mSaveSceneAction = make_unique<QAction>("Save Scene");
 
-	mFileMenu->addAction(mNewAction.get());
-	mFileMenu->addAction(mSaveAction.get());
-	mFileMenu->addAction(mLoadAction.get());
+	mFileMenu->addAction(mNewSceneAction.get());
+	mFileMenu->addAction(mOpenSceneAction.get());
+	mFileMenu->addAction(mSaveSceneAction.get());
 
 	// 2. Edit
 	mEditMenu = make_unique<QMenu>("Edit");
@@ -29,7 +29,12 @@ scMenuBar::scMenuBar(QWidget* parent)
 	this->addMenu(mViewMenu.get());
 }
 
-void scMenuBar::ConnectAction(const QObject* widgetManager)
+void scMenuBar::ConnectAction(const QObject* mainWindow)
 {
-	connect(mObjectListAction.get(), SIGNAL(triggered()), widgetManager, SLOT(OpenObjectListDialog()));
+	// 1. File
+	connect(mNewSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(NewScene()));
+
+
+	// 3. View
+	connect(mObjectListAction.get(), SIGNAL(triggered()), mainWindow, SLOT(OpenObjectListDialog()));
 }

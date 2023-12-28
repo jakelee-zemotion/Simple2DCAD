@@ -13,8 +13,7 @@ using namespace std;
 scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
-    mCoordinateHelper = make_shared<scCoordinateHelper>(mCamera, this->geometry());
-    mScene = make_shared<scScene>(mCoordinateHelper);
+    mScene = make_shared<scScene>(mCamera, this->geometry());
 
     mIsCtrlPressed = false;
 
@@ -37,6 +36,21 @@ void scViewport::TransitState(const string& name)
 
     // Update for EndState()
     update();
+}
+
+void scViewport::ResetScene()
+{
+    mScene->ClearData();
+}
+
+void scViewport::SaveScene()
+{
+    mScene->SaveData();
+}
+
+void scViewport::LoadScene()
+{
+    mScene->LoadData();
 }
 
 void scViewport::paintEvent(QPaintEvent* event)
@@ -119,18 +133,6 @@ void scViewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Control: 
         {
             mIsCtrlPressed = true;
-        }
-        break;
-
-        case Qt::Key_S:
-        {
-            mScene->SaveData();
-        }
-        break;
-
-        case Qt::Key_L:
-        {
-            mScene->LoadData();
         }
         break;
     }

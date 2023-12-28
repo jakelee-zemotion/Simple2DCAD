@@ -7,7 +7,7 @@
 
 using namespace std;
 
-scCoordinateHelper::scCoordinateHelper(scCamera& camera, const QRect& viewportSize)
+scCoordinateHelper::scCoordinateHelper(const scCamera& camera, const QRect& viewportSize)
 	:mCamera(camera), mViewportSize(viewportSize)
 {
 }
