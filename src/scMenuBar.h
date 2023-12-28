@@ -15,5 +15,11 @@ private:
 	std::unique_ptr<QMenu> mEditMenu;
 	std::unique_ptr<QMenu> mViewMenu;
 
+	// 1. File
+	std::unique_ptr<QAction> mNewAction;
+	std::unique_ptr<QAction> mSaveAction;
+	std::unique_ptr<QAction> mLoadAction;
+
+	// 3. View
 	std::unique_ptr<QAction> mObjectListAction;
 };

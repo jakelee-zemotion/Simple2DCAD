@@ -20,6 +20,6 @@ public:
 	std::shared_ptr<scVertexData> mVertexData;
 
 protected:
-	QPointF MakeQPointF();
+	QPointF MakeQPointF() const;
 };
 

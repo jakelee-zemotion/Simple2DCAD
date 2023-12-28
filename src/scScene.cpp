@@ -231,6 +231,66 @@ void scScene::RemoveBoundingBoxOfFace()
 	mDrawShapeList.pop_back();
 }
 
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
+#include <QJsonDocument>
+
+void scScene::SaveData()
+{
+	QJsonObject data;
+	QJsonObject vertices;
+
+	for (const auto& ver : mVertexList)
+	{
+		shared_ptr<scVertexQtVisual> vertex = dynamic_pointer_cast<scVertexQtVisual>(ver);
+		
+		QJsonObject vData;
+		scVector2D pos = vertex->GetXY();
+
+		vData["x"] = pos.x;
+		vData["y"] = pos.y;
+
+		QString id = QString::number(vertex->GetID());
+
+		vertices[id] = vData;
+	}
+
+	data["vertices"] = vertices;
+
+
+	QFile saveFile("deviceInfo.json");
+	saveFile.open(QIODevice::WriteOnly);
+
+	QJsonDocument saveDoc(data);
+	saveFile.write(saveDoc.toJson());
+	saveFile.close();
+}
+
+void scScene::LoadData()
+{
+	ClearData();
+
+	QFile loadFile("deviceInfo.json");
+	loadFile.open(QIODevice::ReadOnly);
+
+	QByteArray loadData = loadFile.readAll();
+	QJsonDocument loadDoc(QJsonDocument::fromJson(loadData));
+	QJsonObject data = loadDoc.object();
+
+	QJsonObject vertices = data["vertices"].toObject();
+
+}
+
+void scScene::ClearData()
+{
+	mVertexList.clear();
+	mLineList.clear();
+	mFaceList.clear();
+
+	mDrawShapeList.clear();
+}
+
 
 int scScene::GetVertexCreatedCount() const
 {

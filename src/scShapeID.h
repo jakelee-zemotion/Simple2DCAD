@@ -9,8 +9,7 @@ public:
 
 	bool operator==(const scShapeID& shapeID);
 	bool operator!=(const scShapeID& shapeID);
-
-	uint64_t Get() const;
+	operator uint64_t() const;
 
 private:
 	uint64_t mID;

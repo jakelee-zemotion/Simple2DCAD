@@ -27,6 +27,10 @@ public:
 	void AddBoundingBoxOfFace(const std::shared_ptr<scFaceQtVisual>& face);
 	void RemoveBoundingBoxOfFace();
 
+	void SaveData();
+	void LoadData();
+	void ClearData();
+
 	int GetVertexCreatedCount() const;
 
 private:

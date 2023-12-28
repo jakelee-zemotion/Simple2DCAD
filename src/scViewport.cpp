@@ -110,10 +110,6 @@ void scViewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Return:
         case Qt::Key_Escape:
         case Qt::Key_Delete:
-        case Qt::Key_W:
-        case Qt::Key_S:
-        case Qt::Key_A:
-        case Qt::Key_D:
         {
             mStateMachine.GetCurrentState()->KeyPressEvent(event);
             update();
@@ -123,6 +119,18 @@ void scViewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Control: 
         {
             mIsCtrlPressed = true;
+        }
+        break;
+
+        case Qt::Key_S:
+        {
+            mScene->SaveData();
+        }
+        break;
+
+        case Qt::Key_L:
+        {
+            mScene->LoadData();
         }
         break;
     }

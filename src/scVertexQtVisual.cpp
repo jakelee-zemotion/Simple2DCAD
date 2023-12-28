@@ -24,7 +24,7 @@ scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoo
 
 scVertexQtVisual::~scVertexQtVisual()
 {
-	qDebug() << "Vertex" << mShapeID.Get() << " Destruction";
+	qDebug() << "Vertex" << mShapeID << " Destruction";
 }
 
 void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
@@ -87,7 +87,7 @@ scVector2D scVertexQtVisual::GetXY() const
 }
 
 
-QPointF scVertexQtVisual::MakeQPointF()
+QPointF scVertexQtVisual::MakeQPointF() const
 {
 	scVector2D cameraCoord = this->GetXY();
 

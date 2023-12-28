@@ -33,7 +33,7 @@ scFaceQtVisual::scFaceQtVisual(
 
 scFaceQtVisual::~scFaceQtVisual()
 {
-	//qDebug() << "Face" << mShapeID.Get() << " Destruction";
+	qDebug() << "Face" << mShapeID << " Destruction";
 }
 
 QPolygonF scFaceQtVisual::MakeQPolygonF()
