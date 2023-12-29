@@ -12,12 +12,11 @@
 
 using namespace std;
 
-scScene::scScene(const scCamera& camera, const QRect& viewportSize)
+scScene::scScene(std::shared_ptr<scCoordinateHelper> coordinateHelper)
+	:mCoordinateHelper(coordinateHelper)
 {
 	mVertexCreatedCount = 0;
 
-	mCoordinateHelper = make_shared<scCoordinateHelper>(camera, viewportSize);
-	mGrid = make_shared<scGrid>(viewportSize);
 }
 
 scScene::~scScene()

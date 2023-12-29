@@ -30,6 +30,7 @@ protected:
 	void wheelEvent(QWheelEvent* event) override;
 
 private:
+	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 	scCamera mCamera;
 	std::shared_ptr<scScene> mScene;
 
