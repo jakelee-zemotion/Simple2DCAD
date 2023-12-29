@@ -17,7 +17,6 @@ scCoordinateHelper::~scCoordinateHelper()
 }
 
 
-// Use -1.0 * to get visibility. Do not change it to -.
 scVector2D scCoordinateHelper::WorldToScreen(const scVector2D& pos)
 {
     auto expr = [](double value, double size) -> double
@@ -25,7 +24,7 @@ scVector2D scCoordinateHelper::WorldToScreen(const scVector2D& pos)
             return (value + 1.0) / 2.0 * size;
         };
 
-    return pos;
+    return pos;//{ pos.x - mViewportSize.width() / 2.0, pos.y - mViewportSize.height() / 2.0 };
     /*{
         expr(       pos.x, static_cast<double>(mViewportSize.width())),
         expr(-1.0 * pos.y, static_cast<double>(mViewportSize.height()))
@@ -40,7 +39,7 @@ scVector2D scCoordinateHelper::ScreenToWorld(const scVector2D& pos)
             return value / size * 2.0 - 1.0;
         };
 
-    return pos;
+    return pos; //{ pos.x + mViewportSize.width() / 2.0, pos.y + mViewportSize.height() / 2.0 };
     /*{
                expr(pos.x, static_cast<double>(mViewportSize.width())),
         -1.0 * expr(pos.y, static_cast<double>(mViewportSize.height()))
@@ -51,24 +50,14 @@ scVector2D scCoordinateHelper::ScreenToWorld(const scVector2D& pos)
 
 scVector2D scCoordinateHelper::ScreenToLoacl(const scVector2D& pos, scTransform& transform)
 {
-    // 1. Scale
     scVector2D scaleCoord = transform.Scale(pos.x, pos.y);
-
-    // 2. Rotate
-
 
     return scaleCoord;
 }
 
 scVector2D scCoordinateHelper::LoaclToScreen(const scVector2D& pos, scTransform& transform)
 {
-    // 2. Rotate
-    
-
-    // 1. Scale
     scVector2D scaleCoord = transform.UnScale(pos.x, pos.y);
-
-
 
     return scaleCoord;
 }
