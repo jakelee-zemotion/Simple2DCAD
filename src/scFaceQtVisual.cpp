@@ -45,7 +45,7 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D cameraStartCoord = mCoordinateHelper->WorldToCamera(
-				mFaceData->GetLineStartPos().x, mFaceData->GetLineStartPos().y, mFaceData->GetStartTransform());
+				mFaceData->GetLineStartPos(), mFaceData->GetStartTransform());
 
 		lineList.push_back({ cameraStartCoord.x, cameraStartCoord.y });
 	}
@@ -58,10 +58,10 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-			targetMousePos.x, targetMousePos.y, mFaceData->GetStartTransform());
+			targetMousePos, mFaceData->GetStartTransform());
 
 		scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-			prevMousePos.x, prevMousePos.y, mFaceData->GetStartTransform());
+			prevMousePos, mFaceData->GetStartTransform());
 
 		scVector2D delta = targetWorldCoord - prevWorldCoord;
 
@@ -119,10 +119,10 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 
 	shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mControlVertexVector[diagIdx]);
 
-	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetPos().x, diagVertex->mVertexData->GetPos().y, diagVertex->mVertexData->GetTransform());
+	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetPos(), diagVertex->mVertexData->GetTransform());
 
-	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x, targetMousePos.y);
-	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x, prevMousePos.y);
+	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos);
+	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos);
 
 	targetLocalCoord -= diagLocalCoord;
 	prevLocalCoord -= diagLocalCoord;
@@ -150,11 +150,11 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 
 void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
-	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos.x, prevMousePos.y);
-	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x, targetMousePos.y);
+	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos);
+	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos);
 
 	shared_ptr<scCenterControlVertexQtVisual> centerVertex = dynamic_pointer_cast<scCenterControlVertexQtVisual>(mControlVertexVector.back());
-	scVector2D centerLocalCoord = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos().x, centerVertex->mVertexData->GetPos().y, centerVertex->mVertexData->GetTransform());
+	scVector2D centerLocalCoord = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
 
 	QPointF A = { centerLocalCoord.x, centerLocalCoord.y };
 	QPointF B = { pp.x, pp.y };
@@ -208,27 +208,27 @@ void scFaceQtVisual::ResetControlVertices()
 
 	mControlVertexVector.clear();
 
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topLeft.x, mBoundingBox.topLeft.y);
+	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topLeft);
 	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::TOP_LEFT, mCoordinateHelper) });
 
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topRight.x, mBoundingBox.topRight.y);
+	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topRight);
 	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::TOP_RIGHT, mCoordinateHelper) });
 
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomRight.x, mBoundingBox.bottomRight.y);
+	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomRight);
 	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper) });
 
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomLeft.x, mBoundingBox.bottomLeft.y);
+	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomLeft);
 	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper) });
 
 
 
 
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.topLeft.y);
+	bb = mCoordinateHelper->LocalToCamera({ mBoundingBox.center.x, mBoundingBox.topLeft.y });
 	mControlVertexVector.push_back({ make_shared<scRotateControlVertexQtVisual>(this, bb, mCoordinateHelper) });
 
 
 
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center.x, mBoundingBox.center.y);
+	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center);
 	mControlVertexVector.push_back({ make_shared<scCenterControlVertexQtVisual>(this, bb, mCoordinateHelper) });
 }
 
@@ -242,7 +242,7 @@ void scFaceQtVisual::ResetBoundingBox()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D cameraStartCoord = mCoordinateHelper->WorldToLocal(
-			mFaceData->GetLineStartPos().x, mFaceData->GetLineStartPos().y, mFaceData->GetStartTransform());
+			mFaceData->GetLineStartPos(), mFaceData->GetStartTransform());
 
 		minX = min(minX, cameraStartCoord.x);
 		maxX = max(maxX, cameraStartCoord.x);

@@ -30,10 +30,10 @@ scVertexQtVisual::~scVertexQtVisual()
 void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-		targetMousePos.x, targetMousePos.y, mVertexData->GetTransform());
+		targetMousePos, mVertexData->GetTransform());
 
 	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-		prevMousePos.x, prevMousePos.y, mVertexData->GetTransform());
+		prevMousePos, mVertexData->GetTransform());
 
 	scVector2D delta = targetWorldCoord - prevWorldCoord;
 
@@ -85,7 +85,7 @@ void scVertexQtVisual::SetXY(const scVector2D& pos)
 {
 	// Unlike Line and Face, it moves directly to x, y.
 	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
-		pos.x, pos.y, mVertexData->GetTransform());
+		pos, mVertexData->GetTransform());
 
 	mVertexData->SetPos(worldCoord);
 }
@@ -93,7 +93,7 @@ void scVertexQtVisual::SetXY(const scVector2D& pos)
 scVector2D scVertexQtVisual::GetXY() const
 {
 	scVector2D cameraCoord = mCoordinateHelper->WorldToCamera(
-		mVertexData->GetPos().x, mVertexData->GetPos().y, mVertexData->GetTransform());
+		mVertexData->GetPos(), mVertexData->GetTransform());
 
 	return cameraCoord;
 }
