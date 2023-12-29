@@ -9,19 +9,17 @@ public:
 	scLineData();
 	~scLineData();
 
-	void AddDxDyToStart(double dx, double dy);
-	void AddDxDyToEnd(double dx, double dy);
+	void AddDeltaToStart(const scVector2D& delta);
+	void AddDeltaToEnd(const scVector2D& delta);
 
 	void SetStartVertex(const std::shared_ptr<scVertexData>& startVertex);
 	void SetEndVertex(const std::shared_ptr<scVertexData>& endVertex);
 
-	void SetStartVertex(double x, double y);
-	void SetEndVertex(double x, double y);
+	void SetPosToStartVertex(const scVector2D& pos);
+	void SetPosToEndVertex(const scVector2D& pos);
 
-	double GetStartX() const;
-	double GetStartY() const;
-	double GetEndX() const;
-	double GetEndY() const;
+	scVector2D GetStartPos() const;
+	scVector2D GetEndPos() const;
 
 	scTransform& GetStartTransform();
 	scTransform& GetEndTransform();

@@ -13,14 +13,14 @@ scLineData::~scLineData()
 	//qDebug() << "LineData Destruction";
 }
 
-void scLineData::AddDxDyToStart(double dx, double dy)
+void scLineData::AddDeltaToStart(const scVector2D& delta)
 {
-	mStartVertex->Add({ dx, dy });
+	mStartVertex->AddDelta(delta);
 }
 
-void scLineData::AddDxDyToEnd(double dx, double dy)
+void scLineData::AddDeltaToEnd(const scVector2D& delta)
 {
-	mEndVertex->Add({ dx, dy });
+	mEndVertex->AddDelta(delta);
 }
 
 void scLineData::SetStartVertex(const shared_ptr<scVertexData>& startVertex)
@@ -33,34 +33,24 @@ void scLineData::SetEndVertex(const shared_ptr<scVertexData>& endVertex)
 	mEndVertex = endVertex;
 }
 
-void scLineData::SetStartVertex(double x, double y)
+void scLineData::SetPosToStartVertex(const scVector2D& position)
 {
-	mStartVertex->SetXY({ x, y });
+	mStartVertex->SetPos(position);
 }
 
-void scLineData::SetEndVertex(double x, double y)
+void scLineData::SetPosToEndVertex(const scVector2D& position)
 {
-	mEndVertex->SetXY({ x, y });
+	mEndVertex->SetPos(position);
 }
 
-double scLineData::GetStartX() const
+scVector2D scLineData::GetStartPos() const
 {
-	return mStartVertex->GetXY().x;
+	return mStartVertex->GetPos();
 }
 
-double scLineData::GetStartY() const
+scVector2D scLineData::GetEndPos() const
 {
-	return mStartVertex->GetXY().y;
-}
-
-double scLineData::GetEndX() const
-{
-	return mEndVertex->GetXY().x;
-}
-
-double scLineData::GetEndY() const
-{
-	return mEndVertex->GetXY().y;
+	return mEndVertex->GetPos();
 }
 
 scTransform& scLineData::GetStartTransform()

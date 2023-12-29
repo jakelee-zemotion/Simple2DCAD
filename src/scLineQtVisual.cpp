@@ -33,10 +33,10 @@ scLineQtVisual::~scLineQtVisual()
 QLineF scLineQtVisual::MakeQLineF()
 {
 	scVector2D cameraStart = mCoordinateHelper->WorldToCamera(
-			mLineData->GetStartX(), mLineData->GetStartY(), mLineData->GetStartTransform());
+			mLineData->GetStartPos().x, mLineData->GetStartPos().y, mLineData->GetStartTransform());
 
 	scVector2D cameraEnd = mCoordinateHelper->WorldToCamera(
-			mLineData->GetEndX(), mLineData->GetEndY(), mLineData->GetEndTransform());
+			mLineData->GetEndPos().x, mLineData->GetEndPos().y, mLineData->GetEndTransform());
 
 	return
 		QLineF(
@@ -52,11 +52,11 @@ void scLineQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
 		prevMousePos.x, prevMousePos.y, mLineData->GetStartTransform());
 
-	double dx = targetWorldCoord.x - prevWorldCoord.x;
-	double dy = targetWorldCoord.y - prevWorldCoord.y;
 
-	mLineData->AddDxDyToStart(dx, dy);
-	mLineData->AddDxDyToEnd(dx, dy);
+	scVector2D delta = targetWorldCoord - prevWorldCoord;
+
+	mLineData->AddDeltaToStart(delta);
+	mLineData->AddDeltaToEnd(delta);
 }
 
 void scLineQtVisual::Paint(QPainter& painter)

@@ -8,10 +8,10 @@ public:
 	scVertexData();
 	~scVertexData();
 
-	void Add(const scVector2D& pos);
-	void SetXY(const scVector2D& pos);
+	void AddDelta(const scVector2D& delta);
+	void SetPos(const scVector2D& pos);
 
-	scVector2D GetXY() const;
+	scVector2D GetPos() const;
 	scTransform& GetTransform();
 
 private:

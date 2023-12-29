@@ -120,7 +120,7 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 
 	shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mControlVertexVector[diagIdx]);
 
-	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetXY().x, diagVertex->mVertexData->GetXY().y, diagVertex->mVertexData->GetTransform());
+	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetPos().x, diagVertex->mVertexData->GetPos().y, diagVertex->mVertexData->GetTransform());
 
 	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos.x, targetMousePos.y);
 	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos.x, prevMousePos.y);
@@ -155,7 +155,7 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos.x, targetMousePos.y);
 
 	shared_ptr<scCenterControlVertexQtVisual> centerVertex = dynamic_pointer_cast<scCenterControlVertexQtVisual>(mControlVertexVector.back());
-	scVector2D centerLocalCoord = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetXY().x, centerVertex->mVertexData->GetXY().y, centerVertex->mVertexData->GetTransform());
+	scVector2D centerLocalCoord = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos().x, centerVertex->mVertexData->GetPos().y, centerVertex->mVertexData->GetTransform());
 
 	QPointF A = { centerLocalCoord.x, centerLocalCoord.y };
 	QPointF B = { pp.x, pp.y };

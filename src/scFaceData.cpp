@@ -38,7 +38,7 @@ void scFaceData::AddDxDyToLineStart(double dx, double dy)
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	line->AddDxDyToStart(dx, dy);
+	line->AddDeltaToStart({ dx, dy });
 }
 
 void scFaceData::SetLineStart(double startX, double startY)
@@ -46,7 +46,7 @@ void scFaceData::SetLineStart(double startX, double startY)
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	line->SetStartVertex(startX, startY);
+	line->SetPosToStartVertex({ startX, startY });
 }
 
 double scFaceData::GetLineStartX() const
@@ -54,7 +54,7 @@ double scFaceData::GetLineStartX() const
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	return line->GetStartX();
+	return line->GetStartPos().x;
 }
 
 double scFaceData::GetLineStartY() const
@@ -62,7 +62,7 @@ double scFaceData::GetLineStartY() const
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	return line->GetStartY();
+	return line->GetStartPos().y;
 }
 
 scTransform& scFaceData::GetStartTransform()

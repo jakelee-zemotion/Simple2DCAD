@@ -35,9 +35,9 @@ void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& 
 	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
 		prevMousePos.x, prevMousePos.y, mVertexData->GetTransform());
 
-	scVector2D deltaXY = targetWorldCoord - prevWorldCoord;
+	scVector2D delta = targetWorldCoord - prevWorldCoord;
 
-	mVertexData->Add(deltaXY);
+	mVertexData->AddDelta(delta);
 }
 
 void scVertexQtVisual::Paint(QPainter& painter)
@@ -87,13 +87,13 @@ void scVertexQtVisual::SetXY(const scVector2D& pos)
 	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
 		pos.x, pos.y, mVertexData->GetTransform());
 
-	mVertexData->SetXY(worldCoord);
+	mVertexData->SetPos(worldCoord);
 }
 
 scVector2D scVertexQtVisual::GetXY() const
 {
 	scVector2D cameraCoord = mCoordinateHelper->WorldToCamera(
-		mVertexData->GetXY().x, mVertexData->GetXY().y, mVertexData->GetTransform());
+		mVertexData->GetPos().x, mVertexData->GetPos().y, mVertexData->GetTransform());
 
 	return cameraCoord;
 }

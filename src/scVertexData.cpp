@@ -12,17 +12,17 @@ scVertexData::~scVertexData()
 	//qDebug() << "VertexData Destruction";
 }
 
-void scVertexData::Add(const scVector2D& pos)
+void scVertexData::AddDelta(const scVector2D& delta)
 {
-	mPos += pos;
+	mPos += delta;
 }
 
-void scVertexData::SetXY(const scVector2D& pos)
+void scVertexData::SetPos(const scVector2D& position)
 {
-	mPos = pos;
+	mPos = position;
 }
 
-scVector2D scVertexData::GetXY() const
+scVector2D scVertexData::GetPos() const
 {
 	return mPos;
 }
