@@ -4,6 +4,7 @@
 #include "scShapeQtVisual.h"
 #include "scVertexQtVisual.h"
 #include "scFaceQtVisual.h"
+#include "scControlVertexQtVisual.h"
 
 #include <qDebug>
 #include <QKeyEvent>
@@ -40,21 +41,24 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::VERTEX)
 		{
 			targetPos = SnapVertex(currMousePos, mCurrHighlightShape->GetID());
-		}
 
-		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::FACE)
+			shared_ptr<scVertexQtVisual> selectedVertex =
+				dynamic_pointer_cast<scVertexQtVisual>(mCurrHighlightShape);
+
+			selectedVertex->SetXY(targetPos);
+		}
+		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::CONTROL_VERTEX)
 		{
-			//double scaleX = currMousePos.x() / mPrevMousePos.x();
-			//double scaleY = currMousePos.y() / mPrevMousePos.y();
+			shared_ptr<scControlVertexQtVisual> selectedVertex =
+				dynamic_pointer_cast<scControlVertexQtVisual>(mCurrHighlightShape);
 
-			//shared_ptr<scFaceQtVisual> scaleFace = dynamic_pointer_cast<scFaceQtVisual>(mCurrShape);
-			//scaleFace->ScaleFace(scaleX, scaleY);
-			////qDebug() << currMousePos.x() << mPrevMousePos.x() << scaleX << scaleY;
-			//mPrevMousePos = currMousePos;
-			//return;
+			selectedVertex->MoveFace(targetPos, mPrevMousePos);
+		}
+		else
+		{
+			mCurrHighlightShape->Move(targetPos, mPrevMousePos);
 		}
 
-		mCurrHighlightShape->Move(targetPos, mPrevMousePos);
 
 		mPrevMousePos = currMousePos;
 

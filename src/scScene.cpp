@@ -238,6 +238,17 @@ void scScene::RemoveBoundingBoxOfFace()
 	mDrawShapeList.pop_back();
 }
 
+void scScene::MoveVertices(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
+{
+	for (const auto& vertex : mVertexList)
+	{
+		vertex->Move(targetMousePos, prevMousePos);
+	}
+}
+
+
+
+
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFile>

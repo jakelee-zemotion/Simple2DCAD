@@ -48,7 +48,7 @@ void scDrawLineState::MouseMoveEvent(const scVector2D& currMousePos)
 
         scVector2D targetPos = SnapVertex(currMousePos, mDrawingVertex->GetID());
 
-        mDrawingVertex->Move(targetPos);
+        mDrawingVertex->SetXY(targetPos);
     }
 
 }

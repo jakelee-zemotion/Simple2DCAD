@@ -5,7 +5,8 @@
 
 using namespace std;
 
-scCamera::scCamera(std::shared_ptr<scScene> scene)
+scCamera::scCamera(const std::shared_ptr<scScene>& scene)
+    :mScene(scene)
 {
     mPrevMousePos = { 0, 0 };
     
@@ -19,9 +20,12 @@ scCamera::~scCamera()
 
 void scCamera::AddPanXY(const scVector2D& currentMousePos)
 {
+
+    mScene->MoveVertices(currentMousePos, mPrevMousePos);
+
+
     scVector2D dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
-
 
     scMatrix2D newPanMatrix = MatrixHelper::TranslateMatrix(dist.x, dist.y);
     scMatrix2D newInversePanMatrix = MatrixHelper::InverseTranslateMatrix(dist.x, dist.y);

@@ -72,7 +72,7 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 
 	for (const auto& ss : mControlVertexVector)
 	{
-		ss->MoveControlVertexDirectly(targetMousePos, prevMousePos);
+		ss->Move(targetMousePos, prevMousePos);
 	}
 }
 

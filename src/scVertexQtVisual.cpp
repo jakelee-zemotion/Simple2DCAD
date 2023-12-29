@@ -14,7 +14,7 @@ scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoo
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
 
-	this->Move(pos);
+	this->SetXY(pos);
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
@@ -29,12 +29,17 @@ scVertexQtVisual::~scVertexQtVisual()
 
 void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
-	// Unlike Line and Face, it moves directly to x, y.
-	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
+	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
 		targetMousePos.x, targetMousePos.y, mVertexData->GetTransform());
 
-	mVertexData->SetX(worldCoord.x);
-	mVertexData->SetY(worldCoord.y);
+	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
+		prevMousePos.x, prevMousePos.y, mVertexData->GetTransform());
+
+	double dx = targetWorldCoord.x - prevWorldCoord.x;
+	double dy = targetWorldCoord.y - prevWorldCoord.y;
+
+	mVertexData->AddDx(dx);
+	mVertexData->AddDy(dy);
 }
 
 void scVertexQtVisual::Paint(QPainter& painter)
@@ -77,6 +82,16 @@ bool scVertexQtVisual::HitTest(const scVector2D& currMousePos)
 	return false;
 }
 
+
+void scVertexQtVisual::SetXY(const scVector2D& pos)
+{
+	// Unlike Line and Face, it moves directly to x, y.
+	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(
+		pos.x, pos.y, mVertexData->GetTransform());
+
+	mVertexData->SetX(worldCoord.x);
+	mVertexData->SetY(worldCoord.y);
+}
 
 scVector2D scVertexQtVisual::GetXY() const
 {

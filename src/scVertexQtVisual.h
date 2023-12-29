@@ -13,6 +13,7 @@ public:
 	void Paint(QPainter& painter) override;
 	bool HitTest(const scVector2D& currMousePos) override;
 
+	void SetXY(const scVector2D& pos);
 	scVector2D GetXY() const;
 
 	friend class scLineQtVisual;

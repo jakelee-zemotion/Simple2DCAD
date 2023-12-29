@@ -9,9 +9,9 @@ public:
 		const scVector2D& pos,
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 
-	~scCenterControlVertexQtVisual();
+	~scCenterControlVertexQtVisual() override;
 
-	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
+	void MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
 
 private:
 

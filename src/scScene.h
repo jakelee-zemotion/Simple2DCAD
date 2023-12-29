@@ -30,6 +30,8 @@ public:
 	void AddBoundingBoxOfFace(const std::shared_ptr<scFaceQtVisual>& face);
 	void RemoveBoundingBoxOfFace();
 
+	void MoveVertices(const scVector2D& targetMousePos, const scVector2D& prevMousePos);
+
 	void SaveData();
 	void LoadData();
 	void ClearData();

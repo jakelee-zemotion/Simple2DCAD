@@ -15,7 +15,7 @@ scCenterControlVertexQtVisual::~scCenterControlVertexQtVisual()
 {
 }
 
-void scCenterControlVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
+void scCenterControlVertexQtVisual::MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	scVertexQtVisual::Move(targetMousePos, prevMousePos);
 }

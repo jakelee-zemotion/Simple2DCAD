@@ -9,7 +9,7 @@ class scScene;
 class scCamera
 {
 public:
-	scCamera(std::shared_ptr<scScene> scene);
+	scCamera(const std::shared_ptr<scScene>& scene);
 	~scCamera();
 
 	void AddPanXY(const scVector2D& currentMousePos);
@@ -21,6 +21,9 @@ public:
 	void SetPrevMousePos(const scVector2D& prevMousePos);
 
 private:
+	std::shared_ptr<scScene> mScene;
+
+
 	scVector2D mPrevMousePos;
 
 	const double mZoomRatio = 1.2;

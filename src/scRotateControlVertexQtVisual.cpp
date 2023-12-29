@@ -23,7 +23,7 @@ scRotateControlVertexQtVisual::~scRotateControlVertexQtVisual()
 {
 }
 
-void scRotateControlVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
+void scRotateControlVertexQtVisual::MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
 	mParentFace->RotateFace(targetMousePos, prevMousePos);
 }
