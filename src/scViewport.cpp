@@ -14,9 +14,10 @@ scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
 
-    mCoordinateHelper = make_shared<scCoordinateHelper>(mCamera, this->geometry());
+    mCoordinateHelper = make_shared<scCoordinateHelper>(this->geometry());
     mScene = make_shared<scScene>(mCoordinateHelper);
 
+    mCamera = make_shared<scCamera>(mScene);
 
     mIsCtrlPressed = false;
 
@@ -80,7 +81,7 @@ void scViewport::mousePressEvent(QMouseEvent* event)
         // Pan
         case Qt::MiddleButton:
         {
-            mCamera.SetPrevMousePos(currMousePos);
+            mCamera->SetPrevMousePos(currMousePos);
         }
         break;
     }
@@ -111,7 +112,7 @@ void scViewport::mouseMoveEvent(QMouseEvent* event)
     {
         case Qt::MiddleButton:
         {
-            mCamera.AddPanXY(currMousePos);
+            mCamera->AddPanXY(currMousePos);
         }
         break;
     }
@@ -163,7 +164,7 @@ void scViewport::wheelEvent(QWheelEvent* event)
 
     // Zoom
     if (mIsCtrlPressed)
-       mCamera.ZoomInOut(currMousePos, mouseDir);
+       mCamera->ZoomInOut(currMousePos, mouseDir);
 
     update();
 }

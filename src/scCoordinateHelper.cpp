@@ -7,8 +7,8 @@
 
 using namespace std;
 
-scCoordinateHelper::scCoordinateHelper(const scCamera& camera, const QRect& viewportSize)
-	:mCamera(camera), mViewportSize(viewportSize)
+scCoordinateHelper::scCoordinateHelper(const QRect& viewportSize)
+	:mViewportSize(viewportSize)
 {
 }
 
@@ -78,16 +78,16 @@ scVector2D scCoordinateHelper::LoaclToScreen(double x, double y, scTransform& tr
 
 scVector2D scCoordinateHelper::LocalToCamera(double x, double y)
 {
-    scVector2D zoomPanCoord = mCamera.ZoomPan(x, y);
+    //scVector2D zoomPanCoord = mCamera->ZoomPan(x, y);
 
-    return zoomPanCoord;
+    return { x, y };
 }
 
 scVector2D scCoordinateHelper::CameraToLocal(double x, double y)
 {
-    scVector2D zoomCoord = mCamera.UnZoomPan(x, y);
+   // scVector2D zoomCoord = mCamera->UnZoomPan(x, y);
 
-    return zoomCoord;
+    return { x, y };
 }
 
 

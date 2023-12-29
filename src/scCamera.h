@@ -1,12 +1,15 @@
 #pragma once
 #include "scMatrixVectorHelper.h"
 
+#include <memory>
+
 class QMouseEvent;
 class QWheelEvent;
+class scScene;
 class scCamera
 {
 public:
-	scCamera();
+	scCamera(std::shared_ptr<scScene> scene);
 	~scCamera();
 
 	void AddPanXY(const scVector2D& currentMousePos);

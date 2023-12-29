@@ -1,10 +1,11 @@
 #include "scCamera.h"
+#include "scScene.h"
 
 #include <QMouseEvent>
 
 using namespace std;
 
-scCamera::scCamera()
+scCamera::scCamera(std::shared_ptr<scScene> scene)
 {
     mPrevMousePos = { 0, 0 };
     

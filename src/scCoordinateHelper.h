@@ -3,6 +3,7 @@
 #include "scMatrixVectorHelper.h"
 
 #include <utility>
+#include <memory>
 
 class scCamera;
 class scTransform;
@@ -10,7 +11,7 @@ class QRect;
 class scCoordinateHelper
 {
 public:
-	scCoordinateHelper(const scCamera& camera, const QRect& viewportSize);
+	scCoordinateHelper(const QRect& viewportSize);
 	~scCoordinateHelper();
 
 	// World -> Screen -> Local -> Camera
@@ -32,7 +33,6 @@ public:
 	scVector2D CameraToScreen(double x, double y, scTransform& transform);
 
 private:
-	const scCamera& mCamera;
 	const QRect& mViewportSize;
 };
 
