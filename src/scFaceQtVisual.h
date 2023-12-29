@@ -30,8 +30,8 @@ public:
 	void Paint(QPainter& painter) override;
 	bool HitTest(const scVector2D& currMousePos) override;
 
-	void ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos);
-	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos);
+	void ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos, double angle);
+	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle);
 
 	void ResetControlVertices();
 	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
@@ -43,7 +43,5 @@ private:
 	std::shared_ptr<scFaceData> mFaceData;
 
 	scBoundingBox mBoundingBox;
-
-	double angle = 0.0;
 };
 

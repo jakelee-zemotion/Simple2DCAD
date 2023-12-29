@@ -13,7 +13,7 @@ public:
 
 	~scControlVertexQtVisual();
 
-	virtual void MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos) = 0;
+	virtual void MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle) = 0;
 
 protected:
 	scFaceQtVisual* mParentFace;

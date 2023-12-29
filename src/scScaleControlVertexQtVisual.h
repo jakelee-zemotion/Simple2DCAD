@@ -12,7 +12,7 @@ public:
 
 	~scScaleControlVertexQtVisual() override;
 
-	void MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
+	void MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle) override;
 
 private:
 	BOX_POSITION mBoxPos;

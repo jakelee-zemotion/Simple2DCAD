@@ -30,5 +30,7 @@ private:
 	std::shared_ptr<scShapeQtVisual> mCurrHighlightShape;
 
 	std::shared_ptr<scShapeQtVisual> mSelectedShape;
+
+	double angle = 0.0;
 };
 

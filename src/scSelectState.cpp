@@ -16,6 +16,8 @@ scSelectState::scSelectState(const shared_ptr<scScene>& scene, SHAPE_TYPE select
 {
 	mIsMousePressed = false;
 	mPrevMousePos = { 0.0, 0.0 };
+
+	angle = 0.0;
 }
 
 scSelectState::~scSelectState()
@@ -49,17 +51,27 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 		}
 		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::ROTATE_CONTROL_VERTEX)
 		{
+
+
 			shared_ptr<scControlVertexQtVisual> selectedVertex =
 				dynamic_pointer_cast<scControlVertexQtVisual>(mCurrHighlightShape);
 
-			selectedVertex->MoveFace(targetPos, mPrevMousePos);
+			selectedVertex->MoveFace(targetPos, mPrevMousePos, angle);
+
+
 		}
 		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_CONTROL_VERTEX)
 		{
+
+
+
 			shared_ptr<scControlVertexQtVisual> selectedVertex =
 				dynamic_pointer_cast<scControlVertexQtVisual>(mCurrHighlightShape);
 
-			selectedVertex->MoveFace(targetPos, mPrevMousePos);
+			selectedVertex->MoveFace(targetPos, mPrevMousePos, angle);
+
+
+
 		}
 		else
 		{

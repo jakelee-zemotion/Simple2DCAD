@@ -113,7 +113,7 @@ bool scFaceQtVisual::HitTest(const scVector2D& currMousePos)
 	return false;
 }
 
-void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos)
+void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos, double angle)
 {
 	int diagIdx = (static_cast<int>(boxPos) + 2) % 4;
 
@@ -148,7 +148,7 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 	}
 }
 
-void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
+void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle)
 {
 	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos);
 	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos);
@@ -259,6 +259,4 @@ void scFaceQtVisual::ResetBoundingBox()
 	mBoundingBox.bottomRight = { maxX + offset, maxY + offset };
 
 	mBoundingBox.center = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
-
-	angle = 0.0;
 }
