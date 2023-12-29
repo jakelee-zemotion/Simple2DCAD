@@ -236,8 +236,8 @@ void scFaceQtVisual::ResetBoundingBox()
 {
 	double minX = DBL_MAX;
 	double minY = DBL_MAX;
-	double maxX = DBL_MIN;
-	double maxY = DBL_MIN;
+	double maxX = -DBL_MAX;
+	double maxY = -DBL_MAX;
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{

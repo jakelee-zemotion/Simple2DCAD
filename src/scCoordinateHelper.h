@@ -11,7 +11,7 @@ class QRect;
 class scCoordinateHelper
 {
 public:
-	scCoordinateHelper(const QRect& viewportSize);
+	scCoordinateHelper(const scCamera& camera, const QRect& viewportSize);
 	~scCoordinateHelper();
 
 	// World -> Screen -> Local -> Camera
@@ -33,6 +33,7 @@ public:
 	scVector2D CameraToScreen(const scVector2D& pos, scTransform& transform);
 
 private:
+	const scCamera& mCamera;
 	const QRect& mViewportSize;
 };
 

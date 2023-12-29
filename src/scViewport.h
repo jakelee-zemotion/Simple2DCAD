@@ -31,9 +31,9 @@ protected:
 
 private:
 	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
-	std::shared_ptr<scCamera> mCamera;
 	std::shared_ptr<scScene> mScene;
 
+	scCamera mCamera;
 	scStateMachine mStateMachine;
 
 	bool mIsCtrlPressed;

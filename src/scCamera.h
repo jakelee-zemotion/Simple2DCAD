@@ -9,7 +9,7 @@ class scScene;
 class scCamera
 {
 public:
-	scCamera(const std::shared_ptr<scScene>& scene);
+	scCamera();
 	~scCamera();
 
 	void AddPanXY(const scVector2D& currentMousePos);
@@ -21,7 +21,6 @@ public:
 	void SetPrevMousePos(const scVector2D& prevMousePos);
 
 private:
-	std::shared_ptr<scScene> mScene;
 
 
 	scVector2D mPrevMousePos;

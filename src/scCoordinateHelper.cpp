@@ -7,8 +7,8 @@
 
 using namespace std;
 
-scCoordinateHelper::scCoordinateHelper(const QRect& viewportSize)
-	:mViewportSize(viewportSize)
+scCoordinateHelper::scCoordinateHelper(const scCamera& camera, const QRect& viewportSize)
+	:mCamera(camera), mViewportSize(viewportSize)
 {
 }
 
@@ -25,11 +25,11 @@ scVector2D scCoordinateHelper::WorldToScreen(const scVector2D& pos)
             return (value + 1.0) / 2.0 * size;
         };
 
-    return
-    {
+    return pos;
+    /*{
         expr(       pos.x, static_cast<double>(mViewportSize.width())),
         expr(-1.0 * pos.y, static_cast<double>(mViewportSize.height()))
-    };
+    };*/
 }
 
 
@@ -40,11 +40,11 @@ scVector2D scCoordinateHelper::ScreenToWorld(const scVector2D& pos)
             return value / size * 2.0 - 1.0;
         };
 
-    return
-    {
+    return pos;
+    /*{
                expr(pos.x, static_cast<double>(mViewportSize.width())),
         -1.0 * expr(pos.y, static_cast<double>(mViewportSize.height()))
-    };
+    };*/
 }
 
 
@@ -78,16 +78,16 @@ scVector2D scCoordinateHelper::LoaclToScreen(const scVector2D& pos, scTransform&
 
 scVector2D scCoordinateHelper::LocalToCamera(const scVector2D& pos)
 {
-    //scVector2D zoomPanCoord = mCamera->ZoomPan(x, y);
+    scVector2D zoomPanCoord = mCamera.ZoomPan(pos.x, pos.y);
 
-    return pos;
+    return zoomPanCoord;
 }
 
 scVector2D scCoordinateHelper::CameraToLocal(const scVector2D& pos)
 {
-   // scVector2D zoomCoord = mCamera->UnZoomPan(x, y);
+    scVector2D zoomCoord = mCamera.UnZoomPan(pos.x, pos.y);
 
-    return pos;
+    return zoomCoord;
 }
 
 
