@@ -4,6 +4,7 @@
 #define SC_MATRIX_VECTOR_HELPER_H
 
 #include <cmath>
+#include <iostream>
 
 struct scVector2D
 {
@@ -11,7 +12,15 @@ struct scVector2D
 
 	scVector2D() : x(0.0), y(0.0), z(0.0) {}
 	scVector2D(double _x, double _y) : x(_x), y(_y), z(1.0) {}
+	scVector2D(const scVector2D& v) : x(v.x), y(v.y), z(1.0) {}
+	scVector2D& operator=(const scVector2D& v) 
+	{ 
+		x = v.x; 
+		y = v.y; 
+		z = 1.0; 
 
+		return *this; 
+	}
 };
 
 inline scVector2D operator+(const scVector2D& v1, const scVector2D& v2)
@@ -39,6 +48,8 @@ inline scVector2D& operator-=(scVector2D& v1, const scVector2D& v2)
 
 	return v1;
 }
+
+
 
 struct scMatrix2D
 {

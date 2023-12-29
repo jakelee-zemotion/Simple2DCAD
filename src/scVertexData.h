@@ -1,5 +1,6 @@
 #pragma once
 #include "scTransform.h"
+#include "scMatrixVectorHelper.h"
 
 class scVertexData
 {
@@ -7,20 +8,14 @@ public:
 	scVertexData();
 	~scVertexData();
 
-	void AddDx(double dx);
-	void AddDy(double dy);
+	void Add(const scVector2D& pos);
+	void SetXY(const scVector2D& pos);
 
-	void SetX(double x);
-	void SetY(double y);
-
-	double GetX() const;
-	double GetY() const;
-
+	scVector2D GetXY() const;
 	scTransform& GetTransform();
 
 private:
-	double mX;
-	double mY;
+	scVector2D mPos;
 
 	scTransform mTransform;
 };

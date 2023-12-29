@@ -15,14 +15,12 @@ scLineData::~scLineData()
 
 void scLineData::AddDxDyToStart(double dx, double dy)
 {
-	mStartVertex->AddDx(dx);
-	mStartVertex->AddDy(dy);
+	mStartVertex->Add({ dx, dy });
 }
 
 void scLineData::AddDxDyToEnd(double dx, double dy)
 {
-	mEndVertex->AddDx(dx);
-	mEndVertex->AddDy(dy);
+	mEndVertex->Add({ dx, dy });
 }
 
 void scLineData::SetStartVertex(const shared_ptr<scVertexData>& startVertex)
@@ -37,34 +35,32 @@ void scLineData::SetEndVertex(const shared_ptr<scVertexData>& endVertex)
 
 void scLineData::SetStartVertex(double x, double y)
 {
-	mStartVertex->SetX(x);
-	mStartVertex->SetY(y);
+	mStartVertex->SetXY({ x, y });
 }
 
 void scLineData::SetEndVertex(double x, double y)
 {
-	mEndVertex->SetX(x);
-	mEndVertex->SetY(y);
+	mEndVertex->SetXY({ x, y });
 }
 
 double scLineData::GetStartX() const
 {
-	return mStartVertex->GetX();
+	return mStartVertex->GetXY().x;
 }
 
 double scLineData::GetStartY() const
 {
-	return mStartVertex->GetY();
+	return mStartVertex->GetXY().y;
 }
 
 double scLineData::GetEndX() const
 {
-	return mEndVertex->GetX();
+	return mEndVertex->GetXY().x;
 }
 
 double scLineData::GetEndY() const
 {
-	return mEndVertex->GetY();
+	return mEndVertex->GetXY().y;
 }
 
 scTransform& scLineData::GetStartTransform()

@@ -4,8 +4,7 @@
 
 scVertexData::scVertexData()
 {
-	mX = 0.0;
-	mY = 0.0;
+	mPos = { 0.0, 0.0 };
 }
 
 scVertexData::~scVertexData()
@@ -13,34 +12,19 @@ scVertexData::~scVertexData()
 	//qDebug() << "VertexData Destruction";
 }
 
-void scVertexData::AddDx(double dx)
+void scVertexData::Add(const scVector2D& pos)
 {
-	mX += dx;
+	mPos += pos;
 }
 
-void scVertexData::AddDy(double dy)
+void scVertexData::SetXY(const scVector2D& pos)
 {
-	mY += dy;
+	mPos = pos;
 }
 
-void scVertexData::SetX(double x)
+scVector2D scVertexData::GetXY() const
 {
-	mX = x;
-}
-
-void scVertexData::SetY(double y)
-{
-	mY = y;
-}
-
-double scVertexData::GetX() const
-{
-	return mX;
-}
-
-double scVertexData::GetY() const
-{
-	return mY;
+	return mPos;
 }
 
 scTransform& scVertexData::GetTransform()
