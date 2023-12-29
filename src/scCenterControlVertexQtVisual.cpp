@@ -6,9 +6,9 @@ scCenterControlVertexQtVisual::scCenterControlVertexQtVisual(
 	scFaceQtVisual* face,
 	const scVector2D& pos,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
-	:scControlVertexQtVisual(face, pos, coordinateHelper)
+		:scControlVertexQtVisual(face, pos, coordinateHelper)
 {
-	mShapeType = SHAPE_TYPE::CONTROL_VERTEX;
+	mShapeType = SHAPE_TYPE::CENTER_CONTROL_VERTEX;
 }
 
 scCenterControlVertexQtVisual::~scCenterControlVertexQtVisual()

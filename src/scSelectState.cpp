@@ -47,7 +47,14 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 
 			selectedVertex->SetXY(targetPos);
 		}
-		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::CONTROL_VERTEX)
+		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::ROTATE_CONTROL_VERTEX)
+		{
+			shared_ptr<scControlVertexQtVisual> selectedVertex =
+				dynamic_pointer_cast<scControlVertexQtVisual>(mCurrHighlightShape);
+
+			selectedVertex->MoveFace(targetPos, mPrevMousePos);
+		}
+		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_CONTROL_VERTEX)
 		{
 			shared_ptr<scControlVertexQtVisual> selectedVertex =
 				dynamic_pointer_cast<scControlVertexQtVisual>(mCurrHighlightShape);
@@ -169,7 +176,9 @@ void scSelectState::SelectShape()
 	if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
 		return;
 
-	if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::CONTROL_VERTEX)
+	if (mCurrHighlightShape->GetShapeType() != SHAPE_TYPE::VERTEX &&
+		mCurrHighlightShape->GetShapeType() != SHAPE_TYPE::LINE &&
+		mCurrHighlightShape->GetShapeType() != SHAPE_TYPE::FACE)
 		return;
 
 

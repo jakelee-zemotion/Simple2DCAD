@@ -14,7 +14,7 @@ scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
 		:scControlVertexQtVisual(face, pos, coordinateHelper),
 	     mBoxPos(boxPos)
 {
-	mShapeType = SHAPE_TYPE::CONTROL_VERTEX;
+	mShapeType = SHAPE_TYPE::SCALE_CONTROL_VERTEX;
 }
 
 scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()

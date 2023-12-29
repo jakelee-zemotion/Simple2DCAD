@@ -14,7 +14,7 @@ scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scControlVertexQtVisual(face, pos, coordinateHelper)
 {
-	mShapeType = SHAPE_TYPE::CONTROL_VERTEX;
+	mShapeType = SHAPE_TYPE::ROTATE_CONTROL_VERTEX;
 
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkGreen;
 }
