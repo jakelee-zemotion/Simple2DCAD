@@ -45,7 +45,7 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D cameraStartCoord = mCoordinateHelper->WorldToCamera(
-				mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
+				mFaceData->GetLineStartPos().x, mFaceData->GetLineStartPos().y, mFaceData->GetStartTransform());
 
 		lineList.push_back({ cameraStartCoord.x, cameraStartCoord.y });
 	}
@@ -63,10 +63,9 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 		scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
 			prevMousePos.x, prevMousePos.y, mFaceData->GetStartTransform());
 
-		double dx = targetWorldCoord.x - prevWorldCoord.x;
-		double dy = targetWorldCoord.y - prevWorldCoord.y;
+		scVector2D delta = targetWorldCoord - prevWorldCoord;
 
-		mFaceData->AddDxDyToLineStart(dx, dy);
+		mFaceData->AddDeltaToLineStart(delta);
 	}
 
 
@@ -243,7 +242,7 @@ void scFaceQtVisual::ResetBoundingBox()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D cameraStartCoord = mCoordinateHelper->WorldToLocal(
-			mFaceData->GetLineStartX(), mFaceData->GetLineStartY(), mFaceData->GetStartTransform());
+			mFaceData->GetLineStartPos().x, mFaceData->GetLineStartPos().y, mFaceData->GetStartTransform());
 
 		minX = min(minX, cameraStartCoord.x);
 		maxX = max(maxX, cameraStartCoord.x);

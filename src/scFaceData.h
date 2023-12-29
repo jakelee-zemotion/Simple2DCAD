@@ -17,11 +17,10 @@ public:
 	void NextIter();
 	bool IsIterEnd();
 
-	void AddDxDyToLineStart(double dx, double dy);
-	void SetLineStart(double startX, double startY);
+	void AddDeltaToLineStart(const scVector2D& delta);
+	void SetLineStartPos(const scVector2D& pos);
 
-	double GetLineStartX() const;
-	double GetLineStartY() const;
+	scVector2D GetLineStartPos() const;
 	scTransform& GetStartTransform();
 
 private:

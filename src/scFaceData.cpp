@@ -33,36 +33,28 @@ bool scFaceData::IsIterEnd()
 	return mIter == mLineList.end();
 }
 
-void scFaceData::AddDxDyToLineStart(double dx, double dy)
+void scFaceData::AddDeltaToLineStart(const scVector2D& delta)
 {
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	line->AddDeltaToStart({ dx, dy });
+	line->AddDeltaToStart(delta);
 }
 
-void scFaceData::SetLineStart(double startX, double startY)
+void scFaceData::SetLineStartPos(const scVector2D& pos)
 {
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	line->SetPosToStartVertex({ startX, startY });
+	line->SetPosToStartVertex(pos);
 }
 
-double scFaceData::GetLineStartX() const
+scVector2D scFaceData::GetLineStartPos() const
 {
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
-	return line->GetStartPos().x;
-}
-
-double scFaceData::GetLineStartY() const
-{
-	assert(mIter != mLineList.end());
-
-	shared_ptr<scLineData>& line = *mIter;
-	return line->GetStartPos().y;
+	return line->GetStartPos();
 }
 
 scTransform& scFaceData::GetStartTransform()
