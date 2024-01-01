@@ -3,14 +3,15 @@
 #include "scCommon.h"
 #include "scMatrixVectorHelper.h"
 
-#include <QPainter>
+#include <QPainter> // Due to Qt::GlobalColor
 
 class scCamera;
 class scCoordinateHelper;
+class QPainter;
 class scShapeQtVisual
 {
 public:
-	scShapeQtVisual(const SHAPE_TYPE& shapeType, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scShapeQtVisual(const SHAPE_TYPE& shapeType);
 	virtual ~scShapeQtVisual();
 
 	virtual void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) = 0;
@@ -31,6 +32,6 @@ protected:
 	COLOR_TYPE mShapeColorType;
 	std::vector<Qt::GlobalColor> mShapeColors;
 
-	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
+	std::unique_ptr<scCoordinateHelper> mCoordinateHelper;
 };
 

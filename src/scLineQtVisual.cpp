@@ -5,19 +5,23 @@
 #include "scCoordinateHelper.h"
 
 #include <qDebug>
+#include <QPainter>
 
 using namespace std;
 
 scLineQtVisual::scLineQtVisual(
 	const shared_ptr<scVertexQtVisual>& startVertex, 
 	const shared_ptr<scVertexQtVisual>& endVertex,
-	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scShapeQtVisual(SHAPE_TYPE::LINE, coordinateHelper)
+	const scCamera& camera, const QRect& viewportSize)
+		:scShapeQtVisual(SHAPE_TYPE::LINE)
 {
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();
 	mLineData->SetStartVertex(startVertex->mVertexData);
 	mLineData->SetEndVertex(endVertex->mVertexData);
+
+	// Set scCoordinateHelper.
+	mCoordinateHelper = make_unique<scCoordinateHelper>(camera, viewportSize);
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;

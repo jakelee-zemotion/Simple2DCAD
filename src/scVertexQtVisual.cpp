@@ -8,13 +8,15 @@
 
 using namespace std;
 
-scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoordinateHelper>& coordinateHelper)
-	:scShapeQtVisual(SHAPE_TYPE::VERTEX, coordinateHelper)
+scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const scCamera& camera, const QRect& viewportSize)
+	:scShapeQtVisual(SHAPE_TYPE::VERTEX)
 {
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
-
 	this->SetXY(pos);
+
+	// Set scCoordinateHelper.
+	mCoordinateHelper = make_unique<scCoordinateHelper>(camera, viewportSize);
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;

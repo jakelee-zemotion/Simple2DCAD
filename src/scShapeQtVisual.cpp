@@ -2,11 +2,12 @@
 #include "scCoordinateHelper.h"
 
 #include <qDebug>
+#include <QPainter>
 
 using namespace std;
 
-scShapeQtVisual::scShapeQtVisual(const SHAPE_TYPE& shapeType, const shared_ptr<scCoordinateHelper>& coordinateHelper)
-    : mShapeType(shapeType), mCoordinateHelper(coordinateHelper)
+scShapeQtVisual::scShapeQtVisual(const SHAPE_TYPE& shapeType)
+    : mShapeType(shapeType)
 {
     mShapeColorType = COLOR_TYPE::DEFAULT;
     mShapeColors = vector<Qt::GlobalColor>(3, Qt::black);

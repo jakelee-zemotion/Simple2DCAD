@@ -9,13 +9,14 @@
 
 #include <qDebug>
 #include <QVector3D>
+#include <QPainter>
 
 using namespace std;
 
 scFaceQtVisual::scFaceQtVisual(
 	const list<shared_ptr<scLineQtVisual>>& lineList,
-	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-		: scShapeQtVisual(SHAPE_TYPE::FACE, coordinateHelper)
+	const scCamera& camera, const QRect& viewportSize)
+		: scShapeQtVisual(SHAPE_TYPE::FACE)
 {
 	// Set the lines.
 	mFaceData = make_shared<scFaceData>();
@@ -23,6 +24,9 @@ scFaceQtVisual::scFaceQtVisual(
 	{
 		mFaceData->AddLineData(line->mLineData);
 	}
+
+	// Set scCoordinateHelper.
+	mCoordinateHelper = make_unique<scCoordinateHelper>(camera, viewportSize);
 
 	// Set the colors.
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::gray;

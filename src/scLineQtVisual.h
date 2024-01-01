@@ -12,7 +12,7 @@ public:
 	scLineQtVisual(
 		const std::shared_ptr<scVertexQtVisual>& startVertex, 
 		const std::shared_ptr<scVertexQtVisual>& endVertex,
-		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+		const scCamera& camera, const QRect& viewportSize);
 	~scLineQtVisual() override;
 
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;;

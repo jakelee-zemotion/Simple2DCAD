@@ -73,7 +73,7 @@ void scScene::Render(QPainter& painter)
 
 shared_ptr<scVertexQtVisual> scScene::AddStartVertex(const scVector2D& pos)
 {
-	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(pos, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(pos, mCamera, mViewportSize);
 	mVertexList.push_back(startVertex);
 
 	mDrawShapeList.push_back(startVertex);
@@ -89,10 +89,10 @@ shared_ptr<scVertexQtVisual> scScene::AddEndVertex(const scVector2D& pos)
 {
 	// Copy the vertices.
 	shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
-	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(pos, mCoordinateHelper);
+	shared_ptr<scVertexQtVisual> endVertex = make_shared<scVertexQtVisual>(pos, mCamera, mViewportSize);
 
 	// Ref the vertices.
-	shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
+	shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCamera, mViewportSize);
 
 	// Add Vertices.
 	mVertexList.push_back(endVertex);
@@ -148,7 +148,7 @@ void scScene::EndDrawing(bool canCreateFace)
 		shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
 		shared_ptr<scVertexQtVisual> endVertex = dynamic_pointer_cast<scVertexQtVisual>(*vertexIter);
 
-		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
+		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCamera, mViewportSize);
 		mLineList.push_back(newLine);
 		mDrawShapeList.insert(mInsertLineIter, newLine);
 
@@ -162,7 +162,7 @@ void scScene::EndDrawing(bool canCreateFace)
 		}
 
 		// Add a new face.
-		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(faceLineList, mCoordinateHelper);
+		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(faceLineList, mCamera, mViewportSize);
 		mFaceList.push_back(newFace);
 		mDrawShapeList.insert(mInsertFaceIter, newFace);
 	}

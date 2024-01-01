@@ -17,7 +17,7 @@ class QRect;
 class scScene
 {
 public:
-	scScene(const scCamera& camera, const QRect& rect);
+	scScene(const scCamera& camera, const QRect& viewportSize);
 	~scScene();
 
 	void Render(QPainter& painter);
