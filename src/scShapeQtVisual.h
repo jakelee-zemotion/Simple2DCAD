@@ -3,7 +3,7 @@
 #include "scCommon.h"
 #include "scMatrixVectorHelper.h"
 
-#include <QPainter>
+#include <QPainter> // Due to Qt::GlobalColor
 
 class scCamera;
 class scCoordinateHelper;

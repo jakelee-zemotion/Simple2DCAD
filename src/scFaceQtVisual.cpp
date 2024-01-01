@@ -8,6 +8,7 @@
 #include "scCenterControlVertexQtVisual.h"
 
 #include <qDebug>
+#include <QPainter>
 #include <QVector3D>
 
 using namespace std;
@@ -188,13 +189,13 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyRotateXY(sinX, cosX, centerLocalCoord.x, centerLocalCoord.y);
+		mFaceData->GetStartTransform().MultiplyRotateXY(asin(sinX), centerLocalCoord.x, centerLocalCoord.y);
 	}
 
 
 	for (const auto& ss : mControlVertexVector)
 	{
-		ss->mVertexData->GetTransform().MultiplyRotateXY(sinX, cosX, centerLocalCoord.x, centerLocalCoord.y);
+		ss->mVertexData->GetTransform().MultiplyRotateXY(asin(sinX), centerLocalCoord.x, centerLocalCoord.y);
 	}
 }
 

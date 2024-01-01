@@ -149,7 +149,7 @@ namespace MatrixHelper
 		};
 	}
 
-	inline scMatrix2D RotateMatrix(double sinX, double cosX)
+	/*inline scMatrix2D RotateMatrix(double sinX, double cosX)
 	{
 		return
 		{
@@ -167,7 +167,7 @@ namespace MatrixHelper
 			-sinX,  cosX,  0.0,
 			  0.0,   0.0,  1.0
 		};
-	}
+	}*/
 
 	inline scMatrix2D RotateMatrix(double theta)
 	{

@@ -46,13 +46,13 @@ void scTransform::MultiplyScaleXY(double scaleX, double scaleY, double transX, d
 	mInverseScaleRotateMatrix = (mInverseScaleRotateMatrix * nextInverseScaleMatrix);
 }
 
-void scTransform::MultiplyRotateXY(double sinX, double cosX, double transX, double transY)
+void scTransform::MultiplyRotateXY(double angle, double transX, double transY)
 {
 	scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(transX, transY);
 	scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(transX, transY);
 
-	scMatrix2D rotateMatrix = MatrixHelper::RotateMatrix(sinX, cosX);
-	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(sinX, cosX);
+	scMatrix2D rotateMatrix = MatrixHelper::RotateMatrix(angle);
+	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
 
 	scMatrix2D nextRotateMatrix = transMatrix * rotateMatrix * inverseTransMatrix;
 	scMatrix2D nextInverseRotateMatrix = transMatrix * inverseRotateMatrix * inverseTransMatrix;

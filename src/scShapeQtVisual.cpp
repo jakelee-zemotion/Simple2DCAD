@@ -2,6 +2,7 @@
 #include "scCoordinateHelper.h"
 
 #include <qDebug>
+#include <QPainter>
 
 using namespace std;
 
