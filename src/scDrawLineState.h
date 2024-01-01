@@ -10,6 +10,8 @@ public:
 	scDrawLineState(const std::shared_ptr<scScene>& scene);
 	~scDrawLineState() override;
 
+	void Paint(QPainter& painter) override;
+
 	void MousePressEvent(const scVector2D& currMousePos) override;
 	void MouseMoveEvent(const scVector2D& currMousePos) override;
 	void MouseReleaseEvent() override;

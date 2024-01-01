@@ -35,6 +35,7 @@ public:
 
 	void ResetControlVertices();
 	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
+	scBoundingBox mBoundingBox;
 
 private:
 	QPolygonF MakeQPolygonF();
@@ -42,6 +43,5 @@ private:
 
 	std::shared_ptr<scFaceData> mFaceData;
 
-	scBoundingBox mBoundingBox;
 };
 

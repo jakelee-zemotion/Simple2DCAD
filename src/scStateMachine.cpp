@@ -44,6 +44,13 @@ void scStateMachine::Transition(const string& name)
 	mCurrState = mStateMap[name];
 }
 
+void scStateMachine::Paint(QPainter& painter)
+{
+    assert(mCurrState != nullptr);
+
+    mCurrState->Paint(painter);
+}
+
 shared_ptr<scState> scStateMachine::GetCurrentState() const
 {
 	assert(mCurrState != nullptr);

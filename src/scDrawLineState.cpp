@@ -4,6 +4,7 @@
 #include "scScene.h"
 
 #include <QKeyEvent>
+#include <QPainter>
 
 using namespace std;
 
@@ -14,6 +15,10 @@ scDrawLineState::scDrawLineState(const shared_ptr<scScene>& scene)
 }
 
 scDrawLineState::~scDrawLineState()
+{
+}
+
+void scDrawLineState::Paint(QPainter& painter)
 {
 }
 

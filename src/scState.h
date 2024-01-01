@@ -6,11 +6,14 @@
 class scShapeID;
 class scScene;
 class QKeyEvent;
+class QPainter;
 class scState
 {
 public:
 	scState(const std::shared_ptr<scScene>& scene);
 	virtual ~scState();
+
+	virtual void Paint(QPainter& painter) = 0;
 
 	virtual void MousePressEvent(const scVector2D& currMousePos) = 0;
 	virtual void MouseMoveEvent(const scVector2D& currMousePos) = 0;

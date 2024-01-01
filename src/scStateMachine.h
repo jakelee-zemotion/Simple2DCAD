@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-class QPaintEvent;
+class QPainter;
 class scScene;
 class scStateMachine
 {
@@ -15,6 +15,7 @@ public:
 
 	void AddState(const std::string& name, const std::shared_ptr<scScene>& scene);
 	void Transition(const std::string& name);
+	void Paint(QPainter& painter);
 
 	std::shared_ptr<scState> GetCurrentState() const;
 

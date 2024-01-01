@@ -8,6 +8,7 @@
 
 #include <qDebug>
 #include <QKeyEvent>
+#include <QPainter>
 
 using namespace std;
 
@@ -21,6 +22,10 @@ scSelectState::scSelectState(const shared_ptr<scScene>& scene, SHAPE_TYPE select
 }
 
 scSelectState::~scSelectState()
+{
+}
+
+void scSelectState::Paint(QPainter& painter)
 {
 }
 
