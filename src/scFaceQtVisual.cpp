@@ -151,23 +151,23 @@ void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2
 
 void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle)
 {
-	scVector2D pp = mCoordinateHelper->CameraToLocal(prevMousePos);
-	scVector2D tt = mCoordinateHelper->CameraToLocal(targetMousePos);
+	scVector2D BB = mCoordinateHelper->CameraToLocal(prevMousePos);
+	scVector2D CC = mCoordinateHelper->CameraToLocal(targetMousePos);
 
 	shared_ptr<scCenterControlVertexQtVisual> centerVertex = dynamic_pointer_cast<scCenterControlVertexQtVisual>(mControlVertexVector.back());
-	scVector2D centerLocalCoord = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
+	scVector2D AA = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
 
-	QPointF A = { centerLocalCoord.x, centerLocalCoord.y };
-	QPointF B = { pp.x, pp.y };
-	QPointF C = { tt.x, tt.y };
+	QPointF A = { AA.x, AA.y };
+	QPointF B = { BB.x, BB.y };
+	QPointF C = { CC.x, CC.y };
 
 	QLineF AB(A, B);
 	QLineF BC(B, C);
 	QLineF CA(C, A);
 
-	double a = BC.length();
-	double b = AB.length();
-	double c = CA.length();
+	double a = VectorHelper::length(BB, CC);
+	double b = VectorHelper::length(AA, BB);
+	double c = VectorHelper::length(CC, AA);
 
 	//qDebug() << b * c;
 
@@ -179,23 +179,21 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 	QVector3D v2(C - A);
 
 	double crossZ = QVector3D::crossProduct(v1, v2).z();
-	double dot = QPointF::dotProduct(B - A, C - A);
 
 	double sinX = crossZ / (b * c);
-	double cosX = dot / (b * c);
 
 	angle += asin(sinX);
 
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyRotateXY(asin(sinX), centerLocalCoord.x, centerLocalCoord.y);
+		mFaceData->GetStartTransform().MultiplyRotateXY(asin(sinX), AA.x, AA.y);
 	}
 
 
 	for (const auto& ss : mControlVertexVector)
 	{
-		ss->mVertexData->GetTransform().MultiplyRotateXY(asin(sinX), centerLocalCoord.x, centerLocalCoord.y);
+		ss->mVertexData->GetTransform().MultiplyRotateXY(asin(sinX), AA.x, AA.y);
 	}
 }
 

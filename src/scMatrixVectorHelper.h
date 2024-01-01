@@ -49,6 +49,14 @@ inline scVector2D& operator-=(scVector2D& v1, const scVector2D& v2)
 	return v1;
 }
 
+namespace VectorHelper
+{
+	inline double length(const scVector2D& v1, const scVector2D& v2)
+	{
+		return sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y));
+	}
+}
+
 
 
 struct scMatrix2D
