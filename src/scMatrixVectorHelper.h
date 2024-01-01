@@ -55,6 +55,11 @@ namespace VectorHelper
 	{
 		return sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y));
 	}
+
+	inline double crossZ(const scVector2D& v1, const scVector2D& v2)
+	{
+		return v1.x * v2.y - v1.y * v2.x;
+	}
 }
 
 

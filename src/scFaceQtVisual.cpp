@@ -157,14 +157,6 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 	shared_ptr<scCenterControlVertexQtVisual> centerVertex = dynamic_pointer_cast<scCenterControlVertexQtVisual>(mControlVertexVector.back());
 	scVector2D AA = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
 
-	QPointF A = { AA.x, AA.y };
-	QPointF B = { BB.x, BB.y };
-	QPointF C = { CC.x, CC.y };
-
-	QLineF AB(A, B);
-	QLineF BC(B, C);
-	QLineF CA(C, A);
-
 	double a = VectorHelper::length(BB, CC);
 	double b = VectorHelper::length(AA, BB);
 	double c = VectorHelper::length(CC, AA);
@@ -174,11 +166,7 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 	if (b * c == 0.0)
 		return;
 
-
-	QVector3D v1(B - A);
-	QVector3D v2(C - A);
-
-	double crossZ = QVector3D::crossProduct(v1, v2).z();
+	double crossZ = VectorHelper::crossZ(BB - AA, CC - AA);
 
 	double sinX = crossZ / (b * c);
 
