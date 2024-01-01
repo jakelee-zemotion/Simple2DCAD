@@ -17,7 +17,7 @@ class QRect;
 class scScene
 {
 public:
-	scScene(std::shared_ptr<scCoordinateHelper> coordinateHelper);
+	scScene(const scCamera& camera, const QRect& rect);
 	~scScene();
 
 	void Render(QPainter& painter);
@@ -37,6 +37,9 @@ public:
 	int GetVertexCreatedCount() const;
 
 private:
+	const scCamera& mCamera;
+	const QRect& mViewportSize;
+
 	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 	//std::shared_ptr<scGrid> mGrid;
 
