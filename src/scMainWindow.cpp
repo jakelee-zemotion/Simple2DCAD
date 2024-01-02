@@ -47,8 +47,6 @@ void scMainWindow::SetWidgets()
 	this->setMenuBar(mMenuBar.get());
 	this->addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar.get());
 
-	QFileDialog dialog;
-
 	//QString fileName = QFileDialog::getOpenFileName(this, "Save Scene", "", "JSON (*.json)");
 }
 
@@ -71,4 +69,16 @@ void scMainWindow::TransitState(const string& name)
 void scMainWindow::NewScene()
 {
 	mViewport->ResetScene();
+}
+
+void scMainWindow::SaveScene()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, "Save Scene", "", "JSON (*.json)");
+	mViewport->SaveScene(fileName.toStdString());
+}
+
+void scMainWindow::LoadScene()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, "Load Scene", "", "JSON (*.json)");
+	mViewport->LoadScene(fileName.toStdString());
 }

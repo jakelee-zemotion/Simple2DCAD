@@ -26,12 +26,12 @@ scScene::~scScene()
 
 void scScene::Render(QPainter& painter)
 {
-	/*QPen pen(Qt::black);
+	QPen pen(Qt::black);
 	pen.setWidth(10);
 	painter.setPen(pen);
 
-	QLineF a();
-	painter.drawLine();*/
+	QLineF a({ -1000.0, 0.0 }, { 1000.0, 0.0 });
+	painter.drawLine(a);
 
 	// Vertices, lines, and faces are pushed to mDrawShapeList in the order they are drawn. 
 	// So, we can draw shapes in a specific order by iterating the mDrawShapeList.
@@ -209,7 +209,7 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos
 #include <QFile>
 #include <QJsonDocument>
 
-void scScene::SaveData()
+void scScene::SaveData(string fileName)
 {
 	QJsonObject data;
 	QJsonObject vertices;
@@ -281,7 +281,7 @@ void scScene::SaveData()
 	data["faces"] = faces;
 	data["orders"] = orderArray;
 
-	QFile saveFile("deviceInfo.json");
+	QFile saveFile(QString::fromStdString(fileName));
 	saveFile.open(QIODevice::WriteOnly);
 
 	QJsonDocument saveDoc(data);
@@ -289,11 +289,11 @@ void scScene::SaveData()
 	saveFile.close();
 }
 
-void scScene::LoadData()
+void scScene::LoadData(string fileName)
 {
 	ClearData();
 
-	QFile loadFile("deviceInfo.json");
+	QFile loadFile(QString::fromStdString(fileName));
 	loadFile.open(QIODevice::ReadOnly);
 
 	QByteArray loadData = loadFile.readAll();

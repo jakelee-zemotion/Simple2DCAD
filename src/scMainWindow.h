@@ -23,5 +23,7 @@ private slots:
 	void OpenObjectListDialog();
 	void TransitState(const std::string& name);
 	void NewScene();
+	void SaveScene();
+	void LoadScene();
 };
 

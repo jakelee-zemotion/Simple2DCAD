@@ -27,8 +27,8 @@ public:
 	void EndDrawing(bool canCreateFace);
 	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(0));
 
-	void SaveData();
-	void LoadData();
+	void SaveData(std::string fileName);
+	void LoadData(std::string fileName);
 	void ClearData();
 
 	int GetVertexCreatedCount() const;

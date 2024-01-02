@@ -44,14 +44,14 @@ void scViewport::ResetScene()
     mScene->ClearData();
 }
 
-void scViewport::SaveScene()
+void scViewport::SaveScene(string fileName)
 {
-    mScene->SaveData();
+    mScene->SaveData(fileName);
 }
 
-void scViewport::LoadScene()
+void scViewport::LoadScene(string fileName)
 {
-    mScene->LoadData();
+    mScene->LoadData(fileName);
 }
 
 void scViewport::paintEvent(QPaintEvent* event)
@@ -135,19 +135,6 @@ void scViewport::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Control: 
         {
             mIsCtrlPressed = true;
-        }
-        break;
-
-
-        case Qt::Key_S:
-        {
-            mScene->SaveData();
-        }
-        break;
-
-        case Qt::Key_L:
-        {
-            mScene->LoadData();
         }
         break;
     }

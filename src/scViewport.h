@@ -17,8 +17,8 @@ public:
 	void TransitState(const std::string& name);
 
 	void ResetScene();
-	void SaveScene();
-	void LoadScene();
+	void SaveScene(std::string fileName);
+	void LoadScene(std::string fileName);
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
