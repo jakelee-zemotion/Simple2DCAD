@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>
+#include <string>
 
 class scShapeID
 {
@@ -7,15 +7,17 @@ public:
 	scShapeID(int id = -1);
 	~scShapeID();
 
-
 	bool operator==(const scShapeID& shapeID);
 	bool operator!=(const scShapeID& shapeID);
-	operator int() const;
 
-	static int GenerateID();
+	operator std::string();
+
+	std::string GenerateID();
+
+	std::string ZeroPaddingStr(int id);
 
 private:
-	int mID;
+	std::string mID;
 
 };
 

@@ -224,7 +224,7 @@ void scScene::SaveData()
 		vData["x"] = pos.x;
 		vData["y"] = pos.y;
 
-		QString id = QString::number(vertex->GetID());
+		QString id = QString::fromStdString(vertex->GetID());
 
 		vertices[id] = vData;
 	}
@@ -238,10 +238,10 @@ void scScene::SaveData()
 		scShapeID sid = line->GetStartVertexID();
 		scShapeID eid = line->GetEndVertexID();
 
-		lData["start"] = static_cast<int>(sid);
-		lData["end"] = static_cast<int>(eid);
+		lData["start"] = QString::fromStdString(sid);
+		lData["end"] = QString::fromStdString(eid);
 
-		QString id = QString::number(line->GetID());
+		QString id = QString::fromStdString(line->GetID());
 
 		lines[id] = lData;
 	}
@@ -255,15 +255,15 @@ void scScene::SaveData()
 		list<scShapeID> ids = face->GetLineStartIDs();
 
 		QJsonArray idsArray;
-		for (const auto& id : ids)
+		for (auto& id : ids)
 		{
-			idsArray.push_back(static_cast<int>(id));
+			idsArray.push_back(QString::fromStdString(id));
 		}
 
 
 		fData["lines"] = idsArray;
 
-		QString id = QString::number(face->GetID());
+		QString id = QString::fromStdString(face->GetID());
 
 		faces[id] = fData;
 	}
@@ -297,7 +297,7 @@ void scScene::LoadData()
 	QJsonObject lines = data["lines"].toObject();
 	QJsonObject faces = data["faces"].toObject();
 
-	map<int, shared_ptr<scVertexQtVisual>> vertexMap;
+	map<string, shared_ptr<scVertexQtVisual>> vertexMap;
 	for (const auto& key : vertices.keys())
 	{
 		QJsonObject vertex = vertices[key].toObject();
@@ -307,7 +307,7 @@ void scScene::LoadData()
 		scVector2D pos = { x, y };
 
 		shared_ptr<scVertexQtVisual> newVertex = make_shared<scVertexQtVisual>(pos, mCoordinateHelper);
-		int id = key.toInt();
+		string id = key.toStdString();
 
 		vertexMap[id] = newVertex;
 
@@ -316,23 +316,23 @@ void scScene::LoadData()
 	}
 
 
-	map<int, shared_ptr<scLineQtVisual>> lineMap;
+	map<string, shared_ptr<scLineQtVisual>> lineMap;
 	for (const auto& key : lines.keys())
 	{
 		QJsonObject line = lines[key].toObject();
 
-		int startID = line["start"].toInt();
-		int endID = line["end"].toInt();
+		string startID = line["start"].toString().toStdString();
+		string endID = line["end"].toString().toStdString();
 
 		shared_ptr<scVertexQtVisual> startVertex = vertexMap[startID];
 		shared_ptr<scVertexQtVisual> endVertex = vertexMap[endID];
 
 		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
-		int id = key.toInt();
+		string id = key.toStdString();
 
 		lineMap[id] = newLine;
 
-		mVertexList.push_back(newLine);
+		mLineList.push_back(newLine);
 		mDrawShapeList.push_back(newLine);
 	}
 
@@ -344,13 +344,13 @@ void scScene::LoadData()
 		list<shared_ptr<scLineQtVisual>> faceLineList;
 		for (const auto& id : ids)
 		{
-			int i = id.toInt();
+			string i = id.toString().toStdString();
 			faceLineList.push_back(lineMap[i]);
 		}
 
 		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(faceLineList, mCoordinateHelper);
 
-		mVertexList.push_back(newFace);
+		mFaceList.push_back(newFace);
 		mDrawShapeList.push_back(newFace);
 	}
 
