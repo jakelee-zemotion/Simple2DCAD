@@ -45,7 +45,7 @@ void scMainWindow::SetWidgets()
 {
 	this->setCentralWidget(mViewport.get());
 	this->setMenuBar(mMenuBar.get());
-	this->addToolBar(Qt::BottomToolBarArea, mObjSelectToolBar.get());
+	this->addToolBar(Qt::TopToolBarArea, mObjSelectToolBar.get());
 
 	//QString fileName = QFileDialog::getOpenFileName(this, "Save Scene", "", "JSON (*.json)");
 }

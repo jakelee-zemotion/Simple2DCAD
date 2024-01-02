@@ -17,10 +17,13 @@ scObjectSelectionToolBar::~scObjectSelectionToolBar()
 
 void scObjectSelectionToolBar::AddToolButton(const string& name)
 {
+	QIcon icon("C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/drawingLineIcon.png");
+
 	mToolButtonMap[name] = make_unique<QToolButton>();
 	mToolButtonMap[name]->setText(QString::fromStdString(name));
 	mToolButtonMap[name]->setCheckable(true);
 	mToolButtonMap[name]->setObjectName(name);
+	mToolButtonMap[name]->setIcon(icon);
 	addWidget(mToolButtonMap[name].get());
 }
 
