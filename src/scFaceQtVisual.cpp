@@ -167,7 +167,6 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 		return;
 
 	double crossZ = VectorHelper::crossZ(BB - AA, CC - AA);
-
 	double sinX = crossZ / (b * c);
 
 	angle += asin(sinX);

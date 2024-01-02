@@ -156,19 +156,8 @@ void scSelectState::ResetSelected()
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 	{
-		mVertexList.pop_back();
-		mVertexList.pop_back();
-		mVertexList.pop_back();
-		mVertexList.pop_back();
-		mVertexList.pop_back();
-		mVertexList.pop_back();
-
-		mDrawShapeList.pop_back();
-		mDrawShapeList.pop_back();
-		mDrawShapeList.pop_back();
-		mDrawShapeList.pop_back();
-		mDrawShapeList.pop_back();
-		mDrawShapeList.pop_back();
+		mVertexList.clear();
+		mDrawShapeList.clear();
 	}
 
 	mSelectedShape.reset();

@@ -12,10 +12,9 @@
 
 using namespace std;
 
-scScene::scScene(const scCamera& camera, const QRect& viewportSize)
-	:mCamera(camera), mViewportSize(viewportSize)
+scScene::scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+	:mCoordinateHelper(coordinateHelper)
 {
-	mCoordinateHelper = make_shared<scCoordinateHelper>(mCamera, mViewportSize);
 
 	mVertexCreatedCount = 0;
 }
@@ -201,42 +200,6 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos
 	}
 
 	return nullptr;
-}
-
-void scScene::AddBoundingBoxOfFace(const shared_ptr<scFaceQtVisual>& face)
-{
-	assert(face->GetShapeType() == SHAPE_TYPE::FACE);
-
-
-	face->ResetControlVertices();
-
-
-	vector<shared_ptr<scControlVertexQtVisual>> listsss = face->mControlVertexVector;
-	for (const auto& ss : listsss)
-	{
-		mVertexList.push_back(ss);
-		mDrawShapeList.push_back(ss);
-	}
-
-}
-
-
-
-void scScene::RemoveBoundingBoxOfFace()
-{
-	mVertexList.pop_back();
-	mVertexList.pop_back();
-	mVertexList.pop_back();
-	mVertexList.pop_back();
-	mVertexList.pop_back();
-	mVertexList.pop_back();
-
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
-	mDrawShapeList.pop_back();
 }
 
 

@@ -17,7 +17,7 @@ class QRect;
 class scScene
 {
 public:
-	scScene(const scCamera& camera, const QRect& rect);
+	scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scScene();
 
 	void Render(QPainter& painter);
@@ -27,9 +27,6 @@ public:
 	void EndDrawing(bool canCreateFace);
 	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(false));
 
-	void AddBoundingBoxOfFace(const std::shared_ptr<scFaceQtVisual>& face);
-	void RemoveBoundingBoxOfFace();
-
 	void SaveData();
 	void LoadData();
 	void ClearData();
@@ -37,10 +34,7 @@ public:
 	int GetVertexCreatedCount() const;
 
 private:
-	const scCamera& mCamera;
-	const QRect& mViewportSize;
-
-	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
+	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 	//std::shared_ptr<scGrid> mGrid;
 
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
