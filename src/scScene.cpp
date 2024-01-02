@@ -268,11 +268,18 @@ void scScene::SaveData()
 		faces[id] = fData;
 	}
 
+	QJsonArray orderArray;
+	for (const auto& sh : mDrawShapeList)
+	{
+		QString idQStr = QString::fromStdString(sh.lock()->GetID());
+		orderArray.push_back(idQStr);
+	}
+
 
 	data["vertices"] = vertices;
 	data["lines"] = lines;
 	data["faces"] = faces;
-
+	data["orders"] = orderArray;
 
 	QFile saveFile("deviceInfo.json");
 	saveFile.open(QIODevice::WriteOnly);
@@ -296,8 +303,9 @@ void scScene::LoadData()
 	QJsonObject vertices = data["vertices"].toObject();
 	QJsonObject lines = data["lines"].toObject();
 	QJsonObject faces = data["faces"].toObject();
+	QJsonArray orders = data["orders"].toArray();
 
-	map<string, shared_ptr<scVertexQtVisual>> vertexMap;
+	map<string, shared_ptr<scShapeQtVisual>> ShapeMap;
 	for (const auto& key : vertices.keys())
 	{
 		QJsonObject vertex = vertices[key].toObject();
@@ -309,14 +317,12 @@ void scScene::LoadData()
 		shared_ptr<scVertexQtVisual> newVertex = make_shared<scVertexQtVisual>(pos, mCoordinateHelper);
 		string id = key.toStdString();
 
-		vertexMap[id] = newVertex;
+		ShapeMap[id] = newVertex;
 
 		mVertexList.push_back(newVertex);
-		mDrawShapeList.push_back(newVertex);
 	}
 
 
-	map<string, shared_ptr<scLineQtVisual>> lineMap;
 	for (const auto& key : lines.keys())
 	{
 		QJsonObject line = lines[key].toObject();
@@ -324,16 +330,15 @@ void scScene::LoadData()
 		string startID = line["start"].toString().toStdString();
 		string endID = line["end"].toString().toStdString();
 
-		shared_ptr<scVertexQtVisual> startVertex = vertexMap[startID];
-		shared_ptr<scVertexQtVisual> endVertex = vertexMap[endID];
+		shared_ptr<scVertexQtVisual> startVertex = dynamic_pointer_cast<scVertexQtVisual>(ShapeMap[startID]);
+		shared_ptr<scVertexQtVisual> endVertex = dynamic_pointer_cast<scVertexQtVisual>(ShapeMap[endID]);
 
 		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
 		string id = key.toStdString();
 
-		lineMap[id] = newLine;
+		ShapeMap[id] = newLine;
 
 		mLineList.push_back(newLine);
-		mDrawShapeList.push_back(newLine);
 	}
 
 	for (const auto& key : faces.keys())
@@ -345,16 +350,22 @@ void scScene::LoadData()
 		for (const auto& id : ids)
 		{
 			string i = id.toString().toStdString();
-			faceLineList.push_back(lineMap[i]);
+			faceLineList.push_back(dynamic_pointer_cast<scLineQtVisual>(ShapeMap[i]));
 		}
 
 		shared_ptr<scFaceQtVisual> newFace = make_shared<scFaceQtVisual>(faceLineList, mCoordinateHelper);
+		string id = key.toStdString();
+
+		ShapeMap[id] = newFace;
 
 		mFaceList.push_back(newFace);
-		mDrawShapeList.push_back(newFace);
 	}
 
-
+	for (const auto& id : orders)
+	{
+		string i = id.toString().toStdString();
+		mDrawShapeList.push_back(ShapeMap[i]);
+	}
 }
 
 void scScene::ClearData()
