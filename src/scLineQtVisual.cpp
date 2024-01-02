@@ -32,7 +32,7 @@ scLineQtVisual::scLineQtVisual(
 
 scLineQtVisual::~scLineQtVisual()
 {
-	qDebug() << "Line" << mShapeID << " Destruction";
+	//qDebug() << "Line" << mShapeID << " Destruction";
 }
 
 QLineF scLineQtVisual::MakeQLineF()
@@ -98,4 +98,9 @@ bool scLineQtVisual::HitTest(const scVector2D& currMousePos)
 	}
 
 	return false;
+}
+
+scShapeID scLineQtVisual::GetID() const
+{
+	return mLineData->GetID();
 }

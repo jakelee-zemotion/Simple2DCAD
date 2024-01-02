@@ -24,7 +24,7 @@ scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoo
 
 scVertexQtVisual::~scVertexQtVisual()
 {
-	qDebug() << "Vertex" << mShapeID << " Destruction";
+	//qDebug() << "Vertex" << mShapeID << " Destruction";
 }
 
 void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
@@ -78,6 +78,11 @@ bool scVertexQtVisual::HitTest(const scVector2D& currMousePos)
 	}
 
 	return false;
+}
+
+scShapeID scVertexQtVisual::GetID() const
+{
+	return mVertexData->GetID();
 }
 
 

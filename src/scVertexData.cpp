@@ -3,6 +3,7 @@
 #include <qDebug>
 
 scVertexData::scVertexData()
+	:scShapeData()
 {
 	mPos = { 0.0, 0.0 };
 }

@@ -1,13 +1,14 @@
 #pragma once
 #include "scVertexData.h"
+#include "scShapeData.h"
 
 #include <memory>
 
-class scLineData
+class scLineData : public scShapeData
 {
 public:
 	scLineData();
-	~scLineData();
+	~scLineData() override;
 
 	void AddDeltaToStart(const scVector2D& delta);
 	void AddDeltaToEnd(const scVector2D& delta);

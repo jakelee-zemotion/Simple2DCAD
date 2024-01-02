@@ -5,6 +5,7 @@
 using namespace std;
 
 scLineData::scLineData()
+	:scShapeData()
 {
 }
 

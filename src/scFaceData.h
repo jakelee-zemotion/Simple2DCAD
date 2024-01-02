@@ -1,15 +1,16 @@
 #pragma once
 #include "scLineData.h"
+#include "scShapeData.h"
 
 #include <list>
 #include <memory>
 #include <cassert>
 
-class scFaceData
+class scFaceData : public scShapeData
 {
 public:
 	scFaceData();
-	~scFaceData();
+	~scFaceData() override;
 
 	void AddLineData(const std::shared_ptr<scLineData>& lineData);
 

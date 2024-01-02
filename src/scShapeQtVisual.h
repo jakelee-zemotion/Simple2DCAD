@@ -16,16 +16,15 @@ public:
 	virtual void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) = 0;
 	virtual void Paint(QPainter& painter) = 0;
 	virtual bool HitTest(const scVector2D& currMousePos) = 0;
+	virtual scShapeID GetID() const = 0;
 
 	void SetShapeColorType(const COLOR_TYPE color);
 
 	SHAPE_TYPE GetShapeType() const;
 
-	scShapeID GetID() const;
 
 protected:
 	const double mHitSize = 10.0;
-	scShapeID mShapeID;
 
 	SHAPE_TYPE mShapeType;
 	COLOR_TYPE mShapeColorType;

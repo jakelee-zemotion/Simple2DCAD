@@ -26,8 +26,3 @@ SHAPE_TYPE scShapeQtVisual::GetShapeType() const
 {
     return mShapeType;
 }
-
-scShapeID scShapeQtVisual::GetID() const
-{
-    return mShapeID;
-}

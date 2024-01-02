@@ -33,7 +33,7 @@ scFaceQtVisual::scFaceQtVisual(
 
 scFaceQtVisual::~scFaceQtVisual()
 {
-	qDebug() << "Face" << mShapeID << " Destruction";
+	//qDebug() << "Face" << mShapeID << " Destruction";
 }
 
 QPolygonF scFaceQtVisual::MakeQPolygonF()
@@ -104,6 +104,11 @@ bool scFaceQtVisual::HitTest(const scVector2D& currMousePos)
 	}
 
 	return false;
+}
+
+scShapeID scFaceQtVisual::GetID() const
+{
+	return mFaceData->GetID();
 }
 
 void scFaceQtVisual::ScaleFace(const scVector2D& d, const scVector2D& diagLocalCoord, const BOX_POSITION& boxPos, double angle)

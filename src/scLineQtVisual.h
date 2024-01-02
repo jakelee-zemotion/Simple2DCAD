@@ -18,6 +18,7 @@ public:
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;;
 	void Paint(QPainter& painter) override;
 	bool HitTest(const scVector2D& currMousePos) override;
+	scShapeID GetID() const override;
 
 	friend class scFaceQtVisual;
 
