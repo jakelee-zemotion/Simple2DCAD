@@ -6,6 +6,8 @@
 #include "scFaceQtVisual.h"
 #include "scControlVertexQtVisual.h"
 #include "scScaleControlVertexQtVisual.h"
+#include "scRotateControlVertexQtVisual.h"
+#include "scCenterControlVertexQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scVertexData.h"
 
@@ -33,9 +35,18 @@ scSelectState::~scSelectState()
 
 void scSelectState::Paint(QPainter& painter)
 {
-	for (const auto& shape : mDrawShapeList)
+	for (const auto& shape : mControlVertexVector)
 	{
 		shape->Paint(painter);
+
+		/*QPen pen(Qt::black);
+		pen.setWidth(1);
+		pen.setStyle(Qt::DotLine);
+		painter.setPen(pen);
+
+		QLineF line({ mDrawShapeList[i]-> })
+			painter.drawLine()*/
+
 	}
 }
 
@@ -75,7 +86,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			scVector2D BB = mCoordinateHelper->CameraToLocal(mPrevMousePos);
 			scVector2D CC = mCoordinateHelper->CameraToLocal(targetPos);
 
-			shared_ptr<scVertexQtVisual> centerVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexVector.back());
+			shared_ptr<scVertexQtVisual> centerVertex = dynamic_pointer_cast<scVertexQtVisual>(mControlVertexVector.back());
 			scVector2D AA = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
 
 			double a = VectorHelper::length(BB, CC);
@@ -96,6 +107,11 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			selectedVertex->MoveFace(AA, mPrevMousePos, aaa);
 
 
+			for (const auto& ss : mControlVertexVector)
+			{
+				ss->mVertexData->GetTransform().MultiplyRotateXY(aaa, AA.x, AA.y);
+			}
+
 		}
 		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_CONTROL_VERTEX)
 		{
@@ -108,30 +124,40 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 
 			int diagIdx = (static_cast<int>(selectedVertex->mBoxPos) + 2) % 4;
 
-			shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mVertexVector[diagIdx]);
+			shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mControlVertexVector[diagIdx]);
 
 			scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetPos(), diagVertex->mVertexData->GetTransform());
 
 			scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetPos);
 			scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(mPrevMousePos);
-
-			targetLocalCoord -= diagLocalCoord;
-			prevLocalCoord -= diagLocalCoord;
-
+			
+			scMatrix2D InverseTranslateMatrix = MatrixHelper::InverseTranslateMatrix(diagLocalCoord.x, diagLocalCoord.y);
 			scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
 
-			targetLocalCoord = (inverseRotateMatrix * targetLocalCoord);
-			prevLocalCoord = (inverseRotateMatrix * prevLocalCoord);
+			targetLocalCoord = (inverseRotateMatrix * InverseTranslateMatrix * targetLocalCoord);
+			prevLocalCoord = (inverseRotateMatrix * InverseTranslateMatrix * prevLocalCoord);
 
-			double dx = targetLocalCoord.x / prevLocalCoord.x;
-			double dy = targetLocalCoord.y / prevLocalCoord.y;
+			scVector2D delta = targetLocalCoord / prevLocalCoord;
+			
 
-
-
-			selectedVertex->MoveFace({ dx, dy }, diagLocalCoord, angle);
+			selectedVertex->MoveFace(delta, diagLocalCoord, angle);
 
 
+			for (const auto& ss : mControlVertexVector)
+			{
+				ss->mVertexData->GetTransform().MultiplyScaleXY(delta.x, delta.y, diagLocalCoord.x, diagLocalCoord.y, angle);
+			}
 
+		}
+		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::FACE)
+		{
+			mCurrHighlightShape->Move(targetPos, mPrevMousePos);
+
+
+			for (const auto& ss : mControlVertexVector)
+			{
+				ss->Move(targetPos, mPrevMousePos);
+			}
 		}
 		else
 		{
@@ -186,14 +212,13 @@ void scSelectState::EndState()
 
 std::shared_ptr<scShapeQtVisual> scSelectState::HitTest(const scVector2D& currMousePos)
 {
-	for (const auto& vertex : mVertexVector)
+	for (const auto& vertex : mControlVertexVector)
 	{
 		if (vertex->HitTest(currMousePos)) 
 		{
 			return vertex;
 		}
 	}
-
 
 	return mScene->HitTest(currMousePos, mSelectShapeType);
 }
@@ -207,8 +232,13 @@ void scSelectState::ResetSelected()
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 	{
-		mVertexVector.clear();
-		mDrawShapeList.clear();
+		shared_ptr<scFaceQtVisual> face = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
+		face->SetTransformToXY();
+
+
+		mControlVertexVector.clear();
+		angle = 0.0;
+
 	}
 
 	mSelectedShape.reset();
@@ -288,14 +318,43 @@ void scSelectState::SelectShape()
 
 
 
-		selectedFace->ResetControlVertices();
+		scBoundingBox box = selectedFace->MakeBoundingBox();
+
+		mControlVertexVector.clear();
+
+		scVector2D bb;
+		shared_ptr<scControlVertexQtVisual> ss;
 
 
-		vector<shared_ptr<scControlVertexQtVisual>> listsss = selectedFace->mControlVertexVector;
-		for (const auto& ss : listsss)
-		{
-			mVertexVector.push_back(ss);
-			mDrawShapeList.push_back(ss);
-		}
+		bb = mCoordinateHelper->LocalToCamera(box.topLeft);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::TOP_LEFT, mCoordinateHelper);
+		mControlVertexVector.push_back(ss);
+
+		bb = mCoordinateHelper->LocalToCamera(box.topRight);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::TOP_RIGHT, mCoordinateHelper);
+		mControlVertexVector.push_back(ss);
+
+		bb = mCoordinateHelper->LocalToCamera(box.bottomRight);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper);
+		mControlVertexVector.push_back(ss);
+
+		bb = mCoordinateHelper->LocalToCamera(box.bottomLeft);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper);
+		mControlVertexVector.push_back(ss);
+
+
+
+
+		bb = mCoordinateHelper->LocalToCamera({ box.center.x, box.topLeft.y });
+		ss = make_shared<scRotateControlVertexQtVisual>(selectedFace.get(), bb, mCoordinateHelper);
+		mControlVertexVector.push_back(ss);
+
+
+
+		bb = mCoordinateHelper->LocalToCamera(box.center);
+		ss = make_shared<scCenterControlVertexQtVisual>(selectedFace.get(), bb, mCoordinateHelper);
+		mControlVertexVector.push_back(ss);
+
+
 	}
 }

@@ -14,6 +14,8 @@ public:
 	void MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY, double angle);
 	void MultiplyRotateXY(double angle, double transX, double transY);
 
+	void ResetMatrix();
+
 private:
 	scMatrix2D mScaleRotateMatrix;
 	scMatrix2D mInverseScaleRotateMatrix;

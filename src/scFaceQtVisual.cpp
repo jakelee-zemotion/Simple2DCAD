@@ -29,8 +29,6 @@ scFaceQtVisual::scFaceQtVisual(
 	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::gray;
 	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::darkGray;
 	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::cyan;
-
-	ResetControlVertices();
 }
 
 scFaceQtVisual::~scFaceQtVisual()
@@ -67,12 +65,6 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 		scVector2D delta = targetWorldCoord - prevWorldCoord;
 
 		mFaceData->AddDeltaToLineStart(delta);
-	}
-
-
-	for (const auto& ss : mControlVertexVector)
-	{
-		ss->Move(targetMousePos, prevMousePos);
 	}
 }
 
@@ -116,73 +108,39 @@ bool scFaceQtVisual::HitTest(const scVector2D& currMousePos)
 
 void scFaceQtVisual::ScaleFace(const scVector2D& d, const scVector2D& diagLocalCoord, const BOX_POSITION& boxPos, double angle)
 {
-	
-
-
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		mFaceData->GetStartTransform().MultiplyScaleXY(d.x, d.y, diagLocalCoord.x, diagLocalCoord.y, angle);
-	}
-
-
-	for (const auto& ss : mControlVertexVector)
-	{
-		ss->mVertexData->GetTransform().MultiplyScaleXY(d.x, d.y, diagLocalCoord.x, diagLocalCoord.y, angle);
 	}
 }
 
 void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle)
 {
-	
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		mFaceData->GetStartTransform().MultiplyRotateXY(angle, targetMousePos.x, targetMousePos.y);
 	}
+}
 
-
-	for (const auto& ss : mControlVertexVector)
+void scFaceQtVisual::SetTransformToXY()
+{
+	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		ss->mVertexData->GetTransform().MultiplyRotateXY(angle, targetMousePos.x, targetMousePos.y);
+		scVector2D localCoord = mCoordinateHelper->WorldToLocal(
+			mFaceData->GetLineStartPos(), mFaceData->GetStartTransform());
+
+		scVector2D worldCoord = mCoordinateHelper->ScreenToWorld(localCoord);
+
+		mFaceData->SetLineStartPos(worldCoord);
+		mFaceData->GetStartTransform().ResetMatrix();
 	}
 }
 
-void scFaceQtVisual::ResetControlVertices()
+
+scBoundingBox scFaceQtVisual::MakeBoundingBox()
 {
-	ResetBoundingBox();
+	scBoundingBox box;
 
-
-	mControlVertexVector.clear();
-
-	scVector2D bb;
-
-
-
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topLeft);
-	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::TOP_LEFT, mCoordinateHelper) });
-
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topRight);
-	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::TOP_RIGHT, mCoordinateHelper) });
-
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomRight);
-	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper) });
-
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.bottomLeft);
-	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper) });
-
-
-
-
-	bb = mCoordinateHelper->LocalToCamera({ mBoundingBox.center.x, mBoundingBox.topLeft.y });
-	mControlVertexVector.push_back({ make_shared<scRotateControlVertexQtVisual>(this, bb, mCoordinateHelper) });
-
-
-
-	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.center);
-	mControlVertexVector.push_back({ make_shared<scCenterControlVertexQtVisual>(this, bb, mCoordinateHelper) });
-}
-
-void scFaceQtVisual::ResetBoundingBox()
-{
 	double minX = DBL_MAX;
 	double minY = DBL_MAX;
 	double maxX = -DBL_MAX;
@@ -202,10 +160,12 @@ void scFaceQtVisual::ResetBoundingBox()
 
 	constexpr double offset = 10.0;
 
-	mBoundingBox.topLeft     = { minX - offset, minY - offset };
-	mBoundingBox.topRight    = { maxX + offset, minY - offset };
-	mBoundingBox.bottomLeft  = { minX - offset, maxY + offset };
-	mBoundingBox.bottomRight = { maxX + offset, maxY + offset };
+	box.topLeft     = { minX - offset, minY - offset };
+	box.topRight    = { maxX + offset, minY - offset };
+	box.bottomLeft  = { minX - offset, maxY + offset };
+	box.bottomRight = { maxX + offset, maxY + offset };
 
-	mBoundingBox.center = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
+	box.center = { (minX + maxX) / 2.0, (minY + maxY) / 2.0 };
+
+	return box;
 }

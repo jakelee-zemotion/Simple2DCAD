@@ -33,6 +33,11 @@ inline scVector2D operator-(const scVector2D& v1, const scVector2D& v2)
 	return { v1.x - v2.x, v1.y - v2.y };
 }
 
+inline scVector2D operator/(const scVector2D& v1, const scVector2D& v2)
+{
+	return { v1.x / v2.x, v1.y / v2.y };
+}
+
 inline scVector2D& operator+=(scVector2D& v1, const scVector2D& v2)
 {
 	v1.x += v2.x;

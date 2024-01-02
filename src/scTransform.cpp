@@ -60,3 +60,9 @@ void scTransform::MultiplyRotateXY(double angle, double transX, double transY)
 	mScaleRotateMatrix = (nextRotateMatrix * mScaleRotateMatrix);
 	mInverseScaleRotateMatrix = (mInverseScaleRotateMatrix * nextInverseRotateMatrix);
 }
+
+void scTransform::ResetMatrix()
+{
+	mScaleRotateMatrix = MatrixHelper::IdentityMatrix();
+	mInverseScaleRotateMatrix = MatrixHelper::IdentityMatrix();
+}

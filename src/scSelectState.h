@@ -2,11 +2,11 @@
 #include "scState.h"
 #include "scCommon.h"
 
-#include <list>
 #include <vector>
 
 class scShapeQtVisual;
 class scScene;
+class scControlVertexQtVisual;
 class scSelectState : public scState
 {
 public:
@@ -46,7 +46,6 @@ private:
 
 	double angle = 0.0;
 
-	std::vector<std::shared_ptr<scShapeQtVisual>> mVertexVector;
-	std::list<std::shared_ptr<scShapeQtVisual>> mDrawShapeList;
+	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
 };
 

@@ -33,13 +33,12 @@ public:
 	void ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos, double angle);
 	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle);
 
-	void ResetControlVertices();
-	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
-	scBoundingBox mBoundingBox;
+	void SetTransformToXY();
+	
+	scBoundingBox MakeBoundingBox();
 
 private:
 	QPolygonF MakeQPolygonF();
-	void ResetBoundingBox();
 
 	std::shared_ptr<scFaceData> mFaceData;
 
