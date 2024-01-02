@@ -7,13 +7,16 @@
 
 class QPainter;
 class scScene;
+class scCoordinateHelper;
 class scStateMachine
 {
 public:
 	scStateMachine();
 	~scStateMachine();
 
-	void AddState(const std::string& name, const std::shared_ptr<scScene>& scene);
+	void AddState(const std::string& name, 
+		const std::shared_ptr<scScene>& scene, 
+		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	void Transition(const std::string& name);
 	void Paint(QPainter& painter);
 

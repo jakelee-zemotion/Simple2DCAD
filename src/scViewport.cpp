@@ -28,7 +28,7 @@ scViewport::~scViewport()
 
 void scViewport::AddState(const string& name)
 {
-    mStateMachine.AddState(name, mScene);
+    mStateMachine.AddState(name, mScene, mCoordinateHelper);
 }
 
 void scViewport::TransitState(const string& name)

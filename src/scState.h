@@ -7,10 +7,13 @@ class scShapeID;
 class scScene;
 class QKeyEvent;
 class QPainter;
+class scCoordinateHelper;
 class scState
 {
 public:
-	scState(const std::shared_ptr<scScene>& scene);
+	scState(
+		const std::shared_ptr<scScene>& scene, 
+		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scState();
 
 	virtual void Paint(QPainter& painter) = 0;
@@ -27,6 +30,7 @@ protected:
 	scVector2D SnapVertex(const scVector2D& currMousePos, const scShapeID& noTestShapeID);
 
 	const std::shared_ptr<scScene> mScene;
+	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 	scVector2D mPrevMousePos;
 };
 

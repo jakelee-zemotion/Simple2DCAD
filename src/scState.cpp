@@ -3,11 +3,14 @@
 #include "scScene.h"
 #include "scVertexQtVisual.h"
 #include "scShapeID.h"
+#include "scCoordinateHelper.h"
 
 using namespace std;
 
-scState::scState(const shared_ptr<scScene>& scene)
-	:mScene(scene)
+scState::scState(
+	const shared_ptr<scScene>& scene, 
+	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+		:mScene(scene), mCoordinateHelper(coordinateHelper)
 {
 }
 

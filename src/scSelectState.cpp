@@ -12,8 +12,11 @@
 
 using namespace std;
 
-scSelectState::scSelectState(const shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType)
-	:scState(scene), mSelectShapeType(selectShapeType)
+scSelectState::scSelectState(
+	const shared_ptr<scScene>& scene, 
+	const std::shared_ptr<scCoordinateHelper>& coordinateHelper,
+	SHAPE_TYPE selectShapeType)
+		:scState(scene, coordinateHelper), mSelectShapeType(selectShapeType)
 {
 	mIsMousePressed = false;
 	mPrevMousePos = { 0.0, 0.0 };

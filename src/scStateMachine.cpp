@@ -3,6 +3,7 @@
 #include "scDrawLineState.h"
 #include "scSelectState.h"
 #include "scScene.h"
+#include "scCoordinateHelper.h"
 
 #include <QPainter>
 
@@ -16,20 +17,23 @@ scStateMachine::~scStateMachine()
 {
 }
 
-void scStateMachine::AddState(const string& name, const std::shared_ptr<scScene>& scene)
+void scStateMachine::AddState(
+    const string& name, 
+    const std::shared_ptr<scScene>& scene,
+    const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 {
     shared_ptr<scState> state;
 
     if (name == "Draw")
-        state = make_shared<scDrawLineState>(scene);
+        state = make_shared<scDrawLineState>(scene, coordinateHelper);
     else if (name == "SelectAll")
-        state = make_shared<scSelectState>(scene, SHAPE_TYPE::VERTEX | SHAPE_TYPE::LINE | SHAPE_TYPE::FACE);
+        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX | SHAPE_TYPE::LINE | SHAPE_TYPE::FACE);
     else if (name == "SelectVertex")
-        state = make_shared<scSelectState>(scene, SHAPE_TYPE::VERTEX);
+        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX);
     else if (name == "SelectLine")
-        state = make_shared<scSelectState>(scene, SHAPE_TYPE::LINE);
+        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::LINE);
     else if (name == "SelectFace")
-        state = make_shared<scSelectState>(scene, SHAPE_TYPE::FACE);
+        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::FACE);
 
 	mStateMap[name] = state;
 }

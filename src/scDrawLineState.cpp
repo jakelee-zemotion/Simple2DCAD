@@ -8,8 +8,10 @@
 
 using namespace std;
 
-scDrawLineState::scDrawLineState(const shared_ptr<scScene>& scene)
-    :scState(scene)
+scDrawLineState::scDrawLineState(
+    const shared_ptr<scScene>& scene,
+    const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+        :scState(scene, coordinateHelper)
 {
     mIsDrawing = false;
 }

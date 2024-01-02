@@ -9,7 +9,10 @@ class scScene;
 class scSelectState : public scState
 {
 public:
-	scSelectState(const std::shared_ptr<scScene>& scene, SHAPE_TYPE selectShapeType);
+	scSelectState(
+		const std::shared_ptr<scScene>& scene, 
+		const std::shared_ptr<scCoordinateHelper>& coordinateHelper,
+		SHAPE_TYPE selectShapeType);
 	virtual ~scSelectState() override;
 
 	void Paint(QPainter& painter) override;
