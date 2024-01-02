@@ -272,11 +272,45 @@ void scScene::LoadData()
 	QJsonObject vertices = data["vertices"].toObject();
 	QJsonObject lines = data["lines"].toObject();
 
-	/*map<int, shared_ptr<scVertexQtVisual>> vertexMap;
-	for (const auto& vertex : vertices)
+	map<int, shared_ptr<scVertexQtVisual>> vertexMap;
+	for (const auto& key : vertices.keys())
 	{
-		vertex
-	}*/
+		QJsonObject vertex = vertices[key].toObject();
+
+		double x = vertex["x"].toDouble();
+		double y = vertex["y"].toDouble();
+		scVector2D pos = { x, y };
+
+		shared_ptr<scVertexQtVisual> newVertex = make_shared<scVertexQtVisual>(pos, mCoordinateHelper);
+		int id = key.toInt();
+
+		vertexMap[id] = newVertex;
+
+		mVertexList.push_back(newVertex);
+		mDrawShapeList.push_back(newVertex);
+	}
+
+
+	map<int, shared_ptr<scLineQtVisual>> LineMap;
+	for (const auto& key : lines.keys())
+	{
+		QJsonObject line = lines[key].toObject();
+
+		int startID = line["start"].toInt();
+		int endID = line["end"].toInt();
+
+		shared_ptr<scVertexQtVisual> startVertex = vertexMap[startID];
+		shared_ptr<scVertexQtVisual> endVertex = vertexMap[endID];
+
+		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
+		int id = key.toInt();
+
+		LineMap[id] = newLine;
+
+		mVertexList.push_back(newLine);
+		mDrawShapeList.push_back(newLine);
+	}
+
 }
 
 void scScene::ClearData()

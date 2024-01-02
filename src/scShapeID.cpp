@@ -25,14 +25,14 @@ bool scShapeID::operator!=(const scShapeID& shapeID)
 	return mID != shapeID.mID;
 }
 
-scShapeID::operator uint64_t() const
+scShapeID::operator int() const
 {
 	return mID;
 }
 
-uint64_t scShapeID::GenerateID()
+int scShapeID::GenerateID()
 {
-	static uint64_t id = 1;
+	static int id = 1;
 
 	return id++;
 }

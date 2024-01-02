@@ -9,11 +9,11 @@ public:
 
 	bool operator==(const scShapeID& shapeID);
 	bool operator!=(const scShapeID& shapeID);
-	operator uint64_t() const;
+	operator int() const;
 
 private:
-	uint64_t mID;
+	int mID;
 
-	uint64_t GenerateID();
+	int GenerateID();
 };
 
