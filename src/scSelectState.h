@@ -22,6 +22,9 @@ public:
 	void EndState() override;
 
 private:
+	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos);
+
+
 	void ResetSelected();
 	void HightlightShape();
 
@@ -40,7 +43,6 @@ private:
 	double angle = 0.0;
 
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
-
-	std::list<std::weak_ptr<scShapeQtVisual>> mDrawShapeList;
+	std::list<std::shared_ptr<scShapeQtVisual>> mDrawShapeList;
 };
 

@@ -14,6 +14,7 @@ public:
 	virtual ~scState();
 
 	virtual void Paint(QPainter& painter) = 0;
+	//virtual std::shared_ptr<scShapeQtVisual> HitTest() = 0;
 
 	virtual void MousePressEvent(const scVector2D& currMousePos) = 0;
 	virtual void MouseMoveEvent(const scVector2D& currMousePos) = 0;
