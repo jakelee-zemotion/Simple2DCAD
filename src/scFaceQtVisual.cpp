@@ -114,46 +114,26 @@ bool scFaceQtVisual::HitTest(const scVector2D& currMousePos)
 	return false;
 }
 
-void scFaceQtVisual::ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const BOX_POSITION& boxPos, double angle)
+void scFaceQtVisual::ScaleFace(const scVector2D& d, const scVector2D& diagLocalCoord, const BOX_POSITION& boxPos, double angle)
 {
-	int diagIdx = (static_cast<int>(boxPos) + 2) % 4;
-
-	shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mControlVertexVector[diagIdx]);
-
-	scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetPos(), diagVertex->mVertexData->GetTransform());
-
-	scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetMousePos);
-	scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(prevMousePos);
-
-	targetLocalCoord -= diagLocalCoord;
-	prevLocalCoord -= diagLocalCoord;
-
-	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
-
-	targetLocalCoord = (inverseRotateMatrix * targetLocalCoord);
-	prevLocalCoord = (inverseRotateMatrix * prevLocalCoord);
-
-	double dx = targetLocalCoord.x / prevLocalCoord.x;
-	double dy = targetLocalCoord.y / prevLocalCoord.y;
+	
 
 
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y, angle);
+		mFaceData->GetStartTransform().MultiplyScaleXY(d.x, d.y, diagLocalCoord.x, diagLocalCoord.y, angle);
 	}
 
 
 	for (const auto& ss : mControlVertexVector)
 	{
-		ss->mVertexData->GetTransform().MultiplyScaleXY(dx, dy, diagLocalCoord.x, diagLocalCoord.y, angle);
+		ss->mVertexData->GetTransform().MultiplyScaleXY(d.x, d.y, diagLocalCoord.x, diagLocalCoord.y, angle);
 	}
 }
 
 void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle)
 {
 	
-
-
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		mFaceData->GetStartTransform().MultiplyRotateXY(angle, targetMousePos.x, targetMousePos.y);
@@ -171,10 +151,11 @@ void scFaceQtVisual::ResetControlVertices()
 	ResetBoundingBox();
 
 
+	mControlVertexVector.clear();
+
 	scVector2D bb;
 
 
-	mControlVertexVector.clear();
 
 	bb = mCoordinateHelper->LocalToCamera(mBoundingBox.topLeft);
 	mControlVertexVector.push_back({ make_shared<scScaleControlVertexQtVisual>(this, bb, BOX_POSITION::TOP_LEFT, mCoordinateHelper) });

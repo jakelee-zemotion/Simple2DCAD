@@ -5,6 +5,7 @@
 #include "scVertexQtVisual.h"
 #include "scFaceQtVisual.h"
 #include "scControlVertexQtVisual.h"
+#include "scScaleControlVertexQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scVertexData.h"
 
@@ -74,7 +75,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			scVector2D BB = mCoordinateHelper->CameraToLocal(mPrevMousePos);
 			scVector2D CC = mCoordinateHelper->CameraToLocal(targetPos);
 
-			shared_ptr<scVertexQtVisual> centerVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
+			shared_ptr<scVertexQtVisual> centerVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexVector.back());
 			scVector2D AA = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
 
 			double a = VectorHelper::length(BB, CC);
@@ -101,10 +102,33 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 
 
 
-			shared_ptr<scControlVertexQtVisual> selectedVertex =
-				dynamic_pointer_cast<scControlVertexQtVisual>(mCurrHighlightShape);
+			shared_ptr<scScaleControlVertexQtVisual> selectedVertex =
+				dynamic_pointer_cast<scScaleControlVertexQtVisual>(mCurrHighlightShape);
 
-			selectedVertex->MoveFace(targetPos, mPrevMousePos, angle);
+
+			int diagIdx = (static_cast<int>(selectedVertex->mBoxPos) + 2) % 4;
+
+			shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mVertexVector[diagIdx]);
+
+			scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetPos(), diagVertex->mVertexData->GetTransform());
+
+			scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetPos);
+			scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(mPrevMousePos);
+
+			targetLocalCoord -= diagLocalCoord;
+			prevLocalCoord -= diagLocalCoord;
+
+			scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
+
+			targetLocalCoord = (inverseRotateMatrix * targetLocalCoord);
+			prevLocalCoord = (inverseRotateMatrix * prevLocalCoord);
+
+			double dx = targetLocalCoord.x / prevLocalCoord.x;
+			double dy = targetLocalCoord.y / prevLocalCoord.y;
+
+
+
+			selectedVertex->MoveFace({ dx, dy }, diagLocalCoord, angle);
 
 
 
@@ -162,7 +186,7 @@ void scSelectState::EndState()
 
 std::shared_ptr<scShapeQtVisual> scSelectState::HitTest(const scVector2D& currMousePos)
 {
-	for (const auto& vertex : mVertexList)
+	for (const auto& vertex : mVertexVector)
 	{
 		if (vertex->HitTest(currMousePos)) 
 		{
@@ -183,7 +207,7 @@ void scSelectState::ResetSelected()
 
 	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
 	{
-		mVertexList.clear();
+		mVertexVector.clear();
 		mDrawShapeList.clear();
 	}
 
@@ -270,7 +294,7 @@ void scSelectState::SelectShape()
 		vector<shared_ptr<scControlVertexQtVisual>> listsss = selectedFace->mControlVertexVector;
 		for (const auto& ss : listsss)
 		{
-			mVertexList.push_back(ss);
+			mVertexVector.push_back(ss);
 			mDrawShapeList.push_back(ss);
 		}
 	}

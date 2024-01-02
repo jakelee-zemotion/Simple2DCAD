@@ -13,9 +13,9 @@ public:
 	~scScaleControlVertexQtVisual() override;
 
 	void MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle) override;
+	BOX_POSITION mBoxPos;
 
 private:
-	BOX_POSITION mBoxPos;
 
 };
 

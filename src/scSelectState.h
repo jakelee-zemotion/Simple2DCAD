@@ -3,6 +3,7 @@
 #include "scCommon.h"
 
 #include <list>
+#include <vector>
 
 class scShapeQtVisual;
 class scScene;
@@ -45,7 +46,7 @@ private:
 
 	double angle = 0.0;
 
-	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
+	std::vector<std::shared_ptr<scShapeQtVisual>> mVertexVector;
 	std::list<std::shared_ptr<scShapeQtVisual>> mDrawShapeList;
 };
 
