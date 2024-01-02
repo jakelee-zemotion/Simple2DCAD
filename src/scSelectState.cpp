@@ -5,6 +5,8 @@
 #include "scVertexQtVisual.h"
 #include "scFaceQtVisual.h"
 #include "scControlVertexQtVisual.h"
+#include "scCoordinateHelper.h"
+#include "scVertexData.h"
 
 #include <qDebug>
 #include <QKeyEvent>
@@ -68,7 +70,29 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			shared_ptr<scControlVertexQtVisual> selectedVertex =
 				dynamic_pointer_cast<scControlVertexQtVisual>(mCurrHighlightShape);
 
-			selectedVertex->MoveFace(targetPos, mPrevMousePos, angle);
+
+			scVector2D BB = mCoordinateHelper->CameraToLocal(mPrevMousePos);
+			scVector2D CC = mCoordinateHelper->CameraToLocal(targetPos);
+
+			shared_ptr<scVertexQtVisual> centerVertex = dynamic_pointer_cast<scVertexQtVisual>(mVertexList.back());
+			scVector2D AA = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
+
+			double a = VectorHelper::length(BB, CC);
+			double b = VectorHelper::length(AA, BB);
+			double c = VectorHelper::length(CC, AA);
+
+			//qDebug() << b * c;
+
+			if (b * c == 0.0)
+				return;
+
+			double crossZ = VectorHelper::crossZ(BB - AA, CC - AA);
+			double sinX = crossZ / (b * c);
+			double aaa = asin(sinX);
+			angle += aaa;
+
+
+			selectedVertex->MoveFace(AA, mPrevMousePos, aaa);
 
 
 		}

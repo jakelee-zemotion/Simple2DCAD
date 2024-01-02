@@ -2,6 +2,7 @@
 #include "scVertexQtVisual.h"
 #include "scShapeQtVisual.h"
 #include "scScene.h"
+#include "scCoordinateHelper.h"
 
 #include <QKeyEvent>
 #include <QPainter>
