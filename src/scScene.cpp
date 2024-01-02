@@ -246,6 +246,24 @@ void scScene::SaveData()
 		lines[id] = lData;
 	}
 
+	QJsonObject faces;
+	for (const auto& fa : mFaceList)
+	{
+		shared_ptr<scFaceQtVisual> face = dynamic_pointer_cast<scFaceQtVisual>(fa);
+
+		/*QJsonObject lData;
+		scShapeID sid = face->mStartVertexID;
+		scShapeID eid = line->mEndVertexID;
+
+		lData["start"] = static_cast<long long>(sid);
+		lData["end"] = static_cast<long long>(eid);
+
+		QString id = QString::number(line->GetID());
+
+		lines[id] = lData;*/
+	}
+
+
 	data["vertices"] = vertices;
 	data["lines"] = lines;
 

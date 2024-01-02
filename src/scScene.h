@@ -25,7 +25,7 @@ public:
 	std::shared_ptr<scVertexQtVisual> AddStartVertex(const scVector2D& pos);
 	std::shared_ptr<scVertexQtVisual> AddEndVertex(const scVector2D& pos);
 	void EndDrawing(bool canCreateFace);
-	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(false));
+	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID = scShapeID(0));
 
 	void SaveData();
 	void LoadData();

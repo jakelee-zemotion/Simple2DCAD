@@ -25,7 +25,7 @@ public:
 
 protected:
 	const double mHitSize = 10.0;
-	const scShapeID mShapeID;
+	scShapeID mShapeID;
 
 	SHAPE_TYPE mShapeType;
 	COLOR_TYPE mShapeColorType;

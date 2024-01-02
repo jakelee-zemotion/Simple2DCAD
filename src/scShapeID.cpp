@@ -1,14 +1,13 @@
 #include "scShapeID.h"
 
-scShapeID::scShapeID(bool IsInvalidID)
+scShapeID::scShapeID(int id)
 {
-	mID = 0;
+	mID = id;
 
-	if (IsInvalidID)
+	if (id == -1)
 	{
-		mID = this->GenerateID();
+		mID = GenerateID();
 	}
-
 }
 
 scShapeID::~scShapeID()
