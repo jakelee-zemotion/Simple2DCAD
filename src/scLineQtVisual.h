@@ -21,6 +21,9 @@ public:
 
 	friend class scFaceQtVisual;
 
+	scShapeID mStartVertexID;
+	scShapeID mEndVertexID;
+
 private:
 	QLineF MakeQLineF();
 

@@ -137,6 +137,19 @@ void scViewport::keyPressEvent(QKeyEvent* event)
             mIsCtrlPressed = true;
         }
         break;
+
+
+        case Qt::Key_S:
+        {
+            mScene->SaveData();
+        }
+        break;
+
+        case Qt::Key_L:
+        {
+            mScene->LoadData();
+        }
+        break;
     }
 
 }

@@ -9,6 +9,7 @@
 #include "scRotateControlVertexQtVisual.h"
 
 #include <QDebug>
+#include <map>
 
 using namespace std;
 
@@ -228,7 +229,25 @@ void scScene::SaveData()
 		vertices[id] = vData;
 	}
 
+	QJsonObject lines;
+	for (const auto& li : mLineList)
+	{
+		shared_ptr<scLineQtVisual> line = dynamic_pointer_cast<scLineQtVisual>(li);
+
+		QJsonObject lData;
+		scShapeID sid = line->mStartVertexID;
+		scShapeID eid = line->mEndVertexID;
+
+		lData["start"] = static_cast<long long>(sid);
+		lData["end"] = static_cast<long long>(eid);
+
+		QString id = QString::number(line->GetID());
+
+		lines[id] = lData;
+	}
+
 	data["vertices"] = vertices;
+	data["lines"] = lines;
 
 
 	QFile saveFile("deviceInfo.json");
@@ -251,7 +270,13 @@ void scScene::LoadData()
 	QJsonObject data = loadDoc.object();
 
 	QJsonObject vertices = data["vertices"].toObject();
+	QJsonObject lines = data["lines"].toObject();
 
+	/*map<int, shared_ptr<scVertexQtVisual>> vertexMap;
+	for (const auto& vertex : vertices)
+	{
+		vertex
+	}*/
 }
 
 void scScene::ClearData()
