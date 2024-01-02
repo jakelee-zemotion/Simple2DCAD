@@ -58,10 +58,18 @@ scVector2D scFaceData::GetLineStartPos() const
 	return line->GetStartPos();
 }
 
-scTransform& scFaceData::GetStartTransform()
+scTransform& scFaceData::GetLineStartTransform()
 {
 	assert(mIter != mLineList.end());
 
 	shared_ptr<scLineData>& line = *mIter;
 	return line->GetStartTransform();
+}
+
+scShapeID scFaceData::GetLineStartID() const
+{
+	assert(mIter != mLineList.end());
+
+	shared_ptr<scLineData>& line = *mIter;
+	return line->GetID();
 }

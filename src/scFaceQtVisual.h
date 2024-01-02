@@ -2,6 +2,8 @@
 #include "scShapeQtVisual.h"
 #include "scCommon.h"
 
+#include <list>
+
 struct scBoundingBox
 {
 	scVector2D topLeft;
@@ -35,6 +37,8 @@ public:
 	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle);
 
 	void SetTransformToXY();
+
+	std::list<scShapeID> GetLineStartIDs() const;
 	
 	scBoundingBox MakeBoundingBox();
 

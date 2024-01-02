@@ -22,7 +22,8 @@ public:
 	void SetLineStartPos(const scVector2D& pos);
 
 	scVector2D GetLineStartPos() const;
-	scTransform& GetStartTransform();
+	scTransform& GetLineStartTransform();
+	scShapeID GetLineStartID() const;
 
 private:
 	std::list<std::shared_ptr<scLineData>> mLineList;

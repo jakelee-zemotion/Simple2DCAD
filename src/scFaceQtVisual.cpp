@@ -44,7 +44,7 @@ QPolygonF scFaceQtVisual::MakeQPolygonF()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D cameraStartCoord = mCoordinateHelper->WorldToCamera(
-				mFaceData->GetLineStartPos(), mFaceData->GetStartTransform());
+				mFaceData->GetLineStartPos(), mFaceData->GetLineStartTransform());
 
 		lineList.push_back({ cameraStartCoord.x, cameraStartCoord.y });
 	}
@@ -57,10 +57,10 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-			targetMousePos, mFaceData->GetStartTransform());
+			targetMousePos, mFaceData->GetLineStartTransform());
 
 		scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-			prevMousePos, mFaceData->GetStartTransform());
+			prevMousePos, mFaceData->GetLineStartTransform());
 
 		scVector2D delta = targetWorldCoord - prevWorldCoord;
 
@@ -115,7 +115,7 @@ void scFaceQtVisual::ScaleFace(const scVector2D& d, const scVector2D& diagLocalC
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyScaleXY(d.x, d.y, diagLocalCoord.x, diagLocalCoord.y, angle);
+		mFaceData->GetLineStartTransform().MultiplyScaleXY(d.x, d.y, diagLocalCoord.x, diagLocalCoord.y, angle);
 	}
 }
 
@@ -123,7 +123,7 @@ void scFaceQtVisual::RotateFace(const scVector2D& targetMousePos, const scVector
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
-		mFaceData->GetStartTransform().MultiplyRotateXY(angle, targetMousePos.x, targetMousePos.y);
+		mFaceData->GetLineStartTransform().MultiplyRotateXY(angle, targetMousePos.x, targetMousePos.y);
 	}
 }
 
@@ -132,13 +132,25 @@ void scFaceQtVisual::SetTransformToXY()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D localCoord = mCoordinateHelper->WorldToLocal(
-			mFaceData->GetLineStartPos(), mFaceData->GetStartTransform());
+			mFaceData->GetLineStartPos(), mFaceData->GetLineStartTransform());
 
 		scVector2D worldCoord = mCoordinateHelper->ScreenToWorld(localCoord);
 
 		mFaceData->SetLineStartPos(worldCoord);
-		mFaceData->GetStartTransform().ResetMatrix();
+		mFaceData->GetLineStartTransform().ResetMatrix();
 	}
+}
+
+std::list<scShapeID> scFaceQtVisual::GetLineStartIDs() const
+{
+	list<scShapeID> ids;
+
+	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
+	{
+		ids.push_back(mFaceData->GetLineStartID());
+	}
+
+	return ids;
 }
 
 
@@ -154,7 +166,7 @@ scBoundingBox scFaceQtVisual::MakeBoundingBox()
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{
 		scVector2D cameraStartCoord = mCoordinateHelper->WorldToLocal(
-			mFaceData->GetLineStartPos(), mFaceData->GetStartTransform());
+			mFaceData->GetLineStartPos(), mFaceData->GetLineStartTransform());
 
 		minX = min(minX, cameraStartCoord.x);
 		maxX = max(maxX, cameraStartCoord.x);

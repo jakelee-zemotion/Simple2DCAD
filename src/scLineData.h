@@ -25,6 +25,9 @@ public:
 	scTransform& GetStartTransform();
 	scTransform& GetEndTransform();
 
+	scShapeID GetStartID() const;
+	scShapeID GetEndID() const;
+
 private:
 	std::shared_ptr<scVertexData> mStartVertex;
 	std::shared_ptr<scVertexData> mEndVertex;

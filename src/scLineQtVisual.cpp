@@ -15,10 +15,6 @@ scLineQtVisual::scLineQtVisual(
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scShapeQtVisual(SHAPE_TYPE::LINE, coordinateHelper)
 {
-	// Set the shared vertex ID.
-	mStartVertexID = startVertex->GetID();
-	mEndVertexID = endVertex->GetID();
-
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();
 	mLineData->SetStartVertex(startVertex->mVertexData);
@@ -103,4 +99,14 @@ bool scLineQtVisual::HitTest(const scVector2D& currMousePos)
 scShapeID scLineQtVisual::GetID() const
 {
 	return mLineData->GetID();
+}
+
+scShapeID scLineQtVisual::GetStartVertexID()
+{
+	return mLineData->GetStartID();
+}
+
+scShapeID scLineQtVisual::GetEndVertexID()
+{
+	return mLineData->GetEndID();
 }

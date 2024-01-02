@@ -63,3 +63,13 @@ scTransform& scLineData::GetEndTransform()
 {
 	return mEndVertex->GetTransform();
 }
+
+scShapeID scLineData::GetStartID() const
+{
+	return mStartVertex->GetID();
+}
+
+scShapeID scLineData::GetEndID() const
+{
+	return mEndVertex->GetID();
+}

@@ -20,10 +20,10 @@ public:
 	bool HitTest(const scVector2D& currMousePos) override;
 	scShapeID GetID() const override;
 
-	friend class scFaceQtVisual;
+	scShapeID GetStartVertexID();
+	scShapeID GetEndVertexID();
 
-	scShapeID mStartVertexID;
-	scShapeID mEndVertexID;
+	friend class scFaceQtVisual;
 
 private:
 	QLineF MakeQLineF();
