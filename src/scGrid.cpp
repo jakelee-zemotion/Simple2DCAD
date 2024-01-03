@@ -205,7 +205,23 @@ void scGrid::ZoomEvent(int mouseDir)
 	}
 	else
 	{
+		int sizeX = mGridVertexDeque.size();
+		int sizeY = mGridVertexDeque[0].size();
+
+		double minX = 0.0;
+		double minY = 0.0;
+		double maxX = static_cast<double>(mViewportSize.width());
+		double maxY = static_cast<double>(mViewportSize.height());
+
 		scVector2D topLeftPos = mGridVertexDeque.front().front()->GetXY();
+
+		if (topLeftPos.y < minY)
+		{
+			for (int i = 0; i < sizeX; i++)
+			{
+				mGridVertexDeque[i].pop_front();
+			}
+		}
 
 	}
 
