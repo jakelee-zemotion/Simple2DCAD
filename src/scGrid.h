@@ -1,7 +1,7 @@
 #pragma once
 #include "scMatrixVectorHelper.h"
 
-#include <vector>
+#include <deque>
 #include <list>
 #include <memory>
 
@@ -37,7 +37,7 @@ private:
 	const QRect& mViewportSize;
 	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 
-	std::vector<std::vector<std::shared_ptr<scVertexQtVisual>>> mGridVertexVector;
+	std::deque<std::deque<std::shared_ptr<scVertexQtVisual>>> mGridVertexDeque;
 	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
 };
 
