@@ -19,8 +19,8 @@ scObjectSelectionToolBar::~scObjectSelectionToolBar()
 
 void scObjectSelectionToolBar::AddToolButton(const string& name)
 {
-	string iconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/DrawLine.png";//+ name + ".png";
-	QIcon icon("C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/DrawLine.png");
+	string iconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/" + name + ".png";
+	QIcon icon(QString::fromStdString(iconDir));
 
 	mToolButtonMap[name] = make_unique<QToolButton>();
 	mToolButtonMap[name]->setText(QString::fromStdString(name));
