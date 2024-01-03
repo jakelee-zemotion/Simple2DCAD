@@ -33,7 +33,8 @@ private:
 	//const int mSize = mOffset / mStride * 2 + 1;
 	//const int mDegree = 10;
 
-	int mSize;
+	int mSizeX;
+	int mSizeY;
 
 	const scCamera& mCamera;
 	const QRect& mViewportSize;
