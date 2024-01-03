@@ -5,12 +5,25 @@ using namespace std;
 scMenuBar::scMenuBar(QWidget* parent)
 	:QMenuBar(parent)
 {
+
+	string newSceneIconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/NewScene.jpg";
+	QIcon newSceneIcon = QIcon(QString::fromStdString(newSceneIconDir));
+
+	string openSceneIconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/OpenScene.jpg";
+	QIcon openSceneIcon = QIcon(QString::fromStdString(openSceneIconDir));
+
+	string saveSceneIconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/SaveScene.png";
+	QIcon saveSceneIcon = QIcon(QString::fromStdString(saveSceneIconDir));
+
 	// 1. File
 	mFileMenu = make_unique<QMenu>("File");
 
 	mNewSceneAction = make_unique<QAction>("New Scene");
+	mNewSceneAction->setIcon(newSceneIcon);
 	mOpenSceneAction = make_unique<QAction>("Open Scene");
+	mOpenSceneAction->setIcon(openSceneIcon);
 	mSaveSceneAction = make_unique<QAction>("Save Scene");
+	mSaveSceneAction->setIcon(saveSceneIcon);
 
 	mFileMenu->addAction(mNewSceneAction.get());
 	mFileMenu->addAction(mOpenSceneAction.get());
