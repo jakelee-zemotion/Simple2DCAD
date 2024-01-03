@@ -4,6 +4,7 @@
 #include "scMenuBar.h"
 #include "scObjectSelectionToolBar.h"
 #include "scObjectListDialog.h"
+#include "scCommon.h"
 
 #include <QToolButton>
 #include <QFileDialog>
@@ -21,7 +22,14 @@ scMainWindow::scMainWindow()
 	mObjSelectToolBar->ConnectTransitSignal(this);
 
 	// Add states and toolButtons.
-	vector<string> stateName = { "Draw", "SelectAll", "SelectVertex", "SelectLine", "SelectFace" };
+	vector<string> stateName = 
+	{ 
+		DRAW_LINE,
+		SELECT_ALL,
+		SELECT_VERTEX,
+		SELECT_LINE,
+		SELECT_FACE
+	};
 
 	for (const auto& name : stateName)
 	{

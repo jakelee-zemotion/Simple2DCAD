@@ -4,6 +4,8 @@
 #include <QVBoxLayout>
 #include <QToolButton>
 
+#include <string>
+
 using namespace std;
 
 scObjectSelectionToolBar::scObjectSelectionToolBar(QWidget* parent)
@@ -17,7 +19,8 @@ scObjectSelectionToolBar::~scObjectSelectionToolBar()
 
 void scObjectSelectionToolBar::AddToolButton(const string& name)
 {
-	QIcon icon("C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/drawingLineIcon.png");
+	string iconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/DrawLine.png";//+ name + ".png";
+	QIcon icon("C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/DrawLine.png");
 
 	mToolButtonMap[name] = make_unique<QToolButton>();
 	mToolButtonMap[name]->setText(QString::fromStdString(name));

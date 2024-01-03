@@ -36,5 +36,10 @@ enum class BOX_POSITION
 	TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT
 };
 
+#define DRAW_LINE     "DrawLine"
+#define SELECT_ALL    "SelectAll"
+#define SELECT_VERTEX "SelectVertex"
+#define SELECT_LINE   "SelectLine"
+#define SELECT_FACE   "SelectFace"
 
 #endif

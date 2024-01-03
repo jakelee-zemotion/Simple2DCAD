@@ -4,6 +4,7 @@
 #include "scSelectState.h"
 #include "scScene.h"
 #include "scCoordinateHelper.h"
+#include "scCommon.h"
 
 #include <QPainter>
 
@@ -23,16 +24,16 @@ void scStateMachine::AddState(
     const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 {
     shared_ptr<scState> state;
-
-    if (name == "Draw")
+        
+    if (name == DRAW_LINE)
         state = make_shared<scDrawLineState>(scene, coordinateHelper);
-    else if (name == "SelectAll")
+    else if (name == SELECT_ALL)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX | SHAPE_TYPE::LINE | SHAPE_TYPE::FACE);
-    else if (name == "SelectVertex")
+    else if (name == SELECT_VERTEX)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX);
-    else if (name == "SelectLine")
+    else if (name == SELECT_LINE)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::LINE);
-    else if (name == "SelectFace")
+    else if (name == SELECT_FACE)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::FACE);
 
 	mStateMap[name] = state;
