@@ -83,6 +83,46 @@ void scGrid::PanEvent()
 	int sizeX = mGridVertexDeque.size();
 	int sizeY = mGridVertexDeque[0].size();
 
+	double minX = 0.0;
+	double minY = 0.0;
+	double maxX = static_cast<double>(mViewportSize.width());
+	double maxY = static_cast<double>(mViewportSize.height());
+
+	scVector2D topLeftPos = mGridVertexDeque.front().front()->GetXY();
+
+	if (topLeftPos.y < minY)
+	{
+		for (int i = 0; i < sizeX; i++)
+		{
+			mGridVertexDeque[i].push_back(mGridVertexDeque[i].front());
+			mGridVertexDeque[i].pop_front();
+		}
+	}
+
+	if (topLeftPos.x < minX)
+	{
+		mGridVertexDeque.push_back(mGridVertexDeque.front());
+		mGridVertexDeque.pop_front();
+	}
+
+	scVector2D bottomRightPos = mGridVertexDeque.back().back()->GetXY();
+	if (bottomRightPos.y > maxY)
+	{
+		for (int i = 0; i < sizeX; i++)
+		{
+			mGridVertexDeque[i].push_front(mGridVertexDeque[i].back()); 
+			mGridVertexDeque[i].pop_back();
+		}
+	}
+
+	if (bottomRightPos.x > maxX)
+	{
+		mGridVertexDeque.push_front(mGridVertexDeque.back());
+		mGridVertexDeque.pop_back();
+	}
+
+
+
 	for (int i = 0; i < sizeX; i++)
 	{
 		for (int j = 0; j < sizeY; j++)
@@ -90,25 +130,27 @@ void scGrid::PanEvent()
 			shared_ptr<scVertexQtVisual> vertex = mGridVertexDeque[i][j];
 			scVector2D pos = vertex->GetXY();
 
-			double width = static_cast<double>(mViewportSize.width());
-			double height = static_cast<double>(mViewportSize.height());
+			double minX = 0.0;
+			double minY = 0.0;
+			double maxX = static_cast<double>(mViewportSize.width());
+			double maxY = static_cast<double>(mViewportSize.height());
 
-			if (pos.x < 0.0)
+			if (pos.x < minX)
 			{
-				pos.x += width;
+				pos.x += maxX;
 			}
-			else if (pos.x > width)
+			else if (pos.x > maxX)
 			{
-				pos.x -= width;
+				pos.x -= maxX;
 			}
 
-			if (pos.y < 0.0)
+			if (pos.y < minY)
 			{
-				pos.y += height;
+				pos.y += maxY;
 			}
-			else if (pos.y > height)
+			else if (pos.y > maxY)
 			{
-				pos.y -= height;
+				pos.y -= maxY;
 			}
 
 			vertex->SetXY(pos);
@@ -122,11 +164,48 @@ void scGrid::ZoomEvent(int mouseDir)
 
 	if (mouseDir > 0) // Zoom In
 	{
+		int sizeX = mGridVertexDeque.size();
+		int sizeY = mGridVertexDeque[0].size();
 
+		double minX = 0.0;
+		double minY = 0.0;
+		double maxX = static_cast<double>(mViewportSize.width());
+		double maxY = static_cast<double>(mViewportSize.height());
+
+		scVector2D topLeftPos = mGridVertexDeque.front().front()->GetXY();
+
+		if (topLeftPos.y < minY)
+		{
+			for (int i = 0; i < sizeX; i++)
+			{
+				mGridVertexDeque[i].pop_front();
+			}
+		}
+
+		if (topLeftPos.x < minX)
+		{
+			mGridVertexDeque.pop_front();
+		}
+
+		sizeX = mGridVertexDeque.size();
+		sizeY = mGridVertexDeque[0].size();
+		scVector2D bottomRightPos = mGridVertexDeque.back().back()->GetXY();
+		if (bottomRightPos.y > maxY)
+		{
+			for (int i = 0; i < sizeX; i++)
+			{
+				mGridVertexDeque[i].pop_back();
+			}
+		}
+
+		if (bottomRightPos.x > maxX)
+		{
+			mGridVertexDeque.pop_back();
+		}
 	}
 	else
 	{
-		scVector2D topLeftPos = mGridVertexDeque[0][0]->GetXY();
+		scVector2D topLeftPos = mGridVertexDeque.front().front()->GetXY();
 
 	}
 

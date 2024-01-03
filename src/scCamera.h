@@ -27,7 +27,7 @@ private:
 	const int mZoomOutCountMinLimit = 0;
 	const int mZoomOutCountMaxLimit = 50;
 
-	int mZoomOutCount = 0;
+	int mZoomOutCount = 25;
 
 	scVector2D mPrevMousePos;
 
