@@ -1,4 +1,5 @@
 #pragma once
+#include "scMatrixVectorHelper.h"
 
 #include <vector>
 #include <list>
@@ -10,6 +11,7 @@ class scVertexQtVisual;
 class scLineQtVisual;
 class scCoordinateHelper;
 class scCamera;
+class scShapeQtVisual;
 class scGrid
 {
 public:
@@ -20,12 +22,18 @@ public:
 	~scGrid();
 
 	void Paint(QPainter& painter);
+	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos);
+
+	void PanEvent();
+	void ZoomEvent(int mouseDir);
 
 private:
-	const int mOffset = 1000;
+	//const int mOffset = 1000;
 	const int mStride = 50;
-	const int mSize = mOffset / mStride * 2 + 1;
-	const int mDegree = 10;
+	//const int mSize = mOffset / mStride * 2 + 1;
+	//const int mDegree = 10;
+
+	int mSize;
 
 	const scCamera& mCamera;
 	const QRect& mViewportSize;

@@ -6,6 +6,7 @@
 
 class scScene;
 class scCoordinateHelper;
+class scGrid;
 class scViewport : public QWidget
 {
 
@@ -30,8 +31,12 @@ protected:
 	void wheelEvent(QWheelEvent* event) override;
 
 private:
+	const int mViewportWidth = 500;
+	const int mViewportHeight = 500;
+
 	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 	std::shared_ptr<scScene> mScene;
+	std::shared_ptr<scGrid> mGrid;
 
 	scCamera mCamera;
 	scStateMachine mStateMachine;

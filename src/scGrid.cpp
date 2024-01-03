@@ -16,9 +16,7 @@ scGrid::scGrid(
 	const QRect& viewportSize)
 		:mCoordinateHelper(coordinateHelper), mCamera(camera), mViewportSize(viewportSize)
 {
-	double orgrinX = mViewportSize.width() / 2.0;
-	double orgrinY = mViewportSize.height() / 2.0;
-
+	mSize = mViewportSize.width() / mStride;
 	mGridVertexVector = vector<vector<shared_ptr<scVertexQtVisual>>>(mSize, vector<shared_ptr<scVertexQtVisual>>(mSize));
 
 
@@ -26,31 +24,14 @@ scGrid::scGrid(
 	{
 		for (int j = 0; j < mSize; j++)
 		{
-			double x = -mOffset + i * mStride;
-			double y = -mOffset + j * mStride;
+			double x = i * mStride;
+			double y = j * mStride;
 
-			scVector2D start = { orgrinX + x,  orgrinY + y };
-			//scVector2D end = { orgrinX + i, offset };
+			scVector2D start = { x,  y };
 
 			shared_ptr<scVertexQtVisual> startVertex = make_shared< scVertexQtVisual>(start, mCoordinateHelper);
-			//shared_ptr<scVertexQtVisual> endVertex = make_shared< scVertexQtVisual>(end, mCoordinateHelper);
-
-			//shared_ptr<scLineQtVisual> line = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
-			//mLineList.push_back(line);
 			mGridVertexVector[i][j] = startVertex;
-
-
-			/*start = { -offset, orgrinY + i };
-			end = { offset, orgrinY + i };
-
-			startVertex = make_shared< scVertexQtVisual>(start, mCoordinateHelper);
-			endVertex = make_shared< scVertexQtVisual>(end, mCoordinateHelper);
-
-			line = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
-			mLineList.push_back(line);
-	*/
 		}
-		
 	}
 }
 
@@ -60,15 +41,92 @@ scGrid::~scGrid()
 
 void scGrid::Paint(QPainter& painter)
 {
-	int cameraStride = (mCamera.GetZoomOutCount() / mDegree) + 1;
-
-	qDebug() << cameraStride;
-
-	for (int i = 0; i < mSize; i += cameraStride)
+	for (int i = 0; i < mSize; i ++)
 	{
-		for (int j = 0; j < mSize; j += cameraStride)
+		for (int j = 0; j < mSize; j ++)
 		{
-			mGridVertexVector[i][j]->Paint(painter);
+			shared_ptr<scVertexQtVisual> vertex = mGridVertexVector[i][j];
+
+			vertex->Paint(painter);
+		}
+	}
+}
+
+std::shared_ptr<scShapeQtVisual> scGrid::HitTest(const scVector2D& currMousePos)
+{
+	for (int i = 0; i < mSize; i++)
+	{
+		for (int j = 0; j < mSize; j++)
+		{
+			shared_ptr<scVertexQtVisual> vertex = mGridVertexVector[i][j];
+
+			if (vertex->HitTest(currMousePos))
+			{
+				return vertex;
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+
+void scGrid::PanEvent()
+{
+
+	for (int i = 0; i < mSize; i++)
+	{
+		for (int j = 0; j < mSize; j++)
+		{
+			shared_ptr<scVertexQtVisual> vertex = mGridVertexVector[i][j];
+			scVector2D pos = vertex->GetXY();
+
+			double width = static_cast<double>(mViewportSize.width());
+			double height = static_cast<double>(mViewportSize.height());
+
+			if (pos.x < 0.0)
+			{
+				pos.x += width;
+			}
+			else if (pos.x > width)
+			{
+				pos.x -= width;
+			}
+
+			if (pos.y < 0.0)
+			{
+				pos.y += width;
+			}
+			else if (pos.y > height)
+			{
+				pos.y -= height;
+			}
+
+			vertex->SetXY(pos);
+		}
+	}
+}
+
+void scGrid::ZoomEvent(int mouseDir)
+{
+	int count = mCamera.GetZoomOutCount();
+
+
+	if (count % 5 == 0)
+	{
+		for (int i = 0; i < mSize; i++)
+		{
+			for (int j = 0; j < mSize; j++)
+			{
+				double x = i * mStride;
+				double y = j * mStride;
+
+				shared_ptr<scVertexQtVisual> vertex = mGridVertexVector[i][j];
+				scVector2D pos = { x, y };
+
+
+				vertex->SetXY(pos);
+			}
 		}
 	}
 }

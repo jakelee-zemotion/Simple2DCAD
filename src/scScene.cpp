@@ -16,7 +16,6 @@ using namespace std;
 scScene::scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const std::shared_ptr<scGrid>& grid)
 	:mCoordinateHelper(coordinateHelper), mGrid(grid)
 {
-
 	mVertexCreatedCount = 0;
 }
 
@@ -195,7 +194,8 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos
 
 	}
 
-	return nullptr;
+	// Grid HitTesting is performed at the end.
+	return mGrid->HitTest(currMousePos);
 }
 
 

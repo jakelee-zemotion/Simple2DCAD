@@ -35,7 +35,7 @@ public:
 
 private:
 	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
-	std::shared_ptr<scGrid> mGrid;
+	const std::shared_ptr<scGrid>& mGrid;
 
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;

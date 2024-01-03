@@ -14,15 +14,17 @@ using namespace std;
 scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
+    setFixedSize(mViewportWidth, mViewportHeight);
 
     mCoordinateHelper = make_shared<scCoordinateHelper>(mCamera, this->geometry());
-    shared_ptr<scGrid> grid = make_shared<scGrid>(mCoordinateHelper, mCamera, this->geometry());
-    mScene = make_shared<scScene>(mCoordinateHelper, grid);
+    mGrid = make_shared<scGrid>(mCoordinateHelper, mCamera, this->geometry());
+    mScene = make_shared<scScene>(mCoordinateHelper, mGrid);
 
     mIsCtrlPressed = false;
 
     // Enable movement tracking when the mouse is not pressed.
     setMouseTracking(true);
+
 }
 
 scViewport::~scViewport()
@@ -70,7 +72,7 @@ void scViewport::OpenScene(string fileName)
 void scViewport::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
-    
+
     // Draw objects
     mScene->Render(painter);
     mStateMachine.Paint(painter);
@@ -124,6 +126,7 @@ void scViewport::mouseMoveEvent(QMouseEvent* event)
         case Qt::MiddleButton:
         {
             mCamera.AddPanXY(currMousePos);
+            mGrid->PanEvent();
         }
         break;
     }
@@ -175,7 +178,10 @@ void scViewport::wheelEvent(QWheelEvent* event)
 
     // Zoom
     if (mIsCtrlPressed)
-       mCamera.ZoomInOut(currMousePos, mouseDir);
+    {
+        mCamera.ZoomInOut(currMousePos, mouseDir);
+        mGrid->ZoomEvent(mouseDir);
+    }
 
     update();
 }
