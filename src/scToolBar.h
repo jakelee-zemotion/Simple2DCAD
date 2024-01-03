@@ -3,15 +3,15 @@
 
 class QVBoxLayout;
 class QToolButton;
-class scObjectSelectionToolBar : public QToolBar
+class scToolBar : public QToolBar
 {
 	Q_OBJECT
 
 public:
-	scObjectSelectionToolBar(QWidget* parent = 0);
-	~scObjectSelectionToolBar();
+	scToolBar(QWidget* parent = 0);
+	~scToolBar();
 
-	void AddToolButton(const std::string& name);
+	void AddEditToolButton(const std::string& name);
 	void SetCurrentToolButton(const std::string& name);
 
 	void ConnectToolButton(const std::string& name);
@@ -23,8 +23,10 @@ signals:
 
 private:
 	std::unique_ptr<QToolButton> mNewSceneToolButton;
+	std::unique_ptr<QToolButton> mOpenSceneToolButton;
+	std::unique_ptr<QToolButton> mSaveSceneToolButton;
 
-	std::map<std::string, std::unique_ptr<QToolButton>> mToolButtonMap;
+	std::map<std::string, std::unique_ptr<QToolButton>> mEditToolButtonMap;
 
 private slots:
 	void ClickToolButton();

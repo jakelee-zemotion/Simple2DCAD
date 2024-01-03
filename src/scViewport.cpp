@@ -56,8 +56,10 @@ void scViewport::SaveScene(string fileName)
     update();
 }
 
-void scViewport::LoadScene(string fileName)
+void scViewport::OpenScene(string fileName)
 {
+    mStateMachine.EndState();
+
     mScene->LoadData(fileName);
     update();
 }

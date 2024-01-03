@@ -3,7 +3,7 @@
 
 class scViewport;
 class scMenuBar;
-class scObjectSelectionToolBar;
+class scToolBar;
 class scMainWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -17,13 +17,13 @@ public:
 private:
 	std::unique_ptr<scViewport> mViewport;
 	std::unique_ptr<scMenuBar> mMenuBar;
-	std::unique_ptr<scObjectSelectionToolBar> mObjSelectToolBar;
+	std::unique_ptr<scToolBar> mToolBar;
 
 private slots:
 	void OpenObjectListDialog();
 	void TransitState(const std::string& name);
 	void NewScene();
+	void OpenScene();
 	void SaveScene();
-	void LoadScene();
 };
 

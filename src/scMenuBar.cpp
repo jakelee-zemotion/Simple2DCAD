@@ -33,8 +33,8 @@ void scMenuBar::ConnectAction(const QObject* mainWindow)
 {
 	// 1. File
 	connect(mNewSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(NewScene()));
+	connect(mOpenSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(OpenScene()));
 	connect(mSaveSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(SaveScene()));
-	connect(mOpenSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(LoadScene()));
 
 
 	// 3. View

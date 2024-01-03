@@ -271,8 +271,11 @@ void scScene::SaveData(string fileName)
 	QJsonArray orderArray;
 	for (const auto& sh : mDrawShapeList)
 	{
-		QString idQStr = QString::fromStdString(sh.lock()->GetID());
-		orderArray.push_back(idQStr);
+		if (!sh.expired())
+		{
+			QString idQStr = QString::fromStdString(sh.lock()->GetID());
+			orderArray.push_back(idQStr);
+		}
 	}
 
 
