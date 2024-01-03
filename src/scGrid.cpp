@@ -16,14 +16,14 @@ scGrid::scGrid(
 	const QRect& viewportSize)
 		:mCoordinateHelper(coordinateHelper), mCamera(camera), mViewportSize(viewportSize)
 {
-	mSizeX = mViewportSize.width() / mStride;
-	mSizeY = mViewportSize.height() / mStride;
-	mGridVertexVector = vector<vector<shared_ptr<scVertexQtVisual>>>(mSizeX, vector<shared_ptr<scVertexQtVisual>>(mSizeY));
+	int sizeX = mViewportSize.width() / mStride;
+	int sizeY = mViewportSize.height() / mStride;
 
+	mGridVertexVector = vector<vector<shared_ptr<scVertexQtVisual>>>(sizeX, vector<shared_ptr<scVertexQtVisual>>(sizeY));
 
-	for (int i = 0; i < mSizeX; i++)
+	for (int i = 0; i < sizeX; i++)
 	{
-		for (int j = 0; j < mSizeY; j++)
+		for (int j = 0; j < sizeY; j++)
 		{
 			double x = i * mStride;
 			double y = j * mStride;
@@ -42,9 +42,12 @@ scGrid::~scGrid()
 
 void scGrid::Paint(QPainter& painter)
 {
-	for (int i = 0; i < mSizeX; i ++)
+	int sizeX = mGridVertexVector.size();
+	int sizeY = mGridVertexVector[0].size();
+
+	for (int i = 0; i < sizeX; i ++)
 	{
-		for (int j = 0; j < mSizeY; j ++)
+		for (int j = 0; j < sizeY; j ++)
 		{
 			shared_ptr<scVertexQtVisual> vertex = mGridVertexVector[i][j];
 
@@ -55,9 +58,12 @@ void scGrid::Paint(QPainter& painter)
 
 std::shared_ptr<scShapeQtVisual> scGrid::HitTest(const scVector2D& currMousePos)
 {
-	for (int i = 0; i < mSizeX; i++)
+	int sizeX = mGridVertexVector.size();
+	int sizeY = mGridVertexVector[0].size();
+
+	for (int i = 0; i < sizeX; i++)
 	{
-		for (int j = 0; j < mSizeY; j++)
+		for (int j = 0; j < sizeY; j++)
 		{
 			shared_ptr<scVertexQtVisual> vertex = mGridVertexVector[i][j];
 
@@ -74,10 +80,12 @@ std::shared_ptr<scShapeQtVisual> scGrid::HitTest(const scVector2D& currMousePos)
 
 void scGrid::PanEvent()
 {
+	int sizeX = mGridVertexVector.size();
+	int sizeY = mGridVertexVector[0].size();
 
-	for (int i = 0; i < mSizeX; i++)
+	for (int i = 0; i < sizeX; i++)
 	{
-		for (int j = 0; j < mSizeY; j++)
+		for (int j = 0; j < sizeY; j++)
 		{
 			shared_ptr<scVertexQtVisual> vertex = mGridVertexVector[i][j];
 			scVector2D pos = vertex->GetXY();
@@ -112,8 +120,18 @@ void scGrid::ZoomEvent(int mouseDir)
 {
 	int count = mCamera.GetZoomOutCount();
 
+	if (mouseDir > 0) // Zoom In
+	{
 
-	if (count % 5 == 0)
+	}
+	else
+	{
+		scVector2D topLeftPos = mGridVertexVector[0][0]->GetXY();
+
+	}
+
+
+	/*if (count % 5 == 0)
 	{
 		for (int i = 0; i < mSizeX; i++)
 		{
@@ -129,5 +147,5 @@ void scGrid::ZoomEvent(int mouseDir)
 				vertex->SetXY(pos);
 			}
 		}
-	}
+	}*/
 }
