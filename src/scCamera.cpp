@@ -42,14 +42,22 @@ void scCamera::ZoomInOut(const scVector2D& currentMousePos, int mouseDir)
 
     if (mouseDir > 0) // Zoom In
     {
+        if (mZoomCount >= mZoomLimitMaxSize)
+            return;
+
         scaleMatrix = MatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
         inverseScaleMatrix = MatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
+        mZoomCount++;
 
     }
     else // Zoom Out
     {
+        if (mZoomCount <= mZoomLimitMinSize)
+            return;
+
         scaleMatrix = MatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
         inverseScaleMatrix = MatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
+        mZoomCount--;
     }
 
 

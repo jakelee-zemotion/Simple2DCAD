@@ -2,6 +2,7 @@
 
 #include "scScene.h"
 #include "scCoordinateHelper.h"
+#include "scGrid.h"
 
 #include <QPainter>
 #include <QtWidgets/QApplication>
@@ -13,8 +14,10 @@ using namespace std;
 scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
+
     mCoordinateHelper = make_shared<scCoordinateHelper>(mCamera, this->geometry());
-    mScene = make_shared<scScene>(mCoordinateHelper);
+    shared_ptr<scGrid> grid = make_shared<scGrid>(mCoordinateHelper, mCamera, this->geometry());
+    mScene = make_shared<scScene>(mCoordinateHelper, grid);
 
     mIsCtrlPressed = false;
 

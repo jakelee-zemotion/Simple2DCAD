@@ -21,12 +21,13 @@ public:
 	void SetPrevMousePos(const scVector2D& prevMousePos);
 
 private:
+	const double mZoomRatio = 1.2;
+	const int mZoomLimitMinSize = 0;
+	const int mZoomLimitMaxSize = 50;
 
+	int mZoomCount = 25;
 
 	scVector2D mPrevMousePos;
-
-	const double mZoomRatio = 1.2;
-	const int mZoomLimitSize = 5;
 
 	scMatrix2D mZoomPanMatrix;
 	scMatrix2D mInverseZoomPanMatrix;

@@ -17,7 +17,7 @@ class QRect;
 class scScene
 {
 public:
-	scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const std::shared_ptr<scGrid>& grid);
 	~scScene();
 
 	void Render(QPainter& painter);
@@ -35,7 +35,7 @@ public:
 
 private:
 	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
-	//std::shared_ptr<scGrid> mGrid;
+	std::shared_ptr<scGrid> mGrid;
 
 	std::list<std::shared_ptr<scShapeQtVisual>> mVertexList;
 	std::list<std::shared_ptr<scShapeQtVisual>> mLineList;

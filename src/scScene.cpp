@@ -13,8 +13,8 @@
 
 using namespace std;
 
-scScene::scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-	:mCoordinateHelper(coordinateHelper)
+scScene::scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const std::shared_ptr<scGrid>& grid)
+	:mCoordinateHelper(coordinateHelper), mGrid(grid)
 {
 
 	mVertexCreatedCount = 0;
@@ -26,12 +26,7 @@ scScene::~scScene()
 
 void scScene::Render(QPainter& painter)
 {
-	QPen pen(Qt::black);
-	pen.setWidth(10);
-	painter.setPen(pen);
-
-	QLineF a({ -1000.0, 0.0 }, { 1000.0, 0.0 });
-	painter.drawLine(a);
+	mGrid->Paint(painter);
 
 	// Vertices, lines, and faces are pushed to mDrawShapeList in the order they are drawn. 
 	// So, we can draw shapes in a specific order by iterating the mDrawShapeList.
