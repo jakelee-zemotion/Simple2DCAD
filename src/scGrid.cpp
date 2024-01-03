@@ -6,6 +6,7 @@
 #include "scCamera.h"
 
 #include <QPainter>
+#include <QDebug>
 
 using namespace std;
 
@@ -18,30 +19,37 @@ scGrid::scGrid(
 	double orgrinX = mViewportSize.width() / 2.0;
 	double orgrinY = mViewportSize.height() / 2.0;
 
-	double offset = 1000.0;
+	mGridVertexVector = vector<vector<shared_ptr<scVertexQtVisual>>>(mSize, vector<shared_ptr<scVertexQtVisual>>(mSize));
 
-	for (double i = -offset; i < offset; i += 50.0)
+
+	for (int i = 0; i < mSize; i++)
 	{
-		scVector2D start = { orgrinX + i, -offset };
-		scVector2D end = { orgrinX + i, offset };
+		for (int j = 0; j < mSize; j++)
+		{
+			double x = -mOffset + i * mStride;
+			double y = -mOffset + j * mStride;
 
-		shared_ptr<scVertexQtVisual> startVertex = make_shared< scVertexQtVisual>(start, mCoordinateHelper);
-		shared_ptr<scVertexQtVisual> endVertex = make_shared< scVertexQtVisual>(end, mCoordinateHelper);
+			scVector2D start = { orgrinX + x,  orgrinY + y };
+			//scVector2D end = { orgrinX + i, offset };
 
-		shared_ptr<scLineQtVisual> line = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
-		mLineList.push_back(line);
+			shared_ptr<scVertexQtVisual> startVertex = make_shared< scVertexQtVisual>(start, mCoordinateHelper);
+			//shared_ptr<scVertexQtVisual> endVertex = make_shared< scVertexQtVisual>(end, mCoordinateHelper);
 
-
-		start = { -offset, orgrinY + i };
-		end = { offset, orgrinY + i };
-
-		startVertex = make_shared< scVertexQtVisual>(start, mCoordinateHelper);
-		endVertex = make_shared< scVertexQtVisual>(end, mCoordinateHelper);
-
-		line = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
-		mLineList.push_back(line);
+			//shared_ptr<scLineQtVisual> line = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
+			//mLineList.push_back(line);
+			mGridVertexVector[i][j] = startVertex;
 
 
+			/*start = { -offset, orgrinY + i };
+			end = { offset, orgrinY + i };
+
+			startVertex = make_shared< scVertexQtVisual>(start, mCoordinateHelper);
+			endVertex = make_shared< scVertexQtVisual>(end, mCoordinateHelper);
+
+			line = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
+			mLineList.push_back(line);
+	*/
+		}
 		
 	}
 }
@@ -52,8 +60,15 @@ scGrid::~scGrid()
 
 void scGrid::Paint(QPainter& painter)
 {
-	for (const auto& line : mLineList)
+	int cameraStride = (mCamera.GetZoomOutCount() / mDegree) + 1;
+
+	qDebug() << cameraStride;
+
+	for (int i = 0; i < mSize; i += cameraStride)
 	{
-		line->Paint(painter);
+		for (int j = 0; j < mSize; j += cameraStride)
+		{
+			mGridVertexVector[i][j]->Paint(painter);
+		}
 	}
 }

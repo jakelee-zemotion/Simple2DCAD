@@ -1,10 +1,12 @@
 #pragma once
 
+#include <vector>
 #include <list>
 #include <memory>
 
 class QRect;
 class QPainter;
+class scVertexQtVisual;
 class scLineQtVisual;
 class scCoordinateHelper;
 class scCamera;
@@ -20,10 +22,16 @@ public:
 	void Paint(QPainter& painter);
 
 private:
+	const int mOffset = 1000;
+	const int mStride = 50;
+	const int mSize = mOffset / mStride * 2 + 1;
+	const int mDegree = 10;
+
 	const scCamera& mCamera;
 	const QRect& mViewportSize;
 	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 
+	std::vector<std::vector<std::shared_ptr<scVertexQtVisual>>> mGridVertexVector;
 	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
 };
 
