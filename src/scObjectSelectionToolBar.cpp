@@ -11,6 +11,18 @@ using namespace std;
 scObjectSelectionToolBar::scObjectSelectionToolBar(QWidget* parent)
 	:QToolBar(parent)
 {
+	string iconDir;
+	QIcon icon;
+
+	iconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/NewScene.jpg";
+	icon = QIcon(QString::fromStdString(iconDir));
+
+	mNewSceneToolButton = make_unique<QToolButton>();
+	mNewSceneToolButton->setIcon(icon);
+	addWidget(mNewSceneToolButton.get());
+	connect(mNewSceneToolButton.get(), SIGNAL(clicked()), parent, SLOT(NewScene()));
+
+	addSeparator();
 }
 
 scObjectSelectionToolBar::~scObjectSelectionToolBar()
@@ -40,9 +52,9 @@ void scObjectSelectionToolBar::ConnectToolButton(const string& name)
 	connect(mToolButtonMap[name].get(), SIGNAL(clicked()), this, SLOT(ClickToolButton()));
 }
 
-void scObjectSelectionToolBar::ConnectTransitSignal(const QObject* widgetManager)
+void scObjectSelectionToolBar::ConnectTransitSignal(const QObject* mainWindow)
 {
-	connect(this, SIGNAL(PressToolButton(std::string)), widgetManager, SLOT(TransitState(std::string)));
+	connect(this, SIGNAL(PressToolButton(std::string)), mainWindow, SLOT(TransitState(std::string)));
 }
 
 void scObjectSelectionToolBar::ClickToolButton()

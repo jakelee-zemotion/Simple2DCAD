@@ -22,6 +22,8 @@ signals:
 	void PressToolButton(const std::string& name);
 
 private:
+	std::unique_ptr<QToolButton> mNewSceneToolButton;
+
 	std::map<std::string, std::unique_ptr<QToolButton>> mToolButtonMap;
 
 private slots:

@@ -18,6 +18,7 @@ public:
 		const std::shared_ptr<scScene>& scene, 
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	void Transition(const std::string& name);
+	void EndState();
 	void Paint(QPainter& painter);
 
 	std::shared_ptr<scState> GetCurrentState() const;

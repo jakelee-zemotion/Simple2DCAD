@@ -33,6 +33,7 @@ void scViewport::AddState(const string& name)
 
 void scViewport::TransitState(const string& name)
 {
+    mStateMachine.EndState();
     mStateMachine.Transition(name);
 
     // Update for EndState()
@@ -41,17 +42,24 @@ void scViewport::TransitState(const string& name)
 
 void scViewport::ResetScene()
 {
+    mStateMachine.EndState();
+
     mScene->ClearData();
+    update();
 }
 
 void scViewport::SaveScene(string fileName)
 {
+    mStateMachine.EndState();
+
     mScene->SaveData(fileName);
+    update();
 }
 
 void scViewport::LoadScene(string fileName)
 {
     mScene->LoadData(fileName);
+    update();
 }
 
 void scViewport::paintEvent(QPaintEvent* event)

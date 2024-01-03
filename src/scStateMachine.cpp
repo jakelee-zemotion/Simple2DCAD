@@ -43,10 +43,13 @@ void scStateMachine::Transition(const string& name)
 {
 	assert(mStateMap.find(name) != mStateMap.end());
 
-	if (mCurrState != nullptr)
-		mCurrState->EndState();
-
 	mCurrState = mStateMap[name];
+}
+
+void scStateMachine::EndState()
+{
+    if (mCurrState != nullptr)
+        mCurrState->EndState();
 }
 
 void scStateMachine::Paint(QPainter& painter)

@@ -15,7 +15,7 @@ scMainWindow::scMainWindow()
 {
 	mViewport = make_unique<scViewport>();
 	mMenuBar = make_unique<scMenuBar>();
-	mObjSelectToolBar = make_unique<scObjectSelectionToolBar>();
+	mObjSelectToolBar = make_unique<scObjectSelectionToolBar>(this);
 	
 	// Connect signals/slots
 	mMenuBar->ConnectAction(this);
