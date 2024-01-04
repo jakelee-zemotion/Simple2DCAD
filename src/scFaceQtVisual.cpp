@@ -69,7 +69,8 @@ void scFaceQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 
 void scFaceQtVisual::Paint(QPainter& painter)
 {
-	Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
+	QColor color = mShapeColors[static_cast<int>(mShapeColorType)];
+	color.setAlphaF(0.5);
 
 	QPen pen(Qt::black);
 	pen.setWidth(3);
@@ -163,7 +164,7 @@ scBoundingBox scFaceQtVisual::MakeBoundingBox()
 		maxY = max(maxY, cameraStartCoord.y);
 	}
 
-	constexpr double offset = 10.0;
+	constexpr double offset = 0.0;
 
 	box.topLeft     = { minX - offset, minY - offset };
 	box.topRight    = { maxX + offset, minY - offset };

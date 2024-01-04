@@ -15,8 +15,6 @@ public:
 
 	virtual void MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle) = 0;
 
-	//void RotateControlVertex(double angle);
-
 protected:
 	scFaceQtVisual* mParentFace;
 

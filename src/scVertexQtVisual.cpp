@@ -17,7 +17,7 @@ scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoo
 	this->SetXY(pos);
 
 	// Set the colors.
-	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkGray;
+	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkCyan;
 	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::red;
 	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::blue;
 }

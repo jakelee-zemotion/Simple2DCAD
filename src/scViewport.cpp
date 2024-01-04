@@ -23,8 +23,6 @@ scViewport::scViewport(QWidget* parent)
     mScene = make_shared<scScene>(mCoordinateHelper, mGrid);
 
     mIsCtrlPressed = false;
-
-    
 }
 
 scViewport::~scViewport()
@@ -105,8 +103,6 @@ void scViewport::mousePressEvent(QMouseEvent* event)
 
 void scViewport::mouseReleaseEvent(QMouseEvent* event)
 {
-    //qDebug() << event->buttons();
-
     mStateMachine.GetCurrentState()->MouseReleaseEvent();
 
     update();
