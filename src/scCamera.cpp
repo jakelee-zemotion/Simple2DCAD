@@ -9,6 +9,7 @@
 using namespace std;
 
 scCamera::scCamera()
+    :mZoomRatio(1.1)
 {
     mPrevMousePos = { 0, 0 };
     
@@ -22,10 +23,6 @@ scCamera::~scCamera()
 
 void scCamera::AddPanXY(const scVector2D& currentMousePos)
 {
-
-    //mScene->MoveVertices(currentMousePos, mPrevMousePos);
-
-
     scVector2D dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 

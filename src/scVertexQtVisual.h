@@ -3,10 +3,13 @@
 // Simple2DCAD
 #include "scShapeQtVisual.h"
 
+// Forward Declaration
 class scCoordinateHelper;
 class scVertexData;
+
 class scVertexQtVisual : public scShapeQtVisual
 {
+// [Member function section]
 public:
 	scVertexQtVisual(const scVector2D& pos, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scVertexQtVisual() override;
@@ -21,9 +24,9 @@ public:
 
 	friend class scLineQtVisual;
 
-	std::shared_ptr<scVertexData> mVertexData;
 protected:
 	QPointF MakeQPointF() const;
 
+	std::shared_ptr<scVertexData> mVertexData;
 };
 

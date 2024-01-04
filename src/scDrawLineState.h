@@ -1,11 +1,16 @@
 #pragma once
+
+// Simple2DCAD
 #include "scState.h"
 
+// Forward Declaration
 class scScene;
 class scVertexQtVisual;
 class scShapeQtVisual;
+
 class scDrawLineState : public scState
 {
+// [Member function section]
 public:
 	scDrawLineState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scDrawLineState() override;
@@ -22,6 +27,7 @@ public:
 	void EndDrawing(bool createFaceFlag);
 	bool CanCreateFace(const scVector2D& currMousePos) const;
 
+// [Member variable section]
 private:
 	std::shared_ptr<scVertexQtVisual> mDrawingVertex;
 	std::shared_ptr<scVertexQtVisual> mDrawStartVertex;

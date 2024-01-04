@@ -12,3 +12,19 @@ scControlVertexQtVisual::scControlVertexQtVisual(scFaceQtVisual* face, const scV
 scControlVertexQtVisual::~scControlVertexQtVisual()
 {
 }
+
+void scControlVertexQtVisual::MultiplyRotateXY(double angle, double transX, double transY)
+{
+	mVertexData->GetTransform().MultiplyRotateXY(angle, transX, transY);
+}
+
+void scControlVertexQtVisual::MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY, double angle)
+{
+	mVertexData->GetTransform().MultiplyScaleXY(scaleX, scaleY, transX, transY, angle);
+}
+
+scVector2D scControlVertexQtVisual::GetLocalXY() const
+{
+	scVector2D localCoord = mCoordinateHelper->WorldToLocal(mVertexData->GetPos(), mVertexData->GetTransform());
+	return localCoord;
+}

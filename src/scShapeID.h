@@ -17,7 +17,7 @@ public:
 	bool operator!=(const scShapeID& shapeID);
 	operator std::string();
 
-// [Memeber variable section]
+// [Member variable section]
 private:
 	std::string mID;
 

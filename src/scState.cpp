@@ -1,5 +1,6 @@
 #include "scState.h"
 
+// Simple2DCAD
 #include "scScene.h"
 #include "scVertexQtVisual.h"
 #include "scShapeID.h"

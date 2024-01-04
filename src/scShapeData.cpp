@@ -1,6 +1,5 @@
 #include "scShapeData.h"
 
-
 scShapeData::scShapeData()
 {
 }

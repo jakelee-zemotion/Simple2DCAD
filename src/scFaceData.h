@@ -11,6 +11,7 @@
 
 class scFaceData : public scShapeData
 {
+// [Member function section]
 public:
 	scFaceData();
 	~scFaceData() override;
@@ -28,6 +29,7 @@ public:
 	scTransform& GetLineStartTransform();
 	scShapeID GetLineStartID() const;
 
+// [Member variable section]
 private:
 	std::list<std::shared_ptr<scLineData>> mLineList;
 	std::list<std::shared_ptr<scLineData>>::iterator mIter;

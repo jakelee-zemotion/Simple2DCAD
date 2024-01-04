@@ -1,10 +1,13 @@
 #pragma once
+
+// Simple2DCAD
 #include "scTransform.h"
 #include "scMatrixVectorHelper.h"
 #include "scShapeData.h"
 
 class scVertexData : public scShapeData
 {
+// [Member function section]
 public:
 	scVertexData();
 	~scVertexData() override;
@@ -15,6 +18,7 @@ public:
 	scVector2D GetPos() const;
 	scTransform& GetTransform();
 
+// [Member variable section]
 private:
 	scVector2D mPos;
 	scTransform mTransform;

@@ -35,7 +35,7 @@ protected:
 	void keyReleaseEvent(QKeyEvent* event) override;
 	void wheelEvent(QWheelEvent* event) override;
 
-// [Memeber variable section]
+// [Member variable section]
 private:
 	const int mViewportWidth;
 	const int mViewportHeight;

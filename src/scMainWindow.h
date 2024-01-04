@@ -25,7 +25,7 @@ private slots:
 	void OpenScene();
 	void SaveScene();
 
-// [Memeber variable section]
+// [Member variable section]
 private:
 	std::unique_ptr<scViewport> mViewport;
 	std::unique_ptr<scMenuBar> mMenuBar;

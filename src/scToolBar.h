@@ -29,7 +29,7 @@ signals:
 private slots:
 	void ClickToolButton();
 
-// [Memeber variable section]
+// [Member variable section]
 private:
 	std::unique_ptr<QToolButton> mNewSceneToolButton;
 	std::unique_ptr<QToolButton> mOpenSceneToolButton;

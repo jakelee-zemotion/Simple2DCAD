@@ -13,6 +13,7 @@ class scScene;
 
 class scCamera
 {
+// [Member function section]
 public:
 	scCamera();
 	~scCamera();
@@ -27,8 +28,9 @@ public:
 
 	double GetZoomRatio() const;
 
+// [Member variable section]
 private:
-	const double mZoomRatio = 1.1;
+	const double mZoomRatio;
 
 	scVector2D mPrevMousePos;
 

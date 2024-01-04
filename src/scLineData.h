@@ -1,11 +1,15 @@
 #pragma once
+
+// system
+#include <memory>
+
+// Simple2DCAD
 #include "scVertexData.h"
 #include "scShapeData.h"
 
-#include <memory>
-
 class scLineData : public scShapeData
 {
+// [Member function section]
 public:
 	scLineData();
 	~scLineData() override;
@@ -28,6 +32,7 @@ public:
 	scShapeID GetStartID() const;
 	scShapeID GetEndID() const;
 
+// [Member variable section]
 private:
 	std::shared_ptr<scVertexData> mStartVertex;
 	std::shared_ptr<scVertexData> mEndVertex;

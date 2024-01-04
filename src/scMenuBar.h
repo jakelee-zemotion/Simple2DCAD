@@ -13,7 +13,7 @@ public:
 
 	void ConnectAction(const QObject* mainWindow);
 
-// [Memeber variable section]
+// [Member variable section]
 private:
 	std::unique_ptr<QMenu> mFileMenu;
 	std::unique_ptr<QMenu> mEditMenu;

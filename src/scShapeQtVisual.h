@@ -8,10 +8,13 @@
 #include "scCommon.h"
 #include "scMatrixVectorHelper.h"
 
+// Forward Declaration
 class scCamera;
 class scCoordinateHelper;
+
 class scShapeQtVisual
 {
+// [Member function section]
 public:
 	scShapeQtVisual(const scShapeType& shapeType, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scShapeQtVisual();
@@ -25,9 +28,9 @@ public:
 
 	scShapeType GetShapeType() const;
 
-
+// [Member variable section]
 protected:
-	const double mHitSize = 10.0;
+	const double mHitSize;
 
 	scShapeType mShapeType;
 	scColorType mShapeColorType;

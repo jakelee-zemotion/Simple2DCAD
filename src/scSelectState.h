@@ -1,14 +1,20 @@
 #pragma once
+
+// system
+#include <vector>
+
+// Simple2DCAD
 #include "scState.h"
 #include "scCommon.h"
 
-#include <vector>
-
+// Forward Declaration
 class scShapeQtVisual;
 class scScene;
 class scControlVertexQtVisual;
+
 class scSelectState : public scState
 {
+// [Member function section]
 public:
 	scSelectState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType);
 	virtual ~scSelectState() override;
@@ -27,12 +33,13 @@ private:
 
 	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos);
 
-
 	void ResetSelected();
 	void HightlightShape();
 
 	void SelectShape();
 
+// [Member variable section]
+private:
 	bool mIsMousePressed;
 	const scShapeType mSelectShapeType;
 
@@ -41,10 +48,8 @@ private:
 
 	std::shared_ptr<scShapeQtVisual> mSelectedShape;
 
-
+	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
 
 	double mAngleSum;
-
-	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
 };
 

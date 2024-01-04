@@ -1,12 +1,14 @@
 #include "scStateMachine.h"
 
+// qt
+#include <QPainter>
+
+// Simple2DCAD
 #include "scDrawLineState.h"
 #include "scSelectState.h"
 #include "scScene.h"
 #include "scCoordinateHelper.h"
 #include "scCommon.h"
-
-#include <QPainter>
 
 using namespace std;
 
@@ -18,10 +20,7 @@ scStateMachine::~scStateMachine()
 {
 }
 
-void scStateMachine::AddState(
-    const string& name, 
-    const std::shared_ptr<scScene>& scene,
-    const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+void scStateMachine::AddState(const string& name, const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 {
     shared_ptr<scState> state;
         

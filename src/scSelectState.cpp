@@ -1,5 +1,11 @@
 #include "scSelectState.h"
 
+// qt
+#include <QDebug>
+#include <QKeyEvent>
+#include <QPainter>
+
+// Simple2DCAD
 #include "scScene.h"
 #include "scShapeQtVisual.h"
 #include "scVertexQtVisual.h"
@@ -10,10 +16,6 @@
 #include "scCenterControlVertexQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scVertexData.h"
-
-#include <qDebug>
-#include <QKeyEvent>
-#include <QPainter>
 
 using namespace std;
 
@@ -101,8 +103,8 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			scVector2D BB = mCoordinateHelper->CameraToLocal(mPrevMousePos);
 			scVector2D CC = mCoordinateHelper->CameraToLocal(targetPos);
 
-			shared_ptr<scVertexQtVisual> centerVertex = dynamic_pointer_cast<scVertexQtVisual>(mControlVertexVector.back());
-			scVector2D AA = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
+			shared_ptr<scControlVertexQtVisual> centerVertex = dynamic_pointer_cast<scControlVertexQtVisual>(mControlVertexVector.back());
+			scVector2D AA = centerVertex->GetLocalXY();
 
 			double a = scVectorHelper::length(BB, CC);
 			double b = scVectorHelper::length(AA, BB);
@@ -122,7 +124,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 
 			for (const auto& ss : mControlVertexVector)
 			{
-				ss->mVertexData->GetTransform().MultiplyRotateXY(angle, AA.x, AA.y);
+				ss->MultiplyRotateXY(angle, AA.x, AA.y);
 			}
 
 		}
@@ -139,7 +141,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 
 			shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mControlVertexVector[diagIdx]);
 
-			scVector2D diagLocalCoord = mCoordinateHelper->WorldToLocal(diagVertex->mVertexData->GetPos(), diagVertex->mVertexData->GetTransform());
+			scVector2D diagLocalCoord = diagVertex->GetLocalXY();
 
 			scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetPos);
 			scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(mPrevMousePos);
@@ -158,7 +160,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 
 			for (const auto& ss : mControlVertexVector)
 			{
-				ss->mVertexData->GetTransform().MultiplyScaleXY(delta.x, delta.y, diagLocalCoord.x, diagLocalCoord.y, mAngleSum);
+				ss->MultiplyScaleXY(delta.x, delta.y, diagLocalCoord.x, diagLocalCoord.y, mAngleSum);
 			}
 
 		}

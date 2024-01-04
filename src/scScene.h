@@ -9,6 +9,7 @@
 #include "scShapeID.h"
 #include "scMatrixVectorHelper.h"
 
+// Forward Declaration
 class scCoordinateHelper;
 class scShapeQtVisual;
 class scVertexQtVisual;
@@ -17,8 +18,10 @@ class scCamera;
 class scGrid;
 class QPainter;
 class QRect;
+
 class scScene
 {
+// [Member function section]
 public:
 	scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const std::shared_ptr<scGrid>& grid);
 	~scScene();
@@ -36,6 +39,7 @@ public:
 
 	int GetVertexCreatedCount() const;
 
+// [Member variable section]
 private:
 	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 	const std::shared_ptr<scGrid>& mGrid;

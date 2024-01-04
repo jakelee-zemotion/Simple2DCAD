@@ -7,11 +7,14 @@
 // Simple2DCAD
 #include "scMatrixVectorHelper.h"
 
+// Forward Declaration
 class scCamera;
 class scTransform;
 class QRect;
+
 class scCoordinateHelper
 {
+// [Member function section]
 public:
 	scCoordinateHelper(const scCamera& camera, const QRect& viewportSize);
 	~scCoordinateHelper();
@@ -34,6 +37,7 @@ public:
 	scVector2D CameraToWorld(const scVector2D& pos, scTransform& transform);
 	scVector2D CameraToScreen(const scVector2D& pos, scTransform& transform);
 
+// [Member variable section]
 private:
 	const scCamera& mCamera;
 	const QRect& mViewportSize;

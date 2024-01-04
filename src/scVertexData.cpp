@@ -1,5 +1,6 @@
 #include "scVertexData.h"
 
+// qt
 #include <qDebug>
 
 scVertexData::scVertexData()
