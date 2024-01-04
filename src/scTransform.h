@@ -8,6 +8,7 @@
 
 class scTransform
 {
+// [Member function section]
 public:
 	scTransform();
 	~scTransform();
@@ -19,6 +20,7 @@ public:
 
 	void ResetMatrix();
 
+// [Member variable section]
 private:
 	scMatrix2D mScaleRotateMatrix;
 	scMatrix2D mInverseScaleRotateMatrix;

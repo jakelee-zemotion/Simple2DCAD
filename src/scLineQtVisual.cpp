@@ -31,27 +31,16 @@ scLineQtVisual::~scLineQtVisual()
 
 QLineF scLineQtVisual::MakeQLineF()
 {
-	scVector2D cameraStart = mCoordinateHelper->WorldToCamera(
-			mLineData->GetStartPos(), mLineData->GetStartTransform());
+	scVector2D cameraStart = mCoordinateHelper->WorldToCamera(mLineData->GetStartPos(), mLineData->GetStartTransform());
+	scVector2D cameraEnd = mCoordinateHelper->WorldToCamera(mLineData->GetEndPos(), mLineData->GetEndTransform());
 
-	scVector2D cameraEnd = mCoordinateHelper->WorldToCamera(
-			mLineData->GetEndPos(), mLineData->GetEndTransform());
-
-	return
-		QLineF(
-			{ cameraStart.x, cameraStart.y },
-			{ cameraEnd.x, cameraEnd.y });
+	return QLineF({ cameraStart.x, cameraStart.y }, { cameraEnd.x, cameraEnd.y });
 }
 
 void scLineQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
-	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(
-		targetMousePos, mLineData->GetStartTransform());
-
-	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(
-		prevMousePos, mLineData->GetStartTransform());
-
-
+	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(targetMousePos, mLineData->GetStartTransform());
+	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(prevMousePos, mLineData->GetStartTransform());
 	scVector2D delta = targetWorldCoord - prevWorldCoord;
 
 	mLineData->AddDeltaToStart(delta);
@@ -86,12 +75,7 @@ bool scLineQtVisual::HitTest(const scVector2D& currMousePos)
 
 	QLineF centralNormal(normal.p2(), normal2.p2());
 
-	if (centralNormal.intersects(this->MakeQLineF()) == QLineF::BoundedIntersection)
-	{
-		return true;
-	}
-
-	return false;
+	return centralNormal.intersects(this->MakeQLineF()) == QLineF::BoundedIntersection;
 }
 
 scShapeID scLineQtVisual::GetID() const

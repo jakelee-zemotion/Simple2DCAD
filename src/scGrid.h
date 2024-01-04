@@ -8,6 +8,7 @@
 // Simple2DCAD
 #include "scMatrixVectorHelper.h"
 
+// Forward Declaration
 class QRect;
 class QPainter;
 class scVertexQtVisual;
@@ -15,8 +16,10 @@ class scLineQtVisual;
 class scCoordinateHelper;
 class scCamera;
 class scShapeQtVisual;
+
 class scGrid
 {
+// [Member function section]
 public:
 	scGrid(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scCamera& camera, const QRect& viewportSize);
 	~scGrid();
@@ -30,14 +33,13 @@ public:
 private:
 	void AddRemoveGridVertex();
 
-	//const int mOffset = 1000;
-	double mStride = 50.0;
-	//const int mSize = mOffset / mStride * 2 + 1;
-	//const int mDegree = 10;
-
+// [Member variable section]
+private:
 	const scCamera& mCamera;
 	const QRect& mViewportSize;
 	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
+
+	double mStride;
 
 	std::list<std::list<std::shared_ptr<scVertexQtVisual>>> mGridVertexList2D;
 	std::list<std::shared_ptr<scLineQtVisual>> mLineList;

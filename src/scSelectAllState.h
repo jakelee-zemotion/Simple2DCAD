@@ -12,12 +12,12 @@ class scShapeQtVisual;
 class scScene;
 class scControlVertexQtVisual;
 
-class scSelectState : public scState
+class scSelectAllState : public scState
 {
 // [Member function section]
 public:
-	scSelectState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType);
-	virtual ~scSelectState() override;
+	scSelectAllState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType);
+	virtual ~scSelectAllState() override;
 
 	void Paint(QPainter& painter) override;
 

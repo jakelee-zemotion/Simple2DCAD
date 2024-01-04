@@ -59,3 +59,8 @@ void scScaleControlVertexQtVisual::Paint(QPainter& painter)
 
 	painter.drawImage(imageRect, image);
 }
+
+scBoxPosition scScaleControlVertexQtVisual::GetBoxPosition() const
+{
+	return mBoxPos;
+}

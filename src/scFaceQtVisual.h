@@ -17,14 +17,17 @@ struct scBoundingBox
 	scVector2D center;
 };
 
+// Forward Declaration
 class scCoordinateHelper;
 class scFaceData;
 class scLineData;
 class scLineQtVisual;
 class scVertexQtVisual;
 class scControlVertexQtVisual;
+
 class scFaceQtVisual : public scShapeQtVisual
 {
+// [Member function section]
 public:
 	scFaceQtVisual(const std::list<std::shared_ptr<scLineQtVisual>>& lineList, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scFaceQtVisual() override;
@@ -37,15 +40,17 @@ public:
 	void ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const scBoxPosition& boxPos, double angle);
 	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle);
 
+	scBoundingBox MakeBoundingBox();
+
 	void SetTransformToXY();
 
 	std::list<scShapeID> GetLineStartIDs() const;
-	
-	scBoundingBox MakeBoundingBox();
 
 private:
 	QPolygonF MakeQPolygonF();
 
+// [Member variable section]
+private:
 	std::shared_ptr<scFaceData> mFaceData;
 
 };

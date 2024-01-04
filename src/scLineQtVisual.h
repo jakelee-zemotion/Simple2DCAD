@@ -6,11 +6,14 @@
 // Simple2DCAD
 #include "scShapeQtVisual.h"
 
+// Forward Declaration
 class scCoordinateHelper;
 class scLineData;
 class scVertexQtVisual;
+
 class scLineQtVisual : public scShapeQtVisual
 {
+// [Member function section]
 public:
 	scLineQtVisual(const std::shared_ptr<scVertexQtVisual>& startVertex, const std::shared_ptr<scVertexQtVisual>& endVertex, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scLineQtVisual() override;
@@ -23,11 +26,14 @@ public:
 	scShapeID GetStartVertexID();
 	scShapeID GetEndVertexID();
 
-	friend class scFaceQtVisual;
-
 private:
 	QLineF MakeQLineF();
 
+// [Member variable section]
+public:
+	friend class scFaceQtVisual;
+
+private:
 	std::shared_ptr<scLineData> mLineData;
 };
 

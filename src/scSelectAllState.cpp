@@ -1,4 +1,4 @@
-#include "scSelectState.h"
+#include "scSelectAllState.h"
 
 // qt
 #include <QDebug>
@@ -19,7 +19,7 @@
 
 using namespace std;
 
-scSelectState::scSelectState(const shared_ptr<scScene>& scene, const shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType)
+scSelectAllState::scSelectAllState(const shared_ptr<scScene>& scene, const shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType)
 		:scState(scene, coordinateHelper), mSelectShapeType(selectShapeType)
 {
 	mIsMousePressed = false;
@@ -28,11 +28,11 @@ scSelectState::scSelectState(const shared_ptr<scScene>& scene, const shared_ptr<
 	mAngleSum = 0.0;
 }
 
-scSelectState::~scSelectState()
+scSelectAllState::~scSelectAllState()
 {
 }
 
-void scSelectState::Paint(QPainter& painter)
+void scSelectAllState::Paint(QPainter& painter)
 {
 	DrawBoundingBoxLine(painter);
 
@@ -42,7 +42,7 @@ void scSelectState::Paint(QPainter& painter)
 	}
 }
 
-void scSelectState::DrawBoundingBoxLine(QPainter& painter)
+void scSelectAllState::DrawBoundingBoxLine(QPainter& painter)
 {
 	if (!mControlVertexVector.empty())
 	{
@@ -67,13 +67,13 @@ void scSelectState::DrawBoundingBoxLine(QPainter& painter)
 	}
 }
 
-void scSelectState::MousePressEvent(const scVector2D& currMousePos)
+void scSelectAllState::MousePressEvent(const scVector2D& currMousePos)
 {
 	mIsMousePressed = true;
 	mPrevMousePos = currMousePos;
 }
 
-void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
+void scSelectAllState::MouseMoveEvent(const scVector2D& currMousePos)
 {
 	if (mIsMousePressed)
 	{
@@ -137,7 +137,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 				dynamic_pointer_cast<scScaleControlVertexQtVisual>(mCurrHighlightShape);
 
 
-			int diagIdx = (static_cast<int>(selectedVertex->mBoxPos) + 2) % 4;
+			int diagIdx = (static_cast<int>(selectedVertex->GetBoxPosition()) + 2) % 4;
 
 			shared_ptr<scScaleControlVertexQtVisual> diagVertex = dynamic_pointer_cast<scScaleControlVertexQtVisual>(mControlVertexVector[diagIdx]);
 
@@ -194,14 +194,14 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 	mPrevHighlightShape = mCurrHighlightShape;
 }
 
-void scSelectState::MouseReleaseEvent()
+void scSelectAllState::MouseReleaseEvent()
 {
 	mIsMousePressed = false;
 
 	SelectShape();
 }
 
-void scSelectState::KeyPressEvent(QKeyEvent* event)
+void scSelectAllState::KeyPressEvent(QKeyEvent* event)
 {
 	switch (event->key())
 	{
@@ -213,7 +213,7 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 	}
 }
 
-void scSelectState::EndState()
+void scSelectAllState::EndState()
 {
 	if (mPrevHighlightShape != nullptr)
 		mPrevHighlightShape->SetShapeColorType(scColorType::DEFAULT);
@@ -227,7 +227,7 @@ void scSelectState::EndState()
 	ResetSelected();
 }
 
-std::shared_ptr<scShapeQtVisual> scSelectState::HitTest(const scVector2D& currMousePos)
+std::shared_ptr<scShapeQtVisual> scSelectAllState::HitTest(const scVector2D& currMousePos)
 {
 	for (const auto& vertex : mControlVertexVector)
 	{
@@ -240,7 +240,7 @@ std::shared_ptr<scShapeQtVisual> scSelectState::HitTest(const scVector2D& currMo
 	return mScene->HitTest(currMousePos, mSelectShapeType);
 }
 
-void scSelectState::ResetSelected()
+void scSelectAllState::ResetSelected()
 {
 	if (mSelectedShape == nullptr)
 		return;
@@ -262,7 +262,7 @@ void scSelectState::ResetSelected()
 
 }
 
-void scSelectState::HightlightShape()
+void scSelectAllState::HightlightShape()
 {
 	// From outside to inside the shape.
 	if (mPrevHighlightShape == nullptr && mCurrHighlightShape != nullptr)
@@ -304,7 +304,7 @@ void scSelectState::HightlightShape()
 	}
 }
 
-void scSelectState::SelectShape()
+void scSelectAllState::SelectShape()
 {
 	if (mCurrHighlightShape == nullptr)
 		return;

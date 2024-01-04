@@ -22,11 +22,14 @@ public:
 	void SetXY(const scVector2D& pos);
 	scVector2D GetXY() const;
 
-	friend class scLineQtVisual;
-
 protected:
 	QPointF MakeQPointF() const;
 
+// [Member variable section]
+public:
+	friend class scLineQtVisual;
+
+protected:
 	std::shared_ptr<scVertexData> mVertexData;
 };
 

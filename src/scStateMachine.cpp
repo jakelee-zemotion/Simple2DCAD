@@ -5,7 +5,7 @@
 
 // Simple2DCAD
 #include "scDrawLineState.h"
-#include "scSelectState.h"
+#include "scSelectAllState.h"
 #include "scScene.h"
 #include "scCoordinateHelper.h"
 #include "scCommon.h"
@@ -27,13 +27,13 @@ void scStateMachine::AddState(const string& name, const std::shared_ptr<scScene>
     if (name == SC_DRAW_LINE)
         state = make_shared<scDrawLineState>(scene, coordinateHelper);
     else if (name == SC_SELECT_ALL)
-        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::VERTEX | scShapeType::LINE | scShapeType::FACE);
+        state = make_shared<scSelectAllState>(scene, coordinateHelper, scShapeType::VERTEX | scShapeType::LINE | scShapeType::FACE);
     else if (name == SC_SELECT_VERTEX)
-        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::VERTEX);
+        state = make_shared<scSelectAllState>(scene, coordinateHelper, scShapeType::VERTEX);
     else if (name == SC_SELECT_LINE)
-        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::LINE);
+        state = make_shared<scSelectAllState>(scene, coordinateHelper, scShapeType::LINE);
     else if (name == SC_SELECT_FACE)
-        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::FACE);
+        state = make_shared<scSelectAllState>(scene, coordinateHelper, scShapeType::FACE);
 
 	mStateMap[name] = state;
 }

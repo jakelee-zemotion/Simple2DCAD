@@ -1,18 +1,23 @@
 #include "scGrid.h"
+
+// qt
+#include <QPainter>
+#include <QDebug>
+
+// Simple2DCAD
 #include "scVertexQtVisual.h"
 #include "scLineQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scMatrixVectorHelper.h"
 #include "scCamera.h"
 
-#include <QPainter>
-#include <QDebug>
-
 using namespace std;
 
 scGrid::scGrid(const shared_ptr<scCoordinateHelper>& coordinateHelper, const scCamera& camera, const QRect& viewportSize)
 	:mCoordinateHelper(coordinateHelper), mCamera(camera), mViewportSize(viewportSize)
 {
+	mStride = 50.0;
+
 	int sizeX = mViewportSize.width() / mStride;
 	int sizeY = mViewportSize.height() / mStride;
 

@@ -5,6 +5,7 @@
 
 class scRotateControlVertexQtVisual : public scControlVertexQtVisual
 {
+// [Member function section]
 public:
 	scRotateControlVertexQtVisual(scFaceQtVisual* face, const scVector2D& pos, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scRotateControlVertexQtVisual() override;
