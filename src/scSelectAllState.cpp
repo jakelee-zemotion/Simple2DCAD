@@ -307,7 +307,10 @@ void scSelectAllState::HightlightShape()
 void scSelectAllState::SelectShape()
 {
 	if (mCurrHighlightShape == nullptr)
+	{
+		ResetSelected();
 		return;
+	}
 
 	if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
 		return;
