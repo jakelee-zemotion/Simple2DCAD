@@ -31,7 +31,7 @@ void scRotateControlVertexQtVisual::MoveFace(const scVector2D& targetMousePos, c
 void scRotateControlVertexQtVisual::Paint(QPainter& painter)
 {
 	string fileDir = SC_IMAGE_DIRECTORY;
-	fileDir += +"vertex/scRotateControlVertex.png";
+	fileDir += "vertex/scRotateControlVertex.png";
 
 	const double width = 60.0;
 	const QImage image(QString::fromStdString(fileDir));

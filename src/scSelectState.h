@@ -46,7 +46,7 @@ private:
 
 
 
-	double angle = 0.0;
+	double mAngleSum;
 
 	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
 };

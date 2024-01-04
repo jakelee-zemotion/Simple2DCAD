@@ -22,7 +22,7 @@ void scCenterControlVertexQtVisual::MoveFace(const scVector2D& targetMousePos, c
 void scCenterControlVertexQtVisual::Paint(QPainter& painter)
 {
 	string fileDir = SC_IMAGE_DIRECTORY;
-	fileDir += +"vertex/scCenterControlVertex.png";
+	fileDir += "vertex/scCenterControlVertex.png";
 
 	const double width = 20.0;
 	const QImage image(QString::fromStdString(fileDir));

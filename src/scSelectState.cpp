@@ -26,7 +26,7 @@ scSelectState::scSelectState(
 	mIsMousePressed = false;
 	mPrevMousePos = { 0.0, 0.0 };
 
-	angle = 0.0;
+	mAngleSum = 0.0;
 }
 
 scSelectState::~scSelectState()
@@ -119,7 +119,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			double crossZ = scVectorHelper::crossZ(BB - AA, CC - AA);
 			double sinX = crossZ / (b * c);
 			double aaa = asin(sinX);
-			angle += aaa;
+			mAngleSum += aaa;
 
 
 			selectedVertex->MoveFace(AA, mPrevMousePos, aaa);
@@ -150,7 +150,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(mPrevMousePos);
 			
 			scMatrix2D InverseTranslateMatrix = scMatrixHelper::InverseTranslateMatrix(diagLocalCoord.x, diagLocalCoord.y);
-			scMatrix2D inverseRotateMatrix = scMatrixHelper::InverseRotateMatrix(angle);
+			scMatrix2D inverseRotateMatrix = scMatrixHelper::InverseRotateMatrix(mAngleSum);
 
 			targetLocalCoord = (inverseRotateMatrix * InverseTranslateMatrix * targetLocalCoord);
 			prevLocalCoord = (inverseRotateMatrix * InverseTranslateMatrix * prevLocalCoord);
@@ -158,12 +158,12 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			scVector2D delta = targetLocalCoord / prevLocalCoord;
 			
 
-			selectedVertex->MoveFace(delta, diagLocalCoord, angle);
+			selectedVertex->MoveFace(delta, diagLocalCoord, mAngleSum);
 
 
 			for (const auto& ss : mControlVertexVector)
 			{
-				ss->mVertexData->GetTransform().MultiplyScaleXY(delta.x, delta.y, diagLocalCoord.x, diagLocalCoord.y, angle);
+				ss->mVertexData->GetTransform().MultiplyScaleXY(delta.x, delta.y, diagLocalCoord.x, diagLocalCoord.y, mAngleSum);
 			}
 
 		}
@@ -255,7 +255,7 @@ void scSelectState::ResetSelected()
 
 
 		mControlVertexVector.clear();
-		angle = 0.0;
+		mAngleSum = 0.0;
 
 	}
 
@@ -345,19 +345,19 @@ void scSelectState::SelectShape()
 
 
 		bb = mCoordinateHelper->LocalToCamera(box.topLeft);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::TOP_LEFT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, mAngleSum, scBoxPosition::TOP_LEFT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 		bb = mCoordinateHelper->LocalToCamera(box.topRight);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::TOP_RIGHT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, mAngleSum, scBoxPosition::TOP_RIGHT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 		bb = mCoordinateHelper->LocalToCamera(box.bottomRight);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::BOTTOM_RIGHT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, mAngleSum, scBoxPosition::BOTTOM_RIGHT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 		bb = mCoordinateHelper->LocalToCamera(box.bottomLeft);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::BOTTOM_LEFT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, mAngleSum, scBoxPosition::BOTTOM_LEFT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 
