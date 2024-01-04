@@ -44,13 +44,39 @@ scGrid::~scGrid()
 
 void scGrid::Paint(QPainter& painter)
 {
+	QPen pen;
+	pen.setColor(Qt::gray);
+	pen.setWidth(1);
+	painter.setPen(pen);
+
 	for (const auto& gridVertexDeque : mGridVertexList2D)
+	{
+		scVector2D startPos = gridVertexDeque.front()->GetXY();
+
+		QPointF start = { startPos.x, 0.0 };
+		QPointF end = { startPos.x, static_cast<double>(mViewportSize.height()) };
+
+		painter.drawLine(start, end);
+	}
+
+	for (const auto& gridVertex : mGridVertexList2D.front())
+	{
+		scVector2D startPos = gridVertex->GetXY();
+
+		QPointF start = { 0.0, startPos.y };
+		QPointF end = { static_cast<double>(mViewportSize.width()), startPos.y };
+
+		painter.drawLine(start, end);
+	}
+
+
+	/*for (const auto& gridVertexDeque : mGridVertexList2D)
 	{
 		for (const auto& gridVertex : gridVertexDeque)
 		{
 			gridVertex->Paint(painter);
 		}
-	}
+	}*/
 }
 
 std::shared_ptr<scShapeQtVisual> scGrid::HitTest(const scVector2D& currMousePos)
@@ -78,8 +104,10 @@ void scGrid::PanEvent()
 
 void scGrid::ZoomEvent(int mouseDir)
 {
+
 	if (mouseDir > 0) // Zoom In
 	{
+		
 		mStride *= mCamera.GetZoomRatio();
 
 		if (mStride > 100.0)
@@ -120,6 +148,9 @@ void scGrid::ZoomEvent(int mouseDir)
 	}
 	else // Zoom Out
 	{
+		
+
+
 		mStride /= mCamera.GetZoomRatio();
 
 		if (mStride < 50.0)
@@ -130,7 +161,6 @@ void scGrid::ZoomEvent(int mouseDir)
 			{
 				std::list<std::shared_ptr<scVertexQtVisual>>& gridVertexDeque = *iterX;
 
-				//std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexList;
 
 				auto iter = gridVertexDeque.begin();
 				while (iter != gridVertexDeque.end())
@@ -145,12 +175,6 @@ void scGrid::ZoomEvent(int mouseDir)
 						break;
 
 
-					/*start = { pos.x - mStride, pos.y };
-					scVector2D start2 = { pos.x - mStride, pos.y - mStride };
-					startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-					shared_ptr<scVertexQtVisual>startVertex2 = make_shared<scVertexQtVisual>(start2, mCoordinateHelper);
-					newGridVertexList.push_back(startVertex2);
-					newGridVertexList.push_back(startVertex);*/
 				}
 				iterX++;
 
@@ -159,7 +183,6 @@ void scGrid::ZoomEvent(int mouseDir)
 
 				iterX = mGridVertexList2D.erase(iterX);
 
-				//mGridVertexList2D.insert(iterX, newGridVertexList);
 
 
 			}

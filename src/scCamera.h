@@ -22,6 +22,9 @@ public:
 
 	double GetZoomRatio() const;
 
+	bool CanZoomIn() const;
+	bool CanZoomOut() const;
+
 private:
 	const double mZoomRatio = 1.1;
 	const int mZoomOutCountMinLimit = 0;
