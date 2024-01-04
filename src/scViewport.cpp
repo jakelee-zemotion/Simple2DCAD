@@ -15,6 +15,8 @@ scViewport::scViewport(QWidget* parent)
 	:QWidget(parent)
 {
     setFixedSize(mViewportWidth, mViewportHeight);
+    setStyleSheet("background-color:white;");
+    setMouseTracking(true); // Enable movement tracking when the mouse is not pressed.
 
     mCoordinateHelper = make_shared<scCoordinateHelper>(mCamera, this->geometry());
     mGrid = make_shared<scGrid>(mCoordinateHelper, mCamera, this->geometry());
@@ -22,9 +24,7 @@ scViewport::scViewport(QWidget* parent)
 
     mIsCtrlPressed = false;
 
-    // Enable movement tracking when the mouse is not pressed.
-    setMouseTracking(true);
-
+    
 }
 
 scViewport::~scViewport()

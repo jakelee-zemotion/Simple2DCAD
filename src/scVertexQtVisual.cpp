@@ -17,14 +17,13 @@ scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoo
 	this->SetXY(pos);
 
 	// Set the colors.
-	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::black;
+	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkGray;
 	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::red;
 	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::blue;
 }
 
 scVertexQtVisual::~scVertexQtVisual()
 {
-	//qDebug() << "Vertex" << mShapeID << " Destruction";
 }
 
 void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
@@ -45,7 +44,8 @@ void scVertexQtVisual::Paint(QPainter& painter)
 	Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
 
 	QPen pen(color);
-	pen.setWidth(6);
+	pen.setWidth(10);
+	pen.setCapStyle(Qt::RoundCap);
 	painter.setPen(pen);
 
 	painter.drawPoint(this->MakeQPointF());
@@ -63,14 +63,6 @@ bool scVertexQtVisual::HitTest(const scVector2D& currMousePos)
 		mHitSize * 2.0,
 		mHitSize * 2.0);
 
-	/*if (currMousePos.x() - 10.0 < this->GetX()
-		&& currMousePos.x() + 10.0 > this->GetX()
-
-		&& currMousePos.y() - 10.0 < this->GetY()
-		&& currMousePos.y() + 10.0 > this->GetY())
-	{
-		return true;
-	}*/
 
 	if (rect.contains(currQPointF))
 	{

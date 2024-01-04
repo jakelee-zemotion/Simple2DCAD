@@ -33,7 +33,6 @@ scFaceQtVisual::scFaceQtVisual(
 
 scFaceQtVisual::~scFaceQtVisual()
 {
-	//qDebug() << "Face" << mShapeID << " Destruction";
 }
 
 QPolygonF scFaceQtVisual::MakeQPolygonF()
@@ -81,17 +80,6 @@ void scFaceQtVisual::Paint(QPainter& painter)
 
 	QPolygonF qp = this->MakeQPolygonF();
 	painter.drawPolygon(qp);
-
-
-	/*pen.setColor(Qt::red);
-	pen.setWidth(1);
-	pen.setStyle(Qt::DotLine);
-	painter.setPen(pen);
-
-	painter.setBrush(Qt::NoBrush);
-
-	QRectF qr = qp.boundingRect();
-	painter.drawPolygon(qr);*/
 }
 
 bool scFaceQtVisual::HitTest(const scVector2D& currMousePos)
