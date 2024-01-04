@@ -3,7 +3,6 @@
 #include "scViewport.h"
 #include "scMenuBar.h"
 #include "scToolBar.h"
-#include "scObjectListDialog.h"
 #include "scCommon.h"
 
 #include <QToolButton>
@@ -54,14 +53,6 @@ void scMainWindow::SetWidgets()
 	this->setCentralWidget(mViewport.get());
 	this->setMenuBar(mMenuBar.get());
 	this->addToolBar(Qt::TopToolBarArea, mToolBar.get());
-
-	//QString fileName = QFileDialog::getOpenFileName(this, "Save Scene", "", "JSON (*.json)");
-}
-
-void scMainWindow::OpenObjectListDialog()
-{
-	//scObjectListDialog objectListDialog(mViewport->mScene);
-	//objectListDialog.exec();
 }
 
 void scMainWindow::TransitState(const string& name)

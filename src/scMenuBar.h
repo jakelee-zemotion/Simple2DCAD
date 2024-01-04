@@ -19,7 +19,4 @@ private:
 	std::unique_ptr<QAction> mNewSceneAction;
 	std::unique_ptr<QAction> mOpenSceneAction;
 	std::unique_ptr<QAction> mSaveSceneAction;
-
-	// 3. View
-	std::unique_ptr<QAction> mObjectListAction;
 };

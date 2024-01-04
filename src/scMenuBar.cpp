@@ -34,8 +34,6 @@ scMenuBar::scMenuBar(QWidget* parent)
 
 	// 3. View
 	mViewMenu = make_unique<QMenu>("View");
-	mObjectListAction = make_unique<QAction>("Object List");
-	mViewMenu->addAction(mObjectListAction.get());
 	
 	this->addMenu(mFileMenu.get());
 	this->addMenu(mEditMenu.get());
@@ -48,8 +46,4 @@ void scMenuBar::ConnectAction(const QObject* mainWindow)
 	connect(mNewSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(NewScene()));
 	connect(mOpenSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(OpenScene()));
 	connect(mSaveSceneAction.get(), SIGNAL(triggered()), mainWindow, SLOT(SaveScene()));
-
-
-	// 3. View
-	connect(mObjectListAction.get(), SIGNAL(triggered()), mainWindow, SLOT(OpenObjectListDialog()));
 }

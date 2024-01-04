@@ -31,7 +31,7 @@ protected:
 	void wheelEvent(QWheelEvent* event) override;
 
 private:
-	const int mViewportWidth = 500;
+	const int mViewportWidth = 700;
 	const int mViewportHeight = 500;
 
 	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;

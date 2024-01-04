@@ -20,7 +20,6 @@ private:
 	std::unique_ptr<scToolBar> mToolBar;
 
 private slots:
-	void OpenObjectListDialog();
 	void TransitState(const std::string& name);
 	void NewScene();
 	void OpenScene();
