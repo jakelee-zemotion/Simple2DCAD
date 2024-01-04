@@ -39,7 +39,7 @@ private:
 	const QRect& mViewportSize;
 	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 
-	std::deque<std::deque<std::shared_ptr<scVertexQtVisual>>> mGridVertexDeque2D;
+	std::list<std::list<std::shared_ptr<scVertexQtVisual>>> mGridVertexList2D;
 	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
 };
 
