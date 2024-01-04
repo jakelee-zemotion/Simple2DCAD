@@ -20,7 +20,7 @@ using namespace std;
 scSelectState::scSelectState(
 	const shared_ptr<scScene>& scene, 
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper,
-	SHAPE_TYPE selectShapeType)
+	scShapeType selectShapeType)
 		:scState(scene, coordinateHelper), mSelectShapeType(selectShapeType)
 {
 	mIsMousePressed = false;
@@ -84,7 +84,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 		scVector2D targetPos = currMousePos;
 
 		// Vertex snapping
-		if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::VERTEX)
+		if (mCurrHighlightShape->GetShapeType() == scShapeType::VERTEX)
 		{
 			targetPos = SnapVertex(currMousePos, mCurrHighlightShape->GetID());
 
@@ -93,7 +93,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 
 			selectedVertex->SetXY(targetPos);
 		}
-		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::ROTATE_CONTROL_VERTEX)
+		else if (mCurrHighlightShape->GetShapeType() == scShapeType::ROTATE_CONTROL_VERTEX)
 		{
 
 
@@ -131,7 +131,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			}
 
 		}
-		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::SCALE_CONTROL_VERTEX)
+		else if (mCurrHighlightShape->GetShapeType() == scShapeType::SCALE_CONTROL_VERTEX)
 		{
 
 
@@ -167,7 +167,7 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			}
 
 		}
-		else if (mCurrHighlightShape->GetShapeType() == SHAPE_TYPE::FACE)
+		else if (mCurrHighlightShape->GetShapeType() == scShapeType::FACE)
 		{
 			mCurrHighlightShape->Move(targetPos, mPrevMousePos);
 
@@ -217,10 +217,10 @@ void scSelectState::KeyPressEvent(QKeyEvent* event)
 void scSelectState::EndState()
 {
 	if (mPrevHighlightShape != nullptr)
-		mPrevHighlightShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+		mPrevHighlightShape->SetShapeColorType(scColorType::DEFAULT);
 
 	if (mCurrHighlightShape != nullptr)
-		mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+		mCurrHighlightShape->SetShapeColorType(scColorType::DEFAULT);
 
 	mPrevHighlightShape.reset();
 	mCurrHighlightShape.reset();
@@ -246,9 +246,9 @@ void scSelectState::ResetSelected()
 	if (mSelectedShape == nullptr)
 		return;
 
-	mSelectedShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+	mSelectedShape->SetShapeColorType(scColorType::DEFAULT);
 
-	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
+	if (mSelectedShape->GetShapeType() == scShapeType::FACE)
 	{
 		shared_ptr<scFaceQtVisual> face = dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
 		face->SetTransformToXY();
@@ -270,14 +270,14 @@ void scSelectState::HightlightShape()
 	{
 		// If there is not a selected shape or the selected shape is not the current shape.
 		if (mSelectedShape == nullptr || mSelectedShape->GetID() != mCurrHighlightShape->GetID())
-			mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::HIGHTLIGHT);
+			mCurrHighlightShape->SetShapeColorType(scColorType::HIGHTLIGHT);
 	}
 	// From inside the shape to outside.
 	else if (mPrevHighlightShape != nullptr && mCurrHighlightShape == nullptr)
 	{
 		// If there is not a selected shape or the selected shape is not the current shape.
 		if (mSelectedShape == nullptr || mSelectedShape->GetID() != mPrevHighlightShape->GetID())
-			mPrevHighlightShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+			mPrevHighlightShape->SetShapeColorType(scColorType::DEFAULT);
 	}
 	// From inside one shape to inside another shape.
 	else if (mPrevHighlightShape != nullptr && mCurrHighlightShape != nullptr)
@@ -288,18 +288,18 @@ void scSelectState::HightlightShape()
 		// From inside the selected shape(previous shape) to inside the current shape.
 		if (mSelectedShape != nullptr && mSelectedShape->GetID() == mPrevHighlightShape->GetID())
 		{
-			mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::HIGHTLIGHT);
+			mCurrHighlightShape->SetShapeColorType(scColorType::HIGHTLIGHT);
 		}
 		// From inside the previous shape to inside the the selected shape(current shape).
 		else if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
 		{
-			mPrevHighlightShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
+			mPrevHighlightShape->SetShapeColorType(scColorType::DEFAULT);
 		}
 		// If there is not a selected shape.
 		else
 		{
-			mPrevHighlightShape->SetShapeColorType(COLOR_TYPE::DEFAULT);
-			mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::HIGHTLIGHT);
+			mPrevHighlightShape->SetShapeColorType(scColorType::DEFAULT);
+			mCurrHighlightShape->SetShapeColorType(scColorType::HIGHTLIGHT);
 		}		 
 
 	}
@@ -313,9 +313,9 @@ void scSelectState::SelectShape()
 	if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
 		return;
 
-	if (mCurrHighlightShape->GetShapeType() != SHAPE_TYPE::VERTEX &&
-		mCurrHighlightShape->GetShapeType() != SHAPE_TYPE::LINE &&
-		mCurrHighlightShape->GetShapeType() != SHAPE_TYPE::FACE)
+	if (mCurrHighlightShape->GetShapeType() != scShapeType::VERTEX &&
+		mCurrHighlightShape->GetShapeType() != scShapeType::LINE &&
+		mCurrHighlightShape->GetShapeType() != scShapeType::FACE)
 		return;
 
 
@@ -324,12 +324,12 @@ void scSelectState::SelectShape()
 		ResetSelected();
 
 	// Set mSelectedShape
-	mCurrHighlightShape->SetShapeColorType(COLOR_TYPE::SELECT);
+	mCurrHighlightShape->SetShapeColorType(scColorType::SELECT);
 	mSelectedShape = mCurrHighlightShape;
 
 
 
-	if (mSelectedShape->GetShapeType() == SHAPE_TYPE::FACE)
+	if (mSelectedShape->GetShapeType() == scShapeType::FACE)
 	{
 		shared_ptr<scFaceQtVisual> selectedFace =
 			dynamic_pointer_cast<scFaceQtVisual>(mSelectedShape);
@@ -345,19 +345,19 @@ void scSelectState::SelectShape()
 
 
 		bb = mCoordinateHelper->LocalToCamera(box.topLeft);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::TOP_LEFT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::TOP_LEFT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 		bb = mCoordinateHelper->LocalToCamera(box.topRight);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::TOP_RIGHT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::TOP_RIGHT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 		bb = mCoordinateHelper->LocalToCamera(box.bottomRight);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::BOTTOM_RIGHT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::BOTTOM_RIGHT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 		bb = mCoordinateHelper->LocalToCamera(box.bottomLeft);
-		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, BOX_POSITION::BOTTOM_LEFT, mCoordinateHelper);
+		ss = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), bb, scBoxPosition::BOTTOM_LEFT, mCoordinateHelper);
 		mControlVertexVector.push_back(ss);
 
 

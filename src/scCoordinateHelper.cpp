@@ -19,31 +19,13 @@ scCoordinateHelper::~scCoordinateHelper()
 
 scVector2D scCoordinateHelper::WorldToScreen(const scVector2D& pos)
 {
-    auto expr = [](double value, double size) -> double
-        {
-            return (value + 1.0) / 2.0 * size;
-        };
-
-    return pos;//{ pos.x - mViewportSize.width() / 2.0, pos.y - mViewportSize.height() / 2.0 };
-    /*{
-        expr(       pos.x, static_cast<double>(mViewportSize.width())),
-        expr(-1.0 * pos.y, static_cast<double>(mViewportSize.height()))
-    };*/
+    return pos;
 }
 
 
 scVector2D scCoordinateHelper::ScreenToWorld(const scVector2D& pos)
 {
-    auto expr = [](double value, double size) -> double
-        {
-            return value / size * 2.0 - 1.0;
-        };
-
-    return pos; //{ pos.x + mViewportSize.width() / 2.0, pos.y + mViewportSize.height() / 2.0 };
-    /*{
-               expr(pos.x, static_cast<double>(mViewportSize.width())),
-        -1.0 * expr(pos.y, static_cast<double>(mViewportSize.height()))
-    };*/
+    return pos;
 }
 
 

@@ -13,7 +13,7 @@ public:
 	scSelectState(
 		const std::shared_ptr<scScene>& scene, 
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper,
-		SHAPE_TYPE selectShapeType);
+		scShapeType selectShapeType);
 	virtual ~scSelectState() override;
 
 	void Paint(QPainter& painter) override;
@@ -37,7 +37,7 @@ private:
 	void SelectShape();
 
 	bool mIsMousePressed;
-	SHAPE_TYPE mSelectShapeType;
+	scShapeType mSelectShapeType;
 
 	std::shared_ptr<scShapeQtVisual> mPrevHighlightShape;
 	std::shared_ptr<scShapeQtVisual> mCurrHighlightShape;

@@ -6,10 +6,10 @@
 
 using namespace std;
 
-scShapeQtVisual::scShapeQtVisual(const SHAPE_TYPE& shapeType, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+scShapeQtVisual::scShapeQtVisual(const scShapeType& shapeType, const shared_ptr<scCoordinateHelper>& coordinateHelper)
     : mShapeType(shapeType), mCoordinateHelper(coordinateHelper)
 {
-    mShapeColorType = COLOR_TYPE::DEFAULT;
+    mShapeColorType = scColorType::DEFAULT;
     mShapeColors = vector<Qt::GlobalColor>(3, Qt::black);
 }
 
@@ -17,12 +17,12 @@ scShapeQtVisual::~scShapeQtVisual()
 {
 }
 
-void scShapeQtVisual::SetShapeColorType(const COLOR_TYPE color)
+void scShapeQtVisual::SetShapeColorType(const scColorType color)
 {
     mShapeColorType = color;
 }
 
-SHAPE_TYPE scShapeQtVisual::GetShapeType() const
+scShapeType scShapeQtVisual::GetShapeType() const
 {
     return mShapeType;
 }

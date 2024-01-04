@@ -8,15 +8,15 @@ scMenuBar::scMenuBar(QWidget* parent)
 {
 
 	string newSceneIconDir = SC_IMAGE_DIRECTORY;
-	newSceneIconDir += "icon/toolBar/NewScene.jpg";
+	newSceneIconDir += "icon/toolBar/scNewScene.jpg";
 	QIcon newSceneIcon = QIcon(QString::fromStdString(newSceneIconDir));
 
 	string openSceneIconDir = SC_IMAGE_DIRECTORY;
-	openSceneIconDir += "icon/toolBar/OpenScene.jpg";
+	openSceneIconDir += "icon/toolBar/scOpenScene.jpg";
 	QIcon openSceneIcon = QIcon(QString::fromStdString(openSceneIconDir));
 
 	string saveSceneIconDir = SC_IMAGE_DIRECTORY;
-	saveSceneIconDir += "icon/toolBar/SaveScene.png";
+	saveSceneIconDir += "icon/toolBar/scSaveScene.png";
 	QIcon saveSceneIcon = QIcon(QString::fromStdString(saveSceneIconDir));
 
 	// 1. File

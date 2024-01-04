@@ -167,7 +167,7 @@ void scScene::EndDrawing(bool canCreateFace)
 	qDebug() << mFaceList.size();
 }
 
-std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos, SHAPE_TYPE shapeType, scShapeID noTestShapeID)
+std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos, scShapeType shapeType, scShapeID noTestShapeID)
 {
 	// Hit testing
 	// The order is vertex, line, and face.

@@ -9,7 +9,7 @@
 using namespace std;
 
 scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoordinateHelper>& coordinateHelper)
-	:scShapeQtVisual(SHAPE_TYPE::VERTEX, coordinateHelper)
+	:scShapeQtVisual(scShapeType::VERTEX, coordinateHelper)
 {
 	// Set the position.
 	mVertexData = make_shared<scVertexData>();
@@ -17,9 +17,9 @@ scVertexQtVisual::scVertexQtVisual(const scVector2D& pos, const shared_ptr<scCoo
 	this->SetXY(pos);
 
 	// Set the colors.
-	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkCyan;
-	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::red;
-	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::blue;
+	mShapeColors[static_cast<int>(scColorType::DEFAULT)] = Qt::darkCyan;
+	mShapeColors[static_cast<int>(scColorType::HIGHTLIGHT)] = Qt::red;
+	mShapeColors[static_cast<int>(scColorType::SELECT)] = Qt::blue;
 }
 
 scVertexQtVisual::~scVertexQtVisual()

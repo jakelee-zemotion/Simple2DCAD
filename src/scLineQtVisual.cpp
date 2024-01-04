@@ -13,7 +13,7 @@ scLineQtVisual::scLineQtVisual(
 	const shared_ptr<scVertexQtVisual>& startVertex, 
 	const shared_ptr<scVertexQtVisual>& endVertex,
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scShapeQtVisual(SHAPE_TYPE::LINE, coordinateHelper)
+		:scShapeQtVisual(scShapeType::LINE, coordinateHelper)
 {
 	// Set the vertices.
 	mLineData = make_shared<scLineData>();
@@ -21,9 +21,9 @@ scLineQtVisual::scLineQtVisual(
 	mLineData->SetEndVertex(endVertex->mVertexData);
 
 	// Set the colors.
-	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::darkMagenta;
-	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::red;
-	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::blue;
+	mShapeColors[static_cast<int>(scColorType::DEFAULT)] = Qt::darkMagenta;
+	mShapeColors[static_cast<int>(scColorType::HIGHTLIGHT)] = Qt::red;
+	mShapeColors[static_cast<int>(scColorType::SELECT)] = Qt::blue;
 }
 
 scLineQtVisual::~scLineQtVisual()

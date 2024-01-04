@@ -15,7 +15,7 @@ scToolBar::scToolBar(QWidget* parent)
 	// FileToolButton
 	// 1. New Scene
 	string newSceneIconDir = SC_IMAGE_DIRECTORY;
-	newSceneIconDir += "icon/toolBar/NewScene.jpg";
+	newSceneIconDir += "icon/toolBar/scNewScene.jpg";
 	QIcon newSceneIcon = QIcon(QString::fromStdString(newSceneIconDir));
 
 	mNewSceneToolButton = make_unique<QToolButton>();
@@ -25,7 +25,7 @@ scToolBar::scToolBar(QWidget* parent)
 
 	// 2. Open Scene
 	string openSceneIconDir = SC_IMAGE_DIRECTORY;
-	openSceneIconDir += "icon/toolBar/OpenScene.jpg";
+	openSceneIconDir += "icon/toolBar/scOpenScene.jpg";
 	QIcon openSceneIcon = QIcon(QString::fromStdString(openSceneIconDir));
 
 	mOpenSceneToolButton = make_unique<QToolButton>();
@@ -35,7 +35,7 @@ scToolBar::scToolBar(QWidget* parent)
 
 	// 3. Save Scene
 	string saveSceneIconDir = SC_IMAGE_DIRECTORY;
-	saveSceneIconDir += "icon/toolBar/SaveScene.png";
+	saveSceneIconDir += "icon/toolBar/scSaveScene.png";
 	QIcon saveSceneIcon = QIcon(QString::fromStdString(saveSceneIconDir));
 
 	mSaveSceneToolButton = make_unique<QToolButton>();
@@ -53,7 +53,7 @@ scToolBar::~scToolBar()
 void scToolBar::AddEditToolButton(const string& name)
 {
 	string iconDir = SC_IMAGE_DIRECTORY;
-	iconDir += "icon/toolBar/" + name + ".png";
+	iconDir += "icon/toolBar/sc" + name + ".png";
 	QIcon icon(QString::fromStdString(iconDir));
 
 	mEditToolButtonMap[name] = make_unique<QToolButton>();

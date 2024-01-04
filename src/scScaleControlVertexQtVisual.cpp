@@ -9,12 +9,12 @@ using namespace std;
 scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
 	scFaceQtVisual* face,
 	const scVector2D& pos,
-	const BOX_POSITION& boxPos,
+	const scBoxPosition& boxPos,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scControlVertexQtVisual(face, pos, coordinateHelper),
 	     mBoxPos(boxPos)
 {
-	mShapeType = SHAPE_TYPE::SCALE_CONTROL_VERTEX;
+	mShapeType = scShapeType::SCALE_CONTROL_VERTEX;
 }
 
 scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()

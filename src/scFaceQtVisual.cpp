@@ -16,7 +16,7 @@ using namespace std;
 scFaceQtVisual::scFaceQtVisual(
 	const list<shared_ptr<scLineQtVisual>>& lineList,
 	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-		: scShapeQtVisual(SHAPE_TYPE::FACE, coordinateHelper)
+		: scShapeQtVisual(scShapeType::FACE, coordinateHelper)
 {
 	// Set the lines.
 	mFaceData = make_shared<scFaceData>();
@@ -26,9 +26,9 @@ scFaceQtVisual::scFaceQtVisual(
 	}
 
 	// Set the colors.
-	mShapeColors[static_cast<int>(COLOR_TYPE::DEFAULT)] = Qt::gray;
-	mShapeColors[static_cast<int>(COLOR_TYPE::HIGHTLIGHT)] = Qt::darkGray;
-	mShapeColors[static_cast<int>(COLOR_TYPE::SELECT)] = Qt::cyan;
+	mShapeColors[static_cast<int>(scColorType::DEFAULT)] = Qt::gray;
+	mShapeColors[static_cast<int>(scColorType::HIGHTLIGHT)] = Qt::darkGray;
+	mShapeColors[static_cast<int>(scColorType::SELECT)] = Qt::cyan;
 }
 
 scFaceQtVisual::~scFaceQtVisual()
@@ -100,7 +100,7 @@ scShapeID scFaceQtVisual::GetID() const
 	return mFaceData->GetID();
 }
 
-void scFaceQtVisual::ScaleFace(const scVector2D& d, const scVector2D& diagLocalCoord, const BOX_POSITION& boxPos, double angle)
+void scFaceQtVisual::ScaleFace(const scVector2D& d, const scVector2D& diagLocalCoord, const scBoxPosition& boxPos, double angle)
 {
 	for (mFaceData->ResetIter(); !mFaceData->IsIterEnd(); mFaceData->NextIter())
 	{

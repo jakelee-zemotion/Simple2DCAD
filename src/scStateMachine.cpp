@@ -28,13 +28,13 @@ void scStateMachine::AddState(
     if (name == SC_DRAW_LINE)
         state = make_shared<scDrawLineState>(scene, coordinateHelper);
     else if (name == SC_SELECT_ALL)
-        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX | SHAPE_TYPE::LINE | SHAPE_TYPE::FACE);
+        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::VERTEX | scShapeType::LINE | scShapeType::FACE);
     else if (name == SC_SELECT_VERTEX)
-        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX);
+        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::VERTEX);
     else if (name == SC_SELECT_LINE)
-        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::LINE);
+        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::LINE);
     else if (name == SC_SELECT_FACE)
-        state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::FACE);
+        state = make_shared<scSelectState>(scene, coordinateHelper, scShapeType::FACE);
 
 	mStateMap[name] = state;
 }

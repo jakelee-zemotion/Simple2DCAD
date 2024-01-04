@@ -10,7 +10,7 @@ class scCoordinateHelper;
 class scShapeQtVisual
 {
 public:
-	scShapeQtVisual(const SHAPE_TYPE& shapeType, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scShapeQtVisual(const scShapeType& shapeType, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scShapeQtVisual();
 
 	virtual void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) = 0;
@@ -18,16 +18,16 @@ public:
 	virtual bool HitTest(const scVector2D& currMousePos) = 0;
 	virtual scShapeID GetID() const = 0;
 
-	void SetShapeColorType(const COLOR_TYPE color);
+	void SetShapeColorType(const scColorType color);
 
-	SHAPE_TYPE GetShapeType() const;
+	scShapeType GetShapeType() const;
 
 
 protected:
 	const double mHitSize = 10.0;
 
-	SHAPE_TYPE mShapeType;
-	COLOR_TYPE mShapeColorType;
+	scShapeType mShapeType;
+	scColorType mShapeColorType;
 	std::vector<Qt::GlobalColor> mShapeColors;
 
 	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;

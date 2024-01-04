@@ -22,7 +22,7 @@ scState::~scState()
 scVector2D scState::SnapVertex(const scVector2D& currMousePos, const scShapeID& noTestShapeID)
 {
 	shared_ptr<scShapeQtVisual> hitTestResultVertex =
-		mScene->HitTest(currMousePos, SHAPE_TYPE::VERTEX, noTestShapeID);
+		mScene->HitTest(currMousePos, scShapeType::VERTEX, noTestShapeID);
 
 	shared_ptr<scVertexQtVisual> snappedVertex =
 		dynamic_pointer_cast<scVertexQtVisual>(hitTestResultVertex);
