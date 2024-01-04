@@ -35,18 +35,36 @@ scSelectState::~scSelectState()
 
 void scSelectState::Paint(QPainter& painter)
 {
+	DrawBoundingBoxLine(painter);
+
 	for (const auto& shape : mControlVertexVector)
 	{
 		shape->Paint(painter);
+	}
+}
 
-		/*QPen pen(Qt::black);
-		pen.setWidth(1);
+void scSelectState::DrawBoundingBoxLine(QPainter& painter)
+{
+	if (!mControlVertexVector.empty())
+	{
+		QPen pen(Qt::darkGray);
+		pen.setWidth(2);
 		pen.setStyle(Qt::DotLine);
 		painter.setPen(pen);
 
-		QLineF line({ mDrawShapeList[i]-> })
-			painter.drawLine()*/
+		for (int i = 0; i < 4; i++)
+		{
+			const int i_1 = (i + 1) % 4;
 
+			const scVector2D startPos = mControlVertexVector[i]->GetXY();
+			const scVector2D endPos = mControlVertexVector[i_1]->GetXY();
+
+			const QPointF startVertex = { startPos.x, startPos.y };
+			const QPointF endVertex = { endPos.x, endPos.y };
+
+			const QLineF line(startVertex, endVertex);
+			painter.drawLine(line);
+		}
 	}
 }
 

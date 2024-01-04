@@ -26,6 +26,8 @@ public:
 	void EndState() override;
 
 private:
+	void DrawBoundingBoxLine(QPainter& painter);
+
 	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos);
 
 
