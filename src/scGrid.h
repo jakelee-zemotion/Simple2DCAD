@@ -28,8 +28,10 @@ public:
 	void ZoomEvent(int mouseDir);
 
 private:
+	void AddRemoveGridVertex();
+
 	//const int mOffset = 1000;
-	const int mStride = 50;
+	double mStride = 50.0;
 	//const int mSize = mOffset / mStride * 2 + 1;
 	//const int mDegree = 10;
 
@@ -37,7 +39,7 @@ private:
 	const QRect& mViewportSize;
 	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 
-	std::deque<std::deque<std::shared_ptr<scVertexQtVisual>>> mGridVertexDeque;
+	std::deque<std::deque<std::shared_ptr<scVertexQtVisual>>> mGridVertexDeque2D;
 	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
 };
 

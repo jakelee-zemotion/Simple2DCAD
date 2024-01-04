@@ -20,7 +20,7 @@ public:
 
 	void SetPrevMousePos(const scVector2D& prevMousePos);
 
-	int GetZoomOutCount() const;
+	double GetZoomRatio() const;
 
 private:
 	const double mZoomRatio = 1.1;

@@ -90,7 +90,7 @@ void scCamera::SetPrevMousePos(const scVector2D& prevMousePos)
     mPrevMousePos = prevMousePos;
 }
 
-int scCamera::GetZoomOutCount() const
+double scCamera::GetZoomRatio() const
 {
-    return mZoomOutCount;
+    return mZoomRatio;
 }

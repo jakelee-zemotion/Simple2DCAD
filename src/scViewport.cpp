@@ -125,8 +125,8 @@ void scViewport::mouseMoveEvent(QMouseEvent* event)
     {
         case Qt::MiddleButton:
         {
-            mCamera.AddPanXY(currMousePos);
             mGrid->PanEvent();
+            mCamera.AddPanXY(currMousePos);
         }
         break;
     }
