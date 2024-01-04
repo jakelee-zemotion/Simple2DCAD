@@ -7,9 +7,7 @@
 
 using namespace std;
 
-scState::scState(
-	const shared_ptr<scScene>& scene, 
-	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+scState::scState(const shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:mScene(scene), mCoordinateHelper(coordinateHelper)
 {
 }

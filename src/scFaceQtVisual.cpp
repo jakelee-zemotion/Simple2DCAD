@@ -1,22 +1,19 @@
 #include "scFaceQtVisual.h"
-#include "scCoordinateHelper.h"
-#include "scFaceData.h"
-#include "scVertexQtVisual.h"
-#include "scLineQtVisual.h"
-#include "scScaleControlVertexQtVisual.h"
-#include "scRotateControlVertexQtVisual.h"
-#include "scCenterControlVertexQtVisual.h"
 
-#include <qDebug>
+// qt
+#include <QDebug>
 #include <QPainter>
 #include <QVector3D>
 
+// Simple2DCAD
+#include "scCoordinateHelper.h"
+#include "scFaceData.h"
+#include "scLineQtVisual.h"
+
 using namespace std;
 
-scFaceQtVisual::scFaceQtVisual(
-	const list<shared_ptr<scLineQtVisual>>& lineList,
-	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
-		: scShapeQtVisual(scShapeType::FACE, coordinateHelper)
+scFaceQtVisual::scFaceQtVisual(const list<shared_ptr<scLineQtVisual>>& lineList, const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+	:scShapeQtVisual(scShapeType::FACE, coordinateHelper)
 {
 	// Set the lines.
 	mFaceData = make_shared<scFaceData>();

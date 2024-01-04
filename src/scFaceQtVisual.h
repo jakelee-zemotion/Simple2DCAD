@@ -1,8 +1,11 @@
 #pragma once
+
+// system
+#include <list>
+
+// Simple2DCAD
 #include "scShapeQtVisual.h"
 #include "scCommon.h"
-
-#include <list>
 
 struct scBoundingBox
 {
@@ -23,9 +26,7 @@ class scControlVertexQtVisual;
 class scFaceQtVisual : public scShapeQtVisual
 {
 public:
-	scFaceQtVisual(
-		const std::list<std::shared_ptr<scLineQtVisual>>& lineList,
-		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scFaceQtVisual(const std::list<std::shared_ptr<scLineQtVisual>>& lineList, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scFaceQtVisual() override;
 
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;

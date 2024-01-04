@@ -1,4 +1,6 @@
 #include "scMenuBar.h"
+
+// Simple2DCAD
 #include "scCommon.h"
 
 using namespace std;

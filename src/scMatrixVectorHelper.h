@@ -3,8 +3,8 @@
 #ifndef SC_MATRIX_VECTOR_HELPER_H
 #define SC_MATRIX_VECTOR_HELPER_H
 
+// system
 #include <cmath>
-#include <iostream>
 
 struct scVector2D
 {

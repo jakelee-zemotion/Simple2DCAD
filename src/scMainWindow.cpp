@@ -1,12 +1,14 @@
 #include "scMainWindow.h"
 
+// qt
+#include <QToolButton>
+#include <QFileDialog>
+
+// Simple2DCAD
 #include "scViewport.h"
 #include "scMenuBar.h"
 #include "scToolBar.h"
 #include "scCommon.h"
-
-#include <QToolButton>
-#include <QFileDialog>
 
 using namespace std;
 

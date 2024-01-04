@@ -1,18 +1,17 @@
 #include "scRotateControlVertexQtVisual.h"
 
+// qt
+#include <QDebug>
+
+// Simple2DCAD
 #include "scFaceQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scVertexData.h"
 
-#include <qDebug>
-
 using namespace std;
 
-scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(
-	scFaceQtVisual* face,
-	const scVector2D& pos,
-	const shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scControlVertexQtVisual(face, pos, coordinateHelper)
+scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(scFaceQtVisual* face, const scVector2D& pos, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+	:scControlVertexQtVisual(face, pos, coordinateHelper)
 {
 	mShapeType = scShapeType::ROTATE_CONTROL_VERTEX;
 

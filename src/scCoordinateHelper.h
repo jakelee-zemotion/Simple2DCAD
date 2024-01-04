@@ -1,9 +1,11 @@
 #pragma once
 
-#include "scMatrixVectorHelper.h"
-
+// system
 #include <utility>
 #include <memory>
+
+// Simple2DCAD
+#include "scMatrixVectorHelper.h"
 
 class scCamera;
 class scTransform;

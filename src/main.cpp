@@ -1,6 +1,10 @@
 #pragma once
-#include "scMainWindow.h"
+
+// qt
 #include <QtWidgets/QApplication>
+
+// Simple2DCAD
+#include "scMainWindow.h"
 
 int main(int argc, char** argv)
 {

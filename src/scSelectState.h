@@ -10,10 +10,7 @@ class scControlVertexQtVisual;
 class scSelectState : public scState
 {
 public:
-	scSelectState(
-		const std::shared_ptr<scScene>& scene, 
-		const std::shared_ptr<scCoordinateHelper>& coordinateHelper,
-		scShapeType selectShapeType);
+	scSelectState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType);
 	virtual ~scSelectState() override;
 
 	void Paint(QPainter& painter) override;
@@ -37,7 +34,7 @@ private:
 	void SelectShape();
 
 	bool mIsMousePressed;
-	scShapeType mSelectShapeType;
+	const scShapeType mSelectShapeType;
 
 	std::shared_ptr<scShapeQtVisual> mPrevHighlightShape;
 	std::shared_ptr<scShapeQtVisual> mCurrHighlightShape;

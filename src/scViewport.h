@@ -1,8 +1,11 @@
 #pragma once
+
+// qt
+#include <QWidget>
+
+// Simple2DCAD
 #include "scCamera.h"
 #include "scStateMachine.h"
-
-#include <QWidget>
 
 class scScene;
 class scCoordinateHelper;

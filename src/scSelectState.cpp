@@ -17,10 +17,7 @@
 
 using namespace std;
 
-scSelectState::scSelectState(
-	const shared_ptr<scScene>& scene, 
-	const std::shared_ptr<scCoordinateHelper>& coordinateHelper,
-	scShapeType selectShapeType)
+scSelectState::scSelectState(const shared_ptr<scScene>& scene, const shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType)
 		:scState(scene, coordinateHelper), mSelectShapeType(selectShapeType)
 {
 	mIsMousePressed = false;
@@ -111,23 +108,21 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			double b = scVectorHelper::length(AA, BB);
 			double c = scVectorHelper::length(CC, AA);
 
-			//qDebug() << b * c;
-
 			if (b * c == 0.0)
 				return;
 
 			double crossZ = scVectorHelper::crossZ(BB - AA, CC - AA);
 			double sinX = crossZ / (b * c);
-			double aaa = asin(sinX);
-			mAngleSum += aaa;
+			double angle = asin(sinX);
+			mAngleSum += angle;
 
 
-			selectedVertex->MoveFace(AA, mPrevMousePos, aaa);
+			selectedVertex->MoveFace(AA, mPrevMousePos, angle);
 
 
 			for (const auto& ss : mControlVertexVector)
 			{
-				ss->mVertexData->GetTransform().MultiplyRotateXY(aaa, AA.x, AA.y);
+				ss->mVertexData->GetTransform().MultiplyRotateXY(angle, AA.x, AA.y);
 			}
 
 		}

@@ -1,5 +1,12 @@
 ﻿#include "scScene.h"
 
+// system
+#include <map>
+
+// qt
+#include <QDebug>
+
+// Simple2DCAD
 #include "scGrid.h"
 #include "scCoordinateHelper.h"
 #include "scVertexQtVisual.h"
@@ -7,9 +14,6 @@
 #include "scFaceQtVisual.h"
 #include "scScaleControlVertexQtVisual.h"
 #include "scRotateControlVertexQtVisual.h"
-
-#include <QDebug>
-#include <map>
 
 using namespace std;
 

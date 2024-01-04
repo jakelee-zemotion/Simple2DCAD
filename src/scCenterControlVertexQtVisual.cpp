@@ -2,11 +2,8 @@
 
 using namespace std;
 
-scCenterControlVertexQtVisual::scCenterControlVertexQtVisual(
-	scFaceQtVisual* face,
-	const scVector2D& pos,
-	const shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scControlVertexQtVisual(face, pos, coordinateHelper)
+scCenterControlVertexQtVisual::scCenterControlVertexQtVisual(scFaceQtVisual* face, const scVector2D& pos, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+	:scControlVertexQtVisual(face, pos, coordinateHelper)
 {
 	mShapeType = scShapeType::CENTER_CONTROL_VERTEX;
 }

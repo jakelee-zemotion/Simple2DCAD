@@ -1,7 +1,10 @@
 #pragma once
-#include "scShapeQtVisual.h"
 
+// qt
 #include <QLineF>
+
+// Simple2DCAD
+#include "scShapeQtVisual.h"
 
 class scCoordinateHelper;
 class scLineData;
@@ -9,10 +12,7 @@ class scVertexQtVisual;
 class scLineQtVisual : public scShapeQtVisual
 {
 public:
-	scLineQtVisual(
-		const std::shared_ptr<scVertexQtVisual>& startVertex, 
-		const std::shared_ptr<scVertexQtVisual>& endVertex,
-		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scLineQtVisual(const std::shared_ptr<scVertexQtVisual>& startVertex, const std::shared_ptr<scVertexQtVisual>& endVertex, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scLineQtVisual() override;
 
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;

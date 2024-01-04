@@ -1,21 +1,18 @@
 #include "scScaleControlVertexQtVisual.h"
 
+// qt
+#include <QTransform>
+
+// Simple2DCAD
 #include "scFaceQtVisual.h"
 #include "scCoordinateHelper.h"
 #include "scVertexData.h"
 
-#include <QTransform>
-
 using namespace std;
 
-scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(
-	scFaceQtVisual* face,
-	const scVector2D& pos,
-	const double& angleSum,
-	const scBoxPosition& boxPos,
+scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(scFaceQtVisual* face, const scVector2D& pos, const double& angleSum, const scBoxPosition& boxPos, 
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
-		:scControlVertexQtVisual(face, pos, coordinateHelper),
-	     mBoxPos(boxPos), mAngleSum(angleSum)
+	:scControlVertexQtVisual(face, pos, coordinateHelper), mBoxPos(boxPos), mAngleSum(angleSum)
 {
 	mShapeType = scShapeType::SCALE_CONTROL_VERTEX;
 }

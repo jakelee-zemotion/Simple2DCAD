@@ -1,9 +1,12 @@
 #pragma once
-#include "scMatrixVectorHelper.h"
 
+// system
 #include <deque>
 #include <list>
 #include <memory>
+
+// Simple2DCAD
+#include "scMatrixVectorHelper.h"
 
 class QRect;
 class QPainter;
@@ -15,10 +18,7 @@ class scShapeQtVisual;
 class scGrid
 {
 public:
-	scGrid(
-		const std::shared_ptr<scCoordinateHelper>& coordinateHelper, 
-		const scCamera& camera, 
-		const QRect& viewportSize);
+	scGrid(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scCamera& camera, const QRect& viewportSize);
 	~scGrid();
 
 	void Paint(QPainter& painter);

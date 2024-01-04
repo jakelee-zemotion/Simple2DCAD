@@ -1,11 +1,15 @@
 #include "scToolBar.h"
-#include "scCommon.h"
 
+// system
+#include <string>
+
+// qt
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QToolButton>
 
-#include <string>
+// Simple2DCAD
+#include "scCommon.h"
 
 using namespace std;
 

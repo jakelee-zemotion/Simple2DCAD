@@ -1,10 +1,13 @@
 #include "scVertexQtVisual.h"
-#include "scCoordinateHelper.h"
-#include "scVertexData.h"
 
+// qt
 #include <QPointF>
 #include <QPainter>
 #include <QDebug>
+
+// Simple2DCAD
+#include "scCoordinateHelper.h"
+#include "scVertexData.h"
 
 using namespace std;
 

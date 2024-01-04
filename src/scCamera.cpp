@@ -1,7 +1,10 @@
 #include "scCamera.h"
-#include "scScene.h"
 
+// qt
 #include <QMouseEvent>
+
+// Simple2DCAD
+#include "scScene.h"
 
 using namespace std;
 

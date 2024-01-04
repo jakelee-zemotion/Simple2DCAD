@@ -1,18 +1,17 @@
 #include "scLineQtVisual.h"
 
+// qt
+#include <QDebug>
+#include <QPainter>
+
+// Simple2DCAD
 #include "scVertexQtVisual.h"
 #include "scLineData.h"
 #include "scCoordinateHelper.h"
 
-#include <qDebug>
-#include <QPainter>
-
 using namespace std;
 
-scLineQtVisual::scLineQtVisual(
-	const shared_ptr<scVertexQtVisual>& startVertex, 
-	const shared_ptr<scVertexQtVisual>& endVertex,
-	const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
+scLineQtVisual::scLineQtVisual(const shared_ptr<scVertexQtVisual>& startVertex, const shared_ptr<scVertexQtVisual>& endVertex, const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 		:scShapeQtVisual(scShapeType::LINE, coordinateHelper)
 {
 	// Set the vertices.

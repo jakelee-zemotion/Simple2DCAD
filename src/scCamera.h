@@ -1,7 +1,10 @@
 #pragma once
-#include "scMatrixVectorHelper.h"
 
+// system
 #include <memory>
+
+// Simple2DCAD
+#include "scMatrixVectorHelper.h"
 
 class QMouseEvent;
 class QWheelEvent;

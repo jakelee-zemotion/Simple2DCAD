@@ -1,8 +1,11 @@
 #include "scShapeQtVisual.h"
-#include "scCoordinateHelper.h"
 
-#include <qDebug>
+// qt
+#include <QDebug>
 #include <QPainter>
+
+// Simple2DCAD
+#include "scCoordinateHelper.h"
 
 using namespace std;
 

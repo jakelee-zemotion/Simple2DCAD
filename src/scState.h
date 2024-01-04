@@ -11,9 +11,7 @@ class scCoordinateHelper;
 class scState
 {
 public:
-	scState(
-		const std::shared_ptr<scScene>& scene, 
-		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	virtual ~scState();
 
 	virtual void Paint(QPainter& painter) = 0;

@@ -1,10 +1,13 @@
 #pragma once
+
+// system
+#include <memory>
+#include <list>
+
+// Simple2DCAD
 #include "scCommon.h"
 #include "scShapeID.h"
 #include "scMatrixVectorHelper.h"
-
-#include <memory>
-#include <list>
 
 class scCoordinateHelper;
 class scShapeQtVisual;

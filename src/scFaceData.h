@@ -1,10 +1,13 @@
 #pragma once
-#include "scLineData.h"
-#include "scShapeData.h"
 
+// system
 #include <list>
 #include <memory>
 #include <cassert>
+
+// Simple2DCAD
+#include "scLineData.h"
+#include "scShapeData.h"
 
 class scFaceData : public scShapeData
 {

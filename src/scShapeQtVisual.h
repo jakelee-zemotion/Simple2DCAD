@@ -1,9 +1,12 @@
 #pragma once
+
+// qt
+#include <QPainter> // Due to Qt::GlobalColor
+
+// Simple2DCAD
 #include "scShapeID.h"
 #include "scCommon.h"
 #include "scMatrixVectorHelper.h"
-
-#include <QPainter> // Due to Qt::GlobalColor
 
 class scCamera;
 class scCoordinateHelper;

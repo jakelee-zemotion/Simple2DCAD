@@ -1,7 +1,10 @@
 #pragma once
-#include "scMatrixVectorHelper.h"
 
+// system
 #include <utility>
+
+// Simple2DCAD
+#include "scMatrixVectorHelper.h"
 
 class scTransform
 {

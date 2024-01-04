@@ -7,9 +7,7 @@ class scShapeQtVisual;
 class scDrawLineState : public scState
 {
 public:
-	scDrawLineState(
-		const std::shared_ptr<scScene>& scene, 
-		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scDrawLineState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scDrawLineState() override;
 
 	void Paint(QPainter& painter) override;

@@ -1,4 +1,6 @@
 #pragma once
+
+// Simple2DCAD
 #include "scShapeQtVisual.h"
 
 class scCoordinateHelper;

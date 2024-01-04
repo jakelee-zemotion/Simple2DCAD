@@ -1,13 +1,17 @@
 #include "scViewport.h"
 
-#include "scScene.h"
-#include "scCoordinateHelper.h"
-#include "scGrid.h"
+// system
+#include <memory>
 
+// qt
 #include <QPainter>
 #include <QtWidgets/QApplication>
 #include <QKeyEvent>
-#include <memory>
+
+// Simple2DCAD
+#include "scScene.h"
+#include "scCoordinateHelper.h"
+#include "scGrid.h"
 
 using namespace std;
 

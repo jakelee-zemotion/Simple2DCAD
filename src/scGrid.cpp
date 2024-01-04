@@ -10,16 +10,11 @@
 
 using namespace std;
 
-scGrid::scGrid(
-	const std::shared_ptr<scCoordinateHelper>& coordinateHelper, 
-	const scCamera& camera, 
-	const QRect& viewportSize)
-		:mCoordinateHelper(coordinateHelper), mCamera(camera), mViewportSize(viewportSize)
+scGrid::scGrid(const shared_ptr<scCoordinateHelper>& coordinateHelper, const scCamera& camera, const QRect& viewportSize)
+	:mCoordinateHelper(coordinateHelper), mCamera(camera), mViewportSize(viewportSize)
 {
 	int sizeX = mViewportSize.width() / mStride;
 	int sizeY = mViewportSize.height() / mStride;
-
-	//mGridVertexList2D = deque<deque<shared_ptr<scVertexQtVisual>>>(sizeX, deque<shared_ptr<scVertexQtVisual>>(sizeY));
 
 	for (int i = 0; i < sizeX; i++)
 	{
@@ -68,15 +63,6 @@ void scGrid::Paint(QPainter& painter)
 
 		painter.drawLine(start, end);
 	}
-
-
-	/*for (const auto& gridVertexDeque : mGridVertexList2D)
-	{
-		for (const auto& gridVertex : gridVertexDeque)
-		{
-			gridVertex->Paint(painter);
-		}
-	}*/
 }
 
 std::shared_ptr<scShapeQtVisual> scGrid::HitTest(const scVector2D& currMousePos)
