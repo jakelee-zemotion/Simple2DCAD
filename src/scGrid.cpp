@@ -114,13 +114,56 @@ void scGrid::ZoomEvent(int mouseDir)
 
 				
 			}
-			int x = 0;
+
 		}
 
 	}
 	else // Zoom Out
 	{
 		mStride /= mCamera.GetZoomRatio();
+
+		if (mStride < 50.0)
+		{
+			mStride *= 2.0;
+
+			for (auto iterX = mGridVertexList2D.begin(); iterX != mGridVertexList2D.end();)
+			{
+				std::list<std::shared_ptr<scVertexQtVisual>>& gridVertexDeque = *iterX;
+
+				//std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexList;
+
+				auto iter = gridVertexDeque.begin();
+				while (iter != gridVertexDeque.end())
+				{
+					iter++;
+					if (iter == gridVertexDeque.end())
+						break;
+
+					iter = gridVertexDeque.erase(iter);
+
+					if (iter == gridVertexDeque.end())
+						break;
+
+
+					/*start = { pos.x - mStride, pos.y };
+					scVector2D start2 = { pos.x - mStride, pos.y - mStride };
+					startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+					shared_ptr<scVertexQtVisual>startVertex2 = make_shared<scVertexQtVisual>(start2, mCoordinateHelper);
+					newGridVertexList.push_back(startVertex2);
+					newGridVertexList.push_back(startVertex);*/
+				}
+				iterX++;
+
+				if (iterX == mGridVertexList2D.end())
+					break;
+
+				iterX = mGridVertexList2D.erase(iterX);
+
+				//mGridVertexList2D.insert(iterX, newGridVertexList);
+
+
+			}
+		}
 	}
 
 	AddRemoveGridVertex();
