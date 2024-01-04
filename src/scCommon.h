@@ -1,8 +1,14 @@
 #pragma once
 
+// State Names
+#define SC_DRAW_LINE     "DrawLine"
+#define SC_SELECT_ALL    "SelectAll"
+#define SC_SELECT_VERTEX "SelectVertex"
+#define SC_SELECT_LINE   "SelectLine"
+#define SC_SELECT_FACE   "SelectFace"
 
-#ifndef SC_COMMON_H
-#define SC_COMMON_H
+// File Directory
+#define SC_IMAGE_DIRECTORY "C:/Users/Jake/Desktop/code/Simple2DCAD/img/"
 
 enum class SHAPE_TYPE
 {
@@ -35,11 +41,3 @@ enum class BOX_POSITION
 {
 	TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT
 };
-
-#define DRAW_LINE     "DrawLine"
-#define SELECT_ALL    "SelectAll"
-#define SELECT_VERTEX "SelectVertex"
-#define SELECT_LINE   "SelectLine"
-#define SELECT_FACE   "SelectFace"
-
-#endif

@@ -25,15 +25,15 @@ void scStateMachine::AddState(
 {
     shared_ptr<scState> state;
         
-    if (name == DRAW_LINE)
+    if (name == SC_DRAW_LINE)
         state = make_shared<scDrawLineState>(scene, coordinateHelper);
-    else if (name == SELECT_ALL)
+    else if (name == SC_SELECT_ALL)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX | SHAPE_TYPE::LINE | SHAPE_TYPE::FACE);
-    else if (name == SELECT_VERTEX)
+    else if (name == SC_SELECT_VERTEX)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::VERTEX);
-    else if (name == SELECT_LINE)
+    else if (name == SC_SELECT_LINE)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::LINE);
-    else if (name == SELECT_FACE)
+    else if (name == SC_SELECT_FACE)
         state = make_shared<scSelectState>(scene, coordinateHelper, SHAPE_TYPE::FACE);
 
 	mStateMap[name] = state;

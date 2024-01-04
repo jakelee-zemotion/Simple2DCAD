@@ -1,4 +1,5 @@
 #include "scMenuBar.h"
+#include "scCommon.h"
 
 using namespace std;
 
@@ -6,13 +7,16 @@ scMenuBar::scMenuBar(QWidget* parent)
 	:QMenuBar(parent)
 {
 
-	string newSceneIconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/NewScene.jpg";
+	string newSceneIconDir = SC_IMAGE_DIRECTORY;
+	newSceneIconDir += "icon/toolBar/NewScene.jpg";
 	QIcon newSceneIcon = QIcon(QString::fromStdString(newSceneIconDir));
 
-	string openSceneIconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/OpenScene.jpg";
+	string openSceneIconDir = SC_IMAGE_DIRECTORY;
+	openSceneIconDir += "icon/toolBar/OpenScene.jpg";
 	QIcon openSceneIcon = QIcon(QString::fromStdString(openSceneIconDir));
 
-	string saveSceneIconDir = "C:/Users/Jake/Desktop/code/Simple2DCAD/img/icon/toolBar/SaveScene.png";
+	string saveSceneIconDir = SC_IMAGE_DIRECTORY;
+	saveSceneIconDir += "icon/toolBar/SaveScene.png";
 	QIcon saveSceneIcon = QIcon(QString::fromStdString(saveSceneIconDir));
 
 	// 1. File

@@ -23,11 +23,11 @@ scMainWindow::scMainWindow()
 	// Add states and toolButtons.
 	vector<string> stateName = 
 	{ 
-		DRAW_LINE,
-		SELECT_ALL,
-		SELECT_VERTEX,
-		SELECT_LINE,
-		SELECT_FACE
+		SC_DRAW_LINE,
+		SC_SELECT_ALL,
+		SC_SELECT_VERTEX,
+		SC_SELECT_LINE,
+		SC_SELECT_FACE
 	};
 
 	for (const auto& name : stateName)
