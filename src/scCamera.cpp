@@ -9,8 +9,8 @@ scCamera::scCamera()
 {
     mPrevMousePos = { 0, 0 };
     
-    mZoomPanMatrix = MatrixHelper::IdentityMatrix();
-    mInverseZoomPanMatrix = MatrixHelper::IdentityMatrix();
+    mZoomPanMatrix = scMatrixHelper::IdentityMatrix();
+    mInverseZoomPanMatrix = scMatrixHelper::IdentityMatrix();
 }
 
 scCamera::~scCamera()
@@ -26,8 +26,8 @@ void scCamera::AddPanXY(const scVector2D& currentMousePos)
     scVector2D dist = currentMousePos - mPrevMousePos;
     mPrevMousePos = currentMousePos;
 
-    scMatrix2D newPanMatrix = MatrixHelper::TranslateMatrix(dist.x, dist.y);
-    scMatrix2D newInversePanMatrix = MatrixHelper::InverseTranslateMatrix(dist.x, dist.y);
+    scMatrix2D newPanMatrix = scMatrixHelper::TranslateMatrix(dist.x, dist.y);
+    scMatrix2D newInversePanMatrix = scMatrixHelper::InverseTranslateMatrix(dist.x, dist.y);
 
     mZoomPanMatrix = (newPanMatrix * mZoomPanMatrix);
     mInverseZoomPanMatrix = (mInverseZoomPanMatrix * newInversePanMatrix);
@@ -36,21 +36,21 @@ void scCamera::AddPanXY(const scVector2D& currentMousePos)
 
 void scCamera::ZoomInOut(const scVector2D& currentMousePos, int mouseDir)
 {
-    scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(currentMousePos.x, currentMousePos.y);
+    scMatrix2D inverseTransMatrix = scMatrixHelper::InverseTranslateMatrix(currentMousePos.x, currentMousePos.y);
     scMatrix2D scaleMatrix, inverseScaleMatrix;
-    scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(currentMousePos.x, currentMousePos.y);
+    scMatrix2D transMatrix = scMatrixHelper::TranslateMatrix(currentMousePos.x, currentMousePos.y);
 
     if (mouseDir > 0) // Zoom In
     {
-        scaleMatrix = MatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
-        inverseScaleMatrix = MatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
+        scaleMatrix = scMatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
+        inverseScaleMatrix = scMatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
         mZoomOutCount--;
 
     }
     else // Zoom Out
     {
-        scaleMatrix = MatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
-        inverseScaleMatrix = MatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
+        scaleMatrix = scMatrixHelper::InverseScaleMatrix(mZoomRatio, mZoomRatio);
+        inverseScaleMatrix = scMatrixHelper::ScaleMatrix(mZoomRatio, mZoomRatio);
         mZoomOutCount++;
     }
 

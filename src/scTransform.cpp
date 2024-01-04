@@ -4,8 +4,8 @@ using namespace std;
 
 scTransform::scTransform()
 {
-	mScaleRotateMatrix = MatrixHelper::IdentityMatrix();
-	mInverseScaleRotateMatrix = MatrixHelper::IdentityMatrix();
+	mScaleRotateMatrix = scMatrixHelper::IdentityMatrix();
+	mInverseScaleRotateMatrix = scMatrixHelper::IdentityMatrix();
 }
 
 scTransform::~scTransform()
@@ -30,14 +30,14 @@ scVector2D scTransform::UnScale(double x, double y) const
 
 void scTransform::MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY, double angle)
 {
-	scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(transX, transY);
-	scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(transX, transY);
+	scMatrix2D transMatrix = scMatrixHelper::TranslateMatrix(transX, transY);
+	scMatrix2D inverseTransMatrix = scMatrixHelper::InverseTranslateMatrix(transX, transY);
 
-	scMatrix2D rotateMatrix = MatrixHelper::RotateMatrix(angle);
-	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
+	scMatrix2D rotateMatrix = scMatrixHelper::RotateMatrix(angle);
+	scMatrix2D inverseRotateMatrix = scMatrixHelper::InverseRotateMatrix(angle);
 
-	scMatrix2D scaleMatrix = MatrixHelper::ScaleMatrix(scaleX, scaleY);
-	scMatrix2D inverseScaleMatrix = MatrixHelper::InverseScaleMatrix(scaleX, scaleY);
+	scMatrix2D scaleMatrix = scMatrixHelper::ScaleMatrix(scaleX, scaleY);
+	scMatrix2D inverseScaleMatrix = scMatrixHelper::InverseScaleMatrix(scaleX, scaleY);
 
 	scMatrix2D nextScaleMatrix = transMatrix * rotateMatrix * scaleMatrix * inverseRotateMatrix * inverseTransMatrix;
 	scMatrix2D nextInverseScaleMatrix = transMatrix * rotateMatrix * inverseScaleMatrix * inverseRotateMatrix * inverseTransMatrix;
@@ -48,11 +48,11 @@ void scTransform::MultiplyScaleXY(double scaleX, double scaleY, double transX, d
 
 void scTransform::MultiplyRotateXY(double angle, double transX, double transY)
 {
-	scMatrix2D transMatrix = MatrixHelper::TranslateMatrix(transX, transY);
-	scMatrix2D inverseTransMatrix = MatrixHelper::InverseTranslateMatrix(transX, transY);
+	scMatrix2D transMatrix = scMatrixHelper::TranslateMatrix(transX, transY);
+	scMatrix2D inverseTransMatrix = scMatrixHelper::InverseTranslateMatrix(transX, transY);
 
-	scMatrix2D rotateMatrix = MatrixHelper::RotateMatrix(angle);
-	scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
+	scMatrix2D rotateMatrix = scMatrixHelper::RotateMatrix(angle);
+	scMatrix2D inverseRotateMatrix = scMatrixHelper::InverseRotateMatrix(angle);
 
 	scMatrix2D nextRotateMatrix = transMatrix * rotateMatrix * inverseTransMatrix;
 	scMatrix2D nextInverseRotateMatrix = transMatrix * inverseRotateMatrix * inverseTransMatrix;
@@ -63,6 +63,6 @@ void scTransform::MultiplyRotateXY(double angle, double transX, double transY)
 
 void scTransform::ResetMatrix()
 {
-	mScaleRotateMatrix = MatrixHelper::IdentityMatrix();
-	mInverseScaleRotateMatrix = MatrixHelper::IdentityMatrix();
+	mScaleRotateMatrix = scMatrixHelper::IdentityMatrix();
+	mInverseScaleRotateMatrix = scMatrixHelper::IdentityMatrix();
 }

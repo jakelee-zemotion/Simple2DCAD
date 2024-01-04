@@ -89,16 +89,16 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			shared_ptr<scVertexQtVisual> centerVertex = dynamic_pointer_cast<scVertexQtVisual>(mControlVertexVector.back());
 			scVector2D AA = mCoordinateHelper->WorldToLocal(centerVertex->mVertexData->GetPos(), centerVertex->mVertexData->GetTransform());
 
-			double a = VectorHelper::length(BB, CC);
-			double b = VectorHelper::length(AA, BB);
-			double c = VectorHelper::length(CC, AA);
+			double a = scVectorHelper::length(BB, CC);
+			double b = scVectorHelper::length(AA, BB);
+			double c = scVectorHelper::length(CC, AA);
 
 			//qDebug() << b * c;
 
 			if (b * c == 0.0)
 				return;
 
-			double crossZ = VectorHelper::crossZ(BB - AA, CC - AA);
+			double crossZ = scVectorHelper::crossZ(BB - AA, CC - AA);
 			double sinX = crossZ / (b * c);
 			double aaa = asin(sinX);
 			angle += aaa;
@@ -131,8 +131,8 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 			scVector2D targetLocalCoord = mCoordinateHelper->CameraToLocal(targetPos);
 			scVector2D prevLocalCoord = mCoordinateHelper->CameraToLocal(mPrevMousePos);
 			
-			scMatrix2D InverseTranslateMatrix = MatrixHelper::InverseTranslateMatrix(diagLocalCoord.x, diagLocalCoord.y);
-			scMatrix2D inverseRotateMatrix = MatrixHelper::InverseRotateMatrix(angle);
+			scMatrix2D InverseTranslateMatrix = scMatrixHelper::InverseTranslateMatrix(diagLocalCoord.x, diagLocalCoord.y);
+			scMatrix2D inverseRotateMatrix = scMatrixHelper::InverseRotateMatrix(angle);
 
 			targetLocalCoord = (inverseRotateMatrix * InverseTranslateMatrix * targetLocalCoord);
 			prevLocalCoord = (inverseRotateMatrix * InverseTranslateMatrix * prevLocalCoord);

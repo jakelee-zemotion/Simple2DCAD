@@ -23,47 +23,47 @@ struct scVector2D
 	}
 };
 
-inline scVector2D operator+(const scVector2D& v1, const scVector2D& v2)
+inline scVector2D operator+(const scVector2D& v0, const scVector2D& v1)
 {
-	return { v1.x + v2.x, v1.y + v2.y };
+	return { v0.x + v1.x, v0.y + v1.y };
 }
 
-inline scVector2D operator-(const scVector2D& v1, const scVector2D& v2)
+inline scVector2D operator-(const scVector2D& v0, const scVector2D& v1)
 {
-	return { v1.x - v2.x, v1.y - v2.y };
+	return { v0.x - v1.x, v0.y - v1.y };
 }
 
-inline scVector2D operator/(const scVector2D& v1, const scVector2D& v2)
+inline scVector2D operator/(const scVector2D& v0, const scVector2D& v1)
 {
-	return { v1.x / v2.x, v1.y / v2.y };
+	return { v0.x / v1.x, v0.y / v1.y };
 }
 
-inline scVector2D& operator+=(scVector2D& v1, const scVector2D& v2)
+inline scVector2D& operator+=(scVector2D& v0, const scVector2D& v1)
 {
-	v1.x += v2.x;
-	v1.y += v2.y;
+	v0.x += v1.x;
+	v0.y += v1.y;
 
-	return v1;
+	return v0;
 }
 
-inline scVector2D& operator-=(scVector2D& v1, const scVector2D& v2)
+inline scVector2D& operator-=(scVector2D& v0, const scVector2D& v1)
 {
-	v1.x -= v2.x;
-	v1.y -= v2.y;
+	v0.x -= v1.x;
+	v0.y -= v1.y;
 
-	return v1;
+	return v0;
 }
 
-namespace VectorHelper
+namespace scVectorHelper
 {
-	inline double length(const scVector2D& v1, const scVector2D& v2)
+	inline double length(const scVector2D& v0, const scVector2D& v1)
 	{
-		return sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y));
+		return sqrt((v0.x - v1.x) * (v0.x - v1.x) + (v0.y - v1.y) * (v0.y - v1.y));
 	}
 
-	inline double crossZ(const scVector2D& v1, const scVector2D& v2)
+	inline double crossZ(const scVector2D& v0, const scVector2D& v1)
 	{
-		return v1.x * v2.y - v1.y * v2.x;
+		return v0.x * v1.y - v0.y * v1.x;
 	}
 }
 
@@ -114,7 +114,7 @@ inline scVector2D operator*(const scMatrix2D& A, scVector2D& v)
 	return b;
 }
 
-namespace MatrixHelper
+namespace scMatrixHelper
 {
 
 	inline scMatrix2D IdentityMatrix()
@@ -166,26 +166,6 @@ namespace MatrixHelper
 			0.0     , 0.0     , 1.0
 		};
 	}
-
-	/*inline scMatrix2D RotateMatrix(double sinX, double cosX)
-	{
-		return
-		{
-			 cosX, -sinX,  0.0,
-			 sinX,  cosX,  0.0,
-			  0.0,   0.0,  1.0
-		};
-	}
-
-	inline scMatrix2D InverseRotateMatrix(double sinX, double cosX)
-	{
-		return
-		{
-			 cosX,  sinX,  0.0,
-			-sinX,  cosX,  0.0,
-			  0.0,   0.0,  1.0
-		};
-	}*/
 
 	inline scMatrix2D RotateMatrix(double theta)
 	{
