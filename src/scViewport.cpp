@@ -16,7 +16,7 @@
 using namespace std;
 
 scViewport::scViewport(QWidget* parent)
-	:QWidget(parent)
+	:QWidget(parent), mViewportWidth(700), mViewportHeight(500)
 {
     setFixedSize(mViewportWidth, mViewportHeight);
     setStyleSheet("background-color:white;");

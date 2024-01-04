@@ -7,12 +7,14 @@
 #include "scCamera.h"
 #include "scStateMachine.h"
 
+// Forward Declaration
 class scScene;
 class scCoordinateHelper;
 class scGrid;
+
 class scViewport : public QWidget
 {
-
+// [Member function section]
 public:
 	scViewport(QWidget* parent = 0);
 	~scViewport();
@@ -33,9 +35,10 @@ protected:
 	void keyReleaseEvent(QKeyEvent* event) override;
 	void wheelEvent(QWheelEvent* event) override;
 
+// [Memeber variable section]
 private:
-	const int mViewportWidth = 700;
-	const int mViewportHeight = 500;
+	const int mViewportWidth;
+	const int mViewportHeight;
 
 	std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 	std::shared_ptr<scScene> mScene;

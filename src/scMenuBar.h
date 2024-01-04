@@ -7,11 +7,13 @@ class scMenuBar : public QMenuBar
 {
 	Q_OBJECT
 
+// [Member function section]
 public:
 	scMenuBar(QWidget* parent = 0);
 
 	void ConnectAction(const QObject* mainWindow);
 
+// [Memeber variable section]
 private:
 	std::unique_ptr<QMenu> mFileMenu;
 	std::unique_ptr<QMenu> mEditMenu;

@@ -6,9 +6,11 @@
 // Simple2DCAD
 #include "scMatrixVectorHelper.h"
 
+// Forward Declaration
 class QMouseEvent;
 class QWheelEvent;
 class scScene;
+
 class scCamera
 {
 public:
@@ -25,15 +27,8 @@ public:
 
 	double GetZoomRatio() const;
 
-	bool CanZoomIn() const;
-	bool CanZoomOut() const;
-
 private:
 	const double mZoomRatio = 1.1;
-	const int mZoomOutCountMinLimit = 0;
-	const int mZoomOutCountMaxLimit = 50;
-
-	int mZoomOutCount = 25;
 
 	scVector2D mPrevMousePos;
 

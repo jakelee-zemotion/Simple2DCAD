@@ -3,12 +3,15 @@
 // qt
 #include <QToolBar>
 
+// Forward Declaration
 class QVBoxLayout;
 class QToolButton;
+
 class scToolBar : public QToolBar
 {
 	Q_OBJECT
 
+// [Member function section]
 public:
 	scToolBar(QWidget* parent = 0);
 	~scToolBar();
@@ -23,14 +26,15 @@ public:
 signals:
 	void PressToolButton(const std::string& name);
 
+private slots:
+	void ClickToolButton();
+
+// [Memeber variable section]
 private:
 	std::unique_ptr<QToolButton> mNewSceneToolButton;
 	std::unique_ptr<QToolButton> mOpenSceneToolButton;
 	std::unique_ptr<QToolButton> mSaveSceneToolButton;
 
 	std::map<std::string, std::unique_ptr<QToolButton>> mEditToolButtonMap;
-
-private slots:
-	void ClickToolButton();
 };
 
