@@ -82,42 +82,41 @@ void scGrid::ZoomEvent(int mouseDir)
 	{
 		mStride *= mCamera.GetZoomRatio();
 
-		//if (mStride > 100.0)
-		//{
-		//	mStride /= 2.0;
+		if (mStride > 100.0)
+		{
+			mStride /= 2.0;
 
-		//	for (int i = 0; i < mGridVertexList2D.size(); i++)
-		//	{
-		//		for (int j = 0; j < mGridVertexList2D[i].size(); j += 2)
-		//		{
-		//			scVector2D pos = mGridVertexList2D[i][j]->GetXY();
+			for (auto iterX = mGridVertexList2D.begin(); iterX != mGridVertexList2D.end(); iterX++)
+			{
+				std::list<std::shared_ptr<scVertexQtVisual>>& gridVertexDeque = *iterX;
 
-		//			scVector2D start = { pos.x, pos.y + (j + 1) * mStride };
-		//			shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+				std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexList;
 
-		//			int cnt = j;
-		//			auto iter = mGridVertexList2D[i].begin();
-		//			iter++;
-		//			while (cnt--)
-		//				iter++;
+				for (auto iter = gridVertexDeque.begin(); iter != gridVertexDeque.end(); iter++)
+				{
+					scVector2D pos = (*iter)->GetXY();
 
+					scVector2D start = { pos.x, pos.y - mStride };
+					shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
 
-
-		//			mGridVertexList2D[i].insert(iter, startVertex);
-
-		//			int  k = 0;
-		//		}
+					gridVertexDeque.insert(iter, startVertex);
 
 
-		//		/*std::deque<std::shared_ptr<scVertexQtVisual>> newGridVertexDeque;
-		//		for (int j = 0; j < mGridVertexList2D[i].size(); j++)
-		//		{
-		//			scVector2D start = { topLeftPos.x - mStride, topLeftPos.y + i * mStride };
-		//			shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-		//			newGridVertexDeque.push_back(startVertex);
-		//		}*/
-		//	}
-		//}
+					start = { pos.x - mStride, pos.y };
+					scVector2D start2 = { pos.x - mStride, pos.y - mStride };
+					startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+					shared_ptr<scVertexQtVisual>startVertex2 = make_shared<scVertexQtVisual>(start2, mCoordinateHelper);
+					newGridVertexList.push_back(startVertex2);
+					newGridVertexList.push_back(startVertex);
+				}
+
+				mGridVertexList2D.insert(iterX, newGridVertexList);
+
+				
+			}
+			int x = 0;
+		}
+
 	}
 	else // Zoom Out
 	{
@@ -280,4 +279,5 @@ void scGrid::AddRemoveGridVertex()
 		}
 	} while (xFlag || yFlag);
 
+	int x = 0;
 }
