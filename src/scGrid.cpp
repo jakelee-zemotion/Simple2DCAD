@@ -101,164 +101,97 @@ void scGrid::AddRemoveGridVertex()
 
 
 	// ######### topLeft ##########
-	scVector2D topLeftPos;
+	scVector2D topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
 
-	bool flagg = true;
-
-	bool flag = false;
-	while (!flag)
+	// Remove
+	if (topLeftPos.y < minY)
 	{
-		topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
-
-		bool flag1 = true;
-		bool flag2 = true;
-		// Remove
-		if (topLeftPos.y < minY)
+		for (int i = 0; i < mGridVertexDeque2D.size(); i++)
 		{
-			for (int i = 0; i < mGridVertexDeque2D.size(); i++)
-			{
-				mGridVertexDeque2D[i].pop_front();
-			}
-
-			flag1 = false;
-			flagg = false;
-		}
-
-		if (topLeftPos.x < minX)
-		{
-			mGridVertexDeque2D.pop_front();
-
-			flag2 = false;
-			flagg = false;
-		}
-
-		flag = flag1 || flag2;
-	}
-	
-
-	if (flagg)
-	{
-		flag = false;
-		while (!flag)
-		{
-			topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
-
-			bool flag1 = true;
-			bool flag2 = true;
-
-			// Add
-			if (topLeftPos.x - mStride >= minX)
-			{
-				std::deque<std::shared_ptr<scVertexQtVisual>> newGridVertexDeque;
-
-				for (int i = 0; i < mGridVertexDeque2D[0].size(); i++)
-				{
-					scVector2D start = { topLeftPos.x - mStride, topLeftPos.y + i * mStride };
-					shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-					newGridVertexDeque.push_back(startVertex);
-				}
-
-				mGridVertexDeque2D.push_front(newGridVertexDeque);
-
-				flag1 = false;
-			}
-
-			if (topLeftPos.y - mStride >= minY)
-			{
-				for (int i = 0; i < mGridVertexDeque2D.size(); i++)
-				{
-					scVector2D start = { topLeftPos.x + i * mStride, topLeftPos.y - mStride };
-					shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-					mGridVertexDeque2D[i].push_front(startVertex);
-				}
-
-				flag2 = false;
-			}
-
-			flag = flag1 || flag2;
+			mGridVertexDeque2D[i].pop_front();
 		}
 	}
-	
+
+	if (topLeftPos.x < minX)
+	{
+		mGridVertexDeque2D.pop_front();
+	}
+
+
+	// Add
+	topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
+	if (topLeftPos.x - mStride >= minX)
+	{
+		std::deque<std::shared_ptr<scVertexQtVisual>> newGridVertexDeque;
+
+		for (int i = 0; i < mGridVertexDeque2D[0].size(); i++)
+		{
+			scVector2D start = { topLeftPos.x - mStride, topLeftPos.y + i * mStride };
+			shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+			newGridVertexDeque.push_back(startVertex);
+		}
+
+		mGridVertexDeque2D.push_front(newGridVertexDeque);
+	}
+
+	topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
+	if (topLeftPos.y - mStride >= minY)
+	{
+		for (int i = 0; i < mGridVertexDeque2D.size(); i++)
+		{
+			scVector2D start = { topLeftPos.x + i * mStride, topLeftPos.y - mStride };
+			shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+			mGridVertexDeque2D[i].push_front(startVertex);
+		}
+	}
+
 
 
 	// ######### bottomRight ##########
-	scVector2D bottomRightPos;
+	topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
+	scVector2D bottomRightPos = mGridVertexDeque2D.back().back()->GetXY();
 
-
-
-	flagg = true;
-	flag = false;
-	while (!flag)
+	// Remove
+	if (bottomRightPos.y > maxY)
 	{
-		topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
-		bottomRightPos = mGridVertexDeque2D.back().back()->GetXY();
-
-		bool flag1 = true;
-		bool flag2 = true;
-		// Remove
-		if (bottomRightPos.y > maxY)
+		for (int i = 0; i < mGridVertexDeque2D.size(); i++)
 		{
-			for (int i = 0; i < mGridVertexDeque2D.size(); i++)
-			{
-				mGridVertexDeque2D[i].pop_back();
-			}
-			flag1 = false;
-			flagg = false;
+			mGridVertexDeque2D[i].pop_back();
 		}
+	}
 
-		if (bottomRightPos.x > maxX)
-		{
-			mGridVertexDeque2D.pop_back();
-			flag2 = false;
-			flagg = false;
-		}
-
-		flag = flag1 || flag2;
+	if (bottomRightPos.x > maxX)
+	{
+		mGridVertexDeque2D.pop_back();
 	}
 
 
-	if (flagg)
+	// Add
+	bottomRightPos = mGridVertexDeque2D.back().back()->GetXY();
+	if (bottomRightPos.x + mStride <= maxX)
 	{
-		flag = false;
-		while (!flag)
+		std::deque<std::shared_ptr<scVertexQtVisual>> newGridVertexDeque;
+
+		for (int i = 0; i < mGridVertexDeque2D[0].size(); i++)
 		{
-			topLeftPos = mGridVertexDeque2D.front().front()->GetXY();
-			bottomRightPos = mGridVertexDeque2D.back().back()->GetXY();
+			scVector2D start = { bottomRightPos.x + mStride, topLeftPos.y + i * mStride };
+			shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+			newGridVertexDeque.push_back(startVertex);
+		}
 
-			bool flag1 = true;
-			bool flag2 = true;
+		mGridVertexDeque2D.push_back(newGridVertexDeque);
+	}
 
-			// Add
-			if (bottomRightPos.x + mStride <= maxX)
-			{
-				std::deque<std::shared_ptr<scVertexQtVisual>> newGridVertexDeque;
-
-				for (int i = 0; i < mGridVertexDeque2D[0].size(); i++)
-				{
-					scVector2D start = { bottomRightPos.x + mStride, topLeftPos.y + i * mStride };
-					shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-					newGridVertexDeque.push_back(startVertex);
-				}
-
-				mGridVertexDeque2D.push_back(newGridVertexDeque);
-				flag1 = false;
-			}
-
-			if (bottomRightPos.y + mStride <= maxY)
-			{
-				for (int i = 0; i < mGridVertexDeque2D.size(); i++)
-				{
-					scVector2D start = { topLeftPos.x + i * mStride, bottomRightPos.y + mStride };
-					shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-					mGridVertexDeque2D[i].push_back(startVertex);
-				}
-				flag2 = false;
-			}
-
-
-			flag = flag1 || flag2;
+	bottomRightPos = mGridVertexDeque2D.back().back()->GetXY();
+	if (bottomRightPos.y + mStride <= maxY)
+	{
+		for (int i = 0; i < mGridVertexDeque2D.size(); i++)
+		{
+			scVector2D start = { topLeftPos.x + i * mStride, bottomRightPos.y + mStride };
+			shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+			mGridVertexDeque2D[i].push_back(startVertex);
 		}
 	}
-	
+
 
 }
