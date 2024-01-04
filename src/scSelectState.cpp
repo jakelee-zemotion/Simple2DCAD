@@ -166,10 +166,12 @@ void scSelectState::MouseMoveEvent(const scVector2D& currMousePos)
 		{
 			mCurrHighlightShape->Move(targetPos, mPrevMousePos);
 
-
-			for (const auto& ss : mControlVertexVector)
+			if (mSelectedShape != nullptr && mSelectedShape->GetID() == mCurrHighlightShape->GetID())
 			{
-				ss->Move(targetPos, mPrevMousePos);
+				for (const auto& ss : mControlVertexVector)
+				{
+					ss->Move(targetPos, mPrevMousePos);
+				}
 			}
 		}
 		else

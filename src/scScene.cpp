@@ -34,6 +34,7 @@ void scScene::Render(QPainter& painter)
 	// Vertices, lines, and faces are pushed to mDrawShapeList in the order they are drawn. 
 	// So, we can draw shapes in a specific order by iterating the mDrawShapeList.
 	auto iter = mDrawShapeList.begin();
+
 	while (iter != mDrawShapeList.end())
 	{
 		auto& shapePtr = *iter;
@@ -127,7 +128,6 @@ void scScene::EndDrawing(bool canCreateFace)
 		mVertexList.pop_back();
 	}
 
-
 	if (canCreateFace)
 	{
 		// Find the starting vertex of the face.
@@ -149,7 +149,6 @@ void scScene::EndDrawing(bool canCreateFace)
 		shared_ptr<scLineQtVisual> newLine = make_shared<scLineQtVisual>(startVertex, endVertex, mCoordinateHelper);
 		mLineList.push_back(newLine);
 		mDrawShapeList.insert(mInsertLineIter, newLine);
-
 
 		// Copy LineData.
 		list<shared_ptr<scLineQtVisual>> faceLineList;
@@ -229,6 +228,7 @@ void scScene::SaveData(string fileName)
 	}
 
 	QJsonObject lines;
+
 	for (const auto& li : mLineList)
 	{
 		shared_ptr<scLineQtVisual> line = dynamic_pointer_cast<scLineQtVisual>(li);
@@ -246,6 +246,7 @@ void scScene::SaveData(string fileName)
 	}
 
 	QJsonObject faces;
+
 	for (const auto& fa : mFaceList)
 	{
 		shared_ptr<scFaceQtVisual> face = dynamic_pointer_cast<scFaceQtVisual>(fa);
@@ -268,6 +269,7 @@ void scScene::SaveData(string fileName)
 	}
 
 	QJsonArray orderArray;
+
 	for (const auto& sh : mDrawShapeList)
 	{
 		if (!sh.expired())
@@ -308,6 +310,7 @@ void scScene::LoadData(string fileName)
 	QJsonArray orders = data["orders"].toArray();
 
 	map<string, shared_ptr<scShapeQtVisual>> ShapeMap;
+
 	for (const auto& key : vertices.keys())
 	{
 		QJsonObject vertex = vertices[key].toObject();
@@ -323,7 +326,6 @@ void scScene::LoadData(string fileName)
 
 		mVertexList.push_back(newVertex);
 	}
-
 
 	for (const auto& key : lines.keys())
 	{
@@ -378,7 +380,6 @@ void scScene::ClearData()
 
 	mDrawShapeList.clear();
 }
-
 
 int scScene::GetVertexCreatedCount() const
 {
