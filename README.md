@@ -16,7 +16,7 @@
 - Pan/Zoom using the mouse button.
 
 ### Scene
-- Infinite Grid adjusted appropriately according to ZoomRaito.
+- Infinite Grid adjusted appropriately according to ZoomRatio.
 - New/Open/Save Scene using Serialization.
 
 ## Video
