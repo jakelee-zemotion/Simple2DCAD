@@ -18,7 +18,7 @@
 - New/Open/Save Scene using Serialization.
 - Infinite Grid adjusted appropriately according to ZoomRaito.
 
-## Class Diagram
+## Diagram
 
 
 ## Build
