@@ -167,7 +167,7 @@ namespace scMatrixHelper
 		};
 	}
 
-	inline scMatrix2D RotateMatrix(double theta)
+	inline scMatrix2D RotateMatrix(const double theta)
 	{
 		return
 		{
@@ -177,7 +177,7 @@ namespace scMatrixHelper
 		};
 	}
 
-	inline scMatrix2D InverseRotateMatrix(double theta)
+	inline scMatrix2D InverseRotateMatrix(const double theta)
 	{
 		return
 		{

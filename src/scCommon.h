@@ -15,18 +15,18 @@ enum class scShapeType
 	VERTEX = 1, LINE = 2, FACE = 4, ROTATE_CONTROL_VERTEX = 8, SCALE_CONTROL_VERTEX = 16, CENTER_CONTROL_VERTEX = 32
 };
 
-inline scShapeType operator|(scShapeType stype0, scShapeType stype1)
+inline scShapeType operator|(const scShapeType stype0, const scShapeType stype1)
 {
 	int result = static_cast<int>(stype0) | static_cast<int>(stype1);
 	return static_cast<scShapeType>(result);
 }
 
-inline int operator>>(scShapeType stype, int value)
+inline int operator>>(const scShapeType stype, const int value)
 {
 	return static_cast<int>(stype) >> value;
 }
 
-inline bool operator==(scShapeType stype0, scShapeType stype1)
+inline bool operator==(const scShapeType stype0, const scShapeType stype1)
 {
 	return static_cast<int>(stype0) & static_cast<int>(stype1);
 }
@@ -35,7 +35,6 @@ enum class scColorType
 {
 	DEFAULT, HIGHTLIGHT, SELECT
 };
-
 
 enum class scBoxPosition
 {
