@@ -5,6 +5,10 @@
 
 // qt
 #include <QDebug>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
+#include <QJsonDocument>
 
 // Simple2DCAD
 #include "scGrid.h"
@@ -197,11 +201,6 @@ std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos
 	// Grid HitTesting is performed at the end.
 	return mGrid->HitTest(currMousePos);
 }
-
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QFile>
-#include <QJsonDocument>
 
 void scScene::SaveData(const string& fileName)
 {
