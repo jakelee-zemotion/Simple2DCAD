@@ -1,4 +1,5 @@
 # Simple2DCAD
+![](img/docs/scSimple2DCADResult.png)
 
 ## Feature
 ### Draw
@@ -15,8 +16,8 @@
 - Pan/Zoom using the mouse button.
 
 ### Scene
-- New/Open/Save Scene using Serialization.
 - Infinite Grid adjusted appropriately according to ZoomRaito.
+- New/Open/Save Scene using Serialization.
 
 ## Diagram
 
