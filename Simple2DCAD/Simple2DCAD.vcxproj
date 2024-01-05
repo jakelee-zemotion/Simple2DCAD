@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+***************************************************************************************************
+ Copyright (C) 2023 The Qt Company Ltd.
+ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+***************************************************************************************************
+-->
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scCenterControlVertexQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scControlVertexQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scCoordinateHelper.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scFaceData.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scFaceQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scGrid.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scLineQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scRotateControlVertexQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scScaleControlVertexQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scScene.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSceneData.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSceneSerializer.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectCenterControlVertexSubState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectFaceSubState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectLineSubState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectRotateControlVertexSubState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectScaleControlVertexSubState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectShapeSubState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectVertexSubState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scShapeData.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scShapeID.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scShapeQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scTransform.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scVertexQtVisual.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scCamera.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scDrawLineState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scLineData.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\main.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scMenuBar.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scToolBar.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectAllState.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scStateMachine.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scVertexData.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scViewport.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scMainWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scCenterControlVertexQtVisual.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scControlVertexQtVisual.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scCoordinateHelper.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scFaceData.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scFaceQtVisual.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scCommon.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scGrid.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scLineQtVisual.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scMatrixVectorHelper.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scRotateControlVertexQtVisual.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scScaleControlVertexQtVisual.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSceneData.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSceneSerializer.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectCenterControlVertexSubState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectFaceSubState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectLineSubState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectRotateControlVertexSubState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectScaleControlVertexSubState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectShapeSubState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectVertexSubState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scShapeData.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scShapeID.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scTransform.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scVertexQtVisual.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scCamera.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scDrawLineState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scLineData.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scSelectAllState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scShapeQtVisual.h" />
+    <ClInclude Include="resource.h" />
+    <QtMoc Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scMainWindow.h" />
+    <QtMoc Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scMenuBar.h" />
+    <QtMoc Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scToolBar.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scScene.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scState.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scStateMachine.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scVertexData.h" />
+    <ClInclude Include="..\..\..\..\Desktop\code\Simple2DCAD\src\scViewport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Simple2DCAD.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DC8101B1-C37D-4B9C-B820-67D2E2A35CB0}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>6.5.3_msvc2019_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>6.5.3_msvc2019_64</QtInstall>
+    <QtModules>
+    </QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
