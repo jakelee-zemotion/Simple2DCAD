@@ -27,12 +27,11 @@ scGrid::scGrid(const shared_ptr<scCoordinateHelper>& coordinateHelper, const scC
 
 		for (int j = 0; j < sizeY; j++)
 		{
-			double x = i * mStride;
-			double y = j * mStride;
+			const double x = i * mStride;
+			const double y = j * mStride;
+			const scVector2D start = { x,  y };
 
-			scVector2D start = { x,  y };
-
-			shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
+			const shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
 			mGridVertexList2D.back().push_back(startVertex);
 		}
 	}
@@ -49,6 +48,7 @@ void scGrid::Paint(QPainter& painter)
 	pen.setWidth(1);
 	painter.setPen(pen);
 
+	// Draw vertical lines.
 	for (const auto& gridVertexDeque : mGridVertexList2D)
 	{
 		scVector2D startPos = gridVertexDeque.front()->GetXY();
@@ -59,6 +59,7 @@ void scGrid::Paint(QPainter& painter)
 		painter.drawLine(start, end);
 	}
 
+	// Draw horizontal lines.
 	for (const auto& gridVertex : mGridVertexList2D.front())
 	{
 		scVector2D startPos = gridVertex->GetXY();
@@ -89,252 +90,303 @@ std::shared_ptr<scShapeQtVisual> scGrid::HitTest(const scVector2D& currMousePos)
 
 void scGrid::PanEvent()
 {
-	AddRemoveGridVertex();
-
+	RemoveAddGridVertex();
 }
 
 void scGrid::ZoomEvent(int mouseDir)
 {
-
 	if (mouseDir > 0) // Zoom In
-	{
-		
-		mStride *= mCamera.GetZoomRatio();
-
-		if (mStride > 100.0)
-		{
-			mStride /= 2.0;
-
-			for (auto iterX = mGridVertexList2D.begin(); iterX != mGridVertexList2D.end(); iterX++)
-			{
-				std::list<std::shared_ptr<scVertexQtVisual>>& gridVertexDeque = *iterX;
-
-				std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexList;
-
-				for (auto iter = gridVertexDeque.begin(); iter != gridVertexDeque.end(); iter++)
-				{
-					scVector2D pos = (*iter)->GetXY();
-
-					scVector2D start = { pos.x, pos.y - mStride };
-					shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-
-					gridVertexDeque.insert(iter, startVertex);
-
-
-					start = { pos.x - mStride, pos.y };
-					scVector2D start2 = { pos.x - mStride, pos.y - mStride };
-					startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-					shared_ptr<scVertexQtVisual>startVertex2 = make_shared<scVertexQtVisual>(start2, mCoordinateHelper);
-					newGridVertexList.push_back(startVertex2);
-					newGridVertexList.push_back(startVertex);
-				}
-
-				mGridVertexList2D.insert(iterX, newGridVertexList);
-
-				
-			}
-
-		}
-
+	{		
+		ZoomInGrid();
 	}
 	else // Zoom Out
 	{
-		
-
-
-		mStride /= mCamera.GetZoomRatio();
-
-		if (mStride < 50.0)
-		{
-			mStride *= 2.0;
-
-			for (auto iterX = mGridVertexList2D.begin(); iterX != mGridVertexList2D.end();)
-			{
-				std::list<std::shared_ptr<scVertexQtVisual>>& gridVertexDeque = *iterX;
-
-
-				auto iter = gridVertexDeque.begin();
-				while (iter != gridVertexDeque.end())
-				{
-					iter++;
-					if (iter == gridVertexDeque.end())
-						break;
-
-					iter = gridVertexDeque.erase(iter);
-
-					if (iter == gridVertexDeque.end())
-						break;
-
-
-				}
-				iterX++;
-
-				if (iterX == mGridVertexList2D.end())
-					break;
-
-				iterX = mGridVertexList2D.erase(iterX);
-
-
-
-			}
-		}
+		ZoomOutGrid();
 	}
 
-	AddRemoveGridVertex();
+	RemoveAddGridVertex();
 }
 
-void scGrid::AddRemoveGridVertex()
+void scGrid::ZoomInGrid()
 {
-	double minX = 0.0;
-	double minY = 0.0;
-	double maxX = static_cast<double>(mViewportSize.width());
-	double maxY = static_cast<double>(mViewportSize.height());
+	mStride *= mCamera.GetZoomRatio();
 
-	bool xFlag;
-	bool yFlag;
+	if (mStride > 100.0)
+	{
+		mStride /= 2.0;
 
-	// ######### topLeft ##########
-	scVector2D topLeftPos;
+		for (auto iterX = mGridVertexList2D.begin(); iterX != mGridVertexList2D.end(); iterX++)
+		{
+			std::list<std::shared_ptr<scVertexQtVisual>>& gridVertexDeque = *iterX;
+			std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexList;
 
-	// Remove
-	do
+			for (auto iter = gridVertexDeque.begin(); iter != gridVertexDeque.end(); iter++)
+			{
+				// Add a new GridVertex.
+				const scVector2D pos = (*iter)->GetXY();
+				scVector2D gridVertexPos = { pos.x, pos.y - mStride };
+				shared_ptr<scVertexQtVisual> gridVertex = make_shared<scVertexQtVisual>(gridVertexPos, mCoordinateHelper);
+
+				gridVertexDeque.insert(iter, gridVertex);
+
+				// Add new GridVertices to a new column.
+				gridVertexPos = { pos.x - mStride, pos.y };
+				scVector2D gridVertexPos2 = { pos.x - mStride, pos.y - mStride };
+				gridVertex = make_shared<scVertexQtVisual>(gridVertexPos, mCoordinateHelper);
+				shared_ptr<scVertexQtVisual> gridVertex2 = make_shared<scVertexQtVisual>(gridVertexPos2, mCoordinateHelper);
+				newGridVertexList.push_back(gridVertex2);
+				newGridVertexList.push_back(gridVertex);
+			}
+
+			// Add a new column.
+			mGridVertexList2D.insert(iterX, newGridVertexList);
+		}
+	}
+}
+
+void scGrid::ZoomOutGrid()
+{
+	mStride /= mCamera.GetZoomRatio();
+
+	if (mStride < 50.0)
+	{
+		mStride *= 2.0;
+
+		for (auto iterX = mGridVertexList2D.begin(); iterX != mGridVertexList2D.end();)
+		{
+			std::list<std::shared_ptr<scVertexQtVisual>>& gridVertexDeque = *iterX;
+
+			auto iter = gridVertexDeque.begin();
+			while (iter != gridVertexDeque.end())
+			{
+				iter++;
+				if (iter == gridVertexDeque.end())
+					break;
+
+				// Remove the GridVertex
+				iter = gridVertexDeque.erase(iter);
+
+				if (iter == gridVertexDeque.end())
+					break;
+			}
+			iterX++;
+
+			if (iterX == mGridVertexList2D.end())
+				break;
+
+			// Remove the column.
+			iterX = mGridVertexList2D.erase(iterX);
+		}
+	}
+}
+
+void scGrid::RemoveAddGridVertex()
+{
+	RemoveAddTopLeftGridVertex();
+	RemoveAddBottomRightGridVertex();
+}
+
+void scGrid::RemoveAddTopLeftGridVertex()
+{
+	RemoveTopLeftGridVertex();
+	AddTopLeftGridVertex();
+}
+
+void scGrid::RemoveTopLeftGridVertex()
+{
+	const double minX = 0.0;
+	const double minY = 0.0;
+	const double maxX = static_cast<double>(mViewportSize.width());
+	const double maxY = static_cast<double>(mViewportSize.height());
+
+	bool xFlag = true;
+	bool yFlag = true;
+
+	scVector2D topLeftPos = mGridVertexList2D.front().front()->GetXY();
+
+	while (xFlag || yFlag)
 	{
 		xFlag = false;
 		yFlag = false;
 		topLeftPos = mGridVertexList2D.front().front()->GetXY();
-
+		
+		// Remove the GridVertex.
 		if (topLeftPos.y < minY)
 		{
-			for (auto& gridVertexDeque : mGridVertexList2D)
+			for (auto& gridVertexList : mGridVertexList2D)
 			{
-				gridVertexDeque.pop_front();
+				gridVertexList.pop_front();
 			}
 
 			yFlag = true;
 		}
 
+		// Remove the column.
 		if (topLeftPos.x < minX)
 		{
 			mGridVertexList2D.pop_front();
 
 			xFlag = true;
 		}
-	} while (xFlag || yFlag);
+	}
 
+}
 
-	// Add
-	do
+void scGrid::AddTopLeftGridVertex()
+{
+	const double minX = 0.0;
+	const double minY = 0.0;
+	const double maxX = static_cast<double>(mViewportSize.width());
+	const double maxY = static_cast<double>(mViewportSize.height());
+
+	bool xFlag = true;
+	bool yFlag = true;
+
+	scVector2D topLeftPos = mGridVertexList2D.front().front()->GetXY();
+
+	while (xFlag || yFlag)
 	{
 		xFlag = false;
 		yFlag = false;
-
 		topLeftPos = mGridVertexList2D.front().front()->GetXY();
 
+		// Add a new column.
 		if (topLeftPos.x - mStride >= minX)
 		{
-			std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexDeque;
+			std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexList;
 
 			for (int i = 0; i < mGridVertexList2D.front().size(); i++)
 			{
-				scVector2D start = { topLeftPos.x - mStride, topLeftPos.y + i * mStride };
-				shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-				newGridVertexDeque.push_back(startVertex);
+				const scVector2D gridVertexPos = { topLeftPos.x - mStride, topLeftPos.y + i * mStride };
+				const shared_ptr<scVertexQtVisual> gridVertex = make_shared<scVertexQtVisual>(gridVertexPos, mCoordinateHelper);
+				newGridVertexList.push_back(gridVertex);
 			}
 
-			mGridVertexList2D.push_front(newGridVertexDeque);
+			mGridVertexList2D.push_front(newGridVertexList);
 
 			xFlag = true;
 		}
 
 		topLeftPos = mGridVertexList2D.front().front()->GetXY();
+
+		// Add new GridVertices.
 		if (topLeftPos.y - mStride >= minY)
 		{
 			int i = 0;
-			for (auto& gridVertexDeque : mGridVertexList2D)
+			for (auto& gridVertexList : mGridVertexList2D)
 			{
-				scVector2D start = { topLeftPos.x + i * mStride, topLeftPos.y - mStride };
-				shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-				gridVertexDeque.push_front(startVertex);
+				const scVector2D gridVertexPos = { topLeftPos.x + i * mStride, topLeftPos.y - mStride };
+				const shared_ptr<scVertexQtVisual> gridVertex = make_shared<scVertexQtVisual>(gridVertexPos, mCoordinateHelper);
+				gridVertexList.push_front(gridVertex);
+
 				i++;
 			}
 
 			yFlag = true;
 		}
+	}
+}
 
+void scGrid::RemoveAddBottomRightGridVertex()
+{
+	RemoveBottomRightGridVertex();
+	AddBottomRightGridVertex();
+}
 
-	} while (xFlag || yFlag);
+void scGrid::RemoveBottomRightGridVertex()
+{
+	const double minX = 0.0;
+	const double minY = 0.0;
+	const double maxX = static_cast<double>(mViewportSize.width());
+	const double maxY = static_cast<double>(mViewportSize.height());
 
+	bool xFlag = true;
+	bool yFlag = true;
 
+	scVector2D topLeftPos = mGridVertexList2D.front().front()->GetXY();
+	scVector2D bottomRightPos = mGridVertexList2D.back().back()->GetXY();
 
-	// ######### bottomRight ##########
-	topLeftPos = mGridVertexList2D.front().front()->GetXY();
-	scVector2D bottomRightPos;
-
-	do
+	while (xFlag || yFlag)
 	{
 		xFlag = false;
 		yFlag = false;
 
 		bottomRightPos = mGridVertexList2D.back().back()->GetXY();
 
-		// Remove
+		// Remove the GridVertex.
 		if (bottomRightPos.y > maxY)
 		{
-			for (auto& gridVertexDeque : mGridVertexList2D)
+			for (auto& gridVertexList : mGridVertexList2D)
 			{
-				gridVertexDeque.pop_back();
+				gridVertexList.pop_back();
 			}
 
 			yFlag = true;
 		}
 
+		// Remove the column.
 		if (bottomRightPos.x > maxX)
 		{
 			mGridVertexList2D.pop_back();
 
 			xFlag = true;
 		}
-	} while (xFlag || yFlag);
+	}
+}
 
+void scGrid::AddBottomRightGridVertex()
+{
+	const double minX = 0.0;
+	const double minY = 0.0;
+	const double maxX = static_cast<double>(mViewportSize.width());
+	const double maxY = static_cast<double>(mViewportSize.height());
 
-	do
+	bool xFlag = true;
+	bool yFlag = true;
+
+	scVector2D topLeftPos = mGridVertexList2D.front().front()->GetXY();
+	scVector2D bottomRightPos = mGridVertexList2D.back().back()->GetXY();
+
+	while (xFlag || yFlag)
 	{
 		xFlag = false;
 		yFlag = false;
 
-		// Add
 		bottomRightPos = mGridVertexList2D.back().back()->GetXY();
+
+		// Add a new column.
 		if (bottomRightPos.x + mStride <= maxX)
 		{
-			std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexDeque;
+			std::list<std::shared_ptr<scVertexQtVisual>> newGridVertexList;
 
 			for (int i = 0; i < mGridVertexList2D.front().size(); i++)
 			{
-				scVector2D start = { bottomRightPos.x + mStride, topLeftPos.y + i * mStride };
-				shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-				newGridVertexDeque.push_back(startVertex);
+				const scVector2D gridVertexPos = { bottomRightPos.x + mStride, topLeftPos.y + i * mStride };
+				const shared_ptr<scVertexQtVisual> gridVertex = make_shared<scVertexQtVisual>(gridVertexPos, mCoordinateHelper);
+				newGridVertexList.push_back(gridVertex);
 			}
 
-			mGridVertexList2D.push_back(newGridVertexDeque);
+			mGridVertexList2D.push_back(newGridVertexList);
 
 			xFlag = true;
 		}
 
 		bottomRightPos = mGridVertexList2D.back().back()->GetXY();
+
+		// Add new GridVertices.
 		if (bottomRightPos.y + mStride <= maxY)
 		{
 			int i = 0;
-			for (auto& gridVertexDeque : mGridVertexList2D)
+			for (auto& gridVertexList : mGridVertexList2D)
 			{
-				scVector2D start = { topLeftPos.x + i * mStride, bottomRightPos.y + mStride };
-				shared_ptr<scVertexQtVisual> startVertex = make_shared<scVertexQtVisual>(start, mCoordinateHelper);
-				gridVertexDeque.push_back(startVertex);
+				scVector2D gridVertexPos = { topLeftPos.x + i * mStride, bottomRightPos.y + mStride };
+				shared_ptr<scVertexQtVisual> gridVertex = make_shared<scVertexQtVisual>(gridVertexPos, mCoordinateHelper);
+				gridVertexList.push_back(gridVertex);
+
 				i++;
 			}
 
 			yFlag = true;
 		}
-	} while (xFlag || yFlag);
-
-	int x = 0;
+	}
 }

@@ -31,7 +31,20 @@ public:
 	void ZoomEvent(int mouseDir);
 
 private:
-	void AddRemoveGridVertex();
+	void ZoomInGrid();
+	void ZoomOutGrid();
+
+	void RemoveAddGridVertex();
+	void RemoveAddTopLeftGridVertex();
+	void RemoveAddBottomRightGridVertex();
+
+	// TopLeft
+	void RemoveTopLeftGridVertex();
+	void AddTopLeftGridVertex();
+
+	// BottomRight
+	void RemoveBottomRightGridVertex();
+	void AddBottomRightGridVertex();
 
 // [Member variable section]
 private:
