@@ -19,7 +19,10 @@
 - Infinite Grid adjusted appropriately according to ZoomRaito.
 - New/Open/Save Scene using Serialization.
 
-## Diagram
+## Video
+https://github.com/jakelee-zemotion/Simple2DCAD/assets/152123750/974db5bd-cf40-46c9-be10-81bed44c0c3a
 
+## Diagram
+![](img/docs/scSimple2DCADDiagram.png)
 
 ## Build
