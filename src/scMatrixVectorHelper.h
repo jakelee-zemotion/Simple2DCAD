@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef SC_MATRIX_VECTOR_HELPER_H
-#define SC_MATRIX_VECTOR_HELPER_H
-
 // system
 #include <cmath>
 
@@ -67,8 +64,6 @@ namespace scVectorHelper
 	}
 }
 
-
-
 struct scMatrix2D
 {
 	double m[3][3];
@@ -116,7 +111,6 @@ inline scVector2D operator*(const scMatrix2D& A, const scVector2D& v)
 
 namespace scMatrixHelper
 {
-
 	inline scMatrix2D IdentityMatrix()
 	{
 		return
@@ -187,5 +181,3 @@ namespace scMatrixHelper
 		};
 	}
 }
-
-#endif
