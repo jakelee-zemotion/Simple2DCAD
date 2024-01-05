@@ -166,8 +166,6 @@ void scScene::EndDrawing(bool canCreateFace)
 
 	// Reset
 	mVertexCreatedCount = 0;
-
-	qDebug() << mFaceList.size();
 }
 
 std::shared_ptr<scShapeQtVisual> scScene::HitTest(const scVector2D& currMousePos, const scShapeType& shapeType, const scShapeID& noTestShapeID)
