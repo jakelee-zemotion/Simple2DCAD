@@ -23,6 +23,6 @@
 https://github.com/jakelee-zemotion/Simple2DCAD/assets/152123750/974db5bd-cf40-46c9-be10-81bed44c0c3a
 
 ## Diagram
-![](img/docs/scSimple2DCADDiagram.png)
+![](img/docs/scSimple2DCADClassDiagram.png)
 
 ## Build
