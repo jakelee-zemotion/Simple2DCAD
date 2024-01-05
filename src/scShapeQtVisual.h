@@ -31,7 +31,7 @@ public:
 // [Member variable section]
 protected:
 	const double mHitSize;
-	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
+	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 
 	scShapeType mShapeType;
 	scColorType mShapeColorType;

@@ -11,7 +11,7 @@ class scControlVertexQtVisual : public scVertexQtVisual
 {
 // [Member function section]
 public:
-	scControlVertexQtVisual(scFaceQtVisual* face, const scVector2D& pos, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
+	scControlVertexQtVisual(const std::shared_ptr<scFaceQtVisual> face, const scVector2D& pos, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
 	~scControlVertexQtVisual();
 
 	void MultiplyRotateXY(const scVector2D& trans, const double angle);
@@ -21,6 +21,6 @@ public:
 
 // [Member variable section]
 protected:
-	scFaceQtVisual* mParentFace;
+	const std::shared_ptr<scFaceQtVisual> mParentFace;
 };
 

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(scFaceQtVisual* face, const scVector2D& pos, const shared_ptr<scCoordinateHelper>& coordinateHelper)
+scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(const std::shared_ptr<scFaceQtVisual> face, const scVector2D& pos, const shared_ptr<scCoordinateHelper>& coordinateHelper)
 	:scControlVertexQtVisual(face, pos, coordinateHelper)
 {
 	mShapeType = scShapeType::ROTATE_CONTROL_VERTEX;

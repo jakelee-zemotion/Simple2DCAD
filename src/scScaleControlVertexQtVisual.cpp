@@ -10,7 +10,7 @@
 
 using namespace std;
 
-scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(scFaceQtVisual* face, const scVector2D& pos, const double& angleSum, const scBoxPosition& boxPos, 
+scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(const shared_ptr<scFaceQtVisual> face, const scVector2D& pos, const double& angleSum, const scBoxPosition& boxPos,
 	const shared_ptr<scCoordinateHelper>& coordinateHelper)
 	:scControlVertexQtVisual(face, pos, coordinateHelper), mBoxPos(boxPos), mAngleSum(angleSum)
 {

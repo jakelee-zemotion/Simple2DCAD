@@ -320,29 +320,29 @@ void scSelectAllState::SelectShape()
 
 		// ScaleControlVertex
 		boxVertexCoord = mCoordinateHelper->LocalToCamera(box.topLeft);
-		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), boxVertexCoord, mAngleSum, scBoxPosition::TOP_LEFT, mCoordinateHelper);
+		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace, boxVertexCoord, mAngleSum, scBoxPosition::TOP_LEFT, mCoordinateHelper);
 		mControlVertexVector.push_back(controlVertex);
 
 		boxVertexCoord = mCoordinateHelper->LocalToCamera(box.topRight);
-		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), boxVertexCoord, mAngleSum, scBoxPosition::TOP_RIGHT, mCoordinateHelper);
+		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace, boxVertexCoord, mAngleSum, scBoxPosition::TOP_RIGHT, mCoordinateHelper);
 		mControlVertexVector.push_back(controlVertex);
 
 		boxVertexCoord = mCoordinateHelper->LocalToCamera(box.bottomRight);
-		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), boxVertexCoord, mAngleSum, scBoxPosition::BOTTOM_RIGHT, mCoordinateHelper);
+		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace, boxVertexCoord, mAngleSum, scBoxPosition::BOTTOM_RIGHT, mCoordinateHelper);
 		mControlVertexVector.push_back(controlVertex);
 
 		boxVertexCoord = mCoordinateHelper->LocalToCamera(box.bottomLeft);
-		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace.get(), boxVertexCoord, mAngleSum, scBoxPosition::BOTTOM_LEFT, mCoordinateHelper);
+		controlVertex = make_shared<scScaleControlVertexQtVisual>(selectedFace, boxVertexCoord, mAngleSum, scBoxPosition::BOTTOM_LEFT, mCoordinateHelper);
 		mControlVertexVector.push_back(controlVertex);
 
 		// RotateControlVertex
 		boxVertexCoord = mCoordinateHelper->LocalToCamera({ box.center.x, box.topLeft.y });
-		controlVertex = make_shared<scRotateControlVertexQtVisual>(selectedFace.get(), boxVertexCoord, mCoordinateHelper);
+		controlVertex = make_shared<scRotateControlVertexQtVisual>(selectedFace, boxVertexCoord, mCoordinateHelper);
 		mControlVertexVector.push_back(controlVertex);
 
 		// CenterControlVertex
 		boxVertexCoord = mCoordinateHelper->LocalToCamera(box.center);
-		controlVertex = make_shared<scCenterControlVertexQtVisual>(selectedFace.get(), boxVertexCoord, mCoordinateHelper);
+		controlVertex = make_shared<scCenterControlVertexQtVisual>(selectedFace, boxVertexCoord, mCoordinateHelper);
 		mControlVertexVector.push_back(controlVertex);
 	}
 }
