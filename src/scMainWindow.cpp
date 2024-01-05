@@ -23,7 +23,7 @@ scMainWindow::scMainWindow()
 	mToolBar->ConnectTransitSignal(this);
 
 	// Add states and toolButtons.
-	vector<string> stateName = 
+	const vector<string> stateName = 
 	{ 
 		SC_DRAW_LINE,
 		SC_SELECT_ALL,
@@ -39,7 +39,7 @@ scMainWindow::scMainWindow()
 		mToolBar->ConnectToolButton(name);
 	}
 
-	string firstState = stateName[0];
+	const string firstState = stateName[0];
 	mViewport->TransitState(firstState);
 	mToolBar->SetCurrentToolButton(firstState);
 
@@ -61,8 +61,6 @@ void scMainWindow::TransitState(const string& name)
 {
 	if (mToolBar->SetButtonPressed(name))
 	{
-		qDebug() << name;
-
 		mViewport->TransitState(name);
 	}
 }
@@ -74,12 +72,12 @@ void scMainWindow::NewScene()
 
 void scMainWindow::OpenScene()
 {
-	QString fileName = QFileDialog::getOpenFileName(this, "Load Scene", "", "JSON (*.json)");
+	const QString fileName = QFileDialog::getOpenFileName(this, "Load Scene", "", "JSON (*.json)");
 	mViewport->OpenScene(fileName.toStdString());
 }
 
 void scMainWindow::SaveScene()
 {
-	QString fileName = QFileDialog::getOpenFileName(this, "Save Scene", "", "JSON (*.json)");
+	const QString fileName = QFileDialog::getOpenFileName(this, "Save Scene", "", "JSON (*.json)");
 	mViewport->SaveScene(fileName.toStdString());
 }

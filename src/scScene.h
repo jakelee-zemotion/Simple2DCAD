@@ -31,10 +31,10 @@ public:
 	std::shared_ptr<scVertexQtVisual> AddStartVertex(const scVector2D& pos);
 	std::shared_ptr<scVertexQtVisual> AddEndVertex(const scVector2D& pos);
 	void EndDrawing(bool canCreateFace);
-	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos, scShapeType shapeType, scShapeID noTestShapeID = scShapeID(0));
+	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos, const scShapeType& shapeType, const scShapeID& noTestShapeID = scShapeID(0));
 
-	void SaveData(std::string fileName);
-	void LoadData(std::string fileName);
+	void SaveData(const std::string& fileName);
+	void LoadData(const std::string& fileName);
 	void ClearData();
 
 	int GetVertexCreatedCount() const;

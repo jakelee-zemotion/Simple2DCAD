@@ -2,7 +2,7 @@
 
 using namespace std;
 
-scShapeID::scShapeID(int id)
+scShapeID::scShapeID(const int id)
 {
 	mID = id;
 
@@ -38,17 +38,19 @@ string scShapeID::GenerateID()
 	return ZeroPaddingStr(id++);
 }
 
-std::string scShapeID::ZeroPaddingStr(int id)
+std::string scShapeID::ZeroPaddingStr(const int id)
 {
 	string idStr = to_string(id);
 	reverse(idStr.begin(), idStr.end());
 
 	string result = "000000000";
+
 	for (int i = 0; i < idStr.size(); i++)
 	{
 		result[i] = idStr[i];
 	}
 
 	reverse(result.begin(), result.end());
+
 	return result;
 }

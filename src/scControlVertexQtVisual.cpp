@@ -13,14 +13,14 @@ scControlVertexQtVisual::~scControlVertexQtVisual()
 {
 }
 
-void scControlVertexQtVisual::MultiplyRotateXY(double angle, double transX, double transY)
+void scControlVertexQtVisual::MultiplyRotateXY(const scVector2D& trans, const double angle)
 {
-	mVertexData->GetTransform().MultiplyRotateXY(angle, transX, transY);
+	mVertexData->GetTransform().MultiplyRotateXY(trans, angle);
 }
 
-void scControlVertexQtVisual::MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY, double angle)
+void scControlVertexQtVisual::MultiplyScaleXY(const scVector2D& scale, const scVector2D& trans, const double angle)
 {
-	mVertexData->GetTransform().MultiplyScaleXY(scaleX, scaleY, transX, transY, angle);
+	mVertexData->GetTransform().MultiplyScaleXY(scale, trans, angle);
 }
 
 scVector2D scControlVertexQtVisual::GetLocalXY() const

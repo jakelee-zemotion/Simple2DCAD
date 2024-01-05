@@ -40,7 +40,6 @@ private:
 
 // [Member variable section]
 private:
-	bool mIsMousePressed;
 	const scShapeType mSelectShapeType;
 
 	std::shared_ptr<scShapeQtVisual> mPrevHighlightShape;
@@ -50,6 +49,7 @@ private:
 
 	std::vector<std::shared_ptr<scControlVertexQtVisual>> mControlVertexVector;
 
+	bool mIsMousePressed;
 	double mAngleSum;
 };
 

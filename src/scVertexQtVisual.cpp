@@ -31,16 +31,16 @@ scVertexQtVisual::~scVertexQtVisual()
 
 void scVertexQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
-	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(targetMousePos, mVertexData->GetTransform());
-	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(prevMousePos, mVertexData->GetTransform());
-	scVector2D delta = targetWorldCoord - prevWorldCoord;
+	const scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(targetMousePos, mVertexData->GetTransform());
+	const scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(prevMousePos, mVertexData->GetTransform());
+	const scVector2D delta = targetWorldCoord - prevWorldCoord;
 
 	mVertexData->AddDelta(delta);
 }
 
 void scVertexQtVisual::Paint(QPainter& painter)
 {
-	Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
+	const Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
 
 	QPen pen(color);
 	pen.setWidth(10);
@@ -52,13 +52,9 @@ void scVertexQtVisual::Paint(QPainter& painter)
 
 bool scVertexQtVisual::HitTest(const scVector2D& currMousePos)
 {
-	QPointF currQPointF = { currMousePos.x, currMousePos.y };
-	QPointF vertex = this->MakeQPointF();
-	QRectF rect(
-		vertex.x() - mHitSize,
-		vertex.y() - mHitSize,
-		mHitSize * 2.0,
-		mHitSize * 2.0);
+	const QPointF currQPointF = { currMousePos.x, currMousePos.y };
+	const QPointF vertex = this->MakeQPointF();
+	const QRectF rect(vertex.x() - mHitSize, vertex.y() - mHitSize, mHitSize * 2.0, mHitSize * 2.0);
 
 	return rect.contains(currQPointF);
 }
@@ -71,22 +67,21 @@ scShapeID scVertexQtVisual::GetID() const
 void scVertexQtVisual::SetXY(const scVector2D& pos)
 {
 	// Unlike Line and Face, it moves directly to x, y.
-	scVector2D worldCoord = mCoordinateHelper->CameraToWorld(pos, mVertexData->GetTransform());
+	const scVector2D worldCoord = mCoordinateHelper->CameraToWorld(pos, mVertexData->GetTransform());
 
 	mVertexData->SetPos(worldCoord);
 }
 
 scVector2D scVertexQtVisual::GetXY() const
 {
-	scVector2D cameraCoord = mCoordinateHelper->WorldToCamera(mVertexData->GetPos(), mVertexData->GetTransform());
+	const scVector2D cameraCoord = mCoordinateHelper->WorldToCamera(mVertexData->GetPos(), mVertexData->GetTransform());
 
 	return cameraCoord;
 }
 
-
 QPointF scVertexQtVisual::MakeQPointF() const
 {
-	scVector2D cameraCoord = this->GetXY();
+	const scVector2D cameraCoord = this->GetXY();
 
 	return { cameraCoord.x, cameraCoord.y };
 }

@@ -94,7 +94,7 @@ inline scMatrix2D operator*(const scMatrix2D& a, const scMatrix2D& b)
 	return c;
 }
 
-inline scVector2D operator*(const scMatrix2D& A, scVector2D& v)
+inline scVector2D operator*(const scMatrix2D& A, const scVector2D& v)
 {
 	scVector2D b;
 
@@ -127,43 +127,43 @@ namespace scMatrixHelper
 		};
 	}
 
-	inline scMatrix2D TranslateMatrix(double dx, double dy)
+	inline scMatrix2D TranslateMatrix(const scVector2D& d)
 	{
 		return
 		{
-			1.0, 0.0,  dx,
-			0.0, 1.0,  dy,
+			1.0, 0.0, d.x,
+			0.0, 1.0, d.y,
 			0.0, 0.0, 1.0
 		};
 	}
 
-	inline scMatrix2D InverseTranslateMatrix(double dx, double dy)
+	inline scMatrix2D InverseTranslateMatrix(const scVector2D& d)
 	{
 		return
 		{
-			1.0, 0.0,  -dx,
-			0.0, 1.0,  -dy,
+			1.0, 0.0, -d.x,
+			0.0, 1.0, -d.y,
+			0.0, 0.0,  1.0
+		};
+	}
+
+	inline scMatrix2D ScaleMatrix(const scVector2D& s)
+	{
+		return
+		{
+			s.x, 0.0, 0.0,
+			0.0, s.y, 0.0,
 			0.0, 0.0, 1.0
 		};
 	}
 
-	inline scMatrix2D ScaleMatrix(double sx, double sy)
+	inline scMatrix2D InverseScaleMatrix(const scVector2D& s)
 	{
 		return
 		{
-			 sx, 0.0, 0.0,
-			0.0,  sy, 0.0,
-			0.0, 0.0, 1.0
-		};
-	}
-
-	inline scMatrix2D InverseScaleMatrix(double sx, double sy)
-	{
-		return
-		{
-			1.0 / sx, 0.0     , 0.0,
-			0.0     , 1.0 / sy, 0.0,
-			0.0     , 0.0     , 1.0
+			1.0 / s.x, 0.0      , 0.0,
+			0.0      , 1.0 / s.y, 0.0,
+			0.0      , 0.0      , 1.0
 		};
 	}
 

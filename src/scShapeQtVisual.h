@@ -24,18 +24,17 @@ public:
 	virtual bool HitTest(const scVector2D& currMousePos) = 0;
 	virtual scShapeID GetID() const = 0;
 
-	void SetShapeColorType(const scColorType color);
+	void SetShapeColorType(const scColorType& color);
 
 	scShapeType GetShapeType() const;
 
 // [Member variable section]
 protected:
 	const double mHitSize;
+	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 
 	scShapeType mShapeType;
 	scColorType mShapeColorType;
 	std::vector<Qt::GlobalColor> mShapeColors;
-
-	const std::shared_ptr<scCoordinateHelper>& mCoordinateHelper;
 };
 

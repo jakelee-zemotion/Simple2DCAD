@@ -20,7 +20,7 @@ scToolBar::scToolBar(QWidget* parent)
 	// 1. New Scene
 	string newSceneIconDir = SC_IMAGE_DIRECTORY;
 	newSceneIconDir += "icon/toolBar/scNewScene.jpg";
-	QIcon newSceneIcon = QIcon(QString::fromStdString(newSceneIconDir));
+	const QIcon newSceneIcon = QIcon(QString::fromStdString(newSceneIconDir));
 
 	mNewSceneToolButton = make_unique<QToolButton>();
 	mNewSceneToolButton->setIcon(newSceneIcon);
@@ -30,7 +30,7 @@ scToolBar::scToolBar(QWidget* parent)
 	// 2. Open Scene
 	string openSceneIconDir = SC_IMAGE_DIRECTORY;
 	openSceneIconDir += "icon/toolBar/scOpenScene.jpg";
-	QIcon openSceneIcon = QIcon(QString::fromStdString(openSceneIconDir));
+	const QIcon openSceneIcon = QIcon(QString::fromStdString(openSceneIconDir));
 
 	mOpenSceneToolButton = make_unique<QToolButton>();
 	mOpenSceneToolButton->setIcon(openSceneIcon);
@@ -40,7 +40,7 @@ scToolBar::scToolBar(QWidget* parent)
 	// 3. Save Scene
 	string saveSceneIconDir = SC_IMAGE_DIRECTORY;
 	saveSceneIconDir += "icon/toolBar/scSaveScene.png";
-	QIcon saveSceneIcon = QIcon(QString::fromStdString(saveSceneIconDir));
+	const QIcon saveSceneIcon = QIcon(QString::fromStdString(saveSceneIconDir));
 
 	mSaveSceneToolButton = make_unique<QToolButton>();
 	mSaveSceneToolButton->setIcon(saveSceneIcon);
@@ -58,7 +58,7 @@ void scToolBar::AddEditToolButton(const string& name)
 {
 	string iconDir = SC_IMAGE_DIRECTORY;
 	iconDir += "icon/toolBar/sc" + name + ".png";
-	QIcon icon(QString::fromStdString(iconDir));
+	const QIcon icon(QString::fromStdString(iconDir));
 
 	mEditToolButtonMap[name] = make_unique<QToolButton>();
 	mEditToolButtonMap[name]->setText(QString::fromStdString(name));
@@ -85,8 +85,8 @@ void scToolBar::ConnectTransitSignal(const QObject* mainWindow)
 
 void scToolBar::ClickToolButton()
 {
-	QObject* obj = sender();
-	string a = obj->objectName().toStdString();
+	const QObject* obj = sender();
+	const string a = obj->objectName().toStdString();
 	emit PressToolButton(obj->objectName().toStdString());
 }
 
@@ -98,7 +98,6 @@ bool scToolBar::SetButtonPressed(const string& name)
 		mEditToolButtonMap[name]->setChecked(true);
 		return false;
 	}
-
 
 	for (const auto& button : mEditToolButtonMap)
 	{

@@ -12,10 +12,6 @@ scCenterControlVertexQtVisual::~scCenterControlVertexQtVisual()
 {
 }
 
-void scCenterControlVertexQtVisual::MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle)
-{
-}
-
 void scCenterControlVertexQtVisual::Paint(QPainter& painter)
 {
 	string fileDir = SC_IMAGE_DIRECTORY;

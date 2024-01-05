@@ -21,9 +21,9 @@ scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()
 {
 }
 
-void scScaleControlVertexQtVisual::MoveFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle)
+void scScaleControlVertexQtVisual::ScaleFace(const scVector2D& scale, const scVector2D& trans, const double angle)
 {
-	mParentFace->ScaleFace(targetMousePos, prevMousePos, mBoxPos, mAngleSum);
+	mParentFace->ScaleFace(scale, trans, angle);
 }
 
 void scScaleControlVertexQtVisual::Paint(QPainter& painter)

@@ -18,8 +18,8 @@ scGrid::scGrid(const shared_ptr<scCoordinateHelper>& coordinateHelper, const scC
 {
 	mStride = 50.0;
 
-	int sizeX = mViewportSize.width() / mStride;
-	int sizeY = mViewportSize.height() / mStride;
+	const int sizeX = mViewportSize.width() / mStride;
+	const int sizeY = mViewportSize.height() / mStride;
 
 	for (int i = 0; i < sizeX; i++)
 	{

@@ -37,8 +37,8 @@ public:
 	bool HitTest(const scVector2D& currMousePos) override;
 	scShapeID GetID() const override;
 
-	void ScaleFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, const scBoxPosition& boxPos, double angle);
-	void RotateFace(const scVector2D& targetMousePos, const scVector2D& prevMousePos, double& angle);
+	void ScaleFace(const scVector2D& scale, const scVector2D& trans, const double angle);
+	void RotateFace(const scVector2D& trans, const double angle);
 
 	scBoundingBox MakeBoundingBox();
 

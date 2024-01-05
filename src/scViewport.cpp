@@ -55,7 +55,7 @@ void scViewport::ResetScene()
     update();
 }
 
-void scViewport::SaveScene(string fileName)
+void scViewport::SaveScene(const string& fileName)
 {
     mStateMachine.EndState();
 
@@ -63,7 +63,7 @@ void scViewport::SaveScene(string fileName)
     update();
 }
 
-void scViewport::OpenScene(string fileName)
+void scViewport::OpenScene(const string& fileName)
 {
     mStateMachine.EndState();
 
@@ -82,8 +82,8 @@ void scViewport::paintEvent(QPaintEvent* event)
 
 void scViewport::mousePressEvent(QMouseEvent* event)
 {
-    QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
-    scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF .y() };
+    const QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
+    const scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF .y() };
 
     switch (event->buttons())
     {
@@ -114,8 +114,8 @@ void scViewport::mouseReleaseEvent(QMouseEvent* event)
 
 void scViewport::mouseMoveEvent(QMouseEvent* event)
 {
-    QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
-    scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF.y() };
+    const QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
+    const scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF.y() };
     
     // The last point tracks the mouse in drawing mode
     mStateMachine.GetCurrentState()->MouseMoveEvent(currMousePos);
@@ -171,8 +171,8 @@ void scViewport::keyReleaseEvent(QKeyEvent* event)
 
 void scViewport::wheelEvent(QWheelEvent* event)
 {
-    QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
-    scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF.y() };
+    const QPointF currMousePosQPointF = QWidget::mapFromGlobal(QCursor::pos());
+    const scVector2D currMousePos = { currMousePosQPointF.x(), currMousePosQPointF.y() };
 
     int mouseDir = event->angleDelta().y();
 

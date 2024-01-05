@@ -56,10 +56,8 @@ void scDrawLineState::MouseMoveEvent(const scVector2D& currMousePos)
         assert(mDrawingVertex != nullptr);
 
         scVector2D targetPos = SnapVertex(currMousePos, mDrawingVertex->GetID());
-
         mDrawingVertex->SetXY(targetPos);
     }
-
 }
 
 void scDrawLineState::MouseReleaseEvent()
@@ -84,7 +82,7 @@ void scDrawLineState::EndState()
     this->EndDrawing(false);
 }
 
-void scDrawLineState::EndDrawing(bool createFaceFlag)
+void scDrawLineState::EndDrawing(const bool createFaceFlag)
 {
     if (mIsDrawing)
     {

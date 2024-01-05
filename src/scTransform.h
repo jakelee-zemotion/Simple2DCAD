@@ -13,10 +13,10 @@ public:
 	scTransform();
 	~scTransform();
 
-	scVector2D Scale(double x, double y) const;
-	scVector2D UnScale(double x, double y) const;
-	void MultiplyScaleXY(double scaleX, double scaleY, double transX, double transY, double angle);
-	void MultiplyRotateXY(double angle, double transX, double transY);
+	scVector2D Scale(const scVector2D& pos) const;
+	scVector2D UnScale(const scVector2D& pos) const;
+	void MultiplyScaleXY(const scVector2D& scale, const scVector2D& trans, const double angle);
+	void MultiplyRotateXY(const scVector2D& trans, const double angle);
 
 	void ResetMatrix();
 

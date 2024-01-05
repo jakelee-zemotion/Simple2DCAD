@@ -20,7 +20,7 @@ scShapeQtVisual::~scShapeQtVisual()
 {
 }
 
-void scShapeQtVisual::SetShapeColorType(const scColorType color)
+void scShapeQtVisual::SetShapeColorType(const scColorType& color)
 {
     mShapeColorType = color;
 }

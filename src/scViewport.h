@@ -23,8 +23,8 @@ public:
 	void TransitState(const std::string& name);
 
 	void ResetScene();
-	void OpenScene(std::string fileName);
-	void SaveScene(std::string fileName);
+	void OpenScene(const std::string& fileName);
+	void SaveScene(const std::string& fileName);
 
 protected:
 	void paintEvent(QPaintEvent* event) override;

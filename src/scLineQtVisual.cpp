@@ -31,17 +31,17 @@ scLineQtVisual::~scLineQtVisual()
 
 QLineF scLineQtVisual::MakeQLineF()
 {
-	scVector2D cameraStart = mCoordinateHelper->WorldToCamera(mLineData->GetStartPos(), mLineData->GetStartTransform());
-	scVector2D cameraEnd = mCoordinateHelper->WorldToCamera(mLineData->GetEndPos(), mLineData->GetEndTransform());
+	const scVector2D cameraStart = mCoordinateHelper->WorldToCamera(mLineData->GetStartPos(), mLineData->GetStartTransform());
+	const scVector2D cameraEnd = mCoordinateHelper->WorldToCamera(mLineData->GetEndPos(), mLineData->GetEndTransform());
 
 	return QLineF({ cameraStart.x, cameraStart.y }, { cameraEnd.x, cameraEnd.y });
 }
 
 void scLineQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos)
 {
-	scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(targetMousePos, mLineData->GetStartTransform());
-	scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(prevMousePos, mLineData->GetStartTransform());
-	scVector2D delta = targetWorldCoord - prevWorldCoord;
+	const scVector2D targetWorldCoord = mCoordinateHelper->CameraToWorld(targetMousePos, mLineData->GetStartTransform());
+	const scVector2D prevWorldCoord = mCoordinateHelper->CameraToWorld(prevMousePos, mLineData->GetStartTransform());
+	const scVector2D delta = targetWorldCoord - prevWorldCoord;
 
 	mLineData->AddDeltaToStart(delta);
 	mLineData->AddDeltaToEnd(delta);
@@ -49,7 +49,7 @@ void scLineQtVisual::Move(const scVector2D& targetMousePos, const scVector2D& pr
 
 void scLineQtVisual::Paint(QPainter& painter)
 {
-	Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
+	const Qt::GlobalColor color = mShapeColors[static_cast<int>(mShapeColorType)];
 
 	QPen pen(color);
 	pen.setWidth(3);
@@ -62,18 +62,20 @@ bool scLineQtVisual::HitTest(const scVector2D& currMousePos)
 {
 	QLineF normal = this->MakeQLineF().normalVector();
 	QLineF normal2 = this->MakeQLineF().normalVector();
-	QPointF aaa(currMousePos.x, currMousePos.y);
+	const QPointF origin(currMousePos.x, currMousePos.y);
 
-	normal.setP2(normal.p2() - normal.p1() + aaa);
-	normal.setP1(aaa);
+	// Two normal vectors are drawn in both directions around the origin.
+	normal.setP2(normal.p2() - normal.p1() + origin);
+	normal.setP1(origin);
 
-	normal2.setP2(normal2.p1() - normal2.p2() + aaa);
-	normal2.setP1(aaa);
+	normal2.setP2(normal2.p1() - normal2.p2() + origin);
+	normal2.setP1(origin);
 
 	normal.setLength(mHitSize);
 	normal2.setLength(mHitSize);
 
-	QLineF centralNormal(normal.p2(), normal2.p2());
+	// Combine two normal vectors.
+	const QLineF centralNormal(normal.p2(), normal2.p2());
 
 	return centralNormal.intersects(this->MakeQLineF()) == QLineF::BoundedIntersection;
 }

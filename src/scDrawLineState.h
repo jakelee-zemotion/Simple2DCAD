@@ -24,7 +24,7 @@ public:
 
 	void EndState() override;
 
-	void EndDrawing(bool createFaceFlag);
+	void EndDrawing(const bool createFaceFlag);
 	bool CanCreateFace(const scVector2D& currMousePos) const;
 
 // [Member variable section]

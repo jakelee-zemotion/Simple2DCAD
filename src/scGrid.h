@@ -39,9 +39,9 @@ private:
 	const QRect& mViewportSize;
 	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
 
-	double mStride;
-
 	std::list<std::list<std::shared_ptr<scVertexQtVisual>>> mGridVertexList2D;
 	std::list<std::shared_ptr<scLineQtVisual>> mLineList;
+
+	double mStride;
 };
 

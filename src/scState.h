@@ -34,6 +34,7 @@ protected:
 protected:
 	const std::shared_ptr<scScene> mScene;
 	const std::shared_ptr<scCoordinateHelper> mCoordinateHelper;
+
 	scVector2D mPrevMousePos;
 };
 

@@ -7,11 +7,11 @@ class scShapeID
 {
 // [Member function section]
 public:
-	scShapeID(int id = -1);
+	scShapeID(const int id = -1);
 	~scShapeID();
 
 	std::string GenerateID();
-	std::string ZeroPaddingStr(int id);
+	std::string ZeroPaddingStr(const int id);
 
 	bool operator==(const scShapeID& shapeID);
 	bool operator!=(const scShapeID& shapeID);

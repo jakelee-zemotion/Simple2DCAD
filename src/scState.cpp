@@ -17,14 +17,10 @@ scState::~scState()
 {
 }
 
-
 scVector2D scState::SnapVertex(const scVector2D& currMousePos, const scShapeID& noTestShapeID)
 {
-	shared_ptr<scShapeQtVisual> hitTestResultVertex =
-		mScene->HitTest(currMousePos, scShapeType::VERTEX, noTestShapeID);
-
-	shared_ptr<scVertexQtVisual> snappedVertex =
-		dynamic_pointer_cast<scVertexQtVisual>(hitTestResultVertex);
+	const shared_ptr<scShapeQtVisual> hitTestResultVertex = mScene->HitTest(currMousePos, scShapeType::VERTEX, noTestShapeID);
+	const shared_ptr<scVertexQtVisual> snappedVertex = dynamic_pointer_cast<scVertexQtVisual>(hitTestResultVertex);
 
 	if (snappedVertex != nullptr)
 		return snappedVertex->GetXY();

@@ -21,8 +21,8 @@ public:
 	void AddPanXY(const scVector2D& currentMousePos);
 	void ZoomInOut(const scVector2D& currentMousePos, int mouseDir);
 
-	scVector2D ZoomPan(double x, double y) const;
-	scVector2D UnZoomPan(double x, double y) const;
+	scVector2D ZoomPan(const scVector2D& pos) const;
+	scVector2D UnZoomPan(const scVector2D& pos) const;
 
 	void SetPrevMousePos(const scVector2D& prevMousePos);
 
