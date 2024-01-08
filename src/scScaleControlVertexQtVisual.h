@@ -9,7 +9,6 @@ class scScaleControlVertexQtVisual : public scControlVertexQtVisual
 public:
 	scScaleControlVertexQtVisual(const std::shared_ptr<scFaceQtVisual> face, const scVector2D& pos, const double& angleSum, const scBoxPosition& boxPos, 
 		const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
-	~scScaleControlVertexQtVisual() override;
 
 	void ScaleFace(const scVector2D& scale, const scVector2D& trans, const double angle);
 	void Paint(QPainter& painter) override;

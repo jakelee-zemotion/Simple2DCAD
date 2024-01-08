@@ -30,7 +30,6 @@ class scFaceQtVisual : public scShapeQtVisual
 // [Member function section]
 public:
 	scFaceQtVisual(const std::list<std::shared_ptr<scLineQtVisual>>& lineList, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
-	~scFaceQtVisual() override;
 
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
 	void Paint(QPainter& painter) override;

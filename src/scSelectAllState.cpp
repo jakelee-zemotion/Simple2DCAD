@@ -28,10 +28,6 @@ scSelectAllState::scSelectAllState(const shared_ptr<scScene>& scene, const share
 	mAngleSum = 0.0;
 }
 
-scSelectAllState::~scSelectAllState()
-{
-}
-
 void scSelectAllState::Paint(QPainter& painter)
 {
 	DrawBoundingBoxLine(painter);

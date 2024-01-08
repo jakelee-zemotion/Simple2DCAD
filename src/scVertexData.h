@@ -10,7 +10,6 @@ class scVertexData : public scShapeData
 // [Member function section]
 public:
 	scVertexData();
-	~scVertexData() override;
 
 	void AddDelta(const scVector2D& delta);
 	void SetPos(const scVector2D& pos);

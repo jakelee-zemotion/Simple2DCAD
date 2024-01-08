@@ -16,7 +16,6 @@ class scLineQtVisual : public scShapeQtVisual
 // [Member function section]
 public:
 	scLineQtVisual(const std::shared_ptr<scVertexQtVisual>& startVertex, const std::shared_ptr<scVertexQtVisual>& endVertex, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
-	~scLineQtVisual() override;
 
 	void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) override;
 	void Paint(QPainter& painter) override;

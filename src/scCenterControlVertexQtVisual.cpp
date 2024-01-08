@@ -8,10 +8,6 @@ scCenterControlVertexQtVisual::scCenterControlVertexQtVisual(const std::shared_p
 	mShapeType = scShapeType::CENTER_CONTROL_VERTEX;
 }
 
-scCenterControlVertexQtVisual::~scCenterControlVertexQtVisual()
-{
-}
-
 void scCenterControlVertexQtVisual::Paint(QPainter& painter)
 {
 	string fileDir = SC_IMAGE_DIRECTORY;

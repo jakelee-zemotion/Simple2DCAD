@@ -14,10 +14,6 @@ scCoordinateHelper::scCoordinateHelper(const scCamera& camera, const QRect& view
 {
 }
 
-scCoordinateHelper::~scCoordinateHelper()
-{
-}
-
 scVector2D scCoordinateHelper::WorldToScreen(const scVector2D& pos)
 {
     return pos;

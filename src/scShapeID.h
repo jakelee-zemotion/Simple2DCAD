@@ -8,7 +8,6 @@ class scShapeID
 // [Member function section]
 public:
 	scShapeID(const int id = -1);
-	~scShapeID();
 
 	std::string GenerateID();
 	std::string ZeroPaddingStr(const int id);

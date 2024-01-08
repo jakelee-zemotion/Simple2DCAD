@@ -12,10 +12,6 @@ scShapeID::scShapeID(const int id)
 	}
 }
 
-scShapeID::~scShapeID()
-{
-}
-
 bool scShapeID::operator==(const scShapeID& shapeID)
 {
 	return mID == shapeID.mID;

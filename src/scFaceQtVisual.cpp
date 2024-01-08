@@ -28,10 +28,6 @@ scFaceQtVisual::scFaceQtVisual(const list<shared_ptr<scLineQtVisual>>& lineList,
 	mShapeColors[static_cast<int>(scColorType::SELECT)] = Qt::cyan;
 }
 
-scFaceQtVisual::~scFaceQtVisual()
-{
-}
-
 QPolygonF scFaceQtVisual::MakeQPolygonF()
 {
 	QList<QPointF> lineList;

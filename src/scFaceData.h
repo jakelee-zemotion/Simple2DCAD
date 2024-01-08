@@ -14,7 +14,6 @@ class scFaceData : public scShapeData
 // [Member function section]
 public:
 	scFaceData();
-	~scFaceData() override;
 
 	void AddLineData(const std::shared_ptr<scLineData>& lineData);
 

@@ -9,11 +9,6 @@ scVertexData::scVertexData()
 	mPos = { 0.0, 0.0 };
 }
 
-scVertexData::~scVertexData()
-{
-	//qDebug() << "VertexData Destruction";
-}
-
 void scVertexData::AddDelta(const scVector2D& delta)
 {
 	mPos += delta;

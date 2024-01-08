@@ -17,7 +17,6 @@ class scShapeQtVisual
 // [Member function section]
 public:
 	scShapeQtVisual(const scShapeType& shapeType, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
-	virtual ~scShapeQtVisual();
 
 	virtual void Move(const scVector2D& targetMousePos, const scVector2D& prevMousePos) = 0;
 	virtual void Paint(QPainter& painter) = 0;

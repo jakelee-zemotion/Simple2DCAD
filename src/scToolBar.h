@@ -14,7 +14,6 @@ class scToolBar : public QToolBar
 // [Member function section]
 public:
 	scToolBar(QWidget* parent = 0);
-	~scToolBar();
 
 	void AddEditToolButton(const std::string& name);
 	void SetCurrentToolButton(const std::string& name);

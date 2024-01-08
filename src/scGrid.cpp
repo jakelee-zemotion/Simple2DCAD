@@ -37,10 +37,6 @@ scGrid::scGrid(const shared_ptr<scCoordinateHelper>& coordinateHelper, const scC
 	}
 }
 
-scGrid::~scGrid()
-{
-}
-
 void scGrid::Paint(QPainter& painter)
 {
 	QPen pen;

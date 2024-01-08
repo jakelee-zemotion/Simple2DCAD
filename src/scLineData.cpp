@@ -10,11 +10,6 @@ scLineData::scLineData()
 {
 }
 
-scLineData::~scLineData()
-{
-	//qDebug() << "LineData Destruction";
-}
-
 void scLineData::AddDeltaToStart(const scVector2D& delta)
 {
 	mStartVertex->AddDelta(delta);

@@ -27,10 +27,6 @@ scScene::scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, co
 	mVertexCreatedCount = 0;
 }
 
-scScene::~scScene()
-{
-}
-
 void scScene::Render(QPainter& painter)
 {
 	mGrid->Paint(painter);

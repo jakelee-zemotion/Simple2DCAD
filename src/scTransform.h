@@ -11,7 +11,6 @@ class scTransform
 // [Member function section]
 public:
 	scTransform();
-	~scTransform();
 
 	scVector2D Scale(const scVector2D& pos) const;
 	scVector2D UnScale(const scVector2D& pos) const;

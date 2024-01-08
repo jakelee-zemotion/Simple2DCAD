@@ -29,10 +29,6 @@ scViewport::scViewport(QWidget* parent)
     mIsCtrlPressed = false;
 }
 
-scViewport::~scViewport()
-{
-}
-
 void scViewport::AddState(const string& name)
 {
     mStateMachine.AddState(name, mScene, mCoordinateHelper);

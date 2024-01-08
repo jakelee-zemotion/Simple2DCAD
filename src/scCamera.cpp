@@ -17,10 +17,6 @@ scCamera::scCamera()
     mInverseZoomPanMatrix = scMatrixHelper::IdentityMatrix();
 }
 
-scCamera::~scCamera()
-{
-}
-
 void scCamera::AddPanXY(const scVector2D& currentMousePos)
 {
     const scVector2D delta = currentMousePos - mPrevMousePos;

@@ -17,7 +17,6 @@ class scSelectAllState : public scState
 // [Member function section]
 public:
 	scSelectAllState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scShapeType& selectShapeType);
-	virtual ~scSelectAllState() override;
 
 	void Paint(QPainter& painter) override;
 

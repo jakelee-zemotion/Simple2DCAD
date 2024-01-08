@@ -13,7 +13,6 @@ class scDrawLineState : public scState
 // [Member function section]
 public:
 	scDrawLineState(const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper);
-	~scDrawLineState() override;
 
 	void Paint(QPainter& painter) override;
 

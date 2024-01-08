@@ -24,7 +24,6 @@ class scScene
 // [Member function section]
 public:
 	scScene(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const std::shared_ptr<scGrid>& grid);
-	~scScene();
 
 	void Render(QPainter& painter);
 

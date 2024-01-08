@@ -16,10 +16,6 @@ scStateMachine::scStateMachine()
 {
 }
 
-scStateMachine::~scStateMachine()
-{
-}
-
 void scStateMachine::AddState(const string& name, const std::shared_ptr<scScene>& scene, const std::shared_ptr<scCoordinateHelper>& coordinateHelper)
 {
     shared_ptr<scState> state;

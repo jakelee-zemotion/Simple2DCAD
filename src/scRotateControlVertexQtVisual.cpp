@@ -18,10 +18,6 @@ scRotateControlVertexQtVisual::scRotateControlVertexQtVisual(const std::shared_p
 	mShapeColors[static_cast<int>(scColorType::DEFAULT)] = Qt::darkGreen;
 }
 
-scRotateControlVertexQtVisual::~scRotateControlVertexQtVisual()
-{
-}
-
 void scRotateControlVertexQtVisual::RotateFace(const scVector2D& trans, const double angle)
 {
 	mParentFace->RotateFace(trans, angle);

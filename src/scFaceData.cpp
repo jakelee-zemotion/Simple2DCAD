@@ -8,10 +8,6 @@ scFaceData::scFaceData()
 	ResetIter();
 }
 
-scFaceData::~scFaceData()
-{
-}
-
 void scFaceData::AddLineData(const std::shared_ptr<scLineData>& lineData)
 {
 	mLineList.push_back(lineData);

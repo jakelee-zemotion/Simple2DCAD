@@ -13,10 +13,6 @@ scState::scState(const shared_ptr<scScene>& scene, const std::shared_ptr<scCoord
 {
 }
 
-scState::~scState()
-{
-}
-
 scVector2D scState::SnapVertex(const scVector2D& currMousePos, const scShapeID& noTestShapeID)
 {
 	const shared_ptr<scShapeQtVisual> hitTestResultVertex = mScene->HitTest(currMousePos, scShapeType::VERTEX, noTestShapeID);

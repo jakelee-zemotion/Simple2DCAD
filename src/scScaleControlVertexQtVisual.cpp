@@ -17,10 +17,6 @@ scScaleControlVertexQtVisual::scScaleControlVertexQtVisual(const shared_ptr<scFa
 	mShapeType = scShapeType::SCALE_CONTROL_VERTEX;
 }
 
-scScaleControlVertexQtVisual::~scScaleControlVertexQtVisual()
-{
-}
-
 void scScaleControlVertexQtVisual::ScaleFace(const scVector2D& scale, const scVector2D& trans, const double angle)
 {
 	mParentFace->ScaleFace(scale, trans, angle);

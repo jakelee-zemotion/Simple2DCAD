@@ -16,10 +16,6 @@ scShapeQtVisual::scShapeQtVisual(const scShapeType& shapeType, const shared_ptr<
     mShapeColors = vector<Qt::GlobalColor>(3, Qt::black);
 }
 
-scShapeQtVisual::~scShapeQtVisual()
-{
-}
-
 void scShapeQtVisual::SetShapeColorType(const scColorType& color)
 {
     mShapeColorType = color;

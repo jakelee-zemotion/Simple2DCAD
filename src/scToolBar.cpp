@@ -50,10 +50,6 @@ scToolBar::scToolBar(QWidget* parent)
 	addSeparator();
 }
 
-scToolBar::~scToolBar()
-{
-}
-
 void scToolBar::AddEditToolButton(const string& name)
 {
 	string iconDir = SC_IMAGE_DIRECTORY;

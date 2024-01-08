@@ -11,10 +11,6 @@ scControlVertexQtVisual::scControlVertexQtVisual(const shared_ptr<scFaceQtVisual
 {
 }
 
-scControlVertexQtVisual::~scControlVertexQtVisual()
-{
-}
-
 void scControlVertexQtVisual::MultiplyRotateXY(const scVector2D& trans, const double angle)
 {
 	mVertexData->GetTransform().MultiplyRotateXY(trans, angle);

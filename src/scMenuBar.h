@@ -10,7 +10,6 @@ class scMenuBar : public QMenuBar
 // [Member function section]
 public:
 	scMenuBar(QWidget* parent = 0);
-	~scMenuBar();
 
 	void ConnectAction(const QObject* mainWindow);
 

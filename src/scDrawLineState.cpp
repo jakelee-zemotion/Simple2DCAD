@@ -18,10 +18,6 @@ scDrawLineState::scDrawLineState(const shared_ptr<scScene>& scene, const std::sh
     mIsDrawing = false;
 }
 
-scDrawLineState::~scDrawLineState()
-{
-}
-
 void scDrawLineState::Paint(QPainter& painter)
 {
 }

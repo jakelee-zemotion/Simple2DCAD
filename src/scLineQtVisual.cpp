@@ -25,10 +25,6 @@ scLineQtVisual::scLineQtVisual(const shared_ptr<scVertexQtVisual>& startVertex, 
 	mShapeColors[static_cast<int>(scColorType::SELECT)] = Qt::blue;
 }
 
-scLineQtVisual::~scLineQtVisual()
-{
-}
-
 QLineF scLineQtVisual::MakeQLineF()
 {
 	const scVector2D cameraStart = mCoordinateHelper->WorldToCamera(mLineData->GetStartPos(), mLineData->GetStartTransform());

@@ -15,6 +15,8 @@ class scMainWindow : public QMainWindow
 // [Member function section]
 public:
 	scMainWindow();
+
+	// Since QMainWindow uses Pimpl and scMainWindow has unique_ptr, Destructor must be declared.
 	~scMainWindow();
 
 	void SetWidgets();

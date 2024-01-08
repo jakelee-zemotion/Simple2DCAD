@@ -8,7 +8,6 @@ class scShapeData
 // [Member function section]
 public:
 	scShapeData();
-	virtual ~scShapeData();
 
 	scShapeID GetID() const;
 

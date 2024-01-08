@@ -22,7 +22,6 @@ class scGrid
 // [Member function section]
 public:
 	scGrid(const std::shared_ptr<scCoordinateHelper>& coordinateHelper, const scCamera& camera, const QRect& viewportSize);
-	~scGrid();
 
 	void Paint(QPainter& painter);
 	std::shared_ptr<scShapeQtVisual> HitTest(const scVector2D& currMousePos);

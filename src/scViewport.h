@@ -17,7 +17,6 @@ class scViewport : public QWidget
 // [Member function section]
 public:
 	scViewport(QWidget* parent = 0);
-	~scViewport();
 
 	void AddState(const std::string& name);
 	void TransitState(const std::string& name);

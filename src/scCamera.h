@@ -16,7 +16,6 @@ class scCamera
 // [Member function section]
 public:
 	scCamera();
-	~scCamera();
 
 	void AddPanXY(const scVector2D& currentMousePos);
 	void ZoomInOut(const scVector2D& currentMousePos, int mouseDir);

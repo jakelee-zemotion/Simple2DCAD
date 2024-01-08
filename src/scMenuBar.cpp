@@ -46,10 +46,6 @@ scMenuBar::scMenuBar(QWidget* parent)
 	this->addMenu(mViewMenu.get());
 }
 
-scMenuBar::~scMenuBar()
-{
-}
-
 void scMenuBar::ConnectAction(const QObject* mainWindow)
 {
 	// 1. File

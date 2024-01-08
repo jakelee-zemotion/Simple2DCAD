@@ -12,7 +12,6 @@ class scLineData : public scShapeData
 // [Member function section]
 public:
 	scLineData();
-	~scLineData() override;
 
 	void AddDeltaToStart(const scVector2D& delta);
 	void AddDeltaToEnd(const scVector2D& delta);

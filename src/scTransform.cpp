@@ -8,10 +8,6 @@ scTransform::scTransform()
 	mInverseScaleRotateMatrix = scMatrixHelper::IdentityMatrix();
 }
 
-scTransform::~scTransform()
-{
-}
-
 scVector2D scTransform::Scale(const scVector2D& pos) const
 {
 	return mScaleRotateMatrix * pos;

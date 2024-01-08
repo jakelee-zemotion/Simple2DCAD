@@ -17,7 +17,6 @@ class scCoordinateHelper
 // [Member function section]
 public:
 	scCoordinateHelper(const scCamera& camera, const QRect& viewportSize);
-	~scCoordinateHelper();
 
 	// World -> Screen -> Local -> Camera
 	scVector2D WorldToScreen(const scVector2D& pos);
